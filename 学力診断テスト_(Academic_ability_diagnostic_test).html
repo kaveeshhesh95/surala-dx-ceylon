@@ -93,7 +93,7 @@
           </li>
           <ul class="nav-sub-list" id="nav-sub-test">
             <li class="nav-sub-item" data-sub="surala">
-              <a href="すらら単元テスト_(Surara_unit_test).html">すらら単元テスト</a>
+              <a href="すらら単元テスト_(Surara_unit_test).html" onclick="showTestSubPage('surala')">すらら単元テスト</a>
               <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら単元テスト</a> -->
             </li>
             <li class="nav-sub-item" data-sub="textbook">
@@ -624,8 +624,8 @@
                     <td>小テスト</td>
                     <td class="text-left">テスト範囲が入ります。</td>
                     <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary"
-                        style="width: 80px; padding: 3px 0; font-size: 0.72rem;" onclick="trOpenResultFromHistory()">成績詳細</button></td>
+                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
+                        onclick="trOpenResultFromHistory()">成績詳細</button></td>
                     <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)">内容確認</a></td>
                   </tr>
                   <tr>
@@ -636,8 +636,8 @@
                     <td>小テスト</td>
                     <td class="text-left">テスト範囲が入ります。</td>
                     <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary"
-                        style="width: 80px; padding: 3px 0; font-size: 0.72rem;" onclick="trOpenResultFromHistory()">成績詳細</button></td>
+                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
+                        onclick="trOpenResultFromHistory()">成績詳細</button></td>
                     <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)">内容確認</a></td>
                   </tr>
                   <tr>
@@ -648,8 +648,8 @@
                     <td>小テスト</td>
                     <td class="text-left">テスト範囲が入ります。</td>
                     <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary"
-                        style="width: 80px; padding: 3px 0; font-size: 0.72rem;" onclick="trOpenResultFromHistory()">成績詳細</button></td>
+                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
+                        onclick="trOpenResultFromHistory()">成績詳細</button></td>
                     <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)">内容確認</a></td>
                   </tr>
                   <tr>
@@ -660,8 +660,8 @@
                     <td>小テスト</td>
                     <td class="text-left">テスト範囲が入ります。</td>
                     <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary"
-                        style="width: 80px; padding: 3px 0; font-size: 0.72rem;" onclick="trOpenResultFromHistory()">成績詳細</button></td>
+                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
+                        onclick="trOpenResultFromHistory()">成績詳細</button></td>
                     <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)">内容確認</a></td>
                   </tr>
                   <tr>
@@ -672,8 +672,8 @@
                     <td>小テスト</td>
                     <td class="text-left">テスト範囲が入ります。</td>
                     <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary"
-                        style="width: 80px; padding: 3px 0; font-size: 0.72rem;" onclick="trOpenResultFromHistory()">成績詳細</button></td>
+                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
+                        onclick="trOpenResultFromHistory()">成績詳細</button></td>
                     <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)">内容確認</a></td>
                   </tr>
                 </tbody>
@@ -783,7 +783,8 @@
 
       <!-- ============ ページ: テスト結果 (test_results_sample.html 準拠) ============ -->
       <section class="page" id="page-test-result">
-        <div class="breadcrumb" id="tr-breadcrumb"><a href="javascript:void(0)" onclick="showPage('test')">テスト</a> &gt; テスト結果詳細</div>
+        <div class="breadcrumb" id="tr-breadcrumb"><a href="javascript:void(0)" onclick="showPage('test')">テスト</a> &gt;
+          テスト結果詳細</div>
         <h1 class="page-title">テスト結果詳細</h1>
 
         <!-- テスト概要カード -->
@@ -1489,7 +1490,7 @@
                 <div><span style="font-size:0.65rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>正解率<rt>
                         せいかいりつ</rt></ruby></span><span style="font-size:1.1rem;font-weight:700;color:var(--teal);"
                     id="kd-rate">80<small style="font-size:0.72rem;">% (8/10)</small></span></div>
-                    <button class="btn btn-dark" onclick="kdOpenAnswerModal(1)">解答確認</button>
+                <button class="btn btn-dark" onclick="kdOpenAnswerModal(1)">解答確認</button>
               </div>
             </div>
           </div>
@@ -1655,6 +1656,13 @@
     </div>
   </div>
   <div class="toast" id="dr-toast">既存のドリル学習画面へ遷移します（このモックの対象外）</div>
+  <!-- Start - Added to call the necessary table -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      showTestSubPage('gakuryoku')// your code here
+    }, false);
+  </script>
+  <!-- End - Added to call the necessary table -->
   <script>
     function ym(dateStr) {
       var p = dateStr.split('.');

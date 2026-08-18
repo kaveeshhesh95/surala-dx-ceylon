@@ -93,7 +93,7 @@
           </li>
           <ul class="nav-sub-list" id="nav-sub-test">
             <li class="nav-sub-item" data-sub="surala">
-              <a href="すらら単元テスト_(Surara_unit_test).html">すらら単元テスト</a>
+              <a href="すらら単元テスト_(Surara_unit_test).html" onclick="showTestSubPage('surala')">すらら単元テスト</a>
               <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら単元テスト</a> -->
             </li>
             <li class="nav-sub-item active" data-sub="textbook">
@@ -105,7 +105,7 @@
               <!-- <a href="javascript:void(0)" onclick="showTestSubPage('gakuryoku')">学力診断テスト</a> -->
             </li>
             <li class="nav-sub-item" data-sub="pre">
-              <a href="単元別プレテスト_(Unit_by_unit_pre_tests).html" onclick="showTestSubPage('pre')">単元別プレテスト</a>
+              <a href="単元別プレテスト_(Unit_by_unit_pre_tests).html#pre-tab" id="pre-tab" data-target="pre" onclick="showTestSubPage('pre')">単元別プレテスト</a>
               <!-- <a href="javascript:void(0)" onclick="showTestSubPage('pre')">単元別プレテスト</a> -->
             </li>
           </ul>
@@ -1071,6 +1071,48 @@
         </div>
       </section>
 
+      <!-- ============ モーダル: テスト結果 解答と解説プレビュー ============ -->
+      <div class="modal-overlay" id="tr-answer-modal">
+        <div class="modal-box modal-wide" style="padding:0; max-width:900px;">
+          <button class="modal-close" onclick="closeModal('tr-answer-modal')">✕</button>
+          <div style="padding:16px 20px 20px;">
+            <div class="breadcrumb" style="margin-bottom:4px;">テスト &gt; テスト学習</div>
+
+            <!-- コントロールカード -->
+            <div class="card" style="display:flex; flex-direction:column; gap:12px; margin-bottom:12px;">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <h2 style="font-size:1rem; font-weight:700; color:var(--text-main);" id="tr-am-test-title">単元確認テスト</h2>
+              </div>
+              <div
+                style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border-color); padding-top:10px;">
+                <div style="display:flex; gap:4px; flex-wrap:wrap;" id="tr-am-pagenav"></div>
+                <div style="display:flex; gap:8px; flex-shrink:0; margin-left:10px;">
+                  <button class="btn btn-outline" onclick="trAnswerModalStep(-1)">前へ</button>
+                  <button class="btn btn-outline" onclick="trAnswerModalStep(1)">次へ</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 問題プレビューカード -->
+            <div class="card"
+              style="min-height:260px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div
+                  style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:8px; border-bottom:1px dashed var(--border-color); flex-wrap:wrap; gap:6px;">
+                  <span style="font-size:0.9rem; font-weight:700; color:var(--text-main);" id="tr-am-qnum">問題番号：1</span>
+                  <span style="font-size:0.72rem; color:var(--text-sub);" id="tr-am-qmeta">[ 1問目 / 全10問 ]</span>
+                </div>
+
+                <div style="font-size:0.95rem; line-height:2; margin:16px 0; color:var(--text-main);" id="tr-am-qbody">
+                </div>
+              </div>
+
+              <div style="margin-top:20px; display:flex; justify-content:center;" id="tr-am-result"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- ============ ページ: きろく ============ -->
       <section class="page" id="page-kiroku">
 
@@ -1607,6 +1649,13 @@
     </div>
   </div>
   <div class="toast" id="dr-toast">既存のドリル学習画面へ遷移します（このモックの対象外）</div>
+  <!-- Start - Added to call the necessary table -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      showTestSubPage('textbook')// your code here
+    }, false);
+  </script>
+  <!-- End - Added to call the necessary table -->
   <script>
     function ym(dateStr) {
       var p = dateStr.split('.');
