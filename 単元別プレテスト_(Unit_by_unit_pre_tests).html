@@ -2107,7 +2107,7 @@
         window.scrollTo({ top: 0 });
         return;
       }
-      document.getElementById('page-login').style.display = 'none';
+      // document.getElementById('page-login').style.display = 'none';
       document.getElementById('shell').style.display = 'flex';
       document.querySelectorAll('#shell main > .page').forEach(function (p) { p.classList.remove('active'); });
       var target = document.getElementById('page-' + name);
