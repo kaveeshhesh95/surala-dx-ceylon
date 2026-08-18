@@ -29,58 +29,8 @@
       <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
     </symbol>
   </svg>
-
-  <!-- ===================== 1. ログイン画面 ===================== -->
-  <div class="login-page" id="page-login">
-    <div class="login-wrap">
-      <div class="login-logo">
-        <span class="logo-text">Surala</span>
-        <span class="logo-dot">i</span>
-      </div>
-      <div class="login-card">
-        <form id="lg-login-form" autocomplete="off" onsubmit="event.preventDefault(); showPage('mokuhyou');">
-          <div class="field">
-            <label for="lg-login-id">ログイン ID</label>
-            <input type="text" id="lg-login-id" name="id" placeholder="IDを入力">
-          </div>
-          <div class="field">
-            <label for="lg-login-pw">パスワード</label>
-            <input type="password" id="lg-login-pw" name="password" placeholder="パスワードを入力">
-          </div>
-          <div class="login-error" id="lg-login-error"></div>
-          <button type="submit" class="btn btn-primary" style="width:100%;" onclick="showPage('mokuhyou')">ログイン</button>
-        </form>
-
-        <div class="divider">または</div>
-
-        <button type="button" class="btn-oauth" onclick="showPage('mokuhyou')">
-          <svg viewBox="0 0 20 20">
-            <path fill="#4285F4"
-              d="M19.6 10.23c0-.68-.06-1.36-.18-2H10v3.79h5.4a4.6 4.6 0 0 1-2 3.02v2.5h3.23c1.9-1.75 2.97-4.33 2.97-7.31z" />
-            <path fill="#34A853"
-              d="M10 20c2.7 0 4.96-.9 6.62-2.44l-3.23-2.5c-.9.6-2.05.95-3.39.95-2.6 0-4.8-1.76-5.59-4.12H1.06v2.59A10 10 0 0 0 10 20z" />
-            <path fill="#FBBC05" d="M4.41 11.9a6 6 0 0 1 0-3.8V5.51H1.06a10 10 0 0 0 0 8.98l3.35-2.6z" />
-            <path fill="#EA4335"
-              d="M10 3.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87A9.6 9.6 0 0 0 10 0 10 10 0 0 0 1.06 5.51l3.35 2.6C5.2 5.75 7.4 3.98 10 3.98z" />
-          </svg>
-          Google でログイン
-        </button>
-        <button type="button" class="btn-oauth" onclick="showPage('mokuhyou')">
-          <svg viewBox="0 0 20 20">
-            <rect width="9" height="9" x="0" y="0" fill="#F35325" />
-            <rect width="9" height="9" x="11" y="0" fill="#81BC06" />
-            <rect width="9" height="9" x="0" y="11" fill="#05A6F0" />
-            <rect width="9" height="9" x="11" y="11" fill="#FFBA08" />
-          </svg>
-          Microsoft でログイン
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- ===================== 2. アプリ本体 ===================== -->
-  <div class="app-shell" id="shell" style="display:none;">
-
+  <div class="app-shell" id="shell">
     <header class="app-header">
       <div class="header-left">
         <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="サイドバーの開閉">
@@ -110,8 +60,9 @@
 
       <div class="nav-section">
         <ul class="nav-list">
-          <li class="nav-item active" data-page="mokuhyou">
-            <a href="javascript:void(0)" onclick="showPage('mokuhyou')">
+          <li class="nav-item" data-page="mokuhyou">
+            <a href="student_phase1_0817_3-2_copy.html">
+            <!-- <a href="javascript:void(0)" onclick="showPage('mokuhyou')"> -->
               <svg class="icon" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10"></circle>
                 <circle cx="12" cy="12" r="6"></circle>
@@ -121,7 +72,8 @@
             </a>
           </li>
           <li class="nav-item" data-page="drill">
-            <a href="javascript:void(0)" onclick="showPage('drill')">
+            <a href="ドリル_(drill).html">
+            <!-- <a href="javascript:void(0)" onclick="showPage('drill')"> -->
               <svg class="icon" viewBox="0 0 24 24">
                 <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
                 <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
@@ -129,7 +81,7 @@
               <span>ドリル</span>
             </a>
           </li>
-          <li class="nav-item has-sub" id="nav-item-test" data-page="test">
+          <li class="nav-item has-sub active" id="nav-item-test" data-page="test">
             <a href="javascript:void(0)" onclick="toggleTestMenu()">
               <svg class="icon" viewBox="0 0 24 24">
                 <path d="M9 11l3 3L22 4"></path>
@@ -144,7 +96,7 @@
               <a href="すらら単元テスト_(Surara_unit_test).html">すらら単元テスト</a>
               <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら単元テスト</a> -->
             </li>
-            <li class="nav-sub-item" data-sub="textbook">
+            <li class="nav-sub-item active" data-sub="textbook">
               <a href="教科書単元テスト_(Textbook_unit_test).html" onclick="showTestSubPage('textbook')">教科書単元テスト</a>
               <!-- <a href="javascript:void(0)" onclick="showTestSubPage('textbook')">教科書単元テスト</a> -->
             </li>
@@ -158,7 +110,8 @@
             </li>
           </ul>
           <li class="nav-item" data-page="kiroku">
-            <a href="javascript:void(0)" onclick="showPage('kiroku')">
+            <a href="記録_きろく_(Record).html">
+            <!-- <a href="javascript:void(0)" onclick="showPage('kiroku')"> -->
               <svg class="icon" viewBox="0 0 24 24">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline>
@@ -174,7 +127,9 @@
       <div class="side-nav-bottom">
         <ul class="nav-list">
           <li class="nav-item" data-page="settings">
-            <a href="javascript:void(0)" onclick="showPage('settings')">
+            <a href="">
+            <a href="設定_きろく_(student_setting).html">
+            <!-- <a href="javascript:void(0)" onclick="showPage('settings')"> -->
               <svg class="icon" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="3"></circle>
                 <path
@@ -191,7 +146,8 @@
         </div>
         <ul class="nav-list">
           <li class="nav-item">
-            <a href="javascript:void(0)" onclick="showPage('login')">
+            <a href="student_login.html">
+            <!-- <a href="javascript:void(0)" onclick="showPage('login')"> -->
               <svg class="icon" viewBox="0 0 24 24">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                 <polyline points="16 17 21 12 16 7"></polyline>
@@ -205,197 +161,8 @@
     </aside>
 
     <main class="main-wrapper">
-
-      <!-- ============ ページ: もくひょう ============ -->
-      <section class="page active" id="page-mokuhyou">
-        <div class="breadcrumb">学習管理 &gt; もくひょう一覧</div>
-        <h1 class="page-title"><ruby>目標<rt>もくひょう</rt></ruby>一覧</h1>
-
-        <div class="card">
-          <div class="filter-row">
-            <div class="filter-label"><ruby>教科<rt>きょうか</rt></ruby></div>
-            <div class="filter-options">
-              <label class="chk c-eng"><input type="checkbox" checked value="eng"><span class="box">英語</span></label>
-              <label class="chk c-koku"><input type="checkbox" checked value="koku"><span class="box">国語</span></label>
-              <label class="chk c-math"><input type="checkbox" checked value="math"><span
-                  class="box">算数・数学</span></label>
-              <label class="chk c-sci"><input type="checkbox" checked value="sci"><span class="box">理科</span></label>
-              <label class="chk c-shakai"><input type="checkbox" checked value="shakai"><span
-                  class="box">社会</span></label>
-              <label class="chk c-joho"><input type="checkbox" checked value="joho"><span class="box">情報</span></label>
-              <label class="chk c-other"><input type="checkbox" checked value="other"><span
-                  class="box">その他</span></label>
-            </div>
-          </div>
-          <div class="filter-row">
-            <div class="filter-label"><ruby>状態<rt>じょうたい</rt></ruby></div>
-            <div class="filter-options">
-              <label class="chk c-plain"><input type="checkbox" id="mk-chk-uncompleted" checked><span
-                  class="box">未完了のみ表示</span></label>
-              <label class="chk c-plain"><input type="checkbox" id="mk-chk-expired" checked><span
-                  class="box">期限切れを表示</span></label>
-            </div>
-          </div>
-          <div class="filter-row">
-            <!-- <div class="filter-label">並び替え</div>
-            <select class="select-box" id="mk-sort-select">
-              <option>期日昇順</option>
-              <option>期日降順</option>
-              <option>達成度が高い順</option>
-              <option>達成度が低い順</option>
-            </select> -->
-            <div class="spacer-flex"></div>
-            <button class="btn btn-primary btn-search" id="mk-search-btn">検索する</button>
-          </div>
-        </div>
-
-        <div class="card white">
-          <div class="table-toolbar" id="mk-table-toolbar" style="display:none;">
-            <div style="font-size: 0.8rem; color: var(--text-sub);">検索結果 <strong id="mk-total-count"
-                style="color: var(--text-main); font-size: 0.88rem;">0</strong> 件</div>
-          </div>
-          <div class="table-scroll">
-            <table class="data-table" id="mk-goal-table">
-              <thead>
-                <tr>
-                  <th style="width:90px;" data-sort-key="date"><ruby>期日<rt>きじつ</rt></ruby></th>
-                  <th data-sort-key="name"><ruby>目標名<rt>もくひょうめい</rt></ruby></th>
-                  <th style="width:280px;" data-sort-key="pct"><ruby>達成度<rt>たっせいど</rt></ruby></th>
-                  <th style="width:80px;" data-sort-key="clear">クリア</th>
-                </tr>
-              </thead>
-              <tbody id="mk-goal-hint-body">
-                <tr>
-                  <td colspan="4" class="hint-empty">検索条件を入力し、「検索する」ボタンを押してください。</td>
-                </tr>
-              </tbody>
-              <tbody id="mk-goal-body"></tbody>
-            </table>
-          </div>
-          <div class="pagination-bar" id="mk-pagination" style="display:none;"></div>
-        </div>
-      </section>
-
-      <!-- ============ ページ: ドリル ============ -->
-      <section class="page" id="page-drill">
-        <div class="breadcrumb">学習管理 &gt; ドリル演習</div>
-        <h1 class="page-title">ドリル</h1>
-
-        <div class="pill-tabs" style="margin-bottom:10px;">
-          <button class="btn-pill lg active" id="dr-tab-surala" onclick="drSwitchTab('surala')">すらら単元</button>
-          <button class="btn-pill lg" id="dr-tab-textbook" onclick="drSwitchTab('textbook')">教科書単元</button>
-          <button class="btn-pill lg" id="dr-tab-speed" onclick="drSwitchTab('speed')">速習コース</button>
-        </div>
-
-        <div class="card white" style="padding:10px 12px;">
-          <div class="pill-tabs" id="dr-subject-pills">
-            <button class="btn-pill c-koku" data-v="koku">国語</button>
-            <button class="btn-pill c-math" data-v="math">算数・数学</button>
-            <button class="btn-pill c-eng" data-v="eng">英語</button>
-            <button class="btn-pill c-sci" data-v="sci">理科</button>
-            <button class="btn-pill c-shakai" data-v="shakai">社会</button>
-            <button class="btn-pill c-joho" data-v="joho">情報</button>
-          </div>
-          <div class="grade-tabs" id="dr-grade-pills">
-            <button class="btn-pill" data-v="low">小学校低学年</button>
-            <button class="btn-pill" data-v="high">小学校高学年</button>
-            <button class="btn-pill" data-v="junior">中学校</button>
-            <button class="btn-pill" data-v="senior">高校</button>
-          </div>
-
-          <div id="dr-view-surala">
-            <div class="stage-cols">
-              <div class="stage-col">
-                <h3>ステージ</h3>
-                <div class="stage-list" id="dr-stage-list"></div>
-              </div>
-              <div class="stage-col" id="dr-col-lesson" style="display:none;">
-                <h3>レッスン</h3>
-                <div class="stage-list" id="dr-lesson-list"></div>
-              </div>
-              <div class="stage-col" id="dr-col-unit" style="display:none;">
-                <h3>ユニット</h3>
-                <div class="stage-list" id="dr-unit-list"></div>
-              </div>
-            </div>
-          </div>
-
-          <div id="dr-view-textbook" style="display:none;">
-            <div class="filter-row">
-              <div class="filter-label"><ruby>学年<rt>がくねん</rt></ruby></div>
-              <select class="select-box" id="dr-tb-grade">
-                <option value="">ー</option>
-                <option value="e1">小学1年生</option>
-                <option value="e2">小学2年生</option>
-                <option value="e3">小学3年生</option>
-                <option value="e4">小学4年生</option>
-                <option value="e5">小学5年生</option>
-                <option value="e6">小学6年生</option>
-                <option value="j1">中学1年生</option>
-                <option value="j2">中学2年生</option>
-                <option value="j3">中学3年生</option>
-                <option value="h1">高校1年生</option>
-                <option value="h2">高校2年生</option>
-                <option value="h3">高校3年生</option>
-              </select>
-            </div>
-            <div class="filter-row" style="margin-bottom:10px;">
-              <div class="filter-label"><ruby>教科書<rt>きょうかしょ</rt></ruby></div>
-              <select class="select-box" style="min-width:240px;" id="dr-tb-book">
-                <option value="">ー</option>
-                <option>東京書籍 新編 あたらしいこくご</option>
-                <option>大日本図書 新編 みんなの算数</option>
-                <option>光文図書 新編 みらいの理科</option>
-                <option>啓明社 新編 明日の社会</option>
-                <option>中央書林 新編 ステップ英語</option>
-              </select>
-            </div>
-            <div class="table-scroll" style="max-height:360px;">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th class="grp-divide" style="width:200px;">ページ ｜ <ruby>教科書<rt>きょうかしょ</rt></ruby><ruby>単元<rt>たんげん
-                        </rt></ruby></th>
-                    <th>ユニット ｜ <ruby>種別<rt>しゅべつ</rt></ruby></th>
-                  </tr>
-                </thead>
-                <tbody id="dr-textbook-hint-body">
-                  <tr>
-                    <td colspan="2" class="hint-empty">学年・教科書を選択してください</td>
-                  </tr>
-                </tbody>
-                <tbody id="dr-textbook-body" style="display:none;"></tbody>
-              </table>
-            </div>
-          </div>
-          <div id="dr-view-speed" style="display:none;">
-            <div class="pill-tabs" id="dr-speed-category-pills" style="margin-bottom:10px;">
-              <button class="btn-pill active" data-v="eiken">英検対策</button>
-              <button class="btn-pill" data-v="eng_gram">小学生英語文法</button>
-              <button class="btn-pill" data-v="chu_eng">中学英語</button>
-              <button class="btn-pill" data-v="suuken">数学検定コラボ</button>
-            </div>
-            <div style="font-weight:700; color:var(--text-sub); margin-bottom:8px;">選択</div>
-            <div class="stage-cols">
-              <div class="stage-col">
-                <h3>ステージ</h3>
-                <div class="stage-list" id="dr-speed-stage-list"></div>
-              </div>
-              <div class="stage-col">
-                <h3>ユニット</h3>
-                <div class="stage-list" id="dr-speed-unit-list"></div>
-              </div>
-              <div class="stage-col">
-                <h3>ドリル</h3>
-                <div class="stage-list" id="dr-speed-drill-list"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- ============ ページ: テスト ============ -->
-      <section class="page" id="page-test">
+      <section class="page active" id="page-test">
         <div class="breadcrumb" id="ts-breadcrumb">学習管理 &gt; テスト</div>
         <h1 class="page-title" id="ts-page-title">テスト</h1>
 
@@ -403,8 +170,8 @@
           <div class="pill-tabs"
             style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button class="btn-pill lg active" id="ts-tab-surala" onclick="tsSwitchTab('surala')">すらら単元テスト</button>
-              <button class="btn-pill lg" id="ts-tab-textbook" onclick="tsSwitchTab('textbook')">教科書単元テスト</button>
+              <button class="btn-pill lg" id="ts-tab-surala" onclick="tsSwitchTab('surala')">すらら単元テスト</button>
+              <button class="btn-pill lg active" id="ts-tab-textbook" onclick="tsSwitchTab('textbook')">教科書単元テスト</button>
               <button class="btn-pill lg" id="ts-tab-gakuryoku" onclick="tsSwitchTab('gakuryoku')">学力診断テスト</button>
               <button class="btn-pill lg" id="ts-tab-pre" onclick="tsSwitchTab('pre')">単元別プレテスト</button>
             </div>
@@ -423,7 +190,7 @@
           </div>
 
           <div class="card white" style="padding:14px 16px;">
-            <div id="ts-standard-filters">
+            <div id="ts-standard-filters" style="display: none;">
               <div class="pill-tabs" id="ts-subject-pills" style="margin-bottom:8px;">
                 <button class="btn-pill c-koku active" data-v="koku">国語</button>
                 <button class="btn-pill c-math" data-v="math">算数・数学</button>
@@ -495,7 +262,7 @@
                 style="background:var(--bg-body); padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); gap:16px;">
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>教科<rt>きょうか</rt>
-                    </ruby></span>
+                      </ruby></span>
                   <select class="select-box" id="sr-test-subj" style="font-weight:700; min-width:110px;">
                     <option value="math">数学 / 算数</option>
                     <option value="koku">国語</option>
@@ -507,7 +274,7 @@
                 </div>
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>学年<rt>がくねん</rt>
-                    </ruby></span>
+                      </ruby></span>
                   <select class="select-box" id="sr-test-grade" style="font-weight:700; min-width:130px;">
                     <option value="low">小学校低学年</option>
                     <option value="high" selected>小学校高学年</option>
@@ -536,7 +303,7 @@
                 <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
                   <div style="display:flex; align-items:center; gap:8px;">
                     <span style="font-weight:800; font-size:0.8rem; color:var(--text-main);"><ruby>制限時間<rt>せいげんじかん</rt>
-                      </ruby></span>
+                        </ruby></span>
                     <select class="select-box" id="sr-test-time"
                       style="font-weight:700; padding:6px 12px; font-size:0.85rem;">
                       <option value="15">15分</option>
@@ -549,8 +316,7 @@
                   <div
                     style="display:flex; align-items:center; background:#fff; padding:6px 14px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
                     <span style="font-size:0.75rem; font-weight:700; color:var(--text-sub); margin-right:8px;"><ruby>選択
-                        <rt>せんたく</rt>
-                      </ruby>ユニット<ruby>数<rt>すう</rt></ruby></span>
+                        <rt>せんたく</rt></ruby>ユニット<ruby>数<rt>すう</rt></ruby></span>
                     <span style="font-size:1.2rem; font-weight:800; color:var(--teal); margin-right:4px;"
                       id="sr-selected-count">0</span>
                     <span style="font-size:0.75rem; font-weight:700; color:var(--text-main);">ユニット</span>
@@ -617,22 +383,18 @@
                     <tr style="background:#0590b1; color:#fff;">
                       <th
                         style="background:#0590b1; color:#fff; width:150px; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
-                        <ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt></ruby>
-                      </th>
+                        <ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt></ruby></th>
                       <th
                         style="background:#0590b1; color:#fff; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
-                        <ruby>テスト名<rt>めい</rt></ruby>
-                      </th>
+                        <ruby>テスト名<rt>めい</rt></ruby></th>
                       <th
                         style="background:#0590b1; color:#fff; width:120px; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
                         ページ</th>
                       <th
                         style="background:#0590b1; color:#fff; width:120px; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
-                        <ruby>テスト時間<rt>じかん</rt></ruby>
-                      </th>
+                        <ruby>テスト時間<rt>じかん</rt></ruby></th>
                       <th style="background:#0590b1; color:#fff; width:140px; text-align:center; padding:10px 8px;">
-                        <ruby>受験履歴<rt>じゅけんりれき</rt></ruby>
-                      </th>
+                        <ruby>受験履歴<rt>じゅけんりれき</rt></ruby></th>
                     </tr>
                   </thead>
                   <tbody id="pre-test-table-body"></tbody>
@@ -649,7 +411,7 @@
               </div>
             </div>
 
-            <div id="ts-textbook-view" style="display:none;">
+            <div id="ts-textbook-view" style="display:block;">
               <div
                 style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
                 <div style="display:flex; gap:8px;">
@@ -672,7 +434,7 @@
                 style="background:var(--bg-body); padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); gap:16px;">
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>教科<rt>きょうか</rt>
-                    </ruby></span>
+                      </ruby></span>
                   <select class="select-box" id="tb-test-subj" style="font-weight:700; min-width:110px;">
                     <option value="math">数学 / 算数</option>
                     <option value="koku">国語</option>
@@ -683,7 +445,7 @@
                 </div>
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>学年<rt>がくねん</rt>
-                    </ruby></span>
+                      </ruby></span>
                   <select class="select-box" id="tb-test-grade" style="font-weight:700; min-width:110px;">
                     <option value="e1" selected>小学1年</option>
                     <option value="e2">小学2年</option>
@@ -698,7 +460,7 @@
                 </div>
                 <div style="display:flex; align-items:center; gap:6px; flex:1;">
                   <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>教科書<rt>きょうかしょ</rt>
-                    </ruby></span>
+                      </ruby></span>
                   <select class="select-box" id="tb-test-book" style="font-weight:700; flex:1; max-width:320px;">
                     <option>東京書籍：あたらしいさんすう1年①</option>
                     <option>大日本図書：たのしいさんすう1年</option>
@@ -713,7 +475,7 @@
                   <thead>
                     <tr id="tb-table-head-row">
                       <th style="width:120px;" data-sort-key="grade"><ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt>
-                        </ruby></th>
+                          </ruby></th>
                       <th data-sort-key="unit"><ruby>単元名<rt>たんげんめい</rt></ruby></th>
                       <th style="width:100px; text-align:center;" data-sort-key="page">ページ</th>
                     </tr>
@@ -727,7 +489,7 @@
                 <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
                   <div style="display:flex; align-items:center; gap:8px;">
                     <span style="font-weight:800; font-size:0.8rem; color:var(--text-main);"><ruby>制限時間<rt>せいげんじかん</rt>
-                      </ruby></span>
+                        </ruby></span>
                     <select class="select-box" id="tb-test-time"
                       style="font-weight:700; padding:6px 12px; font-size:0.85rem;">
                       <option value="15">15分</option>
@@ -740,8 +502,7 @@
                   <div
                     style="display:flex; align-items:center; background:#fff; padding:6px 14px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
                     <span style="font-size:0.75rem; font-weight:700; color:var(--text-sub); margin-right:8px;"><ruby>選択
-                        <rt>せんたく</rt>
-                      </ruby>ユニット<ruby>数<rt>すう</rt></ruby></span>
+                        <rt>せんたく</rt></ruby>ユニット<ruby>数<rt>すう</rt></ruby></span>
                     <span style="font-size:1.2rem; font-weight:800; color:var(--teal); margin-right:4px;"
                       id="tb-selected-count">0</span>
                     <span style="font-size:0.75rem; font-weight:700; color:var(--text-main);">ユニット</span>
@@ -763,7 +524,7 @@
               </div>
             </div>
 
-            <div class="table-scroll" id="ts-test-table-container" style="max-height:420px;">
+            <div class="table-scroll" id="ts-test-table-container" style="max-height:420px; display: none;">
               <table class="data-table" id="ts-test-table">
                 <thead id="ts-table-head">
                   <tr>
@@ -1181,6 +942,12 @@
                     </td>
                     <td>学習したことがないユニットです</td>
                     <td>目標として登録されていません</td>
+                    <td>
+                      <div style="display:flex; flex-direction:column; gap:4px;">
+                        <button class="btn btn-primary">すぐに復習する</button>
+                        <button class="btn btn-outline">目標をつくる</button>
+                      </div>
+                    </td>
                   </tr>
                   <tr class="is-visible">
                     <td>
@@ -1199,6 +966,12 @@
                         style="width:80px; padding:2px 0; margin-top:4px; font-size:0.7rem;">履歴をみる</button>
                     </td>
                     <td>目標として登録されていません</td>
+                    <td>
+                      <div style="display:flex; flex-direction:column; gap:4px;">
+                        <button class="btn btn-primary">すぐに復習する</button>
+                        <button class="btn btn-outline">目標をつくる</button>
+                      </div>
+                    </td>
                   </tr>
                   <tr class="is-visible">
                     <td>
@@ -1213,6 +986,12 @@
                     </td>
                     <td>学習したことがないユニットです</td>
                     <td>目標として登録されていません</td>
+                    <td>
+                      <div style="display:flex; flex-direction:column; gap:4px;">
+                        <button class="btn btn-primary">すぐに復習する</button>
+                        <button class="btn btn-outline">目標をつくる</button>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -1288,51 +1067,9 @@
         </section>
 
         <div style="margin-top:14px;">
-          <button class="btn btn-outline" id="tr-back-btn" onclick="showPage('test')">テスト一覧へ戻る</button>
+          <button class="btn btn-outline" onclick="showPage('test')">テスト一覧へ戻る</button>
         </div>
       </section>
-
-      <!-- ============ モーダル: テスト結果 解答と解説プレビュー ============ -->
-      <div class="modal-overlay" id="tr-answer-modal">
-        <div class="modal-box modal-wide" style="padding:0; max-width:900px;">
-          <button class="modal-close" onclick="closeModal('tr-answer-modal')">✕</button>
-          <div style="padding:16px 20px 20px;">
-            <div class="breadcrumb" style="margin-bottom:4px;">テスト &gt; テスト学習</div>
-
-            <!-- コントロールカード -->
-            <div class="card" style="display:flex; flex-direction:column; gap:12px; margin-bottom:12px;">
-              <div style="display:flex; align-items:center; justify-content:space-between;">
-                <h2 style="font-size:1rem; font-weight:700; color:var(--text-main);" id="tr-am-test-title">単元確認テスト</h2>
-              </div>
-              <div
-                style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border-color); padding-top:10px;">
-                <div style="display:flex; gap:4px; flex-wrap:wrap;" id="tr-am-pagenav"></div>
-                <div style="display:flex; gap:8px; flex-shrink:0; margin-left:10px;">
-                  <button class="btn btn-outline" onclick="trAnswerModalStep(-1)">前へ</button>
-                  <button class="btn btn-outline" onclick="trAnswerModalStep(1)">次へ</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- 問題プレビューカード -->
-            <div class="card"
-              style="min-height:260px; display:flex; flex-direction:column; justify-content:space-between;">
-              <div>
-                <div
-                  style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:8px; border-bottom:1px dashed var(--border-color); flex-wrap:wrap; gap:6px;">
-                  <span style="font-size:0.9rem; font-weight:700; color:var(--text-main);" id="tr-am-qnum">問題番号：1</span>
-                  <span style="font-size:0.72rem; color:var(--text-sub);" id="tr-am-qmeta">[ 1問目 / 全10問 ]</span>
-                </div>
-
-                <div style="font-size:0.95rem; line-height:2; margin:16px 0; color:var(--text-main);" id="tr-am-qbody">
-                </div>
-              </div>
-
-              <div style="margin-top:20px; display:flex; justify-content:center;" id="tr-am-result"></div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- ============ ページ: きろく ============ -->
       <section class="page" id="page-kiroku">
@@ -1718,7 +1455,7 @@
                     <th style="width:60px;" data-sort-key="judge"><ruby>判定<rt>はんてい</rt></ruby></th>
                     <th data-sort-key="question"><ruby>問題<rt>もんだい</rt></ruby></th>
                     <th style="width:100px;" data-sort-key="time"><ruby>学習<rt>がくしゅう</rt></ruby><ruby>時間<rt>じかん</rt>
-                      </ruby></th>
+                        </ruby></th>
                     <th style="width:100px;"></th>
                   </tr>
                 </thead>
@@ -1780,7 +1517,7 @@
                     <th data-sort-key="unit"><ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt></ruby>・<ruby>単元名<rt>
                           たんげんめい</rt></ruby></th>
                     <th style="width:70px;" data-sort-key="time"><ruby>学習<rt>がくしゅう</rt></ruby><ruby>時間<rt>じかん</rt>
-                      </ruby></th>
+                        </ruby></th>
                     <th style="width:60px;" data-sort-key="count"><ruby>問題数<rt>もんだいすう</rt></ruby></th>
                     <th style="width:70px;" data-sort-key="rate"><ruby>正解率<rt>せいかいりつ</rt></ruby></th>
                     <th style="width:80px;" data-sort-key="clear">クリア</th>
@@ -1813,7 +1550,7 @@
           <form id="st-pw-form">
             <div class="field-inline">
               <label><ruby>現在<rt>げんざい</rt></ruby>のパスワード <span class="required"><ruby>必須<rt>ひっす</rt>
-                  </ruby></span></label>
+                    </ruby></span></label>
               <input type="password" class="date-input" style="width:280px;" placeholder="現在のパスワード" id="st-pw-current">
             </div>
             <div class="field-inline">
@@ -1824,13 +1561,12 @@
             <div class="field-inline" style="display:flex;align-items:flex-end;gap:12px;">
               <div>
                 <label><ruby>新<rt>あたら</rt></ruby>しいパスワード（<ruby>確認<rt>かくにん</rt></ruby>） <span class="required"><ruby>必須
-                      <rt>ひっす</rt>
-                    </ruby></span></label>
+                      <rt>ひっす</rt></ruby></span></label>
                 <input type="password" class="date-input" style="width:280px;" placeholder="新しいパスワード（確認）"
                   id="st-pw-confirm">
               </div>
               <button type="submit" class="btn btn-primary" style="padding: 5px 14px;">パスワードを<ruby>変更<rt>へんこう</rt>
-                </ruby>する</button>
+                  </ruby>する</button>
             </div>
             <div id="st-pw-msg" style="margin-top:8px;font-weight:700;font-size:0.75rem;"></div>
           </form>
@@ -1847,31 +1583,22 @@
       <div class="modal-title" id="mk-modal-goal-name">目標名が入ります</div>
       <div class="modal-meta">
         <div class="deadline">
-          <svg class="icon-pict deadline-icon">
+          <svg class="icon-pict">
             <use href="#icon-calendar" />
           </svg>
-          <div class="deadline-info">
-            <span class="deadline-badge">しめきり</span>
-            <span class="deadline-date" id="mk-modal-deadline">2026年 4月10日</span>
-          </div>
+          <div><span class="lbl">しめきり</span><span id="mk-modal-deadline">2026年 4月10日</span></div>
         </div>
-        <div class="achieve">
-          <span>達成度</span>
-          <span class="achieve-num-big" id="mk-modal-achieve-num">1</span><span class="achieve-denom">/5</span>
-        </div>
+        <div class="achieve">達成度 <b id="mk-modal-achieve-num">1</b><small>/5</small></div>
       </div>
-      <div class="table-scroll" style="max-height:300px; overflow-x:auto;">
-        <table class="data-table" id="mk-modal-drill-table" style="min-width:720px;">
+      <div class="table-scroll" style="max-height:300px;">
+        <table class="data-table">
           <thead>
             <tr>
-              <th style="width:56px;" data-sort-key="kind"><ruby>種別<rt>しゅべつ</rt></ruby></th>
-              <th style="width:70px;" data-sort-key="grade"><ruby>学年<rt>がくねん</rt></ruby></th>
-              <th style="width:50px;padding-right:0;" data-sort-key="subj"><ruby>教科<rt>きょうか</rt></ruby></th>
-              <th style="padding-left:4px;" data-sort-key="unit"><ruby>単元名<rt>たんげんめい</rt></ruby></th>
-              <th style="width:70px;" data-sort-key="time"><ruby>標準<rt>ひょうじゅん</rt></ruby><ruby>時間<rt>じかん</rt></ruby>
-              </th>
-              <th style="width:90px;" data-sort-key="clear"><ruby>状態<rt>じょうたい</rt></ruby></th>
-              <th style="width:125px;"></th>
+              <th><ruby>種別<rt>しゅべつ</rt></ruby></th>
+              <th><ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt></ruby>・<ruby>単元名<rt>たんげんめい</rt></ruby></th>
+              <th><ruby>標準<rt>ひょうじゅん</rt></ruby><ruby>時間<rt>じかん</rt></ruby></th>
+              <th><ruby>状態<rt>じょうたい</rt></ruby></th>
+              <th></th>
             </tr>
           </thead>
           <tbody id="mk-modal-drill-body"></tbody>
@@ -1879,9 +1606,7 @@
       </div>
     </div>
   </div>
-
   <div class="toast" id="dr-toast">既存のドリル学習画面へ遷移します（このモックの対象外）</div>
-
   <script>
     function ym(dateStr) {
       var p = dateStr.split('.');
@@ -4425,5 +4150,4 @@
     }
   </script>
 </body>
-
 </html>

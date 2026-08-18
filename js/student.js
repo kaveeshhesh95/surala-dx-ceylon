@@ -532,7 +532,6 @@ function mkRenderGoals() {
     var tbody = document.getElementById('mk-goal-body');
     tbody.innerHTML = '';
     GOALS.forEach(function (g, i) {
-        var d = ym(g.date);
         var tr = document.createElement('tr');
         tr.setAttribute('data-subject', g.subj);
         tr.setAttribute('data-status', g.status);
