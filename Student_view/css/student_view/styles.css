@@ -118,6 +118,11 @@ ul {
     list-style: none;
 }
 
+.logo-icon {
+    width: 140px;
+    height:  40px;
+}
+
 .icon {
     width: 16px;
     height: 16px;
