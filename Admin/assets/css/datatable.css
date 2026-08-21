@@ -1,0 +1,1085 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans JP", sans-serif !important;
+    transition: 0.2s;
+}
+
+html {
+    font-size: 1.125em;
+}
+
+body {
+    background-color: #f5f6f8 !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1440px !important;
+    width: 100%;
+}
+
+header {
+    background-color: #393a3a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    min-height: 55px;
+    max-height: 55px;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+header .logo .logo-img {
+    width: 32.4px;
+    height: auto;
+    margin: 0 10px 0 0;
+}
+
+header .menu {
+    display: flex;
+    gap: 50px;
+    margin: 0 0 0 70px;
+    padding: 0;
+}
+
+header .menu li {
+    list-style-type: none;
+}
+
+header .menu li a {
+    font-size: 17px;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+header .menu li a:hover {
+    opacity: 0.7;
+}
+
+header .menu li a.active {
+    color: #afd02e;
+    font-weight: 700;
+}
+
+header .menu li a.active:hover {
+    opacity: 1;
+}
+
+header .nav.nav-tabs {
+    margin-left: auto;
+    border: none;
+    background-color: unset;
+    --bs-nav-tabs-border-width: 0;
+}
+
+header .nav.nav-tabs .nav-item:focus-visible {
+    border: unset;
+    box-shadow: unset;
+}
+
+header .nav.nav-tabs .nav-item .nav-link {
+    font-size: 17px;
+    color: #fff;
+}
+
+header .nav.nav-tabs .nav-item .nav-link:after {
+    display: none;
+}
+
+header .nav.nav-tabs .nav-item .nav-link:hover {
+    border: unset;
+}
+
+header .nav.nav-tabs .nav-item .nav-link:focus {
+    border: unset;
+}
+
+header .nav.nav-tabs .nav-item .nav-link:focus-visible {
+    border: unset;
+    box-shadow: unset;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin: 63px 15px 25px 15px;
+    padding: 50px;
+}
+
+main#login {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+main .login-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 540px;
+    padding: 52px 37px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(202, 203, 204, 0.75);
+    border: 1px solid #dcdfe4;
+    text-align: center;
+}
+
+main .login-card .surala-logo {
+    height: 49px;
+    width: auto;
+    margin-bottom: 5px;
+}
+
+main .login-card .surala-logo span {
+    display: inline-block;
+    background-color: #99cc00;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+    line-height: 24px;
+    text-align: center;
+    margin-left: 2px;
+}
+
+main .login-card .subtitle {
+    font-size: 30px;
+    color: #393a3a;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+main .login-card hr {
+    border: 0;
+    border-top: 1px solid #dcdfe4 !important;
+    margin-bottom: 30px;
+    opacity: 1;
+}
+
+main .login-card .form-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+main .login-card .form-group label {
+    display: block;
+    font-size: 18px;
+    color: #393a3a;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+main .login-card .form-group input[type=text],
+main .login-card .form-group input[type=password] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #dcdfe4;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+main .login-card .form-group input[type=text]:focus,
+main .login-card .form-group input[type=password]:focus {
+    border-color: #99cc00;
+}
+
+main .login-card .form-group input[type=text]::placeholder,
+main .login-card .form-group input[type=password]::placeholder {
+    color: #cccccc;
+}
+
+main .login-card .login-btn {
+    width: 100%;
+    min-height: 55px;
+    max-height: 55px;
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.2s;
+}
+
+main .login-card .login-btn:hover {
+    background-color: #222222;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 15px 0 15px 15px;
+}
+
+.form-check-input:checked {
+    background-color: #afd02e !important;
+    border-color: #afd02e !important;
+}
+
+#table-page {
+    margin: 5px 0 25px 0;
+    align-items: flex-start;
+    padding: 0;
+    /* Form Controls */
+    /* Filter Panel Section */
+    /* Buttons */
+    /* Action Bar and Pagination Alignment */
+    /* Data Table Grid */
+}
+
+#table-page .admin-container {
+    width: 100%;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+#table-page .admin-container.cnt-01 .filter-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#table-page .admin-container.cnt-01 .filter-row .form-group {
+    width: 25%;
+}
+
+#table-page .admin-container.cnt-01 .filter-row .form-group .form-control {
+    width: 100%;
+}
+
+#table-page .admin-container.cnt-01 .filter-row .max-width {
+    width: 100%;
+}
+
+#table-page .admin-container.cnt-01 .filter-buttons .btn {
+    width: 120px;
+}
+
+.data-table td {
+  border: 1px solid #e0e0e0;
+  padding: 10px 8px;
+  vertical-align: middle;
+}
+
+#table-page .admin-container.cnt-01 .data-table thead tr th:nth-child(1) {
+    width: 400px;
+}
+
+#table-page .admin-container.cnt-01 .data-table tbody tr td.text-left {
+    text-align: left;
+}
+
+#table-page .admin-container.cnt-01 .data-table tbody tr td.text-left .sub-id {
+    font-size: 13px;
+}
+
+#table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(1) {
+    width: 60px;
+}
+
+#table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(2) {
+    width: calc(100% - 300px);
+    text-align: left;
+}
+
+#table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-last-child(2) {
+    width: 140px;
+}
+
+#table-page .admin-container.cnt-01 .data-table.tbl-02 tbody tr td .sub-id {
+    font-size: 13px;
+}
+
+#table-page .form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+#table-page .checkbox-group label {
+    font-size: 13px;
+    margin: 0 0 0 4px;
+}
+
+#table-page .form-control {
+    width: max-content;
+    height: 45px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 0 12px;
+    font-size: 17px;
+    color: #333;
+    background-color: #fff;
+    outline: none;
+    cursor: pointer;
+}
+
+#table-page .w-260 {
+    max-width: 260px;
+}
+
+#table-page select.form-control {
+    appearance: none;
+    background-image: url("../images/icon-arrow-down.png");
+    background-size: 10px 7px;
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+}
+
+#table-page .select-main {
+    width: 312px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+#table-page .filter-panel {
+    background-color: #eceff2;
+    border-radius: 6px;
+    padding: 20px 33px;
+    margin-bottom: 35px;
+}
+
+#table-page .filter-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#table-page .filter-row:last-child {
+    margin-bottom: 0;
+}
+
+#table-page .filter-row .form-control {
+    flex: 1;
+}
+
+#table-page .filter-row .text-input {
+    cursor: text;
+}
+
+#table-page .filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#table-page .btn {
+    height: 45px;
+    padding: 0 20px;
+    border-radius: 5px;
+    font-size: 17px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+#table-page .btn-dark {
+    background-color: #1f2329;
+    color: #fff;
+    min-width: 120px;
+}
+
+#table-page .btn-outline {
+    background-color: #fff;
+    border-color: #dcdfe6;
+    color: #333;
+    min-width: 120px;
+}
+
+#table-page .btn-action {
+    background-color: #fff;
+    border-color: #333;
+    color: #333;
+    height: 45px;
+    padding: 0 14px;
+}
+
+#table-page .bottom-action {
+    gap: 15px;
+}
+
+#table-page .btn-dark-action {
+    background-color: #1f2329;
+    color: #fff;
+    height: 45px;
+    padding: 0 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+#table-page .action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+#table-page .left-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#table-page .divider {
+    width: 1px;
+    height: 24px;
+    background-color: #dcdfe6;
+    margin: 0 8px;
+}
+
+#table-page .pagination-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+}
+
+#table-page .select-page-count {
+    height: 35px;
+    width: 65px;
+    padding: 0 8px;
+    margin-right: 8px;
+}
+
+#table-page .pagination-text {
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+#table-page .pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#table-page .nav-arrow {
+    user-select: none;
+    font-size: 13px;
+}
+
+#table-page .nav-arrow.reverse {
+    transform: rotate(180deg);
+    margin-top: 2px;
+}
+
+#table-page .nav-arrow.disabled {
+    color: #c0c4cc;
+    cursor: not-allowed;
+}
+
+#table-page .nav-arrow.active {
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#table-page .page-input {
+    width: 55px;
+    height: 35px;
+    text-align: center;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#table-page .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+#table-page .data-table thead tr th {
+    text-align: center;
+    background-color: #eceff2;
+    color: #000;
+    font-weight: bold;
+    padding: 14px 12px;
+    border-bottom: 1px solid #dce0e5;
+}
+
+#table-page .data-table thead tr th:nth-child(1) {
+    padding-left: 32px;
+}
+
+#table-page .data-table tbody {
+    background-color: #fff;
+}
+
+#table-page .data-table tbody tr {
+    height: 40px !important;
+    min-height: 40px !important;
+}
+
+#table-page .data-table tbody td:hover {
+    background-color: #f7f9fc;
+}
+
+#table-page .data-table tbody tr td {
+    text-align: center;
+    padding: 6px 8px;
+    border-bottom: 1px solid #dce0e5;
+    color: #333;
+    vertical-align: middle;
+}
+
+#table-page .data-table tbody tr td:nth-child(1) {
+    /* width: 80px; */
+    /* padding-left: 32px; */
+}
+
+/* #table-page .data-table tbody tr td:nth-last-child(1) {
+            width: 100px;
+        } */
+
+#table-page .data-table input[type=checkbox] {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#table-page .data-table .icon-btn {
+    font-size: 20px;
+    color: #909399;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#table-page .data-table .icon-btn:hover {
+    color: #1f2329;
+}
+
+#table-page .btn-icon {
+    background: unset;
+    border: unset;
+}
+
+#table-page .btn-icon .icon-image {
+    width: 27.6px;
+}
+
+#table-page .btn-icon .icon-edit {
+    width: 28px;
+}
+
+.modal .modal-dialog .modal-content .modal-header {
+    border-bottom: none;
+}
+
+.modal .modal-dialog .modal-content .modal-body {
+    text-align: center;
+}
+
+.modal .modal-dialog .modal-content .modal-body .large-text {
+    font-size: 22px;
+    font-weight: 500;
+    color: #393a3a;
+}
+
+.modal .modal-dialog .modal-content .modal-body .normal-text {
+    font-size: 18px;
+    color: #393a3a;
+    margin: 10px auto 0 auto;
+}
+
+.modal .modal-dialog .modal-content .modal-footer {
+    border-top: none;
+    justify-content: center;
+    padding: 8px 40px 28px 40px;
+    gap: 15px;
+}
+
+.modal .modal-dialog .modal-content .modal-footer .btn {
+    width: calc((100% - 15px) / 2);
+    font-size: 17px;
+    height: 50px;
+    padding: 7px 10px 8px 10px;
+    margin: 0;
+}
+
+.modal .modal-dialog .modal-content .modal-footer .btn.btn-outline {
+    border: 1px solid #ddd;
+}
+
+.modal .modal-dialog .modal-content .modal-footer .btn.btn-dark {
+    background-color: #393a3a;
+}
+
+#deleteModal .modal-dialog {
+    max-width: 420px;
+}
+
+#deleteModal .modal-dialog .modal-content .modal-header .btn-close {
+    display: none;
+}
+
+#deleteModal .modal-dialog .modal-content .modal-body {
+    padding-top: 0;
+}
+
+#updateModal .modal-dialog,
+#registerModal .modal-dialog {
+    max-width: 550px;
+}
+
+#updateModal .modal-dialog .modal-content,
+#registerModal .modal-dialog .modal-content {
+    min-height: 560px;
+    padding: 28px 40px;
+}
+
+#updateModal .modal-dialog .modal-content .modal-header,
+#registerModal .modal-dialog .modal-content .modal-header {
+    padding: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+#updateModal .modal-dialog .modal-content .modal-header h3,
+#registerModal .modal-dialog .modal-content .modal-header h3 {
+    font-size: 22px;
+}
+
+#updateModal .modal-dialog .modal-content .modal-header p,
+#registerModal .modal-dialog .modal-content .modal-header p {
+    font-size: 16px;
+}
+
+#updateModal .modal-dialog .modal-content .modal-header .btn-close,
+#registerModal .modal-dialog .modal-content .modal-header .btn-close {
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#updateModal .modal-dialog .modal-content .modal-body,
+#registerModal .modal-dialog .modal-content .modal-body {
+    padding: 0;
+    border-top: 1px solid #ddd;
+}
+
+#updateModal .modal-dialog .modal-content .modal-footer,
+#registerModal .modal-dialog .modal-content .modal-footer {
+    padding: 0;
+}
+
+#modalForm .modal-dialog {
+    max-width: 900px;
+}
+
+#modalForm .modal-dialog .modal-content {
+    padding: 28px 40px;
+}
+
+#modalForm .modal-dialog .modal-content .modal-header {
+    position: relative;
+    padding: 14px 0;
+}
+
+#modalForm .modal-dialog .modal-content .modal-header .btn-close {
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body {
+    padding: 0;
+    text-align: left;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body label {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    margin: 0 0 5px 0;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .course-id-text,
+#modalForm .modal-dialog .modal-content .modal-body .note-text {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .note-text {
+    font-size: 12px;
+    font-weight: 400;
+    color: #555;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .mb--2 {
+    margin-bottom: -6px;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .form-control,
+#modalForm .modal-dialog .modal-content .modal-body .form-select {
+    font-size: 14px;
+    height: 37px;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .page-input {
+    width: 80px;
+    text-align: left;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .btn {
+    font-size: 14px;
+    height: 37px;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .btn-outline-dark {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .required {
+    font-size: 12px;
+    color: #f00;
+    margin: 0 0 0 5px;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .section-note {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#modalForm .modal-dialog .modal-content .modal-body .textbook-info {
+    font-size: 13px;
+}
+
+@media screen and (max-width: 1440px) {
+    html {
+        font-size: 1vw;
+    }
+
+    header {
+        min-height: 3.8194vw;
+        max-height: 3.8194vw;
+    }
+
+    header .logo {
+        font-size: 1.25em;
+    }
+
+    header .logo .logo-img {
+        width: 1.5999em;
+        margin-right: 0.6944vw;
+    }
+
+    header .menu {
+        gap: 2.9em;
+        margin-left: 4.8611vw;
+    }
+
+    header .menu li a {
+        font-size: 1em;
+    }
+
+    header .nav.nav-tabs .nav-item .nav-link {
+        font-size: 1em;
+    }
+
+    main {
+        margin: 4.375vw 1.0416vw 1.7361vw 1.0416vw;
+        padding: 3.4722vw;
+        border-radius: 0.5555vw;
+    }
+
+    main .login-card {
+        max-width: 37.5vw;
+        padding: 3.6111vw 2.5694vw;
+        border-radius: 0.5555vw;
+    }
+
+    main .login-card .surala-logo {
+        height: 3.4027vw;
+        margin-bottom: 0.3472vw;
+    }
+
+    main .login-card .surala-logo span {
+        width: 1.6666vw;
+        height: 1.6666vw;
+        font-size: 1em;
+        line-height: 1.6666vw;
+    }
+
+    main .login-card .subtitle {
+        font-size: 2.0833vw;
+        margin-bottom: 1.7361vw;
+    }
+
+    main .login-card hr {
+        margin-bottom: 2.0833vw;
+    }
+
+    main .login-card .form-group {
+        margin-bottom: 1.7361vw;
+    }
+
+    main .login-card .form-group label {
+        font-size: 1.25vw;
+        margin-bottom: 0.5555vw;
+    }
+
+    main .login-card .form-group input[type=text],
+    main .login-card .form-group input[type=password] {
+        padding: 0.8333vw 0.9722vw;
+        border-radius: 0.3472vw;
+        font-size: 1vw;
+    }
+
+    main .login-card .login-btn {
+        min-height: 3.8194vw;
+        max-height: 3.8194vw;
+        padding: 0.9722vw;
+        font-size: 1.1111vw;
+        border-radius: 0.3472vw;
+        margin-top: 1.7361vw;
+    }
+
+    .page-title {
+        font-size: 1.5em;
+        margin: 1.0416vw 0 1.0416vw 1.0416vw;
+    }
+
+    #table-page {
+        margin: 0.3472vw 0 1.7361vw 0;
+    }
+
+    #table-page .admin-container {
+        padding: 2.0833vw;
+        border-radius: 0.5555vw;
+    }
+
+    #table-page .form-control {
+        height: 3.125vw;
+        padding: 0 0.8333vw;
+        font-size: 1.1805vw;
+        border-radius: 0.2777vw;
+    }
+
+    #table-page .w-260 {
+        max-width: 18.0555vw;
+    }
+
+    #table-page select.form-control {
+        background-position: right 0.8333vw center;
+        padding-right: 2.2222vw;
+    }
+
+    #table-page .select-main {
+        font-size: 1.45em;
+        width: 18.4em;
+        height: 2.7777vw;
+        margin-bottom: 1.3888vw;
+    }
+
+    #table-page .filter-panel {
+        padding: 1.3888vw 2.2916vw;
+        margin-bottom: 2.4305vw;
+        border-radius: 0.4166vw;
+    }
+
+    #table-page .filter-row {
+        gap: 1.0416vw;
+        margin-bottom: 1.0416vw;
+    }
+
+    #table-page .filter-buttons {
+        gap: 0.6944vw;
+    }
+
+    #table-page .btn {
+        height: 3.125vw;
+        padding: 0 1.3888vw;
+        font-size: 1.1805vw;
+        border-radius: 0.3472vw;
+    }
+
+    #table-page .btn-dark,
+    #table-page .btn-outline {
+        min-width: 6.25vw;
+    }
+
+    #table-page .btn-action {
+        height: 3.125vw;
+        padding: 0 0.9722vw;
+    }
+
+    #table-page .btn-dark-action {
+        height: 3.125vw;
+        padding: 0 1.25vw;
+        border-radius: 0.2777vw;
+    }
+
+    #table-page .action-bar {
+        margin-bottom: 1.0416vw;
+        gap: 1.0416vw;
+    }
+
+    #table-page .left-actions {
+        gap: 0.5555vw;
+    }
+
+    #table-page .divider {
+        height: 1.6666vw;
+        margin: 0 0.5555vw;
+    }
+
+    #table-page .pagination-container {
+        font-size: 0.9722vw;
+    }
+
+    #table-page .select-page-count {
+        height: 2.4305vw;
+        width: 4.5138vw;
+        padding: 0 0.5555vw;
+        margin-right: 0.5555vw;
+    }
+
+    #table-page .pagination-text {
+        font-size: 1.3194vw;
+        margin-right: 1.0416vw;
+    }
+
+    #table-page .pagination-nav {
+        gap: 0.5555vw;
+    }
+
+    #table-page .nav-arrow {
+        font-size: 0.9027vw;
+    }
+
+    #table-page .page-input {
+        width: 3.8194vw;
+        height: 2.4305vw;
+        font-size: 0.9722vw;
+        border-radius: 0.2777vw;
+    }
+
+    #table-page .data-table {
+        margin-top: 0.6944vw;
+        font-size: 1.1805vw;
+    }
+
+    #table-page .data-table thead tr th {
+        padding: 0.9722vw 0.8333vw;
+    }
+
+    #table-page .data-table tbody tr,
+    #table-page table tbody tr {
+        height: 2.77vw !important;
+        min-height: 2.77vw !important;
+    }
+
+    #table-page .data-table tbody tr td {
+        padding: 0.4166vw 0.5555vw;
+    }
+
+    #table-page .data-table tbody tr td:nth-child(1) {
+        width: 5.5555vw;
+    }
+
+    #table-page .data-table tbody tr td:nth-last-child(1) {
+        width: 6.9444vw;
+    }
+
+    #table-page .data-table .icon-btn {
+        font-size: 1.3888vw;
+    }
+
+    #table-page .btn-icon .icon-image {
+        width: 1.9166vw;
+    }
+
+    #table-page .btn-icon .icon-edit {
+        width: 1.9444vw;
+    }
+
+    .modal .modal-dialog .modal-content .modal-body .large-text {
+        font-size: 1.5277vw;
+    }
+
+    .modal .modal-dialog .modal-content .modal-body .normal-text {
+        font-size: 1.25vw;
+        margin-top: 0.6944vw;
+    }
+
+    .modal .modal-dialog .modal-content .modal-footer {
+        padding: 0.5555vw 2.7777vw 1.9444vw 2.7777vw;
+        gap: 1.0416vw;
+    }
+
+    .modal .modal-dialog .modal-content .modal-footer .btn {
+        width: calc((100% - 1.0416vw) / 2);
+        font-size: 1.1805vw;
+        height: 3.4722vw;
+        padding: 0.4861vw 0.6944vw 0.5555vw 0.6944vw;
+    }
+
+    #deleteModal .modal-dialog {
+        max-width: 29.1666vw;
+    }
+
+    #updateModal .modal-dialog,
+    #registerModal .modal-dialog {
+        max-width: 38.1944vw;
+    }
+
+    #updateModal .modal-dialog .modal-content,
+    #registerModal .modal-dialog .modal-content {
+        min-height: 38.8888vw;
+        padding: 1.9444vw 2.7777vw;
+    }
+
+    #updateModal .modal-dialog .modal-content .modal-header h3,
+    #registerModal .modal-dialog .modal-content .modal-header h3 {
+        font-size: 1.5277vw;
+    }
+
+    #updateModal .modal-dialog .modal-content .modal-header p,
+    #registerModal .modal-dialog .modal-content .modal-header p {
+        font-size: 1.1111vw;
+    }
+
+    #updateModal .modal-dialog .modal-content .modal-header .btn-close,
+    #registerModal .modal-dialog .modal-content .modal-header .btn-close {
+        font-size: 0.9722vw;
+    }
+}
