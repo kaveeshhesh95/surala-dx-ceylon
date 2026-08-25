@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Unit Course Linking Screen</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="assets/css/datatable.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/images/logo.png" class="logo-img" alt="Logo" />Admin
+            </div>
+            <ul class="menu">
+                <li><a href="">アカウント管理</a></li>
+                <li><a href="">メイン機能</a></li>
+                <li><a href="">サブ機能</a></li>
+                <li><a href="" class="active">ユニット紐付機能</a></li>
+                <li><a href="">リリース機能</a></li>
+            </ul>
+            <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                        aria-expanded="false">Taro Surala ▼</a>
+                    <!-- <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                    </ul> -->
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+
+        <!-- <h1 class="page-title">メイン機能</h1> -->
+        <main id="table-page">
+            <div class="admin-container cnt-01 mt-3">
+
+                <!-- Top Dropdown -->
+                <div class="dropdown-main-wrap">
+                    <select class="form-control select-main">
+                        <option>コース_コンテンツ紐付</option>
+                    </select>
+                </div>
+
+                <!-- Search / Filter Panel -->
+                <div class="filter-panel">
+                    <div class="filter-row">
+                        <div class="form-group max-width">
+                            <label>コース<span class="required">※</span></label>
+                            <select class="form-control">
+                                <option selected>中学数学 ドリルコース</option>
+                                <option>中学数学 教科書単元</option>
+                            </select>
+                        </div>
+                        <div class="form-group max-width">
+                            <label>第二階層</label>
+                            <select class="form-control"></select>
+                        </div>
+                        <div class="form-group max-width">
+                            <div class="d-flex justify-content-end align-items-end mt-4">
+                                <div class="d-flex gap-2 float-right">
+                                    <button class="btn btn-dark-action">新規登録</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="checkbox-group form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkDefault" checked>
+                        <label class="form-check-label" for="checkDefault">非表示のコースも含めて表示する</label>
+                    </div>
+                </div>
+
+                <!-- Action Bar & Pagination -->
+                <div class="action-bar">
+                    <!-- <div class="left-actions">
+                        <button class="btn btn-action">表示</button>
+                        <button class="btn btn-action">非表示</button>
+                        <button class="btn btn-action">削除</button>
+                        <span class="divider"></span>
+                        <button class="btn btn-action">新規登録</button>
+                        <button class="btn btn-action">一括登録・更新</button>
+                        <button class="btn btn-dark-action">ダウンロード</button>
+                    </div>
+                     -->
+                    <div class="pagination-container ms-auto">
+                        <select class="form-control select-page-count">
+                            <option>20</option>
+                        </select>
+                        <span class="pagination-text">件 / 表示 20 件 / 全 200 件</span>
+                        <div class="pagination-nav">
+                            <span class="nav-arrow disabled reverse">❯❯</span>
+                            <span class="nav-arrow disabled">❮</span>
+                            <input type="text" class="page-input" value="1/3">
+                            <span class="nav-arrow active">❯</span>
+                            <span class="nav-arrow">❯❯</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <table class="data-table-four">
+                    <colgroup>
+                        <col class="course-column">
+                        <col class="content-column">
+                        <col class="empty-column">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>コース</th>
+                            <th>コンテンツ</th>
+                            <th class="empty-column"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row Set 1 -->
+                        <tr>
+                            <td rowspan="8">
+                                <div class="item-cell">
+                                    <span></span>
+                                    <span>中学数学 教科書単元</span>
+                                    <button class="icon-btn" title="Add">⊕</button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="item-cell">
+                                    <div class="item-cell-text text-start">
+                                        <div class="">
+                                            <span>学力診断テスト_</span>
+                                            <div>中1数学_1学期_</div>
+                                            <div>総復習_偏差値なし</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button class="icon-btn" title="Delete">🗑</button>
+                                        <button class="icon-btn" title="Add">⊕</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="empty-column" rowspan="8"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="item-cell">
+                                    <div class="item-cell-text text-start">
+                                        <div>
+                                            <span>学力診断テスト_</span>
+                                            <div>中1数学_2学期_</div>
+                                            <div>総復習_偏差値なし</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button class="icon-btn" title="Delete">🗑</button>
+                                        <button class="icon-btn" title="Add">⊕</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="item-cell">
+                                    <div class="item-cell-text text-start">
+                                        <div>
+                                            <span>学力診断テスト_中1</span>
+                                            <div>数学_3学期_</div>
+                                            <div>総復習_偏差値なし</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button class="icon-btn" title="Delete">🗑</button>
+                                        <button class="icon-btn" title="Add">⊕</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-cell">
+                                    <div class="item-cell-text text-start">
+                                        <div class="">
+                                            <span>学力診断テスト_</span>
+                                            <div>中1数学_1学期_</div>
+                                            <div>総復習_偏差値あり</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button class="icon-btn" title="Delete">🗑</button>
+                                        <button class="icon-btn" title="Add">⊕</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group d-flex justify-content-end align-items-center mt-4">
+                    <label>&nbsp;</label>
+                    <div class="filter-buttons">
+                        <button class="btn btn-outline">CSV出力</button>
+                        <button class="btn btn-dark">一括登録</button>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <!-- コースID -->
+                                    <div class="text-start mb-2">
+                                        <label class="form-label mb--2 d-block">コースID</label>
+                                        <span class="course-id-text">XXXXXX</span>
+                                        <span class="note-text">← (編集時のみコースIDを表示。編集不可)</span>
+                                    </div>
+
+                                    <!-- コース名 -->
+                                    <div class="mb-2">
+                                        <label for="courseName" class="form-label">コース名<span
+                                                class="required">※</span></label>
+                                        <input type="text" class="form-control w-100" id="courseName"
+                                            value="中学数学 ドリルコース">
+                                    </div>
+
+                                    <!-- コースタイプ -->
+                                    <div class="mb-2">
+                                        <label for="courseType" class="form-label">コースタイプ<span
+                                                class="required">※</span></label>
+                                        <select class="form-select" id="courseType">
+                                            <option selected>レクチャー・ドリル</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- コース種別 -->
+                                    <div class="mb-2">
+                                        <label for="courseCategory" class="form-label">コース種別<span
+                                                class="required">※</span></label>
+                                        <select class="form-select" id="courseCategory">
+                                            <option selected>すららユニット</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 教科(科目) -->
+                                    <div class="mb-2">
+                                        <label for="subject" class="form-label">教科(科目)<span
+                                                class="required">※</span></label>
+                                        <select class="form-select" id="subject">
+                                            <option selected>算数／数学</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 対象学年 -->
+                                    <div class="mb-2">
+                                        <label for="targetGrade" class="form-label">対象学年</label>
+                                        <select class="form-select" id="targetGrade">
+                                            <option selected>中学</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="d-flex justify-content-between align-items-center mt-4">
+                                        <button type="button" class="btn btn-secondary">削除</button>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-dark">キャンセル</button>
+                                            <button type="submit" class="btn btn-dark">登録する</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
