@@ -3,20 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Course Content Management</title>
+  <title>中学数学 ドリルコース - テスト追加</title>
   <style>
-    :root {
-      --primary-purple: #6c5ce7;
-      --primary-blue: #1e88e5;
-      --bg-gray: #f8f9fa;
-      --card-bg: #ffffff;
-      --border-color: #dcdcdc;
-      --table-header-bg: #e9ecef;
-      --text-main: #333333;
-      --text-muted: #666666;
-      --required-red: #e53935;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -25,403 +13,374 @@
     }
 
     body {
-      background-color: var(--bg-gray);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .app-container {
-      width: 100%;
-      max-width: 1200px;
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      padding: 24px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* Navigation Tabs */
-    .nav-tabs {
-      display: flex;
-      gap: 32px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
-    }
-
-    .nav-tab {
-      font-size: 13px;
-      color: var(--text-muted);
-      cursor: pointer;
-      padding: 8px 4px;
-      white-space: nowrap;
-    }
-
-    .nav-tab.active {
-      color: var(--primary-purple);
-      font-weight: bold;
-      border-bottom: 3px solid var(--primary-purple);
-    }
-
-    /* Sub Navigation Dropdown */
-    .sub-nav {
-      margin-top: 4px;
-    }
-
-    .select-input {
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 14px;
-      background-color: #fff;
-      cursor: pointer;
-      color: var(--text-main);
-      min-width: 220px;
-    }
-
-    /* Filter Card */
-    .filter-card {
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .filter-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .filter-label {
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .required-symbol {
-      color: var(--required-red);
-      margin-left: 4px;
+      background-color: #f8fafc;
+      color: #333333;
+      padding: 24px;
       font-size: 12px;
     }
 
-    .filter-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 4px;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .btn-blue {
-      background-color: var(--primary-blue);
-      color: white;
-      border: none;
-      padding: 8px 24px;
-      border-radius: 18px;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    /* Data Table */
-    .table-container {
-      border: 1px solid var(--border-color);
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 20px;
       border-radius: 4px;
-      overflow: hidden;
     }
 
-    .custom-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .custom-table th,
-    .custom-table td {
-      border: 1px solid var(--border-color);
-      padding: 12px 16px;
-      vertical-align: middle;
+    /* Top Breadcrumb Navigation */
+    .breadcrumb {
       font-size: 13px;
-    }
-
-    .custom-table th {
-      background-color: var(--table-header-bg);
-      font-weight: normal;
-      text-align: left;
-      color: var(--text-muted);
-    }
-
-    .custom-table th.col-course {
-      width: 25%;
-    }
-
-    .custom-table th.col-unit {
-      width: 35%;
-    }
-
-    .custom-table th.col-content {
-      width: 40%;
-    }
-
-    /* Content Alignment Styles */
-    .cell-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .sub-text {
-      display: block;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .icon-actions {
+      color: #333333;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .icon-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      color: #555;
-      display: inline-flex;
+    /* Radio Group */
+    .radio-group {
+      display: flex;
+      gap: 16px;
       align-items: center;
-      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 13px;
     }
 
-    /* Bottom Actions */
-    .bottom-actions {
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    /* Filter Outer Panel */
+    .filter-panel {
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    /* Top Dropdowns Grid */
+    .dropdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .select-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .select-group label {
+      font-weight: bold;
+      color: #374151;
+      font-size: 11px;
+    }
+
+    .select-group select {
+      width: 100%;
+      padding: 5px 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #374151;
+      background-color: #ffffff;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Middle Inputs Row */
+    .middle-grid {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .search-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .search-input-group label {
+      font-weight: bold;
+      color: #374151;
+      font-size: 11px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #9ca3af;
+      outline: none;
+    }
+
+    /* Filter Bottom Controls */
+    .filter-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: 16px;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: #4b5563;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      accent-color: #6366f1;
+      width: 15px;
+      height: 15px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-reset {
+      background-color: #9ca3af;
+      color: #ffffff;
+      border: none;
+      padding: 6px 20px;
+      border-radius: 16px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .btn-search {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 6px 20px;
+      border-radius: 16px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Data Table */
+    .table-container {
+      border: 1px solid #d1d5db;
+      border-radius: 2px;
+      background-color: #ffffff;
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 1fr 2.5fr 2fr 1.2fr;
+      background-color: #e5e7eb;
+      padding: 10px 16px;
+      font-weight: bold;
+      color: #4b5563;
+      border-bottom: 1px solid #d1d5db;
+      font-size: 11px;
+    }
+
+    .header-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 8px;
+    }
+
+    .sort-icon {
+      color: #6b7280;
+      font-size: 9px;
+      line-height: 1;
+    }
+
+    .table-body {
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 1fr 2.5fr 2fr 1.2fr;
+      padding: 10px 16px;
+      border-bottom: 1px dashed #d1d5db;
+      align-items: center;
+      font-size: 11px;
+      color: #374151;
+    }
+
+    .table-row:last-child {
+      border-bottom: none;
+    }
+
+    /* Bottom Action */
+    .footer-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 16px;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
-    .btn-purple {
-      background-color: var(--primary-purple);
-      color: white;
+    .btn-submit {
+      background-color: #6366f1;
+      color: #ffffff;
       border: none;
       padding: 10px 32px;
       border-radius: 20px;
-      font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <div class="app-container">
-    <!-- Top Navigation -->
-    <nav class="nav-tabs">
-      <div class="nav-tab">アカウント管理</div>
-      <div class="nav-tab">メイン機能</div>
-      <div class="nav-tab">サブ機能</div>
-      <div class="nav-tab active">ユニット紐付機能</div>
-      <div class="nav-tab">リリース管理</div>
-    </nav>
-
-    <!-- Sub Navigation Dropdown -->
-    <div class="sub-nav">
-      <select class="select-input">
-        <option>コース_コンテンツ紐付</option>
-      </select>
+  <div class="container">
+    <!-- Header Breadcrumb -->
+    <div class="breadcrumb">
+      <span>中学数学 ドリルコース</span>
+      <span>&gt;</span>
+      <span>Stage5 正負の数・文字を使った...</span>
+      <span>&gt;</span>
     </div>
 
-    <!-- Filter Section -->
-    <div class="filter-card">
-      <div class="filter-grid">
-        <div class="filter-group">
-          <label class="filter-label">コース <span class="required-symbol">※</span></label>
-          <select class="select-input">
-            <option>SPI対策コース</option>
+    <!-- Navigation Options -->
+    <div class="radio-group">
+      <label><input type="radio" name="addition_type"> ステージ追加</label>
+      <label><input type="radio" name="addition_type"> レッスン追加</label>
+      <label><input type="radio" name="addition_type"> ユニット追加</label>
+      <label><input type="radio" name="addition_type"> 教科書追加</label>
+      <label><input type="radio" name="addition_type" checked> テスト追加</label>
+    </div>
+
+    <!-- Filter Panel -->
+    <div class="filter-panel">
+      <!-- 4 Top Select Inputs -->
+      <div class="dropdown-grid">
+        <div class="select-group">
+          <label>テストカテゴリ</label>
+          <select>
+            <option>学力診断テスト</option>
           </select>
         </div>
-        <div class="filter-group">
-          <label class="filter-label">第二階層</label>
-          <select class="select-input">
-            <option value=""></option>
+        <div class="select-group">
+          <label>教科</label>
+          <select>
+            <option>数学</option>
+          </select>
+        </div>
+        <div class="select-group">
+          <label>学年</label>
+          <select>
+            <option>中学1年生</option>
+          </select>
+        </div>
+        <div class="select-group">
+          <label>学期</label>
+          <select>
+            <option>1学期</option>
           </select>
         </div>
       </div>
 
-      <div class="filter-actions">
-        <label class="checkbox-label">
-          <input type="checkbox" checked />
-          非表示も含めて表示する
-        </label>
-        <button class="btn-blue">階層を表示</button>
+      <!-- Middle Inputs -->
+      <div class="middle-grid">
+        <div class="select-group">
+          <label>偏差値</label>
+          <select>
+            <option>あり</option>
+          </select>
+        </div>
+        <div class="search-input-group">
+          <label>テスト名</label>
+          <input 
+            type="text" 
+            class="search-input" 
+            value="検索対象カラム：テストID／テスト名" 
+          />
+        </div>
+      </div>
+
+      <!-- Controls & Checkboxes -->
+      <div class="filter-controls">
+        <div class="checkbox-group">
+          <label><input type="checkbox" checked> 非表示も含めて表示する</label>
+          <label><input type="checkbox" checked> 対象ユニットと紐付きのないテストのみ表示</label>
+        </div>
+        <div class="button-group">
+          <button class="btn-reset">リセット</button>
+          <button class="btn-search">検索</button>
+        </div>
       </div>
     </div>
 
     <!-- Data Table -->
     <div class="table-container">
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th class="col-course">コース</th>
-            <th class="col-unit">ユニット</th>
-            <th class="col-content">コンテンツ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Row Set 1: 比の理解と計算 -->
-          <tr>
-            <td rowspan="8">
-              <div class="cell-content">
-                <span>SPI対策コース</span>
-                <button class="icon-btn" title="Add">⊕</button>
-              </div>
-            </td>
-            <td rowspan="4">
-              <div class="cell-content">
-                <span>比の理解と計算</span>
-                <div class="icon-actions">
-                  <button class="icon-btn" title="Delete">🗑</button>
-                  <button class="icon-btn" title="Add">⊕</button>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>レクチャー1</div>
-                  <span class="sub-text">比の理解と計算</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>ドリル1</div>
-                  <span class="sub-text">比の理解と計算</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>ドリル2</div>
-                  <span class="sub-text">比の理解と計算</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>ドリル3</div>
-                  <span class="sub-text">比の理解と計算</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
+      <div class="table-header">
+        <div class="header-cell"><span>テストID</span><span class="sort-icon">▲<br>▼</span></div>
+        <div class="header-cell"><span>テスト名</span><span class="sort-icon">▲<br>▼</span></div>
+        <div class="header-cell"><span>テストカテゴリ</span><span class="sort-icon">▲<br>▼</span></div>
+        <div class="header-cell"><span>表示設定</span><span class="sort-icon">▲<br>▼</span></div>
+      </div>
 
-          <!-- Row Set 2: 速度の公式の理解と計算 -->
-          <tr>
-            <td rowspan="2">
-              <div class="cell-content">
-                <span>速度の公式の理解と計算</span>
-                <div class="icon-actions">
-                  <button class="icon-btn" title="Delete">🗑</button>
-                  <button class="icon-btn" title="Add">⊕</button>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>レクチャー1</div>
-                  <span class="sub-text">速度の公式の理解と..</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>ドリル1</div>
-                  <span class="sub-text">速度の公式の理解と..</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
+      <div class="table-body">
+        <div class="table-row">
+          <span>XXXXXXX</span>
+          <span>中1 学力診断テスト...</span>
+          <span>学力診断テスト</span>
+          <span>表示</span>
+        </div>
 
-          <!-- Row Set 3: 公約数と最大公約数 -->
-          <tr>
-            <td rowspan="2">
-              <div class="cell-content">
-                <span>公約数と最大公約数</span>
-                <div class="icon-actions">
-                  <button class="icon-btn" title="Delete">🗑</button>
-                  <button class="icon-btn" title="Add">⊕</button>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>レクチャー1</div>
-                  <span class="sub-text">公約数と最大公約数</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="cell-content">
-                <div>
-                  <div>ドリル1</div>
-                  <span class="sub-text">公約数と最大公約数</span>
-                </div>
-                <button class="icon-btn" title="Delete">🗑</button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="table-row">
+          <span>XXXXXXX</span>
+          <span>中1 学力診断テスト...</span>
+          <span>学力診断テスト</span>
+          <span>表示</span>
+        </div>
+
+        <div class="table-row">
+          <span>XXXXXXX</span>
+          <span>中1 学力診断テスト...</span>
+          <span>学力診断テスト</span>
+          <span>表示</span>
+        </div>
+
+        <div class="table-row">
+          <span>XXXXXXX</span>
+          <span>中1 学力診断テスト...</span>
+          <span>学力診断テスト</span>
+          <span>表示</span>
+        </div>
+
+        <div class="table-row">
+          <span>XXXXXXX</span>
+          <span>中1 学力診断テスト...</span>
+          <span>学力診断テスト</span>
+          <span>表示</span>
+        </div>
+
+        <div class="table-row">
+          <span>XXXXXXX</span>
+          <span>中1 学力診断テスト...</span>
+          <span>学力診断テスト</span>
+          <span>表示</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Bottom Action Buttons -->
-    <div class="bottom-actions">
-      <button class="btn-purple">CSV出力</button>
-      <button class="btn-purple">一括登録</button>
+    <!-- Footer Action -->
+    <div class="footer-actions">
+      <button class="btn-submit">紐付を設定する</button>
     </div>
   </div>
 

@@ -7,6 +7,41 @@
     <title>Admin - Unit Course Linking Screen</title>
     <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
     <style>
+        #modalForm .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            white-space: nowrap;
+        }
+
+        #modalForm .radio-group label {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        #modalForm .radio-group input[type="radio"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            border: 1px solid #9a9a9a;
+            border-radius: 50%;
+            background-color: #fff;
+            flex: 0 0 16px;
+        }
+
+        #modalForm .radio-group input[type="radio"]:checked {
+            border-color: #4b4b4b;
+            box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 5px #4b4b4b;
+        }
+
+        #modalForm .radio-group input[type="radio"]:focus-visible {
+            outline: 1px solid #4b4b4b;
+            outline-offset: 2px;
+        }
 
     </style>
     <link rel="stylesheet" href="assets/css/datatable.css">
@@ -131,7 +166,8 @@
                                     <div class="cell-inner-main">
                                         <span class="cell-text">中学数学<br>ドリルコース</span>
                                         <br>
-                                        <button class="btn course-add-icon" onClick="addCourse()">⊕</button>
+                                        <button class="btn course-add-icon" title="Add" data-bs-toggle="modal"
+                                            data-bs-target="#modalForm">⊕</button>
                                     </div>
                                 </td>
                                 <td rowspan="4">
@@ -995,7 +1031,7 @@
                         <button class="btn btn-dark">一括登録</button>
                     </div>
                 </div>
-                <!-- Modal -->
+                <!-- Modal 01 -->
                 <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -1008,8 +1044,244 @@
                                 <form>
                                     <!-- コースID -->
                                     <div class="text-start mb-2">
+                                        <!-- Title -->
+                                        <h5 class="mt-2">
+                                            中学数学 ドリルコース
+                                        </h5>
+                                    </div>
+                                    <div class="filter-row">
+                                        <!-- Option Selection -->
+                                        <div class="radio-group">
+                                            <label><input type="radio" name="addition_type" checked> ステージ追加</label>
+                                            <label><input type="radio" name="addition_type"> レッスン追加</label>
+                                            <label><input type="radio" name="addition_type"> ユニット追加</label>
+                                            <label><input type="radio" name="addition_type"> 教科書追加</label>
+                                            <label><input type="radio" name="addition_type"> テスト追加</label>
+                                        </div>
+                                    </div>
+                                    <!-- コース名 -->
+                                    <!-- <div class="filter-row">
+                                        <div class="form-group max-width">
+                                            <label for="courseName" class="form-label">問題ID</label>
+                                            <input type="text" class="form-control text-input" id="courseName" value="">
+                                        </div>
+                                        <div class="form-group max-width">
+                                            <label for="courseName" class="form-label">移行前ドリルID</label>
+                                            <input type="text" class="form-control text-input" id="courseName" value="">
+                                        </div>
+                                        <div class="form-group max-width">
+                                            <label for="courseName" class="form-label">移行前問題ID（Problem_num）</label>
+                                            <input type="text" class="form-control text-input" id="courseName" value="">
+                                        </div>
+                                    </div> -->
+                                    <!-- ドリル -->
+                                    <div class="filter-row">
+                                        <div class="form-group max-width">
+                                            <label for="courseType" class="form-label">ステージ</label>
+                                            <input type="text" class="form-control" id="courseName"
+                                                value="検索対象カラム：ステージID／ステージ名／ステージタイトル">
+                                        </div>
+                                    </div>
+
+                                    <div class="filter-row d-flex">
+                                        <div class="form-group d-flex max-width gap-2">
+                                            <div class="checkbox-group form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="checkDefault" checked>
+                                                <label class="form-check-label" for="checkDefault">非表示も含めて表示する</label>
+                                            </div>
+                                            <div class="checkbox-group form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="checkDefault2" checked>
+                                                <label class="form-check-label"
+                                                    for="checkDefault">対象コースと紐付きのないステージのみ表示</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end align-items-start">
+                                            <div class="filter-buttons">
+                                                <button class="btn btn-outline">リセット</button>
+                                                <button class="btn btn-dark">検索</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-problem-table-wrap mt-4">
+                                        <table class="modal-problem-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>問題 <span class="modal-sort-icon">▲▼</span></th>
+                                                    <th>教科 <span class="modal-sort-icon">▲▼</span></th>
+                                                    <th>出題形式 <span class="modal-sort-icon">▲▼</span></th>
+                                                    <th>表示設定 <span class="modal-sort-icon">▲▼</span></th>
+                                                    <th>更新日時 <span class="modal-sort-icon">▲▼</span></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="modal-problem-id">XXXXXX</span>質問文あああ…… 問題文あああ……
+                                                    </td>
+                                                    <td>算数・数学</td>
+                                                    <td>多肢選択（単一）</td>
+                                                    <td>表示</td>
+                                                    <td>2026/01/01</td>
+                                                    <td><button type="button"
+                                                            class="modal-detail-btn icon-group actions"><img
+                                                                src="assets/images/icon-user-card.png"
+                                                                alt="詳細"></button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="d-flex justify-content-end align-items-center mt-4">
+                                        <div class="d-flex gap-2">
+                                            <button type="submit" class="btn btn-dark">登録する</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+
+                <!-- Modal 02 -->
+                <div class="modal fade" id="modalForm2" tabindex="-1" aria-labelledby="modalFormLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <!-- コースID -->
+                                    <div class="text-start mb-2">
                                         <label class="form-label mb--2 d-block">コースID</label>
-                                        <span class="course-id-text">XXXXXX</span>
+                                        <span class="course-id-text">XXXXXX2</span>
                                         <span class="note-text">← (編集時のみコースIDを表示。編集不可)</span>
                                     </div>
 
@@ -1116,11 +1388,6 @@
             }, 250);
 
             currentTable = tableId;
-        }
-
-        function addCourse() {
-            const modalForm = new bootstrap.Modal(document.getElementById('modalForm'));
-            modalForm.show();
         }
     </script>
 
