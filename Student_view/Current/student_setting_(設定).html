@@ -30,59 +30,343 @@
         </symbol>
     </svg>
 
-    <!-- ===================== 1. ログイン画面 ===================== -->
-    <div class="login-page" id="page-login">
-        <div class="login-wrap">
-            <div class="login-logo">
-                <span class="logo-text">Surala</span>
-                <span class="logo-dot">i</span>
+    <!-- ===================== 2. アプリ本体 ===================== -->
+    <div class="app-shell" id="shell" style="display:flex;">
+
+        <header class="app-header">
+            <div class="header-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="サイドバーの開閉">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <img class="logo-icon" src="images/logo/surala-i_logo.png">
+                    <!-- <svg class="icon" style="color: var(--primary-light);" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 8v8M8 12h8"></path>
+                    </svg> -->
+                    <span><ruby>生徒<rt>せいと</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>ポータル</span>
+                </div>
             </div>
-            <div class="login-card">
-                <form id="lg-login-form" autocomplete="off" onsubmit="event.preventDefault(); document.location='student_goal_(目標).html'">
-                <!-- <form id="lg-login-form" autocomplete="off" onsubmit="event.preventDefault(); showPage('mokuhyou');"> -->
-                    <div class="field">
-                        <label for="lg-login-id">ログイン ID</label>
-                        <input type="text" id="lg-login-id" name="id" placeholder="IDを入力">
-                    </div>
-                    <div class="field">
-                        <label for="lg-login-pw">パスワード</label>
-                        <input type="password" id="lg-login-pw" name="password" placeholder="パスワードを入力">
-                    </div>
-                    <div class="login-error" id="lg-login-error"></div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;" onclick="document.location='student_goal_(目標).html'">ログイン</button>
-                    <!-- <button type="submit" class="btn btn-primary" style="width:100%;" onclick="showPage('mokuhyou')">ログイン</button> -->
-                </form>
+            <div class="header-right">
+                <div class="header-info">ログイン：すらら<ruby>太郎<rt>たろう</rt></ruby></div>
+            </div>
+        </header>
 
-                <div class="divider">または</div>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span><ruby>学習<rt>がくしゅう</rt></ruby>メニュー</span>
+            </div>
 
-                <button type="button" class="btn-oauth" onclick="document.location='student_goal_(目標).html'">
-                <!-- <button type="button" class="btn-oauth" onclick="showPage('mokuhyou')"> -->
-                    <svg viewBox="0 0 20 20">
-                        <path fill="#4285F4"
-                            d="M19.6 10.23c0-.68-.06-1.36-.18-2H10v3.79h5.4a4.6 4.6 0 0 1-2 3.02v2.5h3.23c1.9-1.75 2.97-4.33 2.97-7.31z" />
-                        <path fill="#34A853"
-                            d="M10 20c2.7 0 4.96-.9 6.62-2.44l-3.23-2.5c-.9.6-2.05.95-3.39.95-2.6 0-4.8-1.76-5.59-4.12H1.06v2.59A10 10 0 0 0 10 20z" />
-                        <path fill="#FBBC05" d="M4.41 11.9a6 6 0 0 1 0-3.8V5.51H1.06a10 10 0 0 0 0 8.98l3.35-2.6z" />
-                        <path fill="#EA4335"
-                            d="M10 3.98c1.47 0 2.79.5 3.83 1.5l2.87-2.87A9.6 9.6 0 0 0 10 0 10 10 0 0 0 1.06 5.51l3.35 2.6C5.2 5.75 7.4 3.98 10 3.98z" />
+            <div class="nav-section">
+                <ul class="nav-list">
+                    <li class="nav-item" data-page="mokuhyou">
+                        <a href="student_goal_(目標).html">
+                            <!-- <a href="javascript:void(0)" onclick="showPage('mokuhyou')"> -->
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                            <span><ruby>目標<rt>もくひょう</rt></ruby></span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="drill">
+                        <a href="student_drills_(ドリル).html">
+                            <!-- <a href="javascript:void(0)" onclick="showPage('drill')"> -->
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                            </svg>
+                            <span>ドリル</span>
+                        </a>
+                    </li>
+                    <li class="nav-item has-sub" id="nav-item-test" data-page="test">
+                        <a href="javascript:void(0)" onclick="toggleTestMenu()">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            <span>テスト</span>
+                            <span class="chev-icon">˅</span>
+                        </a>
+                    </li>
+                    <ul class="nav-sub-list" id="nav-sub-test">
+                        <li class="nav-sub-item" data-sub="surala">
+                            <a href="student_test_surara_test_(すらら単元テスト).html"
+                                onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt>
+                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt> -->
+                                </ruby>テスト</a>
+                        </li>
+                        <li class="nav-sub-item" data-sub="textbook">
+                            <a href="student_test_textbook_unit_test_(教科書単元テスト).html"><ruby>教科<rt>きょうか</rt>
+                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('textbook')"><ruby>教科<rt>きょうか</rt> -->
+                                </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</a>
+                        </li>
+                        <li class="nav-sub-item" data-sub="gakuryoku">
+                            <a href="student_test_academic_ability_diagnostic_test_(学力診断テスト).html"><ruby>学力<rt>がくりょく
+                                    </rt>
+                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('gakuryoku')"><ruby>学力<rt>がくりょく</rt> -->
+                                </ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</a>
+                        </li>
+                        <li class="nav-sub-item" data-sub="pre">
+                            <a href="student_test_unit_by_unit_pre_tests_(単元別プレテスト).html"><ruby>単元<rt>たんげん</rt>
+                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('pre')"><ruby>単元<rt>たんげん</rt> -->
+                                </ruby><ruby>別<rt>べつ</rt></ruby>プレテスト</a>
+                        </li>
+                    </ul>
+                    <li class="nav-item" data-page="kiroku">
+                        <a href="student_record_(記録).html">
+                            <!-- <a href="javascript:void(0)" onclick="showPage('kiroku')"> -->
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                            <span><ruby>記録<rt>きろく</rt></ruby></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="side-nav-bottom">
+                <ul class="nav-list">
+                    <li class="nav-item active" data-page="settings">
+                        <a href="student_setting_(設定).html">
+                            <!-- <a href="javascript:void(0)" onclick="showPage('settings')"> -->
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                </path>
+                            </svg>
+                            <span><ruby>設定<rt>せってい</rt></ruby></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="side-toggle-row">
+                    <span style="font-weight:700; font-size:11px;">🅰 ふりがな</span>
+                    <button id="furigana-switch" class="switch on" aria-label="ふりがな切替"
+                        style="margin-left:auto;"></button>
+                </div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="student_login_(ログイン画面).html">
+                            <!-- <a href="javascript:void(0)" onclick="showPage('login')"> -->
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>ログアウト</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-wrapper">
+            <!-- ============ ページ: せってい ============ -->
+            <section class="page active" id="page-settings">
+                <div class="breadcrumb">システム &gt; <ruby>設定<rt>せってい</rt></ruby></div>
+                <h1 class="page-title"><ruby>設定<rt>せってい</rt></ruby></h1>
+
+                <div class="settings-layout">
+                    <nav class="settings-subnav">
+                        <div class="settings-subnav-title"><ruby>設定<rt>せってい</rt></ruby>メニュー</div>
+                        <div class="settings-subnav-item active" data-target="profile"><i
+                                class="fa-solid fa-user"></i><span>プロフィール</span></div>
+                        <div class="settings-subnav-item" data-target="password"><i
+                                class="fa-solid fa-lock"></i><span>パスワード<ruby>変更<rt>へんこう</rt></ruby></span></div>
+                    </nav>
+
+                    <div class="settings-content">
+
+                        <section class="settings-section active" id="sec-settings-profile">
+                            <div class="card profile-card">
+                                <div class="profile-avatar">太</div>
+                                <div style="flex:1;">
+                                    <div class="profile-name">すらら<ruby>太郎<rt>たろう</rt></ruby></div>
+                                    <div class="profile-chips">
+                                        <span class="chip grade"><i
+                                                class="fa-solid fa-graduation-cap"></i><span><ruby>小学<rt>しょうがく</rt>
+                                                </ruby>5<ruby>年生<rt>ねんせい</rt></ruby></span></span>
+                                        <span class="chip"><i class="fa-regular fa-id-card"></i><span>ID :
+                                                surala_taro01</span></span>
+                                        <span class="chip"><i class="fa-regular fa-calendar"></i><span><ruby>利用<rt>りよう
+                                                    </rt></ruby><ruby>開始<rt>かいし</rt></ruby> : 2025.04.10</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="settings-section" id="sec-settings-password">
+                            <div class="card">
+                                <div class="section-heading"><i class="fa-solid fa-lock"></i><span>パスワード<ruby>変更<rt>へんこう
+                                            </rt></ruby></span></div>
+                                <div class="section-desc">8〜64<ruby>文字<rt>もじ</rt></ruby>で、<ruby>他<rt>ほか</rt>
+                                    </ruby>のサービスと<ruby>同<rt>おな</rt></ruby>じパスワードは<ruby>使<rt>つか</rt>
+                                    </ruby>わないようにしましょう。</div>
+
+                                <form id="st-pw-form">
+                                    <div class="field-inline">
+                                        <label><span><ruby>現在<rt>げんざい</rt></ruby>のパスワード</span> <span
+                                                class="required"><ruby>必須<rt>ひっす</rt></ruby></span></label>
+                                        <div class="pw-wrap">
+                                            <input type="password" class="pw-input" placeholder="現在のパスワード"
+                                                id="st-pw-current">
+                                            <i class="fa-regular fa-eye pw-eye" data-target="st-pw-current"></i>
+                                        </div>
+                                    </div>
+                                    <div class="field-inline">
+                                        <label><span><ruby>新<rt>あたら</rt></ruby>しいパスワード</span> <span
+                                                class="required"><ruby>必須<rt>ひっす</rt></ruby></span></label>
+                                        <div class="pw-wrap">
+                                            <input type="password" class="pw-input" placeholder="新しいパスワード（8〜64文字）"
+                                                id="st-pw-new">
+                                            <i class="fa-regular fa-eye pw-eye" data-target="st-pw-new"></i>
+                                        </div>
+                                        <div class="pw-strength">
+                                            <div class="pw-strength-bar" id="st-pw-strength-bar"></div>
+                                        </div>
+                                        <div class="pw-strength-label" id="st-pw-strength-label">強度：ー</div>
+                                    </div>
+                                    <div class="field-inline">
+                                        <label><span><ruby>新<rt>あたら</rt></ruby>しいパスワード（<ruby>確認<rt>かくにん</rt>
+                                                </ruby>）</span> <span class="required"><ruby>必須<rt>ひっす</rt>
+                                                </ruby></span></label>
+                                        <div class="pw-wrap">
+                                            <input type="password" class="pw-input" placeholder="新しいパスワード（確認）"
+                                                id="st-pw-confirm">
+                                            <i class="fa-regular fa-eye pw-eye" data-target="st-pw-confirm"></i>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div
+                                style="display:flex; align-items:center; justify-content:flex-end; gap:10px; margin-top:16px;">
+                                <div id="st-pw-msg" class="settings-save-msg"></div>
+                                <button type="button" class="btn btn-outline"
+                                    style="width:auto; padding:6px 16px;">キャンセル</button>
+                                <button type="submit" form="st-pw-form" class="btn btn-primary"
+                                    style="width:auto; padding:6px 16px;"><span>この<ruby>内容<rt>ないよう</rt></ruby>を<ruby>保存<rt>ほぞん</rt>
+                                        </ruby>する</span></button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ モーダル: テスト結果 解答と解説プレビュー ============ -->
+            <div class="modal-overlay" id="tr-answer-modal">
+                <div class="modal-box modal-wide" style="padding:0; max-width:900px;">
+                    <button class="modal-close" onclick="closeModal('tr-answer-modal')">✕</button>
+                    <div style="padding:16px 20px 20px;">
+                        <div class="breadcrumb" style="margin-bottom:4px;"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; テスト
+                            &gt; テスト<ruby>学習<rt>がくしゅう</rt></ruby></div>
+
+                        <!-- コントロールカード -->
+                        <div class="card" style="display:flex; flex-direction:column; gap:12px; margin-bottom:12px;">
+                            <div style="display:flex; align-items:center; justify-content:space-between;">
+                                <h2 style="font-size:1rem; font-weight:700; color:var(--text-main);"
+                                    id="tr-am-test-title"><ruby>単元<rt>たんげん</rt></ruby><ruby>確認<rt>かくにん</rt></ruby>テスト
+                                </h2>
+                            </div>
+                            <div
+                                style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border-color); padding-top:10px;">
+                                <div style="display:flex; gap:4px; flex-wrap:wrap;" id="tr-am-pagenav"></div>
+                                <div style="display:flex; gap:8px; flex-shrink:0; margin-left:10px;">
+                                    <button class="btn btn-outline" onclick="trAnswerModalStep(-1)"><ruby>前<rt>まえ</rt>
+                                        </ruby>へ</button>
+                                    <button class="btn btn-outline" onclick="trAnswerModalStep(1)"><ruby>次<rt>つぎ</rt>
+                                        </ruby>へ</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 問題プレビューカード -->
+                        <div class="card"
+                            style="min-height:260px; display:flex; flex-direction:column; justify-content:space-between;">
+                            <div>
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:8px; border-bottom:1px dashed var(--border-color); flex-wrap:wrap; gap:6px;">
+                                    <span style="font-size:0.9rem; font-weight:700; color:var(--text-main);"
+                                        id="tr-am-qnum"><ruby>問題<rt>もんだい</rt></ruby><ruby>番号<rt>ばんごう</rt>
+                                        </ruby>：1</span>
+                                    <span style="font-size:0.72rem; color:var(--text-sub);" id="tr-am-qmeta">[ 1<ruby>問
+                                            <rt>もん</rt>
+                                        </ruby><ruby>目<rt>め</rt></ruby> / <ruby>全<rt>ぜん</rt>
+                                        </ruby>10<ruby>問<rt>もん</rt></ruby> ]</span>
+                                </div>
+
+                                <div style="font-size:0.95rem; line-height:2; margin:16px 0; color:var(--text-main);"
+                                    id="tr-am-qbody">
+                                </div>
+                            </div>
+
+                            <div style="margin-top:20px; display:flex; justify-content:center;" id="tr-am-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- モーダル群 -->
+    <div class="modal-overlay" id="mk-goal-modal">
+        <div class="modal-box" style="max-width:850px;">
+            <button class="modal-close" onclick="closeModal('mk-goal-modal')">✕</button>
+            <div class="modal-title" id="mk-modal-goal-name"><ruby>目標<rt>もくひょう</rt></ruby><ruby>名<rt>めい</rt>
+                </ruby>が<ruby>入り<rt>はいり</rt></ruby>ます</div>
+            <div class="modal-meta">
+                <div class="deadline">
+                    <svg class="icon-pict deadline-icon">
+                        <use href="#icon-calendar" />
                     </svg>
-                    Google でログイン
-                </button>
-                <button type="button" class="btn-oauth" onclick="document.location='student_goal_(目標).html'">
-                <!-- <button type="button" class="btn-oauth" onclick="showPage('mokuhyou')"> -->
-                    <svg viewBox="0 0 20 20">
-                        <rect width="9" height="9" x="0" y="0" fill="#F35325" />
-                        <rect width="9" height="9" x="11" y="0" fill="#81BC06" />
-                        <rect width="9" height="9" x="0" y="11" fill="#05A6F0" />
-                        <rect width="9" height="9" x="11" y="11" fill="#FFBA08" />
-                    </svg>
-                    Microsoft でログイン
-                </button>
+                    <div class="deadline-info">
+                        <span class="deadline-badge">しめきり</span>
+                        <span class="deadline-date" id="mk-modal-deadline">2026<ruby>年<rt>ねん</rt></ruby> 4<ruby>月<rt>がつ
+                                </rt></ruby>10<ruby>日<rt>か</rt></ruby></span>
+                    </div>
+                </div>
+                <div class="achieve">
+                    <span><ruby>達成<rt>たっせい</rt></ruby><ruby>度<rt>ど</rt></ruby></span>
+                    <span class="achieve-num-big" id="mk-modal-achieve-num">1</span><span
+                        class="achieve-denom">/5</span>
+                </div>
+            </div>
+            <div class="table-scroll" style="max-height:300px; overflow-x:auto;">
+                <table class="data-table" id="mk-modal-drill-table" style="min-width:760px;">
+                    <thead>
+                        <tr>
+                            <th style="width:56px;" data-sort-key="kind"><ruby>種別<rt>しゅべつ</rt></ruby></th>
+                            <th style="width:70px;" data-sort-key="grade"><ruby>学年<rt>がくねん</rt></ruby></th>
+                            <th style="width:50px;padding-right:0;" data-sort-key="subj"><ruby>教科<rt>きょうか</rt></ruby>
+                            </th>
+                            <th style="padding-left:4px; min-width:270px;" data-sort-key="unit"><ruby>単元名<rt>たんげんめい</rt>
+                                </ruby></th>
+                            <th style="width:64px; text-align:center; padding-left:4px; padding-right:4px;"
+                                data-sort-key="time"><ruby>標準<rt>ひょうじゅん</rt></ruby><ruby>時間<rt>じかん</rt></ruby></th>
+                            <th style="width:80px; padding-left:4px; padding-right:4px;" data-sort-key="clear"><ruby>状態
+                                    <rt>じょうたい</rt>
+                                </ruby></th>
+                            <th style="width:36px; padding-left:2px; padding-right:2px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="mk-modal-drill-body"></tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <!-- <script>
+    <div class="toast" id="dr-toast"><ruby>既存<rt>きそん</rt></ruby>のドリル<ruby>学習<rt>がくしゅう</rt></ruby><ruby>画面<rt>がめん</rt>
+        </ruby>へ<ruby>遷移<rt>せんい</rt></ruby>します（このモックの<ruby>対象<rt>たいしょう</rt></ruby><ruby>外<rt>がい</rt></ruby>）</div>
+
+    <script>
         function ym(dateStr) {
             var p = dateStr.split('.');
             return { y: p[0], md: p[1] + '.' + p[2] };
@@ -2929,7 +3213,7 @@
             trRenderAnswerModal(index || 1);
             openModal('tr-answer-modal');
         }
-    </script> -->
+    </script>
 </body>
 
 </html>

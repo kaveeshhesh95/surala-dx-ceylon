@@ -131,7 +131,7 @@
                                     <div class="cell-inner-main">
                                         <span class="cell-text">中学数学<br>ドリルコース</span>
                                         <br>
-                                        <span class="course-add-icon">⊕</span>
+                                        <button class="btn course-add-icon" onClick="addCourse()">⊕</button>
                                     </div>
                                 </td>
                                 <td rowspan="4">
@@ -1116,6 +1116,11 @@
             }, 250);
 
             currentTable = tableId;
+        }
+
+        function addCourse() {
+            const modalForm = new bootstrap.Modal(document.getElementById('modalForm'));
+            modalForm.show();
         }
     </script>
 

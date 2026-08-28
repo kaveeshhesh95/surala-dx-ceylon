@@ -43,7 +43,7 @@
           </svg>
         </button>
         <div style="display: flex; align-items: center; gap: 6px;">
-          <img class="logo-icon" src="images/surala-i_logo.png">
+          <img class="logo-icon" src="images/logo/surala-i_logo.png">
           <!-- <svg class="icon" style="color: var(--primary-light);" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 8v8M8 12h8"></path>
@@ -95,13 +95,13 @@
             </a>
           </li>
           <ul class="nav-sub-list" id="nav-sub-test">
-            <li class="nav-sub-item" data-sub="surala">
+            <li class="nav-sub-item active" data-sub="surala">
               <a href="student_test_surara_test_(すらら単元テスト).html" onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん
                   </rt>
                   <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt> -->
                 </ruby>テスト</a>
             </li>
-            <li class="nav-sub-item active" data-sub="textbook">
+            <li class="nav-sub-item" data-sub="textbook">
               <a href="student_test_textbook_unit_test_(教科書単元テスト).html"><ruby>教科<rt>きょうか</rt>
                   <!-- <a href="javascript:void(0)" onclick="showTestSubPage('textbook')"><ruby>教科<rt>きょうか</rt> -->
                 </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</a>
@@ -168,7 +168,6 @@
     </aside>
 
     <main class="main-wrapper">
-
       <!-- ============ ページ: テスト ============ -->
       <section class="page active" id="page-test">
         <div class="breadcrumb" id="ts-breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; テスト</div>
@@ -178,10 +177,9 @@
           <div class="pill-tabs"
             style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button class="btn-pill lg" id="ts-tab-surala" onclick="tsSwitchTab('surala')">すらら<ruby>単元<rt>たんげん
+              <button class="btn-pill lg active" id="ts-tab-surala" onclick="tsSwitchTab('surala')">すらら<ruby>単元<rt>たんげん
                   </rt></ruby>テスト</button>
-              <button class="btn-pill lg active" id="ts-tab-textbook" onclick="tsSwitchTab('textbook')"><ruby>教科<rt>きょうか
-                  </rt>
+              <button class="btn-pill lg" id="ts-tab-textbook" onclick="tsSwitchTab('textbook')"><ruby>教科<rt>きょうか</rt>
                 </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</button>
               <button class="btn-pill lg" id="ts-tab-gakuryoku" onclick="tsSwitchTab('gakuryoku')"><ruby>学力<rt>がくりょく
                   </rt></ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</button>
@@ -255,7 +253,7 @@
               </div>
             </div>
 
-            <div id="ts-surala-view" style="display:none;">
+            <div id="ts-surala-view" style="display:block;">
               <div
                 style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
                 <div style="display:flex; gap:8px;">
@@ -436,7 +434,7 @@
               </div>
             </div>
 
-            <div id="ts-textbook-view" style="display:block;">
+            <div id="ts-textbook-view" style="display:none;">
               <div
                 style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
                 <div style="display:flex; gap:8px;">
@@ -1192,7 +1190,6 @@
           </div>
         </div>
       </div>
-
     </main>
   </div>
 

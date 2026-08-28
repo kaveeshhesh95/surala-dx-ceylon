@@ -43,7 +43,7 @@
           </svg>
         </button>
         <div style="display: flex; align-items: center; gap: 6px;">
-          <img class="logo-icon" src="images/surala-i_logo.png">
+          <img class="logo-icon" src="images/logo/surala-i_logo.png">
           <!-- <svg class="icon" style="color: var(--primary-light);" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 8v8M8 12h8"></path>
@@ -101,12 +101,12 @@
                   <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt> -->
                 </ruby>テスト</a>
             </li>
-            <li class="nav-sub-item" data-sub="textbook">
+            <li class="nav-sub-item active" data-sub="textbook">
               <a href="student_test_textbook_unit_test_(教科書単元テスト).html"><ruby>教科<rt>きょうか</rt>
                   <!-- <a href="javascript:void(0)" onclick="showTestSubPage('textbook')"><ruby>教科<rt>きょうか</rt> -->
                 </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</a>
             </li>
-            <li class="nav-sub-item active" data-sub="gakuryoku">
+            <li class="nav-sub-item" data-sub="gakuryoku">
               <a href="student_test_academic_ability_diagnostic_test_(学力診断テスト).html"><ruby>学力<rt>がくりょく</rt>
                   <!-- <a href="javascript:void(0)" onclick="showTestSubPage('gakuryoku')"><ruby>学力<rt>がくりょく</rt> -->
                 </ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</a>
@@ -168,6 +168,7 @@
     </aside>
 
     <main class="main-wrapper">
+
       <!-- ============ ページ: テスト ============ -->
       <section class="page active" id="page-test">
         <div class="breadcrumb" id="ts-breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; テスト</div>
@@ -179,10 +180,10 @@
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
               <button class="btn-pill lg" id="ts-tab-surala" onclick="tsSwitchTab('surala')">すらら<ruby>単元<rt>たんげん
                   </rt></ruby>テスト</button>
-              <button class="btn-pill lg" id="ts-tab-textbook" onclick="tsSwitchTab('textbook')"><ruby>教科<rt>きょうか</rt>
+              <button class="btn-pill lg active" id="ts-tab-textbook" onclick="tsSwitchTab('textbook')"><ruby>教科<rt>きょうか
+                  </rt>
                 </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</button>
-              <button class="btn-pill lg active" id="ts-tab-gakuryoku" onclick="tsSwitchTab('gakuryoku')"><ruby>学力<rt>
-                    がくりょく
+              <button class="btn-pill lg" id="ts-tab-gakuryoku" onclick="tsSwitchTab('gakuryoku')"><ruby>学力<rt>がくりょく
                   </rt></ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</button>
               <button class="btn-pill lg" id="ts-tab-pre" onclick="tsSwitchTab('pre')"><ruby>単元<rt>たんげん</rt>
                 </ruby><ruby>別<rt>べつ</rt></ruby>プレテスト</button>
@@ -435,7 +436,7 @@
               </div>
             </div>
 
-            <div id="ts-textbook-view" style="display:none;">
+            <div id="ts-textbook-view" style="display:block;">
               <div
                 style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
                 <div style="display:flex; gap:8px;">
@@ -553,7 +554,7 @@
               </div>
             </div>
 
-            <div class="table-scroll" id="ts-test-table-container" style="max-height:420px;">
+            <div class="table-scroll" id="ts-test-table-container" style="max-height:420px;display: none;">
               <table class="data-table" id="ts-test-table">
                 <thead id="ts-table-head">
                   <tr>
@@ -1191,6 +1192,7 @@
           </div>
         </div>
       </div>
+
     </main>
   </div>
 
@@ -1241,11 +1243,7 @@
 
   <div class="toast" id="dr-toast"><ruby>既存<rt>きそん</rt></ruby>のドリル<ruby>学習<rt>がくしゅう</rt></ruby><ruby>画面<rt>がめん</rt>
     </ruby>へ<ruby>遷移<rt>せんい</rt></ruby>します（このモックの<ruby>対象<rt>たいしょう</rt></ruby><ruby>外<rt>がい</rt></ruby>）</div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      showTestSubPage('gakuryoku')// your code here
-    }, false);
-  </script>
+
   <script>
     function ym(dateStr) {
       var p = dateStr.split('.');

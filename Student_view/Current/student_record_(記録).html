@@ -43,7 +43,7 @@
                     </svg>
                 </button>
                 <div style="display: flex; align-items: center; gap: 6px;">
-                    <img class="logo-icon" src="images/surala-i_logo.png">
+                    <img class="logo-icon" src="images/logo/surala-i_logo.png">
                     <!-- <svg class="icon" style="color: var(--primary-light);" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M12 8v8M8 12h8"></path>
@@ -96,31 +96,29 @@
                     </li>
                     <ul class="nav-sub-list" id="nav-sub-test">
                         <li class="nav-sub-item" data-sub="surala">
-                            <a href="student_test_surara_test_(すらら単元テスト).html"
-                                onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt>
-                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt> -->
-                                </ruby>テスト</a>
+                            <a href="student_test_surara_test_(すらら単元テスト).html" onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt>
+                            <!-- <a href="javascript:void(0)" onclick="showTestSubPage('surala')">すらら<ruby>単元<rt>たんげん</rt> -->
+                            </ruby>テスト</a>
                         </li>
                         <li class="nav-sub-item" data-sub="textbook">
                             <a href="student_test_textbook_unit_test_(教科書単元テスト).html"><ruby>教科<rt>きょうか</rt>
-                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('textbook')"><ruby>教科<rt>きょうか</rt> -->
-                                </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</a>
+                            <!-- <a href="javascript:void(0)" onclick="showTestSubPage('textbook')"><ruby>教科<rt>きょうか</rt> -->
+                            </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</a>
                         </li>
                         <li class="nav-sub-item" data-sub="gakuryoku">
-                            <a href="student_test_academic_ability_diagnostic_test_(学力診断テスト).html"><ruby>学力<rt>がくりょく
-                                    </rt>
-                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('gakuryoku')"><ruby>学力<rt>がくりょく</rt> -->
-                                </ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</a>
+                            <a href="student_test_academic_ability_diagnostic_test_(学力診断テスト).html"><ruby>学力<rt>がくりょく</rt>
+                            <!-- <a href="javascript:void(0)" onclick="showTestSubPage('gakuryoku')"><ruby>学力<rt>がくりょく</rt> -->
+                            </ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</a>
                         </li>
                         <li class="nav-sub-item" data-sub="pre">
                             <a href="student_test_unit_by_unit_pre_tests_(単元別プレテスト).html"><ruby>単元<rt>たんげん</rt>
-                                    <!-- <a href="javascript:void(0)" onclick="showTestSubPage('pre')"><ruby>単元<rt>たんげん</rt> -->
-                                </ruby><ruby>別<rt>べつ</rt></ruby>プレテスト</a>
+                            <!-- <a href="javascript:void(0)" onclick="showTestSubPage('pre')"><ruby>単元<rt>たんげん</rt> -->
+                            </ruby><ruby>別<rt>べつ</rt></ruby>プレテスト</a>
                         </li>
                     </ul>
-                    <li class="nav-item" data-page="kiroku">
+                    <li class="nav-item active" data-page="kiroku">
                         <a href="student_record_(記録).html">
-                            <!-- <a href="javascript:void(0)" onclick="showPage('kiroku')"> -->
+                        <!-- <a href="javascript:void(0)" onclick="showPage('kiroku')"> -->
                             <svg class="icon" viewBox="0 0 24 24">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                 <polyline points="14 2 14 8 20 8"></polyline>
@@ -135,9 +133,9 @@
 
             <div class="side-nav-bottom">
                 <ul class="nav-list">
-                    <li class="nav-item active" data-page="settings">
+                    <li class="nav-item" data-page="settings">
                         <a href="student_setting_(設定).html">
-                            <!-- <a href="javascript:void(0)" onclick="showPage('settings')"> -->
+                        <!-- <a href="javascript:void(0)" onclick="showPage('settings')"> -->
                             <svg class="icon" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="3"></circle>
                                 <path
@@ -170,97 +168,609 @@
         </aside>
 
         <main class="main-wrapper">
-            <!-- ============ ページ: せってい ============ -->
-            <section class="page active" id="page-settings">
-                <div class="breadcrumb">システム &gt; <ruby>設定<rt>せってい</rt></ruby></div>
-                <h1 class="page-title"><ruby>設定<rt>せってい</rt></ruby></h1>
+            <!-- ============ ページ: きろく ============ -->
+            <section class="page active" id="page-kiroku">
 
-                <div class="settings-layout">
-                    <nav class="settings-subnav">
-                        <div class="settings-subnav-title"><ruby>設定<rt>せってい</rt></ruby>メニュー</div>
-                        <div class="settings-subnav-item active" data-target="profile"><i
-                                class="fa-solid fa-user"></i><span>プロフィール</span></div>
-                        <div class="settings-subnav-item" data-target="password"><i
-                                class="fa-solid fa-lock"></i><span>パスワード<ruby>変更<rt>へんこう</rt></ruby></span></div>
-                    </nav>
+                <section class="view active" id="kr-view-list">
+                    <div class="breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; きろく</div>
+                    <h1 class="page-title">きろく</h1>
 
-                    <div class="settings-content">
+                    <div class="pill-tabs" style="margin-bottom:10px;">
+                        <button class="btn-pill lg active" id="kr-tab-goal" onclick="krSetMode('goal')"><ruby>目標<rt>
+                                    もくひょう</rt></ruby>ごと</button>
+                        <button class="btn-pill lg" id="kr-tab-date" onclick="krSetMode('date')"><ruby>日付<rt>ひづけ</rt>
+                                </ruby>ごと</button>
+                        <button class="btn-pill lg" id="kr-tab-month" onclick="krSetMode('month')"><ruby>月<rt>つき</rt>
+                                </ruby>ごと</button>
+                    </div>
 
-                        <section class="settings-section active" id="sec-settings-profile">
-                            <div class="card profile-card">
-                                <div class="profile-avatar">太</div>
-                                <div style="flex:1;">
-                                    <div class="profile-name">すらら<ruby>太郎<rt>たろう</rt></ruby></div>
-                                    <div class="profile-chips">
-                                        <span class="chip grade"><i
-                                                class="fa-solid fa-graduation-cap"></i><span><ruby>小学<rt>しょうがく</rt>
-                                                </ruby>5<ruby>年生<rt>ねんせい</rt></ruby></span></span>
-                                        <span class="chip"><i class="fa-regular fa-id-card"></i><span>ID :
-                                                surala_taro01</span></span>
-                                        <span class="chip"><i class="fa-regular fa-calendar"></i><span><ruby>利用<rt>りよう
-                                                    </rt></ruby><ruby>開始<rt>かいし</rt></ruby> : 2025.04.10</span></span>
+                    <div class="card" id="kr-accordion">
+                        <div id="kr-accordion-body">
+                            <div id="kr-filter-goal">
+                                <div class="filter-row">
+                                    <div class="filter-label"><ruby>期日<rt>きじつ</rt></ruby><ruby>選択<rt>せんたく</rt></ruby>
+                                    </div>
+                                    <input type="date" class="date-input" id="kr-goal-date-start">
+                                    <span style="color:var(--text-sub);">〜</span>
+                                    <input type="date" class="date-input" id="kr-goal-date-end">
+                                </div>
+                                <div class="filter-row">
+                                    <div class="filter-label"><ruby>教科<rt>きょうか</rt></ruby><ruby>選択<rt>せんたく</rt></ruby>
+                                    </div>
+                                    <div class="filter-options" id="kr-goal-subject-options">
+                                        <label class="chk c-eng"><input type="checkbox" checked value="eng"><span
+                                                class="box"><ruby>英語<rt>えいご</rt></ruby></span></label>
+                                        <label class="chk c-koku"><input type="checkbox" checked value="koku"><span
+                                                class="box"><ruby>国語<rt>こくご</rt></ruby></span></label>
+                                        <label class="chk c-math"><input type="checkbox" checked value="math"><span
+                                                class="box"><ruby>算数<rt>さんすう</rt></ruby>・<ruby>数学<rt>すうがく</rt>
+                                                    </ruby></span></label>
+                                        <label class="chk c-sci"><input type="checkbox" checked value="sci"><span
+                                                class="box"><ruby>理科<rt>りか</rt></ruby></span></label>
+                                        <label class="chk c-shakai"><input type="checkbox" checked value="shakai"><span
+                                                class="box"><ruby>社会<rt>しゃかい</rt></ruby></span></label>
+                                        <label class="chk c-joho"><input type="checkbox" checked value="joho"><span
+                                                class="box"><ruby>情報<rt>じょうほう</rt></ruby></span></label>
+                                        <label class="chk c-other"><input type="checkbox" checked value="other"><span
+                                                class="box">その<ruby>他<rt>ほか</rt></ruby></span></label>
+                                    </div>
+                                </div>
+
+                                <div class="filter-row" style="margin-top:6px;">
+                                    <div class="spacer-flex"></div>
+                                    <button class="btn btn-primary btn-search" id="kr-search-btn-goal"><ruby>検索<rt>けんさく
+                                            </rt></ruby>する</button>
+                                </div>
+                            </div>
+
+                            <div id="kr-filter-date" style="display:none;">
+                                <div class="filter-row">
+                                    <div class="filter-label"><ruby>日付<rt>ひづけ</rt></ruby><ruby>選択<rt>せんたく</rt></ruby>
+                                    </div>
+                                    <input type="date" class="date-input" id="kr-date-start">
+                                    <span style="color:var(--text-sub);">〜</span>
+                                    <input type="date" class="date-input" id="kr-date-end">
+                                </div>
+                                <div class="filter-row">
+                                    <div class="filter-label"><ruby>教科<rt>きょうか</rt></ruby><ruby>選択<rt>せんたく</rt></ruby>
+                                    </div>
+                                    <div class="filter-options" id="kr-date-subject-options">
+                                        <label class="chk c-eng"><input type="checkbox" checked value="eng"><span
+                                                class="box"><ruby>英語<rt>えいご</rt></ruby></span></label>
+                                        <label class="chk c-koku"><input type="checkbox" checked value="koku"><span
+                                                class="box"><ruby>国語<rt>こくご</rt></ruby></span></label>
+                                        <label class="chk c-math"><input type="checkbox" checked value="math"><span
+                                                class="box"><ruby>算数<rt>さんすう</rt></ruby>・<ruby>数学<rt>すうがく</rt>
+                                                    </ruby></span></label>
+                                        <label class="chk c-sci"><input type="checkbox" checked value="sci"><span
+                                                class="box"><ruby>理科<rt>りか</rt></ruby></span></label>
+                                        <label class="chk c-shakai"><input type="checkbox" checked value="shakai"><span
+                                                class="box"><ruby>社会<rt>しゃかい</rt></ruby></span></label>
+                                        <label class="chk c-joho"><input type="checkbox" checked value="joho"><span
+                                                class="box"><ruby>情報<rt>じょうほう</rt></ruby></span></label>
+                                        <label class="chk c-other"><input type="checkbox" checked value="other"><span
+                                                class="box">その<ruby>他<rt>ほか</rt></ruby></span></label>
+                                    </div>
+                                </div>
+                                <div class="filter-row" style="margin-top:6px;">
+                                    <div class="spacer-flex"></div>
+                                    <button class="btn btn-primary btn-search" id="kr-search-btn-date"><ruby>検索<rt>けんさく
+                                            </rt></ruby>する</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card white" id="kr-table-goal">
+                        <div class="table-toolbar" id="kr-goal-table-toolbar" style="display:none;">
+                            <div style="font-size: 0.8rem; color: var(--text-sub);"><ruby>検索<rt>けんさく</rt></ruby><ruby>結果
+                                    <rt>けっか</rt></ruby> <strong id="kr-goal-total-count"
+                                    style="color: var(--text-main); font-size: 0.88rem;">0</strong> <ruby>件<rt>けん</rt>
+                                    </ruby></div>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="data-table" id="kr-goal-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:90px;" data-sort-key="date"><ruby>期日<rt>きじつ</rt></ruby></th>
+                                        <th data-sort-key="name"><ruby>目標名<rt>もくひょうめい</rt></ruby></th>
+                                        <th style="width:280px;" data-sort-key="pct"><ruby>達成度<rt>たっせいど</rt></ruby></th>
+                                        <th style="width:80px;" data-sort-key="clear">クリア</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kr-goal-hint-body">
+                                    <tr>
+                                        <td colspan="4" class="hint-empty"><ruby>検索<rt>けんさく</rt></ruby><ruby>条件<rt>じょうけん
+                                                </rt></ruby>を<ruby>入力<rt>にゅうりょく</rt></ruby>し、「<ruby>検索<rt>けんさく</rt>
+                                                </ruby>する」ボタンを<ruby>押し<rt>おし</rt></ruby>てください。</td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="kr-goal-body"></tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-bar" id="kr-goal-pagination" style="display:none;"></div>
+                    </div>
+
+                    <div class="card white" id="kr-table-date" style="display:none;">
+                        <div class="table-toolbar" id="kr-table-toolbar" style="display:none;">
+                            <div style="font-size: 0.8rem; color: var(--text-sub);"><ruby>検索<rt>けんさく</rt></ruby><ruby>結果
+                                    <rt>けっか</rt></ruby> <strong id="kr-total-count"
+                                    style="color: var(--text-main); font-size: 0.88rem;">0</strong> <ruby>件<rt>けん</rt>
+                                    </ruby></div>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="data-table" id="kr-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:170px;" data-sort-key="date"><ruby>学習<rt>がくしゅう</rt>
+                                                </ruby><ruby>日時<rt>にちじ</rt></ruby></th>
+                                        <th style="width:110px;" data-sort-key="grade"><ruby>学年<rt>がくねん</rt></ruby></th>
+                                        <th style="width:70px;" data-sort-key="subj"><ruby>科目<rt>かもく</rt></ruby></th>
+                                        <th data-sort-key="unit"><ruby>単元名<rt>たんげんめい</rt></ruby></th>
+                                        <th style="width:80px; text-align:center;" data-sort-key="time"><ruby>学習<rt>
+                                                    がくしゅう</rt></ruby><ruby>時間<rt>じかん</rt></ruby></th>
+                                        <th style="width:80px;" data-sort-key="rate"><ruby>正解率<rt>せいかいりつ</rt></ruby>
+                                        </th>
+                                        <th style="width:80px;" data-sort-key="clear">クリア</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kr-hint-body">
+                                    <tr>
+                                        <td colspan="7" class="hint-empty"><ruby>検索<rt>けんさく</rt></ruby><ruby>条件<rt>じょうけん
+                                                </rt></ruby>を<ruby>入力<rt>にゅうりょく</rt></ruby>し、「<ruby>検索<rt>けんさく</rt>
+                                                </ruby>する」ボタンを<ruby>押し<rt>おし</rt></ruby>てください。</td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="kr-body"></tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-bar" id="kr-pagination" style="display:none;"></div>
+                    </div>
+
+                    <!-- 月ごとビュー -->
+                    <div class="card white" id="kr-table-month" style="display:none; padding: 24px;">
+                        <div class="kr-month-container">
+                            <div class="kr-month-left">
+                                <div class="cal-header">
+                                    <button class="cal-nav-btn">&lt;</button>
+                                    <div class="cal-title">2025<ruby>年<rt>ねん</rt></ruby> 12<ruby>月<rt>がつ</rt></ruby>
+                                    </div>
+                                    <button class="cal-nav-btn">&gt;</button>
+                                </div>
+                                <div class="cal-grid">
+                                    <div class="cal-day-label">MON</div>
+                                    <div class="cal-day-label">TUE</div>
+                                    <div class="cal-day-label">WED</div>
+                                    <div class="cal-day-label">THU</div>
+                                    <div class="cal-day-label">FRI</div>
+                                    <div class="cal-day-label">SAT</div>
+                                    <div class="cal-day-label">SUN</div>
+
+                                    <!-- 第1週 -->
+                                    <div class="cal-cell"><span class="date-num">1</span></div>
+                                    <div class="cal-cell"><span class="date-num">2</span></div>
+                                    <div class="cal-cell"><span class="date-num">3</span></div>
+                                    <div class="cal-cell"><span class="date-num">4</span></div>
+                                    <div class="cal-cell"><span class="date-num">5</span></div>
+                                    <div class="cal-cell has-data">
+                                        <span class="cal-badge">10</span>
+                                        <span class="date-num">6</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">45<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+                                    <div class="cal-cell"><span class="date-num">7</span></div>
+
+                                    <!-- 第2週 -->
+                                    <div class="cal-cell has-data">
+                                        <span class="cal-badge">10</span>
+                                        <span class="date-num">8</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">60<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+                                    <div class="cal-cell has-data">
+                                        <span class="cal-badge">10</span>
+                                        <span class="date-num">9</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">60<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+                                    <div class="cal-cell has-data">
+                                        <span class="cal-badge">10</span>
+                                        <span class="date-num">10</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">90<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+                                    <div class="cal-cell has-data">
+                                        <span class="cal-badge">10</span>
+                                        <span class="date-num">11</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">90<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+                                    <div class="cal-cell"><span class="date-num">12</span></div>
+                                    <div class="cal-cell has-data">
+                                        <span class="cal-badge">10</span>
+                                        <span class="date-num">13</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">45<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+                                    <div class="cal-cell has-data">
+                                        <span class="date-num">14</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">40<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+
+                                    <!-- 第3週 -->
+                                    <div class="cal-cell has-data">
+                                        <span class="cal-badge">10</span>
+                                        <span class="date-num">15</span>
+                                        <span
+                                            style="font-size:8px; color:#8ca800; font-weight:bold; line-height:1; margin-top:2px;">ー</span>
+                                        <span class="cal-time">90<ruby>分<rt>ふん</rt></ruby></span>
+                                    </div>
+                                    <div class="cal-cell"><span class="date-num">16</span></div>
+                                    <div class="cal-cell"><span class="date-num">17</span></div>
+                                    <div class="cal-cell"><span class="date-num">18</span></div>
+                                    <div class="cal-cell"><span class="date-num">19</span></div>
+                                    <div class="cal-cell"><span class="date-num">20</span></div>
+                                    <div class="cal-cell"><span class="date-num">21</span></div>
+
+                                    <!-- 第4週 -->
+                                    <div class="cal-cell"><span class="date-num">22</span></div>
+                                    <div class="cal-cell"><span class="date-num">23</span></div>
+                                    <div class="cal-cell"><span class="date-num">24</span></div>
+                                    <div class="cal-cell"><span class="date-num">25</span></div>
+                                    <div class="cal-cell"><span class="date-num">26</span></div>
+                                    <div class="cal-cell"><span class="date-num">27</span></div>
+                                    <div class="cal-cell"><span class="date-num">28</span></div>
+
+                                    <!-- 第5週 -->
+                                    <div class="cal-cell"><span class="date-num">29</span></div>
+                                    <div class="cal-cell"><span class="date-num">30</span></div>
+                                    <div class="cal-cell"><span class="date-num">31</span></div>
+                                    <div class="cal-cell empty"></div>
+                                    <div class="cal-cell empty"></div>
+                                    <div class="cal-cell empty"></div>
+                                    <div class="cal-cell empty"></div>
+                                </div>
+                            </div>
+
+                            <div class="kr-month-right">
+                                <div class="summary-box">
+                                    <div class="summary-row">
+                                        <span class="summary-label"><ruby>期間<rt>きかん</rt></ruby><ruby>中<rt>ちゅう</rt>
+                                                </ruby>に<ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>総<rt>そう</rt>
+                                                </ruby>ユニット<ruby>数<rt>すう</rt></ruby></span>
+                                        <span class="summary-val">24</span>
+                                        <span class="summary-unit">unit</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span class="summary-label">クリアユニット<ruby>数<rt>すう</rt></ruby></span>
+                                        <span class="summary-val">24</span>
+                                        <span class="summary-unit">unit</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span class="summary-label"><ruby>総<rt>そう</rt></ruby><ruby>学習<rt>がくしゅう</rt>
+                                                </ruby><ruby>時間<rt>じかん</rt></ruby></span>
+                                        <span style="font-size:0.95rem; margin-left:auto; margin-right:4px;">⏱</span>
+                                        <span class="summary-val" style="margin-left:0;">10</span>
+                                        <span class="summary-label" style="margin-left:2px; margin-right:0;"><ruby>分<rt>
+                                                    ふん</rt></ruby></span>
+                                    </div>
+                                </div>
+
+                                <!-- カラープログレスバー -->
+                                <div class="subj-progress-bar">
+                                    <div class="bar-seg" style="width:10%; background:#b8415c;"></div>
+                                    <div class="bar-seg" style="width:25%; background:#007ec5;"></div>
+                                    <div class="bar-seg" style="width:25%; background:#d97a00;"></div>
+                                    <div class="bar-seg" style="width:10%; background:#8c4bb1;"></div>
+                                    <div class="bar-seg" style="width:30%; background:#2c7b27;"></div>
+                                </div>
+
+                                <!-- 教科別集計テーブル -->
+                                <table class="month-summary-table">
+                                    <thead>
+                                        <tr>
+                                            <th><ruby>教科<rt>きょうか</rt></ruby></th>
+                                            <th><ruby>総<rt>そう</rt></ruby>ユニット<ruby>数<rt>すう</rt></ruby></th>
+                                            <th>クリアユニット<ruby>数<rt>すう</rt></ruby></th>
+                                            <th><ruby>学習<rt>がくしゅう</rt></ruby><ruby>時間<rt>じかん</rt></ruby></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="subj-name" style="color:var(--sub-koku);"><ruby>国語<rt>こくご</rt>
+                                                    </ruby></td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>10 <ruby>分<rt>ふん</rt></ruby></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="subj-name" style="color:var(--sub-math);"><ruby>算数<rt>さんすう</rt>
+                                                    </ruby><br><ruby>数学<rt>すうがく</rt></ruby></td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>10 <ruby>分<rt>ふん</rt></ruby></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="subj-name" style="color:var(--sub-eng);"><ruby>英語<rt>えいご</rt>
+                                                    </ruby></td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>10 <ruby>分<rt>ふん</rt></ruby></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="subj-name" style="color:var(--sub-sci);"><ruby>理科<rt>りか</rt>
+                                                    </ruby></td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>10 <ruby>分<rt>ふん</rt></ruby></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="subj-name" style="color:var(--sub-shakai);"><ruby>社会<rt>しゃかい</rt>
+                                                    </ruby></td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>10 <ruby>分<rt>ふん</rt></ruby></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="subj-name" style="color:var(--sub-joho);"><ruby>情報<rt>じょうほう</rt>
+                                                    </ruby></td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>10 <ruby>分<rt>ふん</rt></ruby></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="subj-name" style="color:var(--sub-other);">その<ruby>他<rt>ほか</rt>
+                                                    </ruby></td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>24 <span
+                                                    style="color:var(--teal); font-size:10px; font-weight:700;">unit</span>
+                                            </td>
+                                            <td>10 <ruby>分<rt>ふん</rt></ruby></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+
+                <section class="view" id="kd-view-detail">
+                    <div class="breadcrumb" id="kd-breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー<span
+                            class="sep">&gt;</span><a href="javascript:void(0)"
+                            onclick="showView('kr-view-list')">きろく</a><span class="sep">&gt;</span>きろく<ruby>詳細<rt>しょうさい
+                            </rt></ruby></div>
+                    <h1 class="page-title">きろく<ruby>詳細<rt>しょうさい</rt></ruby></h1>
+
+                    <div class="card white" style="padding:10px 12px; margin-bottom:8px;">
+                        <div id="kd-student-row" style="margin-bottom:6px;display:none;">
+                            <span style="font-size:0.68rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>学習
+                                    <rt>がくしゅう</rt></ruby><ruby>者<rt>しゃ</rt></ruby></span>
+                            <span style="font-size:0.9rem;font-weight:700;" id="kd-student">すらら<ruby>太郎<rt>たろう</rt>
+                                    </ruby></span>
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                            <div>
+                                <span id="kd-tag-wrap"
+                                    style="display:inline-flex; align-items:center; gap:6px; margin-right:6px;">
+                                    <span class="tag-band" id="kd-tag-band"><ruby>小<rt>しょう</rt></ruby><ruby>学校<rt>がっこう
+                                            </rt></ruby><ruby>高<rt>こう</rt></ruby><ruby>学年<rt>がくねん</rt></ruby></span>
+                                    <span class="goal-subj-icon c-koku" id="kd-tag-icon">国</span>
+                                </span>
+                                <span id="kd-unit" style="font-weight:700; color:var(--text-sub);">ことば：ステージ1 レッスン1
+                                    ユニット1</span>
+                                <div style="font-weight:700;font-size:0.9rem;margin-top:2px;" id="kd-desc">
+                                    いろをあらわにすればいろをあらわにすればいろをあらわに</div>
+                            </div>
+                            <div style="display:flex;gap:20px;align-items:center;">
+                                <div><span
+                                        style="font-size:0.65rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>学習
+                                            <rt>がくしゅう</rt></ruby><ruby>時間<rt>じかん</rt></ruby></span><span
+                                        style="font-size:0.9rem;font-weight:700;" id="kd-time">1<ruby>分<rt>ふん</rt>
+                                            </ruby>30<ruby>秒<rt>びょう</rt></ruby></span></div>
+                                <div><span
+                                        style="font-size:0.65rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>正解率
+                                            <rt>せいかいりつ</rt></ruby></span><span
+                                        style="font-size:1.1rem;font-weight:700;color:var(--teal);"
+                                        id="kd-rate">80<small style="font-size:0.72rem;">% (8/10)</small></span></div>
+                                <button class="btn btn-dark" onclick="kdOpenAnswerModal(1)"><ruby>解答<rt>かいとう</rt>
+                                        </ruby><ruby>確認<rt>かくにん</rt></ruby></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card white">
+                        <div class="table-scroll">
+                            <table class="data-table" id="kd-question-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:60px;" data-sort-key="judge"><ruby>判定<rt>はんてい</rt></ruby></th>
+                                        <th data-sort-key="question"><ruby>問題<rt>もんだい</rt></ruby></th>
+                                        <th style="width:100px;" data-sort-key="time"><ruby>学習<rt>がくしゅう</rt>
+                                                </ruby><ruby>時間<rt>じかん</rt></ruby></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kd-q-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ モーダル: きろく詳細 ドリル結果プレビュー ============ -->
+                <div class="modal-overlay" id="kd-answer-modal">
+                    <div class="modal-box modal-wide" style="padding:0; max-width:900px;">
+                        <button class="modal-close" onclick="closeModal('kd-answer-modal')">✕</button>
+                        <div style="padding:16px 20px 20px;">
+                            <div class="breadcrumb" style="margin-bottom:4px;"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt;
+                                きろく &gt; きろく<ruby>詳細<rt>しょうさい</rt></ruby></div>
+
+                            <!-- コントロールカード -->
+                            <div class="card"
+                                style="display:flex; flex-direction:column; gap:12px; margin-bottom:12px;">
+                                <div style="display:flex; align-items:center; justify-content:space-between;">
+                                    <h2 style="font-size:1rem; font-weight:700; color:var(--text-main);"
+                                        id="kd-am-title"><ruby>情景<rt>じょうけい</rt></ruby><ruby>描写<rt>びょうしゃ</rt>
+                                            </ruby>を<ruby>読みとる<rt>よみとる</rt></ruby></h2>
+                                </div>
+                                <div
+                                    style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border-color); padding-top:10px;">
+                                    <div style="display:flex; gap:4px; flex-wrap:wrap;" id="kd-am-pagenav"></div>
+                                    <div style="display:flex; gap:8px; flex-shrink:0; margin-left:10px;">
+                                        <button class="btn btn-outline" onclick="kdAnswerModalStep(-1)"><ruby>前<rt>まえ
+                                                </rt></ruby>へ</button>
+                                        <button class="btn btn-outline" onclick="kdAnswerModalStep(1)"><ruby>次<rt>つぎ
+                                                </rt></ruby>へ</button>
                                     </div>
                                 </div>
                             </div>
-                        </section>
 
-                        <section class="settings-section" id="sec-settings-password">
-                            <div class="card">
-                                <div class="section-heading"><i class="fa-solid fa-lock"></i><span>パスワード<ruby>変更<rt>へんこう
-                                            </rt></ruby></span></div>
-                                <div class="section-desc">8〜64<ruby>文字<rt>もじ</rt></ruby>で、<ruby>他<rt>ほか</rt>
-                                    </ruby>のサービスと<ruby>同<rt>おな</rt></ruby>じパスワードは<ruby>使<rt>つか</rt>
-                                    </ruby>わないようにしましょう。</div>
+                            <!-- 問題プレビューカード -->
+                            <div class="card"
+                                style="min-height:280px; display:flex; flex-direction:column; justify-content:space-between;">
+                                <div>
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:8px; border-bottom:1px dashed var(--border-color); flex-wrap:wrap; gap:6px;">
+                                        <span style="font-size:0.9rem; font-weight:700; color:var(--text-main);"
+                                            id="kd-am-qnum"><ruby>問題<rt>もんだい</rt></ruby><ruby>番号<rt>ばんごう</rt>
+                                                </ruby>：1</span>
+                                        <span style="font-size:0.72rem; color:var(--text-sub);" id="kd-am-qmeta">[
+                                            1<ruby>問<rt>もん</rt></ruby><ruby>目<rt>め</rt></ruby> / <ruby>全<rt>ぜん</rt>
+                                                </ruby>10<ruby>問<rt>もん</rt></ruby> ]</span>
+                                    </div>
 
-                                <form id="st-pw-form">
-                                    <div class="field-inline">
-                                        <label><span><ruby>現在<rt>げんざい</rt></ruby>のパスワード</span> <span
-                                                class="required"><ruby>必須<rt>ひっす</rt></ruby></span></label>
-                                        <div class="pw-wrap">
-                                            <input type="password" class="pw-input" placeholder="現在のパスワード"
-                                                id="st-pw-current">
-                                            <i class="fa-regular fa-eye pw-eye" data-target="st-pw-current"></i>
-                                        </div>
-                                    </div>
-                                    <div class="field-inline">
-                                        <label><span><ruby>新<rt>あたら</rt></ruby>しいパスワード</span> <span
-                                                class="required"><ruby>必須<rt>ひっす</rt></ruby></span></label>
-                                        <div class="pw-wrap">
-                                            <input type="password" class="pw-input" placeholder="新しいパスワード（8〜64文字）"
-                                                id="st-pw-new">
-                                            <i class="fa-regular fa-eye pw-eye" data-target="st-pw-new"></i>
-                                        </div>
-                                        <div class="pw-strength">
-                                            <div class="pw-strength-bar" id="st-pw-strength-bar"></div>
-                                        </div>
-                                        <div class="pw-strength-label" id="st-pw-strength-label">強度：ー</div>
-                                    </div>
-                                    <div class="field-inline">
-                                        <label><span><ruby>新<rt>あたら</rt></ruby>しいパスワード（<ruby>確認<rt>かくにん</rt>
-                                                </ruby>）</span> <span class="required"><ruby>必須<rt>ひっす</rt>
-                                                </ruby></span></label>
-                                        <div class="pw-wrap">
-                                            <input type="password" class="pw-input" placeholder="新しいパスワード（確認）"
-                                                id="st-pw-confirm">
-                                            <i class="fa-regular fa-eye pw-eye" data-target="st-pw-confirm"></i>
-                                        </div>
-                                    </div>
-                                </form>
+                                    <div style="font-size:0.95rem; line-height:1.8; margin:12px 0; color:var(--text-main);"
+                                        id="kd-am-qbody"></div>
+
+                                    <div style="display:flex; flex-direction:column; gap:8px; margin:12px 0;"
+                                        id="kd-am-choices"></div>
+                                </div>
+
+                                <div style="margin-top:16px; display:flex; justify-content:center;" id="kd-am-result">
+                                </div>
                             </div>
-                            <div
-                                style="display:flex; align-items:center; justify-content:flex-end; gap:10px; margin-top:16px;">
-                                <div id="st-pw-msg" class="settings-save-msg"></div>
-                                <button type="button" class="btn btn-outline"
-                                    style="width:auto; padding:6px 16px;">キャンセル</button>
-                                <button type="submit" form="st-pw-form" class="btn btn-primary"
-                                    style="width:auto; padding:6px 16px;"><span>この<ruby>内容<rt>ないよう</rt></ruby>を<ruby>保存<rt>ほぞん</rt>
-                                        </ruby>する</span></button>
-                            </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
-            </section>
 
+                <section class="view" id="kg-view-goal-detail">
+                    <div class="breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー<span class="sep">&gt;</span><a
+                            href="javascript:void(0)" onclick="showView('kr-view-list')">きろく</a></div>
+                    <h1 class="page-title">きろく</h1>
+
+                    <div class="card white" style="padding:10px 12px; margin-bottom:8px;">
+                        <div style="display:flex;gap:30px;flex-wrap:wrap;margin-bottom:8px;">
+                            <div><span
+                                    style="font-size:0.65rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>学習
+                                        <rt>がくしゅう</rt></ruby><ruby>者<rt>しゃ</rt></ruby></span><span
+                                    style="font-size:0.85rem;font-weight:700;">すらら<ruby>太郎<rt>たろう</rt></ruby></span>
+                            </div>
+                            <div><span
+                                    style="font-size:0.65rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>目標名
+                                        <rt>もくひょうめい</rt></ruby></span><span style="font-size:0.85rem;font-weight:700;"
+                                    id="kg-goal-name">すらら<ruby>目標<rt>もくひょう</rt></ruby></span></div>
+                        </div>
+                        <div style="display:flex;gap:30px;flex-wrap:wrap;margin-bottom:8px;">
+                            <div><span
+                                    style="font-size:0.65rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>開始日
+                                        <rt>かいしび</rt></ruby></span><span
+                                    style="font-size:0.78rem;font-weight:700;">2026/04/01</span></div>
+                            <div><span
+                                    style="font-size:0.65rem;color:var(--text-sub);font-weight:700;display:block;"><ruby>期日
+                                        <rt>きじつ</rt></ruby></span><span
+                                    style="font-size:0.78rem;font-weight:700;">2026/04/31</span></div>
+                        </div>
+                        <div class="filter-row">
+                            <div class="filter-label"><ruby>教科<rt>きょうか</rt></ruby><ruby>選択<rt>せんたく</rt></ruby></div>
+                            <div class="filter-options">
+                                <label class="chk c-eng"><input type="checkbox" checked value="eng"><span
+                                        class="box"><ruby>英語<rt>えいご</rt></ruby></span></label>
+                                <label class="chk c-koku"><input type="checkbox" checked value="koku"><span
+                                        class="box"><ruby>国語<rt>こくご</rt></ruby></span></label>
+                                <label class="chk c-math"><input type="checkbox" checked value="math"><span
+                                        class="box"><ruby>算数<rt>さんすう</rt></ruby>・<ruby>数学<rt>すうがく</rt>
+                                            </ruby></span></label>
+                                <label class="chk c-sci"><input type="checkbox" checked value="sci"><span
+                                        class="box"><ruby>理科<rt>りか</rt></ruby></span></label>
+                                <label class="chk c-shakai"><input type="checkbox" checked value="shakai"><span
+                                        class="box"><ruby>社会<rt>しゃかい</rt></ruby></span></label>
+                                <label class="chk c-joho"><input type="checkbox" checked value="joho"><span
+                                        class="box"><ruby>情報<rt>じょうほう</rt></ruby></span></label>
+                                <label class="chk c-other"><input type="checkbox" checked value="other"><span
+                                        class="box">その<ruby>他<rt>ほか</rt></ruby></span></label>
+                            </div>
+                            <div class="spacer-flex"></div>
+                            <button class="btn btn-primary btn-search" id="kg-search-btn"><ruby>検索<rt>けんさく</rt>
+                                    </ruby>する</button>
+                        </div>
+                    </div>
+
+                    <div class="card white">
+                        <div class="table-toolbar">
+                            <div style="font-size: 0.8rem; color: var(--text-sub);"><ruby>検索<rt>けんさく</rt></ruby><ruby>結果
+                                    <rt>けっか</rt></ruby> <strong id="kg-total-count"
+                                    style="color: var(--text-main); font-size: 0.88rem;">0</strong> <ruby>件<rt>けん</rt>
+                                    </ruby></div>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="data-table" id="kg-drill-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width:60px;" data-sort-key="kind"><ruby>種別<rt>しゅべつ</rt></ruby></th>
+                                        <th data-sort-key="unit"><ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt>
+                                                </ruby>・<ruby>単元名<rt>たんげんめい</rt></ruby></th>
+                                        <th style="width:70px; text-align:center;" data-sort-key="time"><ruby>学習<rt>
+                                                    がくしゅう</rt></ruby><ruby>時間<rt>じかん</rt></ruby></th>
+                                        <th style="width:60px;" data-sort-key="count"><ruby>問題数<rt>もんだいすう</rt></ruby>
+                                        </th>
+                                        <th style="width:70px;" data-sort-key="rate"><ruby>正解率<rt>せいかいりつ</rt></ruby>
+                                        </th>
+                                        <th style="width:80px;" data-sort-key="clear">クリア</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kg-drill-body"></tbody>
+                            </table>
+                        </div>
+                        <div class="pagination-bar" id="kg-pagination"></div>
+                    </div>
+                </section>
+
+            </section>
             <!-- ============ モーダル: テスト結果 解答と解説プレビュー ============ -->
             <div class="modal-overlay" id="tr-answer-modal">
                 <div class="modal-box modal-wide" style="padding:0; max-width:900px;">
@@ -281,9 +791,9 @@
                                 <div style="display:flex; gap:4px; flex-wrap:wrap;" id="tr-am-pagenav"></div>
                                 <div style="display:flex; gap:8px; flex-shrink:0; margin-left:10px;">
                                     <button class="btn btn-outline" onclick="trAnswerModalStep(-1)"><ruby>前<rt>まえ</rt>
-                                        </ruby>へ</button>
+                                            </ruby>へ</button>
                                     <button class="btn btn-outline" onclick="trAnswerModalStep(1)"><ruby>次<rt>つぎ</rt>
-                                        </ruby>へ</button>
+                                            </ruby>へ</button>
                                 </div>
                             </div>
                         </div>
@@ -296,11 +806,10 @@
                                     style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:8px; border-bottom:1px dashed var(--border-color); flex-wrap:wrap; gap:6px;">
                                     <span style="font-size:0.9rem; font-weight:700; color:var(--text-main);"
                                         id="tr-am-qnum"><ruby>問題<rt>もんだい</rt></ruby><ruby>番号<rt>ばんごう</rt>
-                                        </ruby>：1</span>
+                                            </ruby>：1</span>
                                     <span style="font-size:0.72rem; color:var(--text-sub);" id="tr-am-qmeta">[ 1<ruby>問
-                                            <rt>もん</rt>
-                                        </ruby><ruby>目<rt>め</rt></ruby> / <ruby>全<rt>ぜん</rt>
-                                        </ruby>10<ruby>問<rt>もん</rt></ruby> ]</span>
+                                            <rt>もん</rt></ruby><ruby>目<rt>め</rt></ruby> / <ruby>全<rt>ぜん</rt>
+                                            </ruby>10<ruby>問<rt>もん</rt></ruby> ]</span>
                                 </div>
 
                                 <div style="font-size:0.95rem; line-height:2; margin:16px 0; color:var(--text-main);"
@@ -321,7 +830,7 @@
         <div class="modal-box" style="max-width:850px;">
             <button class="modal-close" onclick="closeModal('mk-goal-modal')">✕</button>
             <div class="modal-title" id="mk-modal-goal-name"><ruby>目標<rt>もくひょう</rt></ruby><ruby>名<rt>めい</rt>
-                </ruby>が<ruby>入り<rt>はいり</rt></ruby>ます</div>
+                    </ruby>が<ruby>入り<rt>はいり</rt></ruby>ます</div>
             <div class="modal-meta">
                 <div class="deadline">
                     <svg class="icon-pict deadline-icon">
@@ -348,12 +857,11 @@
                             <th style="width:50px;padding-right:0;" data-sort-key="subj"><ruby>教科<rt>きょうか</rt></ruby>
                             </th>
                             <th style="padding-left:4px; min-width:270px;" data-sort-key="unit"><ruby>単元名<rt>たんげんめい</rt>
-                                </ruby></th>
+                                    </ruby></th>
                             <th style="width:64px; text-align:center; padding-left:4px; padding-right:4px;"
                                 data-sort-key="time"><ruby>標準<rt>ひょうじゅん</rt></ruby><ruby>時間<rt>じかん</rt></ruby></th>
                             <th style="width:80px; padding-left:4px; padding-right:4px;" data-sort-key="clear"><ruby>状態
-                                    <rt>じょうたい</rt>
-                                </ruby></th>
+                                    <rt>じょうたい</rt></ruby></th>
                             <th style="width:36px; padding-left:2px; padding-right:2px;"></th>
                         </tr>
                     </thead>
@@ -364,7 +872,7 @@
     </div>
 
     <div class="toast" id="dr-toast"><ruby>既存<rt>きそん</rt></ruby>のドリル<ruby>学習<rt>がくしゅう</rt></ruby><ruby>画面<rt>がめん</rt>
-        </ruby>へ<ruby>遷移<rt>せんい</rt></ruby>します（このモックの<ruby>対象<rt>たいしょう</rt></ruby><ruby>外<rt>がい</rt></ruby>）</div>
+            </ruby>へ<ruby>遷移<rt>せんい</rt></ruby>します（このモックの<ruby>対象<rt>たいしょう</rt></ruby><ruby>外<rt>がい</rt></ruby>）</div>
 
     <script>
         function ym(dateStr) {

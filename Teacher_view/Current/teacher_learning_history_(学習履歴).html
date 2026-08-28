@@ -1,0 +1,3711 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Surala i (先生画面) - 統合プレビュー</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- SVG アイコン定義パーツ -->
+  <svg style="display:none;">
+    <symbol id="icon-check-circle" viewBox="0 0 24 24">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </symbol>
+  </svg>
+
+  <!-- ===================== 2. アプリ本体 ===================== -->
+  <div id="shell" style="display:block;">
+
+    <!-- 固定ヘッダー -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" title="サイドバーの開閉">
+          <svg class="icon" viewBox="0 0 24 24">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <img class="logo-icon" src="images/logo/surala-i_logo.png">
+          <!-- <svg class="icon" style="color: var(--primary-light);" viewBox="0 0 24 24">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg> -->
+          <span>指導管理</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <!-- 校舎切替: 法人管理者のみプルダウンで他校舎に切替可能。
+           それ以外の権限では自分の所属校舎のみが選択された状態で disabled 表示にする -->
+        <div class="header-field">
+          <span>校舎</span>
+          <select class="header-select" id="headerCampusSelect" onchange="onHeaderCampusChange(this.value)"
+            title="校舎"></select>
+        </div>
+        <div class="header-info" id="headerRoleInfo">権限：担当教師</div>
+        <div class="header-info header-user">
+          <i class="fa-solid fa-circle-user"></i>
+          <span id="headerUserName">すらら 花子</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-shell">
+
+      <!-- 左サイドバー -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <span>指導メニュー</span>
+        </div>
+
+        <div class="nav-section">
+          <ul class="nav-list">
+            <li class="nav-item" data-page="mokuhyou" onclick="event.preventDefault(); document.location='teacher_goal_(目標管理).html'">
+            <!-- <li class="nav-item" data-page="mokuhyou" onclick="showPage('mokuhyou')"> -->
+              <svg class="icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+              <span>目標管理</span>
+            </li>
+            <li class="nav-item active" data-page="rireki" onclick="event.preventDefault(); document.location='teacher_learning_history_(学習履歴).html'">
+            <!-- <li class="nav-item active" data-page="rireki" onclick="showPage('rireki')"> -->
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              <span>学習履歴</span>
+            </li>
+            <li class="nav-item" data-page="group" onclick="event.preventDefault(); document.location='teacher_group_(グループ).html'">
+            <!-- <li class="nav-item" data-page="group" onclick="showPage('group')"> -->
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>グループ</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="side-foot">
+          <ul class="nav-list">
+            <li class="nav-item" onclick="showToast('ログアウトしました(モック)')">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>ログアウト</span>
+            </li>
+          </ul>
+          <div class="version-tag">v0.5.69+teacher</div>
+        </div>
+      </aside>
+
+      <!-- メインコンテンツ -->
+      <main class="main">
+
+        <!-- PAGE 2: 学習履歴 -->
+        <section class="page active" id="page-rireki">
+
+          <!-- VIEW: 学習履歴一覧 -->
+          <section class="view active" id="gr-view-list">
+            <div class="page-title-row">
+              <div class="breadcrumb">学習履歴 &gt; 学習履歴一覧</div>
+              <h1 class="page-title">学習履歴一覧</h1>
+              <div></div>
+            </div>
+
+            <div class="card card-no-bg">
+              <div class="target-pick-row">
+                <button class="btn-pill-lg" id="gr-btnSearchStudent" onclick="grOpenSearchModal('student')"><i
+                    class="fa-solid fa-user"></i>個人</button>
+                <button class="btn-pill-lg" id="gr-btnSearchGroup" onclick="grOpenSearchModal('group')"><i
+                    class="fa-solid fa-users"></i>グループ</button>
+                <div class="target-current">
+                  <span class="k">対象</span>
+                  <div class="target-chips" id="gr-currentTargetChips"><span class="empty-label">全体（未選択のため全件が対象）</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-bar" style="margin-bottom:0;">
+                <div class="tab-pill-toggle">
+                  <button class="tab lime active" data-tab-group="rireki-mode" data-tab-target="date"
+                    onclick="switchTab(this)">日付ごと</button>
+                  <button class="tab lime" data-tab-group="rireki-mode" data-tab-target="goal"
+                    onclick="switchTab(this)">目標ごと</button>
+                  <button class="tab lime" data-tab-group="rireki-mode" data-tab-target="test"
+                    onclick="switchTab(this)">テストごと</button>
+                  <button class="tab lime" data-tab-group="rireki-mode" data-tab-target="month"
+                    onclick="switchTab(this)">月ごと</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 目標ごと -->
+            <div class="tab-panel" data-tab-group="rireki-mode" data-tab-target="goal" style="display:none;">
+              <div class="card">
+                <div class="filter-row" id="gr-goalFilterRow1">
+                  <div class="filter-label" id="gr-goalDateLabel">期日選択</div>
+                  <input type="date" class="rireki-date-input" id="gr-rirekiGoalDateStart">
+                  <span style="color:var(--text-sub);">〜</span>
+                  <input type="date" class="rireki-date-input" id="gr-rirekiGoalDateEnd">
+                </div>
+                <div class="filter-row">
+                  <div class="filter-label">目標名</div>
+                  <input type="text" class="rireki-text-input" id="gr-rirekiGoalName" placeholder="目標名を入力してください">
+                  <div class="filter-label" style="margin-left:14px;">作成者</div>
+                  <input type="text" class="rireki-text-input" id="gr-rirekiGoalCreator" placeholder="作成者を入力してください">
+                  <span id="gr-goalDestinationField">
+                    <span class="filter-label" style="margin-left:14px;">配信先</span>
+                    <input type="text" class="rireki-text-input" id="gr-rirekiGoalDestination"
+                      placeholder="配信先を入力してください">
+                  </span>
+                </div>
+                <div class="filter-row">
+                  <div class="filter-label">教科選択</div>
+                  <div class="filter-options" id="gr-chkGoalSubjects">
+                    <label class="chk c-eng"><input type="checkbox" checked value="en"><span
+                        class="box">英語</span></label>
+                    <label class="chk c-koku"><input type="checkbox" checked value="jp"><span
+                        class="box">国語</span></label>
+                    <label class="chk c-math"><input type="checkbox" checked value="math"><span
+                        class="box">算数・数学</span></label>
+                    <label class="chk c-sci"><input type="checkbox" checked value="sci"><span
+                        class="box">理科</span></label>
+                    <label class="chk c-shakai"><input type="checkbox" checked value="soc"><span
+                        class="box">社会</span></label>
+                    <label class="chk c-joho"><input type="checkbox" checked value="info"><span
+                        class="box">情報</span></label>
+                    <label class="chk c-other"><input type="checkbox" checked value="other"><span
+                        class="box">その他</span></label>
+                  </div>
+                </div>
+                <div class="filter-row" style="margin-top:6px;">
+                  <div class="spacer-flex"></div>
+                  <button class="btn btn-primary" onclick="applyRirekiSearch('goal')"><svg class="icon"
+                      viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>検索する</button>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="table-toolbar">
+                  <span class="count-badge" id="gr-rirekiGoalCountBadge" style="display:none;">検索結果 8件</span>
+                </div>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <thead id="gr-rirekiGoalThead"></thead>
+                    <tbody id="gr-rirekiGoalHintBody">
+                      <tr>
+                        <td colspan="5" class="hint-empty">検索条件を入力し、「検索する」ボタンを押してください。</td>
+                      </tr>
+                    </tbody>
+                    <tbody id="gr-rirekiGoalBody" style="display:none;"></tbody>
+                  </table>
+                </div>
+                <div class="pagination-bar pagination-bar-flat" id="gr-rirekiGoalPagination" style="display:none;">
+                </div>
+              </div>
+            </div>
+
+            <!-- 日付ごと -->
+            <div class="tab-panel" data-tab-group="rireki-mode" data-tab-target="date">
+              <div class="card">
+                <div class="filter-row">
+                  <div class="filter-label">日付選択</div>
+                  <input type="date" class="rireki-date-input" id="gr-rirekiDateStart">
+                  <span style="color:var(--text-sub);">〜</span>
+                  <input type="date" class="rireki-date-input" id="gr-rirekiDateEnd">
+                </div>
+                <div class="filter-row">
+                  <div class="filter-label">教科選択</div>
+                  <div class="filter-options" id="gr-chkDateSubjects">
+                    <label class="chk c-eng"><input type="checkbox" checked value="en"><span
+                        class="box">英語</span></label>
+                    <label class="chk c-koku"><input type="checkbox" checked value="jp"><span
+                        class="box">国語</span></label>
+                    <label class="chk c-math"><input type="checkbox" checked value="math"><span
+                        class="box">算数・数学</span></label>
+                    <label class="chk c-sci"><input type="checkbox" checked value="sci"><span
+                        class="box">理科</span></label>
+                    <label class="chk c-shakai"><input type="checkbox" checked value="soc"><span
+                        class="box">社会</span></label>
+                    <label class="chk c-joho"><input type="checkbox" checked value="info"><span
+                        class="box">情報</span></label>
+                    <label class="chk c-other"><input type="checkbox" checked value="other"><span
+                        class="box">その他</span></label>
+                  </div>
+                </div>
+                <div class="filter-row">
+                  <div class="filter-label">区分</div>
+                  <div class="filter-options" id="gr-chkDateSources">
+                    <label class="chk c-type"><input type="checkbox" checked value="teacher"><span
+                        class="box">先生からの目標</span></label>
+                    <label class="chk c-type"><input type="checkbox" checked value="self"><span
+                        class="box">自主学習</span></label>
+                  </div>
+                </div>
+                <div class="filter-row">
+                  <div class="filter-label">種別</div>
+                  <div class="filter-options" id="gr-chkDateTypes">
+                    <label class="chk c-type"><input type="checkbox" checked value="drill"><span
+                        class="box">ドリル</span></label>
+                    <label class="chk c-type"><input type="checkbox" checked value="test"><span
+                        class="box">テスト</span></label>
+                  </div>
+                </div>
+                <div class="filter-row" style="margin-top:6px;">
+                  <div class="spacer-flex"></div>
+                  <button class="btn btn-primary" onclick="applyRirekiSearch('date')"><svg class="icon"
+                      viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>検索する</button>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="table-toolbar">
+                  <span class="count-badge" id="gr-rirekiDateCountBadge" style="display:none;">検索結果 12件</span>
+                </div>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <thead id="gr-rirekiDateThead"></thead>
+                    <tbody id="gr-rirekiDateHintBody">
+                      <tr>
+                        <td colspan="11" class="hint-empty">検索条件を入力し、「検索する」ボタンを押してください。</td>
+                      </tr>
+                    </tbody>
+                    <tbody id="gr-rirekiDateBody" style="display:none;"></tbody>
+                  </table>
+                </div>
+                <div class="pagination-bar pagination-bar-flat" id="gr-rirekiDatePagination" style="display:none;">
+                </div>
+              </div>
+            </div>
+
+            <!-- テストごと -->
+            <div class="tab-panel" data-tab-group="rireki-mode" data-tab-target="test" style="display:none;">
+              <div class="card">
+                <div class="filter-row">
+                  <div class="filter-label">受験日選択</div>
+                  <input type="date" class="rireki-date-input" id="gr-rirekiTestDateStart">
+                  <span style="color:var(--text-sub);">〜</span>
+                  <input type="date" class="rireki-date-input" id="gr-rirekiTestDateEnd">
+                </div>
+                <div class="filter-row">
+                  <div class="filter-label">教科選択</div>
+                  <div class="filter-options" id="gr-chkTestSubjects">
+                    <label class="chk c-eng"><input type="checkbox" checked value="en"><span
+                        class="box">英語</span></label>
+                    <label class="chk c-koku"><input type="checkbox" checked value="jp"><span
+                        class="box">国語</span></label>
+                    <label class="chk c-math"><input type="checkbox" checked value="math"><span
+                        class="box">算数・数学</span></label>
+                    <label class="chk c-sci"><input type="checkbox" checked value="sci"><span
+                        class="box">理科</span></label>
+                    <label class="chk c-shakai"><input type="checkbox" checked value="soc"><span
+                        class="box">社会</span></label>
+                    <label class="chk c-joho"><input type="checkbox" checked value="info"><span
+                        class="box">情報</span></label>
+                    <label class="chk c-other"><input type="checkbox" checked value="other"><span
+                        class="box">その他</span></label>
+                  </div>
+                </div>
+                <div class="filter-row">
+                  <div class="filter-label">種類</div>
+                  <div class="filter-options" id="gr-chkTestTypes">
+                    <label class="chk c-type"><input type="checkbox" checked value="surala"><span
+                        class="box">すらら単元テスト</span></label>
+                    <label class="chk c-type"><input type="checkbox" checked value="textbook"><span
+                        class="box">教科書単元テスト</span></label>
+                    <label class="chk c-type"><input type="checkbox" checked value="gakuryoku"><span
+                        class="box">学力診断テスト</span></label>
+                    <label class="chk c-type"><input type="checkbox" checked value="pre"><span
+                        class="box">単元別プレテスト</span></label>
+                  </div>
+                </div>
+                <div class="filter-row" style="margin-top:6px;">
+                  <div class="spacer-flex"></div>
+                  <button class="btn btn-primary" onclick="applyRirekiSearch('test')"><svg class="icon"
+                      viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>検索する</button>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="table-toolbar">
+                  <span class="count-badge" id="gr-rirekiTestCountBadge" style="display:none;">検索結果 8件</span>
+                </div>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <thead id="gr-rirekiTestThead"></thead>
+                    <tbody id="gr-rirekiTestHintBody">
+                      <tr>
+                        <td colspan="5" class="hint-empty">検索条件を入力し、「検索する」ボタンを押してください。</td>
+                      </tr>
+                    </tbody>
+                    <tbody id="gr-rirekiTestBody" style="display:none;"></tbody>
+                  </table>
+                </div>
+                <div class="pagination-bar pagination-bar-flat" id="gr-rirekiTestPagination" style="display:none;">
+                </div>
+              </div>
+            </div>
+
+
+            <!-- 月ごと -->
+            <div class="tab-panel" data-tab-group="rireki-mode" data-tab-target="month"
+              style="display:none; --text-main:#4F5665;">
+              <div class="card">
+
+                <!-- 上部サマリーバー（個人・グループ共通） -->
+                <div class="stat-card-row">
+                  <div class="stat-card" style="--stat-color:var(--lime);">
+                    <div class="stat-label" id="gr-monthUnitLabel">期間中に学習した総ユニット数</div>
+                    <div class="stat-value"><span id="gr-monthTopUnit">24</span><span class="stat-unit">unit</span>
+                    </div>
+                  </div>
+                  <div class="stat-card" style="--stat-color:#1DC8FF;">
+                    <div class="stat-label">クリアユニット数</div>
+                    <div class="stat-value"><span id="gr-monthTopClear">24</span><span class="stat-unit">unit</span>
+                    </div>
+                  </div>
+                  <div class="stat-card" style="--stat-color:var(--primary);">
+                    <div class="stat-label"><i class="fa-regular fa-clock"></i> 総学習時間</div>
+                    <div class="stat-value"><span id="gr-monthTopTime">300</span><span class="stat-unit">分</span></div>
+                  </div>
+                </div>
+
+                <div class="cal-header" style="margin-top:14px;">
+                  <button class="cal-nav-btn" onclick="showToast('前月を表示しました(モック)')">&lt;</button>
+                  <div class="cal-title" id="gr-monthTitle">2025<span class="cal-title-unit">年</span> 12<span
+                      class="cal-title-unit">月</span></div>
+                  <button class="cal-nav-btn" onclick="showToast('翌月を表示しました(モック)')">&gt;</button>
+                </div>
+
+                <!-- 個人モード: カレンダー & 教科別集計 -->
+                <div id="gr-monthIndividualView" class="kr-month-container" style="margin-top:16px;">
+                  <div class="kr-month-left">
+                    <div class="cal-grid" id="gr-monthCalGrid">
+                      <div class="cal-day-label">MON</div>
+                      <div class="cal-day-label">TUE</div>
+                      <div class="cal-day-label">WED</div>
+                      <div class="cal-day-label">THU</div>
+                      <div class="cal-day-label">FRI</div>
+                      <div class="cal-day-label is-sat">SAT</div>
+                      <div class="cal-day-label is-sun">SUN</div>
+                      <!-- カレンダーセルは JS で生成 -->
+                    </div>
+                  </div>
+
+                  <div class="kr-month-right">
+                    <div class="subj-progress-bar" id="gr-monthProgressBar">
+                      <div class="bar-seg" style="width:15%; background:var(--tag-jp);" title="国語"></div>
+                      <div class="bar-seg" style="width:20%; background:var(--tag-math);" title="算数・数学"></div>
+                      <div class="bar-seg" style="width:15%; background:var(--tag-en);" title="英語"></div>
+                      <div class="bar-seg" style="width:20%; background:var(--tag-sci);" title="理科"></div>
+                      <div class="bar-seg" style="width:15%; background:var(--tag-soc);" title="社会"></div>
+                      <div class="bar-seg" style="width:15%; background:var(--tag-info);" title="情報"></div>
+                    </div>
+
+                    <div class="subj-detail-card">
+                      <table class="month-summary-table">
+                        <thead>
+                          <tr>
+                            <th style="width:150px;">科目</th>
+                            <th style="white-space:nowrap;">総ユニット数</th>
+                            <th style="white-space:nowrap; padding-left:24px;">クリアユニット数</th>
+                            <th style="white-space:nowrap;">学習時間</th>
+                          </tr>
+                        </thead>
+                        <tbody id="gr-monthSummaryBody"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- グループ／全体モード: 学習者ごとの月間サマリー -->
+                <div id="gr-monthGroupView" style="display:none; margin-top:16px;">
+                  <div class="table-wrap">
+                    <table class="data-table">
+                      <thead>
+                        <tr>
+                          <th>学習者名</th>
+                          <th style="width:90px;">クラス</th>
+                          <th style="width:130px;">総ユニット数</th>
+                          <th style="width:130px;">クリアユニット数</th>
+                          <th style="width:100px;">学習時間</th>
+                          <th style="width:220px;">クリア率</th>
+                        </tr>
+                      </thead>
+                      <tbody id="gr-monthGroupBody"></tbody>
+                    </table>
+                  </div>
+                  <div class="pagination-bar pagination-bar-flat" id="gr-monthGroupPagination" style="display:none;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <!-- VIEW: テストの学習者ごとの進捗・正解率一覧（学習履歴一覧のグループ／全体検索でテスト明細をクリックした際に表示） -->
+          <section class="view" id="gr-view-test-student-list">
+            <div class="page-title-row">
+              <div class="breadcrumb" id="gr-tsl-breadcrumb"><a href="#"
+                  onclick="showView('gr-view-list');return false;">学習履歴</a><span class="sep">&gt;</span><span
+                  class="current">学習者ごとの進捗・正解率</span></div>
+              <h1 class="page-title">学習者ごとの進捗・正解率</h1>
+              <div></div>
+            </div>
+
+            <!-- テスト概要（どのテストの一覧かを表示） -->
+            <div class="tr-summary-card gr-tr-summary-compact"
+              style="padding:12px 16px; justify-content:space-between; flex-wrap:nowrap; overflow-x:auto;">
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:nowrap;">
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">実施日</span>
+                  <span class="tr-date-val" id="gr-tsl-dateVal">2024.01.01</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">テスト名</span>
+                  <span class="tr-title-val" id="gr-tsl-titleVal" style="white-space:nowrap;">単元確認テスト</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:nowrap;">
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">解答時間</span>
+                  <span class="tr-time-val" id="gr-tsl-timeVal">15分30秒<span class="tr-time-sub"> / 15分</span></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">得点</span>
+                  <div class="tr-score-group">
+                    <span class="tr-score-num" id="gr-tsl-scoreNum">90</span>
+                    <span class="tr-score-unit" id="gr-tsl-scoreUnit">%</span>
+                    <span class="tr-score-sub" id="gr-tsl-scoreSub">(8/10)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>学習者名</th>
+                      <th style="width:110px;">学年</th>
+                      <th style="width:70px;">クラス</th>
+                      <th style="width:80px;">出席番号</th>
+                      <th style="width:90px; text-align:center;">学習時間</th>
+                      <th style="width:200px;">進捗</th>
+                      <th style="width:90px; text-align:center;">正解率</th>
+                    </tr>
+                  </thead>
+                  <tbody id="gr-tsl-body"></tbody>
+                </table>
+              </div>
+              <div class="pagination-bar pagination-bar-flat" id="gr-tsl-pagination" style="display:none;"></div>
+            </div>
+          </section>
+
+          <!-- VIEW: テスト結果詳細（学習履歴一覧のテスト明細クリックで遷移。studentのテスト種類ごとのテスト結果詳細ページに準拠） -->
+          <section class="view" id="gr-view-test-result">
+            <div class="page-title-row">
+              <div class="breadcrumb"><a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span
+                  class="sep">&gt;</span><span class="current">テスト結果詳細</span></div>
+              <h1 class="page-title">テスト結果詳細</h1>
+              <div></div>
+            </div>
+
+            <!-- テスト概要カード -->
+            <div class="tr-summary-card gr-tr-summary-compact"
+              style="padding:12px 16px; justify-content:space-between; flex-wrap:nowrap; overflow-x:auto;">
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:nowrap;">
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">学習者</span>
+                  <span class="tr-date-val" id="gr-trStudentName">すらら太郎</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">実施日</span>
+                  <span class="tr-date-val" id="gr-trDateVal">2024.01.01</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">テスト名</span>
+                  <span class="tr-title-val" id="gr-trTitleVal" style="white-space:nowrap;">単元確認テスト</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:nowrap;">
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">解答時間</span>
+                  <span class="tr-time-val" id="gr-trTimeVal">15分30秒<span class="tr-time-sub"> / 15分</span></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                  <span class="field-label-pill">得点</span>
+                  <div class="tr-score-group">
+                    <span class="tr-score-num" id="gr-trScoreNum">80</span>
+                    <span class="tr-score-unit" id="gr-trScoreUnit">%</span>
+                    <span class="tr-score-sub" id="gr-trScoreSub">(8/10)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 単元ごと（ユニットごと）の表：左 ／ 問題ごとの表：右 -->
+            <div style="display:flex; gap:16px; align-items:flex-start;">
+
+              <!-- 左: 単元ごと（ユニットごと）の表 -->
+              <div class="card" style="flex:1; min-width:0; padding:0; overflow:hidden;">
+                <div style="padding:12px 14px 0;">
+                  <div style="font-weight:700; font-size:0.88rem; color:var(--text-main); margin-bottom:10px;"
+                    id="gr-trLeftTableTitle">ユニットごと</div>
+                </div>
+
+                <!-- ユニットごと（すらら単元テスト用） -->
+                <div class="tr-unit-list" id="gr-tr-unit-list">
+                  <div class="tr-unit-item">
+                    <div class="tr-unit-item-body">
+                      <span class="goal-subj-icon c-math" style="width:22px;height:22px;font-size:0.65rem;">算</span>
+                      <div class="tr-cell-row"><span class="tr-cell-main">ユニット1-A</span><span
+                          class="tr-unit-desc tr-cell-sub">2けたのたし算・くり上がりの理解</span></div>
+                    </div>
+                    <div class="tr-unit-item-rate">
+                      <span class="field-label-pill">正解率</span>
+                      <span class="pct">50<small>% (1/2問)</small></span>
+                    </div>
+                  </div>
+                  <div class="tr-unit-item">
+                    <div class="tr-unit-item-body">
+                      <span class="goal-subj-icon c-math" style="width:22px;height:22px;font-size:0.65rem;">算</span>
+                      <div class="tr-cell-row"><span class="tr-cell-main">ユニット2-A</span><span
+                          class="tr-unit-desc tr-cell-sub">かけ算九九の復習・基礎計算</span></div>
+                    </div>
+                    <div class="tr-unit-item-rate">
+                      <span class="field-label-pill">正解率</span>
+                      <span class="pct">100<small>% (1/1問)</small></span>
+                    </div>
+                  </div>
+                  <div class="tr-unit-item">
+                    <div class="tr-unit-item-body">
+                      <span class="goal-subj-icon c-math" style="width:22px;height:22px;font-size:0.65rem;">算</span>
+                      <div class="tr-cell-row"><span class="tr-cell-main">ユニット3-A / ユニット4-A</span><span
+                          class="tr-unit-desc tr-cell-sub">小数・分数の基礎理解と応用</span></div>
+                    </div>
+                    <div class="tr-unit-item-rate">
+                      <span class="field-label-pill">正解率</span>
+                      <span class="pct">50<small>% (1/2問)</small></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 単元／ユニットごと（教科書単元テスト・学力診断テスト・単元別プレテスト用） -->
+                <div class="tr-mu-list" id="gr-tr-mergedunit-list" style="display:none;">
+                  <div class="tr-mu-group">
+                    <div class="tr-mu-tangen">
+                      <div class="tr-mu-tangen-title">整数の計算（たし算・ひき算の基礎とくり上がり）</div>
+                      <div class="tr-mu-tangen-meta">
+                        <span class="field-label-pill">ページ数</span>
+                        <span class="pct tr-mu-page-num">1-1</span>
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct">50<small>% (1/2問)</small></span>
+                      </div>
+                    </div>
+                    <div class="tr-mu-unit-item">
+                      <span class="tr-mu-unit-connector">└</span>
+                      <div class="tr-unit-item-body">
+                        <span class="goal-subj-icon c-math" style="width:22px;height:22px;font-size:0.65rem;">算</span>
+                        <div class="tr-cell-row"><span class="tr-cell-main">ユニット1-A</span><span
+                            class="tr-unit-desc tr-cell-sub">2けたのたし算・くり上がりの理解</span></div>
+                      </div>
+                      <div class="tr-unit-item-rate">
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct">50<small>% (1/2問)</small></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tr-mu-group">
+                    <div class="tr-mu-tangen">
+                      <div class="tr-mu-tangen-title">かけ算・わり算（九九の復習と基礎計算）</div>
+                      <div class="tr-mu-tangen-meta">
+                        <span class="field-label-pill">ページ数</span>
+                        <span class="pct tr-mu-page-num">1-2</span>
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct">100<small>% (1/1問)</small></span>
+                      </div>
+                    </div>
+                    <div class="tr-mu-unit-item">
+                      <span class="tr-mu-unit-connector">└</span>
+                      <div class="tr-unit-item-body">
+                        <span class="goal-subj-icon c-math" style="width:22px;height:22px;font-size:0.65rem;">算</span>
+                        <div class="tr-cell-row"><span class="tr-cell-main">ユニット2-A</span><span
+                            class="tr-unit-desc tr-cell-sub">かけ算九九の復習・基礎計算</span></div>
+                      </div>
+                      <div class="tr-unit-item-rate">
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct">100<small>% (1/1問)</small></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tr-mu-group">
+                    <div class="tr-mu-tangen">
+                      <div class="tr-mu-tangen-title">小数・分数（仕組みの理解と計算の応用）</div>
+                      <div class="tr-mu-tangen-meta">
+                        <span class="field-label-pill">ページ数</span>
+                        <span class="pct tr-mu-page-num">2-1</span>
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct">50<small>% (1/2問)</small></span>
+                      </div>
+                    </div>
+                    <div class="tr-mu-unit-item">
+                      <span class="tr-mu-unit-connector">└</span>
+                      <div class="tr-unit-item-body">
+                        <span class="goal-subj-icon c-math" style="width:22px;height:22px;font-size:0.65rem;">算</span>
+                        <div class="tr-cell-row"><span class="tr-cell-main">ユニット3-A</span><span
+                            class="tr-unit-desc tr-cell-sub">小数・分数の基礎理解と応用</span></div>
+                      </div>
+                      <div class="tr-unit-item-rate">
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct">50<small>% (1/2問)</small></span>
+                      </div>
+                    </div>
+                    <div class="tr-mu-unit-item">
+                      <span class="tr-mu-unit-connector">└</span>
+                      <div class="tr-unit-item-body">
+                        <span class="goal-subj-icon c-math" style="width:22px;height:22px;font-size:0.65rem;">算</span>
+                        <div class="tr-cell-row"><span class="tr-cell-main">ユニット4-A</span><span
+                            class="tr-unit-desc tr-cell-sub">小数・分数の基礎理解と応用</span></div>
+                      </div>
+                      <div class="tr-unit-item-rate">
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct">50<small>% (1/2問)</small></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 右: 問題ごとの表 -->
+              <div class="card white" style="flex:1.3; min-width:0;">
+                <div style="padding:12px 14px 0;">
+                  <div style="font-weight:700; font-size:0.9rem; color:var(--text-main); margin-bottom:8px;">問題正誤一覧
+                  </div>
+                </div>
+                <div class="table-toolbar"
+                  style="padding:4px 14px 10px; border-bottom:none; background:transparent; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div style="font-size: 0.8rem; color: var(--text-sub);">全 <strong
+                      style="color: var(--text-main); font-size: 0.88rem;">12</strong> 問</div>
+                  <button class="btn btn-primary" style="width:auto; white-space:nowrap; padding:5px 14px;"><i
+                      class="fa-solid fa-check"></i>解答を確認する</button>
+                </div>
+                <div class="table-wrap">
+                  <table class="data-table" id="gr-tr-question-table">
+                    <thead>
+                      <tr>
+                        <th style="width:60px; text-align:center;">判定</th>
+                        <th>問題</th>
+                        <th class="gr-tr-col-hairten" style="width:100px; text-align:right; display:none;">配点</th>
+                        <th style="width:110px; text-align:right;">解答時間</th>
+                        <th style="width:150px; text-align:center;">全国 平均 正解率</th>
+                      </tr>
+                    </thead>
+                    <tbody id="gr-tr-question-body">
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-incorrect">×</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第1問</span><span
+                              class="tr-cell-sub">2けたのたし算の筆算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:00:40</td>
+                        <td><span class="pct">70<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第2問</span><span
+                              class="tr-cell-sub">くり上がりのあるたし算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:00:35</td>
+                        <td><span class="pct">75<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第3問</span><span
+                              class="tr-cell-sub">かけ算九九の復習</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:00:50</td>
+                        <td><span class="pct">68<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-incorrect">×</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第4問</span><span
+                              class="tr-cell-sub">小数のたし算・ひき算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:01:10</td>
+                        <td><span class="pct">60<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第5問</span><span
+                              class="tr-cell-sub">同分母のたし算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:00:25</td>
+                        <td><span class="pct">82<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第6問</span><span
+                              class="tr-cell-sub">異分母のたし算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:00:45</td>
+                        <td><span class="pct">65<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-incorrect">×</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第7問</span><span
+                              class="tr-cell-sub">小数のかけ算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:01:20</td>
+                        <td><span class="pct">55<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第8問</span><span
+                              class="tr-cell-sub">小数のわり算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:01:05</td>
+                        <td><span class="pct">72<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第9問</span><span
+                              class="tr-cell-sub">かけ算の筆算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:00:55</td>
+                        <td><span class="pct">78<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-incorrect">×</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第10問</span><span
+                              class="tr-cell-sub">わり算の筆算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:01:15</td>
+                        <td><span class="pct">58<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第11問</span><span
+                              class="tr-cell-sub">分数のかけ算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:00:48</td>
+                        <td><span class="pct">66<small>%</small></span></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align:center;"><span class="tr-judge-icon tr-judge-incorrect">×</span></td>
+                        <td>
+                          <div class="tr-cell-row"><span class="tr-cell-main">第12問</span><span
+                              class="tr-cell-sub">分数のわり算</span></div>
+                        </td>
+                        <td class="gr-tr-col-hairten" style="text-align:right; display:none;">20<small>点</small></td>
+                        <td>0:01:02</td>
+                        <td><span class="pct">61<small>%</small></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pagination-bar pagination-bar-flat" id="gr-tr-questionPagination" style="display:none;">
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <!-- VIEW: 目標単位の学習履歴（きろくページのデザイン・レイアウトに準拠） -->
+          <section class="view" id="gr-view-goal-unit-detail">
+            <div class="page-title-row">
+              <div class="breadcrumb"><a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span
+                  class="sep">&gt;</span><span class="current">目標単位の学習履歴</span></div>
+              <h1 class="page-title">目標単位の学習履歴</h1>
+              <div></div>
+            </div>
+
+            <div class="card" style="padding:0;">
+              <div
+                style="padding:12px 16px;display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:12px;">
+                <div style="display:flex;align-items:baseline;gap:24px;flex-wrap:wrap;">
+                  <span id="gr-goalUnitStudentField" style="display:flex;align-items:baseline;gap:6px;">
+                    <span class="field-label-pill">学習者</span>
+                    <span style="font-size:0.85rem;font-weight:700;" id="gr-goalUnitStudentName">すらら太郎</span>
+                  </span>
+                  <div style="display:flex;align-items:baseline;gap:6px;">
+                    <span class="field-label-pill">目標名</span>
+                    <span style="font-size:0.85rem;font-weight:700;" id="gr-goalUnitGoalName">すらら目標</span>
+                  </div>
+                </div>
+                <div style="display:flex;gap:24px;flex-wrap:wrap;">
+                  <div style="display:flex;align-items:baseline;gap:6px;"><span class="field-label-pill">開始日</span><span
+                      style="font-size:0.95rem;font-weight:700;">2026/04/01</span></div>
+                  <div style="display:flex;align-items:baseline;gap:6px;"><span class="field-label-pill">期日</span><span
+                      style="font-size:0.95rem;font-weight:700;">2026/04/31</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 単元一覧（左）と問題正誤一覧（右）を横並びにする -->
+            <div style="display:flex; gap:16px; align-items:flex-start; margin-top:16px;">
+
+              <!-- 左: 単元一覧（個人検索時はコンパクトリスト／グループ検索時は学習者テーブル） -->
+              <div class="card" style="flex:1; min-width:0; padding:0;">
+                <div class="table-toolbar" style="padding:12px 14px 0;">
+                  <span style="font-weight:700; font-size:0.88rem;" id="gr-goalUnitTitleLabel">単元一覧</span>
+                  <span class="count-badge" id="gr-goalUnitCountBadge" style="margin-left:auto;">検索結果 0件</span>
+                </div>
+                <!-- 個人検索時: 単元一覧のコンパクトリスト -->
+                <div id="gr-goalUnitCompactList" class="gsu-unit-list" style="display:none;"></div>
+                <!-- グループ検索時: 学習者ごとのテーブル -->
+                <div id="gr-goalUnitTableWrap" class="table-wrap" style="display:none;">
+                  <table class="data-table">
+                    <thead id="gr-goalUnitThead"></thead>
+                    <tbody id="gr-goalUnitBody"></tbody>
+                  </table>
+                </div>
+                <div class="pagination-bar pagination-bar-flat" id="gr-goalUnitPagination" style="display:none;"></div>
+              </div>
+
+              <!-- 右: 選択した単元の問題正誤一覧（個人検索時のみ表示） -->
+              <div class="card white" id="gr-guProblemCard" style="flex:1.3; min-width:0; display:none;">
+                <div style="padding:12px 14px 0;">
+                  <div style="font-weight:700; font-size:0.9rem; color:var(--text-main); margin-bottom:8px;">問題正誤一覧
+                  </div>
+                  <div
+                    style="border:1px solid var(--border-color);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="display:inline-flex; align-items:center; gap:6px; flex-shrink:0;">
+                          <span class="tag-band" id="gr-guProblemGradeBand">小学校高学年</span>
+                          <span class="goal-subj-icon c-koku" id="gr-guProblemSubjectIcon">国</span>
+                        </span>
+                        <div style="display:flex;align-items:center;gap:8px;white-space:nowrap;">
+                          <span id="gr-guProblemUnitPath" style="font-weight:700; color:var(--text-sub);"></span>
+                          <span style="font-weight:700;font-size:0.9rem;" id="gr-guProblemUnitTitle"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="display:flex;gap:20px;align-items:center;">
+                      <div style="display:flex;align-items:center;gap:6px;">
+                        <span class="field-label-pill">学習時間</span>
+                        <span style="font-size:0.9rem;font-weight:700;" id="gr-guProblemTime">1分30秒</span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:6px;">
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct" id="gr-guProblemRate">80<small>% (8/10)</small></span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:6px;">
+                        <span class="field-label-pill">ステータス</span>
+                        <span id="gr-guProblemClearWrap"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-toolbar" style="padding:10px 14px 0;">
+                  <span class="count-badge" id="gr-guProblemCountBadge">全0問</span>
+                  <button class="btn btn-primary" onclick="grOpenAnswerModal(1)"><i
+                      class="fa-solid fa-check"></i>解答を確認する</button>
+                </div>
+                <div class="table-wrap" style="margin-top:8px;padding:0 14px 14px;">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th style="width:60px;text-align:center;">判定</th>
+                        <th>問題</th>
+                        <th style="width:110px;text-align:center;">学習時間</th>
+                      </tr>
+                    </thead>
+                    <tbody id="gr-guProblemBody"></tbody>
+                  </table>
+                </div>
+                <div class="pagination-bar pagination-bar-flat" id="gr-guProblemPagination"
+                  style="display:none;margin:0 14px 14px;"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIEW: 目標に紐づく単元一覧（グループ選択時、学習者ごとの複数単元名を表示） -->
+          <section class="view" id="gr-view-goal-student-units">
+            <div class="page-title-row">
+              <div class="breadcrumb"><a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span
+                  class="sep">&gt;</span><a href="#"
+                  onclick="showView('gr-view-goal-unit-detail');return false;">目標単位の学習履歴</a><span
+                  class="sep">&gt;</span><span class="current">単元一覧</span></div>
+              <h1 class="page-title">単元一覧</h1>
+              <div></div>
+            </div>
+
+            <div class="card" style="padding:0;">
+              <div
+                style="padding:12px 16px;display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:12px;">
+                <div style="display:flex;align-items:baseline;gap:24px;flex-wrap:wrap;">
+                  <div style="display:flex;align-items:baseline;gap:6px;">
+                    <span class="field-label-pill">学習者</span>
+                    <span style="font-size:0.85rem;font-weight:700;" id="gr-goalStudentUnitsStudentName">すらら太郎</span>
+                  </div>
+                  <div style="display:flex;align-items:baseline;gap:6px;">
+                    <span class="field-label-pill">目標名</span>
+                    <span style="font-size:0.85rem;font-weight:700;" id="gr-goalStudentUnitsGoalName">すらら目標</span>
+                  </div>
+                </div>
+                <div style="display:flex;gap:24px;flex-wrap:wrap;">
+                  <div style="display:flex;align-items:baseline;gap:6px;"><span class="field-label-pill">開始日</span><span
+                      style="font-size:0.95rem;font-weight:700;">2026/04/01</span></div>
+                  <div style="display:flex;align-items:baseline;gap:6px;"><span class="field-label-pill">期日</span><span
+                      style="font-size:0.95rem;font-weight:700;">2026/04/31</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 単元一覧（左）と問題正誤一覧（右）を横並びにし、問題正誤一覧をファーストビューで大きく見せる -->
+            <div style="display:flex; gap:16px; align-items:flex-start; margin-top:16px;">
+
+              <!-- 左: 単元一覧（コンパクトなリスト表示） -->
+              <div class="card" style="flex:1; min-width:0; padding:0;">
+                <div class="table-toolbar" style="padding:12px 14px 0;">
+                  <span style="font-weight:700; font-size:0.88rem;">単元一覧</span>
+                  <span class="count-badge" id="gr-goalStudentUnitsCountBadge" style="margin-left:auto;">検索結果 0件</span>
+                </div>
+                <div id="gr-goalStudentUnitsBody" class="gsu-unit-list"></div>
+              </div>
+
+              <!-- 右: 選択した単元の問題正誤一覧 -->
+              <div class="card white" style="flex:1.3; min-width:0; padding:0;">
+                <div style="padding:12px 14px 0;">
+                  <div style="font-weight:700; font-size:0.9rem; color:var(--text-main); margin-bottom:8px;">問題正誤一覧
+                  </div>
+                  <div
+                    style="border:1px solid var(--border-color);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <span style="display:inline-flex; align-items:center; gap:6px; flex-shrink:0;">
+                          <span class="tag-band" id="gr-gsuProblemGradeBand">小学校高学年</span>
+                          <span class="goal-subj-icon c-koku" id="gr-gsuProblemSubjectIcon">国</span>
+                        </span>
+                        <div style="display:flex;align-items:center;gap:8px;white-space:nowrap;">
+                          <span id="gr-gsuProblemUnitPath" style="font-weight:700; color:var(--text-sub);"></span>
+                          <span style="font-weight:700;font-size:0.9rem;" id="gr-gsuProblemUnitTitle"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="display:flex;gap:20px;align-items:center;">
+                      <div style="display:flex;align-items:center;gap:6px;">
+                        <span class="field-label-pill">学習時間</span>
+                        <span style="font-size:0.9rem;font-weight:700;" id="gr-gsuProblemTime">1分30秒</span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:6px;">
+                        <span class="field-label-pill">正解率</span>
+                        <span class="pct" id="gr-gsuProblemRate">80<small>% (8/10)</small></span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:6px;">
+                        <span class="field-label-pill">ステータス</span>
+                        <span id="gr-gsuProblemClearWrap"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-toolbar" style="padding:10px 14px 0;">
+                  <span class="count-badge" id="gr-gsuProblemCountBadge">全0問</span>
+                  <button class="btn btn-primary" onclick="grOpenAnswerModal(1)"><i
+                      class="fa-solid fa-check"></i>解答を確認する</button>
+                </div>
+                <div class="table-wrap" style="margin-top:8px;padding:0 14px 14px;">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th style="width:60px;text-align:center;">判定</th>
+                        <th>問題</th>
+                        <th style="width:110px;text-align:center;">学習時間</th>
+                      </tr>
+                    </thead>
+                    <tbody id="gr-gsuProblemBody"></tbody>
+                  </table>
+                </div>
+                <div class="pagination-bar pagination-bar-flat" id="gr-gsuProblemPagination"
+                  style="display:none;margin:0 14px 14px;"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIEW: 単元単位の目標進捗 -->
+          <!-- VIEW: 問題単位の学習履歴/進捗(共通)（きろく詳細ページのデザイン・レイアウトに準拠） -->
+          <section class="view" id="gr-view-problem-detail">
+            <div class="page-title-row">
+              <div class="breadcrumb" id="gr-problemBreadcrumb"></div>
+              <h1 class="page-title" id="gr-problemPageTitle">問題単位の学習履歴</h1>
+              <div></div>
+            </div>
+
+            <div class="card white">
+              <div
+                style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                <div style="display:flex;align-items:center;gap:20px;">
+                  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                    <span class="field-label-pill">学習者</span>
+                    <span style="font-size:0.9rem;font-weight:700;" id="gr-problemStudentName">すらら太郎</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="display:inline-flex; align-items:center; gap:6px; flex-shrink:0;">
+                      <span class="tag-band" id="gr-problemGradeBand">小学校高学年</span>
+                      <span class="goal-subj-icon c-koku" id="gr-problemSubjectIcon">国</span>
+                    </span>
+                    <div style="display:flex;align-items:center;gap:8px;white-space:nowrap;">
+                      <span id="gr-problemUnitPath" style="font-weight:700; color:var(--text-sub);">ことば：ステージ1 レッスン1
+                        ユニット1</span>
+                      <span style="font-weight:700;font-size:0.9rem;"
+                        id="gr-problemUnitTitle">いろをあらわすればいろをあらわすればいろをあらわに</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:20px;align-items:center;">
+                  <div style="display:flex;gap:20px;align-items:center;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <span class="field-label-pill">学習時間</span>
+                      <span style="font-size:0.9rem;font-weight:700;" id="gr-problemTime">1分30秒</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <span class="field-label-pill">正解率</span>
+                      <span class="pct" id="gr-problemRate">80<small>% (8/10)</small></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card white">
+              <div class="table-toolbar" style="padding:12px 12px 0;">
+                <span class="count-badge" id="gr-problemDetailCountBadge">全0問</span>
+                <button class="btn btn-primary" onclick="grOpenAnswerModal(1)"><i
+                    class="fa-solid fa-check"></i>解答を確認する</button>
+              </div>
+              <div class="table-wrap" style="margin-top:8px;padding:0 12px;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th style="width:60px;text-align:center;">判定</th>
+                      <th>問題</th>
+                      <th style="width:110px;text-align:center;">学習時間</th>
+                    </tr>
+                  </thead>
+                  <tbody id="gr-problemDetailBody"></tbody>
+                </table>
+              </div>
+              <div class="pagination-bar pagination-bar-flat" id="gr-problemDetailPagination" style="display:none;">
+              </div>
+            </div>
+          </section>
+
+        </section>
+
+      </main>
+    </div>
+
+  </div>
+  <!-- /#shell -->
+
+  <!-- モーダル群 -->
+  <div class="modal-overlay" id="mk-modal-detail">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('mk-modal-detail')"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-title" id="mk-detailModalTitle">目標名が入ります</div>
+      <div class="modal-meta"><i class="fa-regular fa-calendar"></i>しめきり&nbsp; 2026年 4月 10日</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:60px;">種別</th>
+              <th style="width:110px;">学年</th>
+              <th style="width:70px;">科目</th>
+              <th>単元名</th>
+              <th style="width:70px;text-align:center;">標準時間</th>
+            </tr>
+          </thead>
+          <tbody id="mk-detailModalBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination-bar pagination-bar-flat" id="mk-detailModalPagination" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="mk-modal-delete">
+    <div class="modal-box" style="width:380px;">
+      <button class="modal-close" onclick="closeModal('mk-modal-delete')"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-title">目標の削除</div>
+      <div class="modal-body">
+        <p>この目標を削除してもよろしいですか？<br>この操作は元に戻せません。</p>
+      </div>
+      <div class="flex-row" style="justify-content:center;gap:10px;margin-top:12px;">
+        <button class="btn btn-outline" onclick="closeModal('mk-modal-delete')">キャンセル</button>
+        <button class="btn btn-danger" onclick="confirmDelete()">削除する</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="gr-modal-goal-detail">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('gr-modal-goal-detail')"><i
+          class="fa-solid fa-xmark"></i></button>
+      <div class="modal-title">目標名が入ります</div>
+      <div class="modal-meta"><i class="fa-regular fa-calendar"></i>しめきり&nbsp; 2026年 4月10日</div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:60px;">種別</th>
+              <th style="width:110px;">学年</th>
+              <th style="width:70px;">科目</th>
+              <th>単元名</th>
+              <th style="width:70px;text-align:center;">標準時間</th>
+            </tr>
+          </thead>
+          <tbody id="gr-goalDetailModalBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination-bar pagination-bar-flat" id="gr-goalDetailModalPagination" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- モーダル: 問題単位の学習履歴 ドリル結果プレビュー（きろく詳細ページと同じモーダル） -->
+  <div class="modal-overlay" id="gr-answer-modal">
+    <div class="modal-box modal-wide" style="padding:0; width:900px; max-width:95vw;">
+      <button class="modal-close" style="top:16px; right:16px;" onclick="closeModal('gr-answer-modal')"><i
+          class="fa-solid fa-xmark"></i></button>
+      <div style="padding:52px 20px 20px 20px;">
+        <!-- コントロールカード -->
+        <div class="card" style="display:flex; flex-direction:column; gap:12px; margin-bottom:12px;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <h2 style="font-size:1rem; font-weight:700; color:var(--text-main);" id="gr-am-title">情景描写を読みとる</h2>
+            <div style="display:flex; gap:8px; flex-shrink:0; margin-left:10px;">
+              <button class="btn btn-outline" onclick="grAnswerModalStep(-1)">前へ</button>
+              <button class="btn btn-outline" onclick="grAnswerModalStep(1)">次へ</button>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; border-top:1px solid var(--border-color); padding-top:10px;">
+            <div style="display:flex; gap:4px; flex-wrap:wrap;" id="gr-am-pagenav"></div>
+          </div>
+        </div>
+
+        <!-- 問題プレビューカード -->
+        <div class="card" style="min-height:280px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div
+              style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:8px; border-bottom:1px dashed var(--border-color); flex-wrap:wrap; gap:6px;">
+              <span style="font-size:0.9rem; font-weight:700; color:var(--text-main);" id="gr-am-qnum">問題番号：1</span>
+              <span style="font-size:0.72rem; color:var(--text-sub);" id="gr-am-qmeta">[ 1問目 / 全10問 ]</span>
+            </div>
+
+            <div style="font-size:0.95rem; line-height:1.8; margin:12px 0; color:var(--text-main);" id="gr-am-qbody">
+            </div>
+
+            <div
+              style="display:flex; align-items:center; gap:10px; margin:12px 0; padding:10px 12px; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:#fff;">
+              <span style="font-size:0.72rem; font-weight:700; color:var(--text-sub); flex-shrink:0;">解答</span>
+              <span style="font-size:0.85rem; font-weight:600; color:var(--text-main);" id="gr-am-answer"></span>
+              <span id="gr-am-result"></span>
+            </div>
+          </div>
+
+          <div
+            style="margin:12px 0; display:none; align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--ok); border-radius:var(--radius-sm); background:var(--lime-bg);"
+            id="gr-am-correct-row">
+            <span style="font-size:0.72rem; font-weight:700; color:var(--text-sub); flex-shrink:0;">正解</span>
+            <span style="font-size:0.85rem; font-weight:600; color:var(--text-main);" id="gr-am-correct"></span>
+          </div>
+
+          <div style="margin-top:12px; padding:12px; border-top:1px dashed var(--border-color);">
+            <div style="font-size:0.72rem; font-weight:700; color:var(--text-sub); margin-bottom:6px;">解説</div>
+            <div style="font-size:0.85rem; line-height:1.7; color:var(--text-main);" id="gr-am-explanation"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- モーダル: 学習履歴 個人（生徒）検索 -->
+  <div class="modal-overlay" id="gr-modal-search-student">
+    <div class="modal-box wide">
+      <button class="modal-close" onclick="closeModal('gr-modal-search-student')"><i
+          class="fa-solid fa-xmark"></i></button>
+      <div class="modal-title">個人（生徒）検索</div>
+      <div class="modal-scroll-body">
+        <div class="search-box">
+          <div class="search-grid">
+            <div class="field field-inline"><label>学年</label><select>
+                <option>学年の選択</option>
+                <option>小学1年生</option>
+                <option>小学2年生</option>
+                <option>小学3年生</option>
+                <option>小学4年生</option>
+                <option>小学5年生</option>
+                <option>小学6年生</option>
+                <option>中学1年生</option>
+                <option>中学2年生</option>
+                <option>中学3年生</option>
+                <option>高校1年生</option>
+                <option>高校2年生</option>
+                <option>高校3年生</option>
+              </select></div>
+            <div class="field field-inline"><label>クラス</label><select>
+                <option>クラス選択</option>
+                <option>クラスA</option>
+                <option>クラスB</option>
+                <option>クラスC</option>
+                <option>クラスD</option>
+                <option>クラスE</option>
+                <option>クラスF</option>
+              </select></div>
+            <div class="field field-inline"><label>学習者名</label><input type="text" placeholder="学習者名を入力してください"></div>
+          </div>
+          <div class="search-actions"><button class="btn btn-primary" onclick="grSearchStudents()"><svg class="icon"
+                viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>検索する</button></div>
+        </div>
+
+        <div class="table-wrap" style="margin-top:12px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>学習者ID</th>
+                <th>学習者名</th>
+                <th>校舎</th>
+                <th>学年</th>
+                <th>クラス</th>
+                <th>出席番号</th>
+              </tr>
+            </thead>
+            <tbody id="gr-modalStudentHintBody">
+              <tr>
+                <td colspan="6" class="hint-empty">検索条件を入力し、「検索する」ボタンを押してください。</td>
+              </tr>
+            </tbody>
+            <tbody id="gr-modalStudentBody" style="display:none;"></tbody>
+          </table>
+        </div>
+        <div class="pagination-bar pagination-bar-flat" id="gr-modalStudentPagination" style="display:none;"></div>
+      </div>
+
+      <div class="flex-row modal-footer-fixed"
+        style="justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px solid var(--border-color);">
+        <span style="font-size:0.78rem; color:var(--text-sub); font-weight:700;">選択済 <span
+            id="gr-modalStudentSelCount">0</span>名</span>
+        <button class="btn btn-primary" onclick="grConfirmSelection('student')">選択を確定する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- モーダル: 学習履歴 グループ検索 -->
+  <div class="modal-overlay" id="gr-modal-search-group">
+    <div class="modal-box wide">
+      <button class="modal-close" onclick="closeModal('gr-modal-search-group')"><i
+          class="fa-solid fa-xmark"></i></button>
+      <div class="modal-title">グループ検索</div>
+      <div class="modal-scroll-body">
+        <div class="search-box">
+          <div class="search-grid">
+            <div class="field field-inline"><label>グループ名</label><input type="text" placeholder="グループ名を入力してください"></div>
+            <div class="field field-inline"><label>作成者</label><input type="text" placeholder="作成者を入力してください"></div>
+          </div>
+          <div class="search-actions"><button class="btn btn-primary" onclick="grSearchGroups()"><svg class="icon"
+                viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>検索する</button></div>
+        </div>
+
+        <div class="table-wrap" style="margin-top:12px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>グループ名</th>
+                <th>人数</th>
+                <th>作成者</th>
+                <th>作成日時</th>
+              </tr>
+            </thead>
+            <tbody id="gr-modalGroupHintBody">
+              <tr>
+                <td colspan="4" class="hint-empty">検索条件を入力し、「検索する」ボタンを押してください。</td>
+              </tr>
+            </tbody>
+            <tbody id="gr-modalGroupBody" style="display:none;"></tbody>
+          </table>
+        </div>
+        <div class="pagination-bar pagination-bar-flat" id="gr-modalGroupPagination" style="display:none;"></div>
+      </div>
+
+      <div class="flex-row modal-footer-fixed"
+        style="justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px solid var(--border-color);">
+        <span style="font-size:0.78rem; color:var(--text-sub); font-weight:700;">選択済 <span
+            id="gr-modalGroupSelCount">0</span>グループ</span>
+        <button class="btn btn-primary" onclick="grConfirmSelection('group')">選択を確定する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- モーダル: グループ削除確認 -->
+  <div class="modal-overlay" id="gp-modal-delete">
+    <div class="modal-box" style="width:380px;">
+      <button class="modal-close" onclick="closeModal('gp-modal-delete')"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-title">グループの削除</div>
+      <div class="modal-body">
+        <p><span id="gp-deleteTargetName">グループA</span>を削除してもよろしいですか？<br>この操作は元に戻せません。</p>
+      </div>
+      <div class="flex-row" style="justify-content:center;gap:10px;margin-top:12px;">
+        <button class="btn btn-outline" onclick="closeModal('gp-modal-delete')">キャンセル</button>
+        <button class="btn btn-danger" onclick="confirmGroupDelete()">削除する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- モーダル: グループ登録完了 -->
+  <div class="modal-overlay" id="gp-modal-registered">
+    <div class="modal-box" style="width:380px;">
+      <button class="modal-close" onclick="closeModal('gp-modal-registered')"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-body" style="text-align:center; padding-top:8px;">
+        <div
+          style="width:48px;height:48px;border-radius:50%;background:var(--lime-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <svg class="icon" style="width:24px;height:24px;color:var(--lime-text);" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <p style="font-weight:700; font-size:0.95rem; margin-bottom:4px;"><span
+            id="gp-registeredGroupName">グループA</span>を登録しました</p>
+        <p style="color:var(--text-sub);">グループ一覧に追加されました。</p>
+      </div>
+      <div class="flex-row" style="justify-content:center;margin-top:16px;">
+        <button class="btn btn-primary"
+          onclick="closeModal('gp-modal-registered'); showView('gp-view-list');">グループ一覧へ戻る</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================
+       Surala i 先生画面モック 共通スクリプト
+       ========================================================== */
+
+    function toggleSidebar() {
+      document.body.classList.toggle('sidebar-collapsed');
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      let el = document.getElementById('globalToast');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'globalToast';
+        el.className = 'toast';
+        document.body.appendChild(el);
+      }
+      el.textContent = message;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+    }
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('open');
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('open');
+    }
+
+    function showView(id, opts) {
+      const target = document.getElementById(id);
+      const scope = (target && target.closest('.page')) || document;
+      scope.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
+      if (target) target.classList.add('active');
+      resetSearchUI(id);
+      window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+      if (opts && typeof opts.after === 'function') opts.after();
+    }
+
+    function runSearch(hintId, resultsId, badgeId, paginationId, rowsPerPage) {
+      const hint = document.getElementById(hintId);
+      const results = document.getElementById(resultsId);
+      if (hint) hint.style.display = 'none';
+      if (results) results.style.display = '';
+      if (badgeId) { const badge = document.getElementById(badgeId); if (badge) badge.style.display = ''; }
+      if (paginationId) {
+        const bar = document.getElementById(paginationId);
+        if (bar) bar.setAttribute('data-page', '1');
+        grPaginateTable(resultsId, paginationId, rowsPerPage || 10);
+      }
+    }
+    /* ==========================================================
+       3.5 ページネーション（10件/ページ、下部のみ配置）
+       ========================================================== */
+    function grPaginateTable(tbodyId, paginationId, rowsPerPage) {
+      rowsPerPage = rowsPerPage || 10;
+      const tbody = document.getElementById(tbodyId);
+      const bar = document.getElementById(paginationId);
+      if (!tbody || !bar) return;
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      if (rows.length === 0) { bar.style.display = 'none'; return; }
+
+      const totalPages = Math.ceil(rows.length / rowsPerPage) || 1;
+      let currentPage = parseInt(bar.getAttribute('data-page') || '1', 10);
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      bar.setAttribute('data-page', currentPage);
+
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      rows.forEach((r, i) => { r.style.display = (i >= start && i < end) ? '' : 'none'; });
+
+      bar.style.display = 'flex';
+      bar.innerHTML =
+        '<div class="page-controls">' +
+        '<button class="page-btn" ' + (currentPage === 1 ? 'disabled' : '') + '>&lt;</button>' +
+        '<div class="page-numbers" style="display:flex; gap:3px;"></div>' +
+        '<button class="page-btn" ' + (currentPage === totalPages ? 'disabled' : '') + '>&gt;</button>' +
+        '</div>' +
+        '<div>' + currentPage + ' / ' + totalPages + ' ページ</div>';
+
+      const numContainer = bar.querySelector('.page-numbers');
+      for (let p = 1; p <= totalPages; p++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (p === currentPage ? ' active' : '');
+        btn.textContent = p;
+        btn.onclick = () => grGotoPage(tbodyId, paginationId, rowsPerPage, p);
+        numContainer.appendChild(btn);
+      }
+
+      const controlBtns = bar.querySelectorAll('.page-controls > .page-btn');
+      const prevBtn = controlBtns[0];
+      const nextBtn = controlBtns[1];
+      if (prevBtn) prevBtn.onclick = () => { if (currentPage > 1) grGotoPage(tbodyId, paginationId, rowsPerPage, currentPage - 1); };
+      if (nextBtn) nextBtn.onclick = () => { if (currentPage < totalPages) grGotoPage(tbodyId, paginationId, rowsPerPage, currentPage + 1); };
+    }
+
+    function grGotoPage(tbodyId, paginationId, rowsPerPage, page) {
+      const bar = document.getElementById(paginationId);
+      if (bar) bar.setAttribute('data-page', page);
+      grPaginateTable(tbodyId, paginationId, rowsPerPage);
+    }
+
+    /* 行単位の絞り込み（tr.dataset.match）と併用できるページネーション。
+       絞り込みで除外された行はページ計算・表示件数から除外する。 */
+    function filterPaginate(tbodyId, paginationId, rowsPerPage) {
+      rowsPerPage = rowsPerPage || 10;
+      const tbody = document.getElementById(tbodyId);
+      const bar = document.getElementById(paginationId);
+      if (!tbody || !bar) return;
+      const allRows = Array.from(tbody.querySelectorAll('tr'));
+      allRows.forEach((r) => { if (r.dataset.match === '0') r.style.display = 'none'; });
+      const rows = allRows.filter((r) => r.dataset.match !== '0');
+      if (rows.length === 0) { bar.style.display = 'none'; return; }
+
+      const totalPages = Math.ceil(rows.length / rowsPerPage) || 1;
+      let currentPage = parseInt(bar.getAttribute('data-page') || '1', 10);
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      bar.setAttribute('data-page', currentPage);
+
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      rows.forEach((r, i) => { r.style.display = (i >= start && i < end) ? '' : 'none'; });
+
+      bar.style.display = 'flex';
+      bar.innerHTML =
+        '<div class="page-controls">' +
+        '<button class="page-btn" ' + (currentPage === 1 ? 'disabled' : '') + '>&lt;</button>' +
+        '<div class="page-numbers" style="display:flex; gap:3px;"></div>' +
+        '<button class="page-btn" ' + (currentPage === totalPages ? 'disabled' : '') + '>&gt;</button>' +
+        '</div>' +
+        '<div>' + currentPage + ' / ' + totalPages + ' ページ</div>';
+
+      const numContainer = bar.querySelector('.page-numbers');
+      for (let p = 1; p <= totalPages; p++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (p === currentPage ? ' active' : '');
+        btn.textContent = p;
+        btn.onclick = () => filterPaginateGoto(tbodyId, paginationId, rowsPerPage, p);
+        numContainer.appendChild(btn);
+      }
+
+      const controlBtns = bar.querySelectorAll('.page-controls > .page-btn');
+      const prevBtn = controlBtns[0];
+      const nextBtn = controlBtns[1];
+      if (prevBtn) prevBtn.onclick = () => { if (currentPage > 1) filterPaginateGoto(tbodyId, paginationId, rowsPerPage, currentPage - 1); };
+      if (nextBtn) nextBtn.onclick = () => { if (currentPage < totalPages) filterPaginateGoto(tbodyId, paginationId, rowsPerPage, currentPage + 1); };
+    }
+
+    function filterPaginateGoto(tbodyId, paginationId, rowsPerPage, page) {
+      const bar = document.getElementById(paginationId);
+      if (bar) bar.setAttribute('data-page', page);
+      filterPaginate(tbodyId, paginationId, rowsPerPage);
+    }
+
+    function hideSearchResults(hintId, resultsId, badgeId) {
+      const hint = document.getElementById(hintId);
+      const results = document.getElementById(resultsId);
+      if (hint) hint.style.display = '';
+      if (results) results.style.display = 'none';
+      if (badgeId) { const badge = document.getElementById(badgeId); if (badge) badge.style.display = 'none'; }
+    }
+    const SEARCH_RESET_MAP = {
+      'mk-view-list': [['mk-goalListHintBody', 'mk-goalListBody', 'mk-goalListCountBadge', 'mk-goalListPagination']],
+      'gr-view-list': [
+        ['gr-rirekiDateHintBody', 'gr-rirekiDateBody', 'gr-rirekiDateCountBadge'],
+        ['gr-rirekiGoalHintBody', 'gr-rirekiGoalBody', 'gr-rirekiGoalCountBadge'],
+        ['gr-rirekiTestHintBody', 'gr-rirekiTestBody', 'gr-rirekiTestCountBadge'],
+      ],
+      'gp-view-list': [['gp-groupListHintBody', 'gp-groupListBody', 'gp-groupListCountBadge', 'gp-groupListPagination']],
+      'gp-view-register': [['gp-addStudentHintBody', 'gp-addStudentBody', 'gp-addStudentCountBadge', 'gp-addStudentPagination']],
+    };
+    function resetSearchUI(viewId) {
+      /* 検索するボタンを押す前から検索結果を表示しておくため、
+         ページ切替時にも結果を隠さず再表示する */
+      const pairs = SEARCH_RESET_MAP[viewId];
+      if (!pairs) return;
+      pairs.forEach((ids) => runSearch(...ids));
+
+      if (viewId === 'gr-view-list') {
+        if (typeof applyRirekiSearch === 'function') {
+          applyRirekiSearch('date', true);
+          applyRirekiSearch('goal', true);
+          applyRirekiSearch('test', true);
+        }
+      }
+    }
+
+    function switchTab(btn) {
+      const group = btn.dataset.tabGroup;
+      document.querySelectorAll(`.tab[data-tab-group="${group}"]`).forEach((t) => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll(`.tab-panel[data-tab-group="${group}"]`).forEach((p) => {
+        p.style.display = (p.dataset.tabTarget === btn.dataset.tabTarget) ? '' : 'none';
+      });
+    }
+
+    function refreshRadioStyle(name) {
+      document.querySelectorAll(`input[name="${name}"]`).forEach((r) => {
+        const label = r.closest('.radio-opt');
+        if (label) label.classList.toggle('checked', r.checked);
+      });
+    }
+
+    function toggleSubjectCheck(el) {
+      const input = el.querySelector('input');
+      el.classList.toggle('on', input.checked);
+    }
+
+    function setToggleSeg(btn) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function toggleUnitGroup(el) {
+      el.classList.toggle('open');
+    }
+
+    function toggleSelectAll(headerCheckbox, tbodyId) {
+      const checked = headerCheckbox.checked;
+      document.querySelectorAll('#' + tbodyId + ' .tbl-check').forEach((cb) => { cb.checked = checked; });
+      if (tbodyId === 'gp-addStudentBody') gpUpdateAddButtonState();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+      if (sidebarToggleBtn) {
+        sidebarToggleBtn.addEventListener('click', toggleSidebar);
+      }
+
+      document.querySelectorAll('input[type=radio]').forEach((r) => {
+        r.addEventListener('change', () => refreshRadioStyle(r.name));
+        if (r.checked) refreshRadioStyle(r.name);
+      });
+
+      /* プルダウン初期表示（未選択状態）の文字色をプレースホルダーと同じ色にする */
+      document.querySelectorAll('.field select, .rireki-select-input').forEach((sel) => {
+        const refresh = () => sel.classList.toggle('is-placeholder', sel.selectedIndex === 0);
+        refresh();
+        sel.addEventListener('change', refresh);
+      });
+    });
+
+    const SCHOOLS = ['あおぞら校舎', 'うみべの校舎', 'ほしぞら校舎'];
+
+    const STUDENTS = [
+      { id: '100000001', name: '木下ひまり', grade: '小学4年生', cls: 'A', seat: 1, school: 'あおぞら校舎' },
+      { id: '100000002', name: '早川たいが', grade: '小学4年生', cls: 'A', seat: 2, school: 'うみべの校舎' },
+      { id: '100000003', name: '松尾ゆずき', grade: '小学4年生', cls: 'B', seat: 1, school: 'ほしぞら校舎' },
+      { id: '100000004', name: '桜庭れん', grade: '小学4年生', cls: 'B', seat: 2, school: 'あおぞら校舎' },
+      { id: '100000005', name: '藤野あおい', grade: '小学5年生', cls: 'A', seat: 1, school: 'うみべの校舎' },
+      { id: '100000006', name: '宮下そら', grade: '小学5年生', cls: 'A', seat: 2, school: 'ほしぞら校舎' },
+      { id: '100000007', name: '大和田みのり', grade: '小学5年生', cls: 'B', seat: 1, school: 'あおぞら校舎' },
+      { id: '100000008', name: '千葉かなで', grade: '小学6年生', cls: 'A', seat: 1, school: 'うみべの校舎' },
+      { id: '100000009', name: '東雲ひなた', grade: '小学6年生', cls: 'A', seat: 2, school: 'ほしぞら校舎' },
+      { id: '100000010', name: '葛城りく', grade: '小学6年生', cls: 'B', seat: 1, school: 'あおぞら校舎' },
+      { id: '100000011', name: '深谷ののか', grade: '中学1年生', cls: 'A', seat: 1, school: 'うみべの校舎' },
+      { id: '100000012', name: '神崎はると', grade: '中学1年生', cls: 'A', seat: 2, school: 'ほしぞら校舎' },
+      { id: '100000013', name: '綾瀬まひろ', grade: '中学1年生', cls: 'B', seat: 1, school: 'あおぞら校舎' },
+      { id: '100000014', name: '桐生あかり', grade: '中学1年生', cls: 'B', seat: 2, school: 'うみべの校舎' },
+      { id: '100000015', name: '望月いつき', grade: '中学2年生', cls: 'A', seat: 1, school: 'ほしぞら校舎' },
+      { id: '100000016', name: '白鳥ゆいと', grade: '中学2年生', cls: 'A', seat: 2, school: 'あおぞら校舎' },
+      { id: '100000017', name: '芝崎みゆ', grade: '中学2年生', cls: 'B', seat: 1, school: 'うみべの校舎' },
+      { id: '100000018', name: '九条れいな', grade: '中学3年生', cls: 'A', seat: 1, school: 'ほしぞら校舎' },
+      { id: '100000019', name: '高遠しゅん', grade: '中学3年生', cls: 'A', seat: 2, school: 'あおぞら校舎' },
+      { id: '100000020', name: '柊木あんな', grade: '中学3年生', cls: 'B', seat: 1, school: 'うみべの校舎' },
+    ];
+
+    const GOAL_NAMES = [
+      '小学4年生 1学期の復習',
+      '小学5年生 算数 図形強化ドリル',
+      '小学6年生 中学準備 総復習',
+      '中学1年生 定期テスト対策(数学)',
+      '中学1年生 英語 基礎固め',
+      '中学2年生 2学期期末対策',
+      '中学3年生 入試対策 総合演習',
+      '難関校志望者用 発展課題',
+      '中学3年生 過去問演習(数学)',
+      '小学5年生 漢字・語彙強化',
+    ];
+
+    const TARGET_GROUPS = ['小学4年生クラス', '小学5年生クラス', '小学6年生クラス', '中学1年生クラス', '中学2年生クラス', '中学3年生クラス', '難関校対策クラス'];
+    const GROUP_SEARCH_LIST = TARGET_GROUPS.concat(['特進クラス', '基礎クラス', '夏期講習クラス', '冬期講習クラス', '受験対策クラス', '英検対策クラス', '数検対策クラス', '模試対策クラス']);
+
+    const SUBJ_LABELS = { jp: '国語', math: '算数・数学', en: '英語', sci: '理科', soc: '社会', info: '情報' };
+    const SUBJ_ICON = {
+      en: { cls: 'c-eng', short: '英' },
+      jp: { cls: 'c-koku', short: '国' },
+      math: { cls: 'c-math', short: '数' },
+      sci: { cls: 'c-sci', short: '理' },
+      soc: { cls: 'c-shakai', short: '社' },
+      info: { cls: 'c-joho', short: '情' },
+      other: { cls: 'c-other', short: '他' },
+    };
+    const BAND_LABELS = { low: '小学校低学年', high: '小学校高学年', jhs: '中学校', hs: '高校' };
+    function ST(name, lessons) { return { name, lessons: lessons.map(([n, units]) => ({ name: n, units })) }; }
+    const SULALA_TREE = {
+      jp: {
+        low: [
+          ST('文字を学ぶ', [['ひらがな・かたかな', ['あ行〜わ行のことば', 'にごる音・半にごる音', 'かたかなで書くことば']]]),
+          ST('漢字の基礎', [['1〜3年生の漢字', ['学校生活の漢字', '自然・生き物の漢字', '方位・時間の漢字']]]),
+          ST('文をつくる', [['主語と述語', ['だれが・どうした', 'なにが・どんなだ']], ['文の組み立て', ['修飾語をつかう', 'つなぎ言葉']]]),
+          ST('読む・書く', [['物語を読む', ['場面をつかむ', '気持ちを読みとる']], ['作文・ことばのきまり', ['出来事を書く', '慣用句・ことわざ']]]),
+        ],
+        high: [
+          ST('漢字・語彙', [['4〜6年生の漢字', ['学習を支える漢字(4年)', '学習を支える漢字(5年)', '学習を支える漢字(6年)']], ['語彙を広げる', ['四字熟語', '同音異義語・同訓異字']]]),
+          ST('文法の基礎', [['言葉のなかま', ['名詞・動詞・形容詞', '修飾語と被修飾語']], ['敬語', ['ていご・けんじょうご', '尊敬語の使い方']]]),
+          ST('文章を読む', [['物語文を読む', ['人物の心情変化', '情景描写を読みとる', '主題をつかむ']], ['説明文・論説文を読む', ['要旨をまとめる', '事実と意見を区別する']]]),
+          ST('文章を書く', [['意見文・感想文', ['根拠を示して書く', '段落構成を考える']], ['要約・レポート', ['文章を要約する', '資料を読み取ってまとめる']]]),
+        ],
+        jhs: [
+          ST('現代文', [['小説を読む', ['心情の変化を読む', '表現技法をとらえる', '主題を考える']], ['論説文を読む', ['筆者の主張を読みとる', '文章構成をつかむ']]]),
+          ST('古典入門', [['古文の基礎', ['歴史的仮名遣い', '古文特有の語句']], ['漢文の基礎', ['返り点の読み方', '漢文の基本構造']]]),
+          ST('文法', [['文法の体系', ['品詞の分類', '活用形']], ['敬語・慣用表現', ['敬語の使い分け', '慣用句・四字熟語']]]),
+          ST('表現・作文', [['意見文を書く', ['構成を考えて書く', '根拠と主張の整理']], ['資料を使って書く', ['グラフや表を読みとる', '要約して伝える']]]),
+        ],
+        hs: [
+          ST('現代文', [['評論を読む', ['抽象的な論の展開をつかむ', 'キーワードを整理する']], ['小説・随筆を読む', ['表現の効果を考える', '主題を深く読みとる']]]),
+          ST('古文', [['古文読解の基礎', ['助動詞の意味', '敬語法']], ['古文の作品を読む', ['物語文学を読む', '随筆・日記文学を読む']]]),
+          ST('漢文', [['漢文の基礎', ['句法の基本', '訓読のきまり']], ['漢文の作品を読む', ['思想を読みとる', '漢詩を読む']]]),
+          ST('小論文・表現', [['小論文の基礎', ['主張と根拠の組み立て', '資料の読解と活用']], ['実践練習', ['課題文型の練習', '要約と意見の統合']]]),
+        ],
+      },
+      math: {
+        low: [
+          ST('数と計算', [['たし算・ひき算', ['2けたの計算', 'くり上がり・くり下がり', '3けたの計算']], ['かけ算・わり算', ['かけ算九九', '2けたのかけ算', 'わり算の基礎']]]),
+          ST('図形', [['平面図形', ['三角形と四角形', '円と球']], ['長さ・面積の基礎', ['長さの単位', '面積の基礎']]]),
+          ST('量と単位', [['時間とお金', ['時計の読み方', 'お金の計算']], ['単位の変換', ['長さ・重さの単位', 'かさの単位']]]),
+          ST('分数・小数入門', [['分数の基礎', ['同じ大きさに分ける', '分数の大小']], ['小数の基礎', ['小数のたし算・ひき算', '小数と分数の関係']]]),
+        ],
+        high: [
+          ST('分数・小数', [['分数の計算', ['約分と通分', '分数のたし算・ひき算', '分数のかけ算・わり算']], ['小数の計算', ['小数のかけ算', '小数のわり算']]]),
+          ST('図形', [['平面図形の性質', ['多角形の角', '円の面積']], ['立体図形', ['直方体・立方体の体積', '角柱・円柱']]]),
+          ST('割合・比', [['割合の基礎', ['百分率', '割合の応用問題']], ['比の基礎', ['比の性質', '比例・反比例']]]),
+          ST('データの活用', [['グラフの読み取り', ['柱状グラフ', '折れ線グラフ']], ['平均・並べ方', ['平均の求め方', '場合の数の基礎']]]),
+        ],
+        jhs: [
+          ST('数と式', [['正負の数', ['正負の数の計算', '累乗と平方根']], ['文字と式', ['文字式の計算', '式の展開と因数分解']]]),
+          ST('方程式・関数', [['方程式', ['一次方程式', '連立方程式', '二次方程式']], ['関数', ['一次関数', '関数y=ax^2']]]),
+          ST('図形', [['平面図形と証明', ['合同と証明', '相似な図形']], ['三平方の定理', ['三平方の定理の利用', '円の性質']]]),
+          ST('データの分析', [['確率・統計', ['確率の基礎', 'データの散らばりと代表値']], ['資料の活用', ['ヒストグラムの読み取り', '標本調査の基礎']]]),
+        ],
+        hs: [
+          ST('数と式', [['数と式の基本', ['整式の計算', '実数と不等式']], ['集合と命題', ['集合の考え方', '命題と証明']]]),
+          ST('関数', [['二次関数', ['二次関数の最大最小', '二次不等式']], ['三角関数', ['三角比', '加法定理']], ['指数・対数関数', ['指数関数', '対数関数']]]),
+          ST('微分積分の基礎', [['微分の基礎', ['導関数の計算', '接線と極値']], ['積分の基礎', ['不定積分', '定積分と面積']]]),
+          ST('図形と数列', [['図形と方程式', ['直線と円の方程式', 'ベクトルの基礎']], ['数列', ['等差数列・等比数列', '数列の和']]]),
+        ],
+      },
+      en: {
+        low: [
+          ST('アルファベットとあいさつ', [['アルファベット', ['大文字の練習', '小文字の練習']], ['あいさつ表現', ['自己紹介', 'あいさつのやりとり']]]),
+          ST('身近な単語', [['生活の単語', ['色・形の単語', '数字の単語']], ['学校の単語', ['教室の単語', '好きな物を伝える表現']]]),
+          ST('簡単な会話', [['質問と答え方', ['What is this?の表現', 'How manyの表現']], ['歌とチャンツ', ['リズムで学ぶ英語', '発音の基礎']]]),
+        ],
+        high: [
+          ST('基本文型', [['be動詞・人称', ['I am/You areの文', 'He is/She isの文']], ['一般動詞', ['現在形の文', '疑問文・否定文']]]),
+          ST('身近な表現', [['日常生活の表現', ['1日の生活を伝える', '好き嫌いを伝える']], ['町・行事の表現', ['道案内の表現', '学校行事を伝える']]]),
+          ST('過去と未来', [['過去の表現', ['過去形の文', '過去の疑問文・否定文']], ['未来の表現', ['be going toの文', 'willの文']]]),
+          ST('コミュニケーション', [['会話表現', ['電話での表現', 'おすすめを伝える表現']], ['リスニング・発音', ['発音のルール', 'リスニングの基本']]]),
+        ],
+        jhs: [
+          ST('文法の基礎', [['時制', ['現在形・過去形', '進行形', '現在完了形']], ['助動詞', ['can/may/mustの用法', 'willとbe going to']]]),
+          ST('文の構造', [['不定詞・動名詞', ['to不定詞の用法', '動名詞の用法']], ['比較表現', ['比較級・最上級', 'as...asの表現']]]),
+          ST('文の応用', [['受動態', ['受動態の基本', '受動態の疑問文・否定文']], ['関係代名詞', ['who/whichの用法', 'thatの用法']]]),
+          ST('読解・表現', [['長文読解', ['物語文を読む', '説明文を読む']], ['英作文', ['自分の意見を書く', 'メールを書く']]]),
+        ],
+        hs: [
+          ST('文法の応用', [['時制・仮定法', ['完了形の応用', '仮定法過去・過去完了']], ['分詞・関係詞', ['分詞構文', '関係副詞']]]),
+          ST('読解', [['評論文を読む', ['パラグラフの構成', '論旨の展開をつかむ']], ['物語文を読む', ['登場人物の心情', 'テーマを読みとる']]]),
+          ST('表現力', [['自由英作文', ['意見文の構成', '賛成・反対の書き方']], ['要約', ['パラフレーズの練習', '要約文の作成']]]),
+          ST('リスニング・スピーキング', [['リスニング', ['講義形式の聞き取り', '会話形式の聞き取り']], ['スピーキング', ['即興で話す練習', 'ディスカッションの基本']]]),
+        ],
+      },
+      sci: {
+        low: [
+          ST('生き物と自然', [['植物の観察', ['植物の育ち方', '花と実のつくり']], ['動物の観察', ['身近な動物の様子', '昆虫の育ち方']]]),
+          ST('物と道具', [['物の性質', ['風とゴムの力', '磁石の性質']], ['光と音', ['光の進み方', '音の伝わり方']]]),
+          ST('天気と季節', [['天気の様子', ['晴れと雨のちがい', '気温の変化']], ['季節の変化', ['季節と生き物', '季節と太陽']]]),
+          ST('電気の基礎', [['電気の通り道', ['電気を通す物', 'かん電池のつなぎ方']]]),
+        ],
+        high: [
+          ST('生命', [['人の体', ['消化と吸収', '呼吸と血液の流れ']], ['植物の成長', ['発芽と成長の条件', '花から実へ']]]),
+          ST('地球', [['天気の変化', ['雲と天気の変化', '台風と気象情報']], ['土地のつくり', ['流れる水のはたらき', '火山と地震']]]),
+          ST('物質・エネルギー', [['水と空気', ['水の三態変化', '空気の性質']], ['電気の利用', ['電磁石のはたらき', '発電と電気の利用']]]),
+          ST('物理現象の基礎', [['てことふりこ', ['てこのはたらき', 'ふりこの運動']], ['燃焼', ['物が燃える仕組み', 'ものの溶け方']]]),
+        ],
+        jhs: [
+          ST('物理分野', [['力とエネルギー', ['力のつり合い', '仕事とエネルギー']], ['電流', ['電流と電圧', '電流と磁界']]]),
+          ST('化学分野', [['物質の性質', ['原子・分子', '化学反応式']], ['酸・アルカリ', ['酸とアルカリの性質', '中和反応']]]),
+          ST('生物分野', [['細胞の体', ['細胞のつくり', '消化・呼吸・循環']], ['遺伝と進化', ['遺伝の規則性', '生物の進化']]]),
+          ST('地学分野', [['地層と大地の変化', ['地層の重なり', '地震と火山']], ['気象', ['気圧と前線', '天気の変化と気象観測']]]),
+        ],
+        hs: [
+          ST('物理', [['力学', ['運動の法則', '力学的エネルギー']], ['電磁気学', ['電場と磁場', '電磁誘導']]]),
+          ST('化学', [['物質の構造', ['化学結合', 'モルと化学反応']], ['反応と平衡', ['酸化還元反応', '化学平衡']]]),
+          ST('生物', [['細胞と代謝', ['細胞の構造', '呼吸と光合成']], ['遺伝情報', ['DNAと遺伝子', '遺伝情報の発現']]]),
+          ST('地学', [['地球の構造', ['プレートテクトニクス', '地球の内部構造']], ['宇宙の構造', ['太陽系の構造', '恒星と宇宙の進化']]]),
+        ],
+      },
+      soc: {
+        low: [
+          ST('地域の生活', [['まちの様子', ['身近な施設', 'まちの安全']], ['はたらく人々', ['お店の仕事', '農家・工場の仕事']]]),
+          ST('地域と季節', [['地域の行事', ['季節の行事', '昔の道具と暮らし']], ['地図の基礎', ['地図の見方', '方位の表し方']]]),
+          ST('くらしと安全', [['安全なくらし', ['事故や事件を防ぐ', '災害へのそなえ']]]),
+        ],
+        high: [
+          ST('日本の国土と産業', [['国土の様子', ['都道府県と地形', '気候の特色']], ['産業と生活', ['農業・水産業', '工業生産']]]),
+          ST('歴史(古代〜中世)', [['古代の日本', ['大和政権と古墳', '聖徳太子と大化の改新']], ['中世の日本', ['鎌倉幕府の成立', '室町時代の文化']]]),
+          ST('歴史(近世〜近代)', [['江戸時代', ['江戸幕府のしくみ', '江戸の文化と学問']], ['明治から現代', ['明治維新', '近代日本の発展']]]),
+          ST('政治と国際社会', [['くらしと政治', ['国や地方の政治', '憲法とわたしたちの生活']], ['世界との関わり', ['日本と世界のつながり', '国際協力の取り組み']]]),
+        ],
+        jhs: [
+          ST('地理', [['世界の地理', ['世界の地域構成', '気候と人々の生活']], ['日本の地理', ['日本の地域区分', '日本の産業と貿易']]]),
+          ST('歴史', [['近世までの歴史', ['中世から近世への移行', '江戸幕府と鎖国']], ['近現代の歴史', ['明治維新と近代化', '二度の世界大戦と日本']]]),
+          ST('公民(政治)', [['現代社会と憲法', ['人権と日本国憲法', '三権分立のしくみ']], ['政治のはたらき', ['選挙と政党', '地方自治']]]),
+          ST('公民(経済・国際)', [['経済のしくみ', ['市場経済と価格', '企業と労働']], ['国際社会', ['国際連合と国際協力', '地球規模の課題']]]),
+        ],
+        hs: [
+          ST('地理総合', [['国際理解と地図', ['地図とGISの活用', '世界の環境問題']], ['生活文化と地域', ['生活文化の多様性', '防災と地域社会']]]),
+          ST('歴史総合', [['近代化と世界', ['近代化と国際関係', '二つの世界大戦']], ['グローバル化と現代', ['冷戦と国際関係', 'グローバル化する世界']]]),
+          ST('公共', [['現代の政治', ['民主政治と法', '日本の政治制度']], ['現代の経済', ['市場経済のしくみ', '財政と金融']]]),
+          ST('倫理・探究', [['倫理の基礎', ['人間としての在り方', '幸福・正義・公正']], ['探究活動', ['課題設定と資料活用', '論述・発表の基本']]]),
+        ],
+      },
+      info: {
+        low: [
+          ST('パソコンの基本', [['操作の基礎', ['マウス・キーボードの使い方', 'ログインとログアウト']], ['文字の入力', ['ローマ字入力の基礎', '文章を入力する']]]),
+          ST('プログラミング入門', [['順序を考える', ['ブロックを組み合わせる', '順番に動かす']], ['くり返しと分岐', ['くり返しの考え方', 'もし〜ならの考え方']]]),
+          ST('情報の安全な利用', [['安全なつかいかた', ['パスワードの大切さ', '困ったときの相談']]]),
+        ],
+        high: [
+          ST('情報活用の基礎', [['情報の収集', ['インターネットでの検索', '情報の整理']], ['情報の発信', ['プレゼン資料の作成', '分かりやすく伝える工夫']]]),
+          ST('プログラミング', [['プログラムの基本', ['変数の考え方', '条件分岐とくり返し']], ['プログラムの応用', ['センサーを使ったプログラム', 'オリジナル作品づくり']]]),
+          ST('情報モラル', [['情報を正しく使う', ['著作権の基礎', '個人情報の取り扱い']], ['SNSと安全', ['SNS利用の注意点', 'ネットいじめを防ぐ']]]),
+          ST('データの活用', [['表とグラフ', ['表計算の基礎', 'グラフの作成']]]),
+        ],
+        jhs: [
+          ST('情報通信の技術', [['ネットワークの仕組み', ['インターネットの構造', '情報のデジタル化']], ['情報セキュリティ', ['情報セキュリティの基礎', '暗号化の仕組み']]]),
+          ST('コンピュータとプログラミング', [['プログラミングの基礎', ['アルゴリズムの考え方', '変数と配列']], ['プログラミングの実践', ['条件分岐とくり返しの活用', '簡単なアプリの制作']]]),
+          ST('情報デザイン', [['情報の表現', ['情報デザインの基礎', 'わかりやすい資料の作成']], ['データの活用', ['データベースの基礎', 'データの分析と可視化']]]),
+          ST('情報社会と私たち', [['情報モラル', ['知的財産権', '情報発信の責任']], ['情報社会の課題', ['情報格差', 'AIと社会']]]),
+        ],
+        hs: [
+          ST('情報社会の問題解決', [['情報と情報技術', ['情報社会の進展', '情報技術の活用']], ['情報デザイン', ['問題解決の手法', 'デザインの基礎']]]),
+          ST('コミュニケーションと情報デザイン', [['デジタル化の仕組み', ['デジタル情報の表現', 'メディアの特性']], ['コミュニケーション技術', ['ネットワークの仕組み', 'セキュリティの技術']]]),
+          ST('コンピュータとプログラミング', [['アルゴリズムとプログラミング', ['アルゴリズムの設計', 'プログラミングの実践']], ['モデル化とシミュレーション', ['モデル化の考え方', 'シミュレーションの活用']]]),
+          ST('情報通信ネットワークとデータ活用', [['ネットワークとデータベース', ['ネットワークの構築', 'データベースの基礎']], ['データの分析', ['データの収集と整理', '統計的な分析']]]),
+        ],
+      },
+    };
+
+    function sulalaSample(subjCode, bandCode, seed) {
+      const stages = (SULALA_TREE[subjCode] && SULALA_TREE[subjCode][bandCode]) || [];
+      if (!stages.length) return { gradeLabel: BAND_LABELS[bandCode] + ' ' + SUBJ_LABELS[subjCode], path: '', title: '', subj: subjCode };
+      const stage = stages[seed % stages.length];
+      const lesson = stage.lessons[seed % stage.lessons.length];
+      const unit = lesson.units[seed % lesson.units.length];
+      return {
+        gradeLabel: BAND_LABELS[bandCode] + ' ' + SUBJ_LABELS[subjCode],
+        path: stage.name + '：' + lesson.name,
+        title: unit,
+        subj: subjCode,
+      };
+    }
+    const SAMPLE_COMBOS = [['jp', 'high'], ['math', 'jhs'], ['en', 'high'], ['sci', 'jhs'], ['soc', 'high'], ['math', 'hs'], ['jp', 'jhs'], ['en', 'jhs']];
+    function sulalaSampleByIndex(i) {
+      const [subj, band] = SAMPLE_COMBOS[i % SAMPLE_COMBOS.length];
+      return sulalaSample(subj, band, i);
+    }
+  </script>
+
+  <script>
+    /* ============ 目標管理ページ用スクリプト ============ */
+    const GOALS = Array.from({ length: 15 }).map((_, i) => {
+      const isGroup = i % 3 !== 2;
+      return {
+        name: GOAL_NAMES[i % GOAL_NAMES.length],
+        target: isGroup ? TARGET_GROUPS[i % TARGET_GROUPS.length] : STUDENTS[i % STUDENTS.length].name,
+        targetType: isGroup ? 'group' : 'individual',
+        start: '2026/04/01',
+        due: '2026/04/20',
+        author: 'すらら太郎',
+        updated: '2026/03/31',
+      };
+    });
+
+    const MATERIALS = Array.from({ length: 12 }).map((_, i) => {
+      const s = sulalaSampleByIndex(i);
+      return { type: 'ドリル', subject: s.subj, gradeLabel: s.gradeLabel, path: s.path, title: s.title, time: '20分' };
+    });
+
+    function mkRenderGoalList() {
+      const body = document.getElementById('mk-goalListBody');
+      const badge = document.getElementById('mk-goalListCountBadge');
+      if (badge) badge.textContent = '検索結果 ' + GOALS.length + '件';
+      body.innerHTML = GOALS.map((g, i) => `
+    <tr data-target-type="${g.targetType}" data-match="1">
+      <td><span class="link-cell" onclick="openDetail(${i})">${g.name}</span></td>
+      <td>${mkTargetTypeBadge(g.targetType)}</td>
+      <td>${g.target}</td>
+      <td>${g.start}</td>
+      <td>${g.due}</td>
+      <td>${g.author}</td>
+      <td>${g.updated}</td>
+      <td>
+        <div class="flex-row" style="gap:10px;justify-content:flex-end;">
+          <button class="kebab-btn kebab-btn-lg" title="編集" onclick="showToast('編集画面へ(モック)')"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></button>
+          <button class="kebab-btn kebab-btn-lg" title="削除" onclick="openModal('mk-modal-delete')"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
+        </div>
+      </td>
+    </tr>`).join('');
+    }
+
+    /* 配信先が「グループ」か「個人」かを示すバッジ */
+    function mkTargetTypeBadge(type) {
+      return type === 'group'
+        ? '<span class="tag-band" style="background:var(--lime-bg);color:var(--lime-text);">グループ</span>'
+        : '<span class="tag-band" style="background:#E3F2FD;color:#1565C0;">個人</span>';
+    }
+
+    /* 「配信先区分」（グループ／個人）で絞り込む */
+    function mkApplyGoalTargetTypeFilter() {
+      const select = document.getElementById('mk-goalTargetType');
+      const value = select ? select.value : '';
+      document.querySelectorAll('#mk-goalListBody tr').forEach((tr) => {
+        tr.dataset.match = (!value || tr.getAttribute('data-target-type') === value) ? '1' : '0';
+      });
+    }
+
+    /* 検索するボタン: 一覧を表示状態にし、配信先区分でフィルタしてからページネーションする */
+    function mkApplyGoalSearch() {
+      const hint = document.getElementById('mk-goalListHintBody');
+      const results = document.getElementById('mk-goalListBody');
+      if (hint) hint.style.display = 'none';
+      if (results) results.style.display = '';
+      const badge = document.getElementById('mk-goalListCountBadge');
+      if (badge) badge.style.display = '';
+      mkApplyGoalTargetTypeFilter();
+      const visible = document.querySelectorAll('#mk-goalListBody tr[data-match="1"]').length;
+      if (badge) badge.textContent = '検索結果 ' + visible + '件';
+      const bar = document.getElementById('mk-goalListPagination');
+      if (bar) bar.setAttribute('data-page', '1');
+      filterPaginate('mk-goalListBody', 'mk-goalListPagination', 10);
+    }
+
+    function tagClass(s) { return { en: 'tag-en', jp: 'tag-jp', math: 'tag-math', sci: 'tag-sci', soc: 'tag-soc', info: 'tag-info', other: 'tag-other' }[s] || 'tag-other'; }
+
+    function materialRowsHtml(withCheck) {
+      return MATERIALS.map((m) => `
+    <tr>
+      ${withCheck ? '<td><input type="checkbox" class="tbl-check"></td>' : ''}
+      <td><span class="type-cell"><i class="fa-solid fa-pen"></i>${m.type}</span></td>
+      <td>
+        <div class="unit-cell">
+          <span class="tag-pill ${tagClass(m.subject)}" style="width:fit-content;">${m.gradeLabel}</span>
+          <span class="path">${m.path}</span>
+          <span class="title">${m.title}</span>
+        </div>
+      </td>
+      <td></td>
+      <td>${m.time}</td>
+      ${withCheck ? '<td><button class="kebab-btn"><i class="fa-solid fa-trash"></i></button></td>' : ''}
+    </tr>`).join('');
+    }
+
+    /* 学習履歴（単元単位の目標進捗）と同じデザインの行（種別／学年／科目／単元名／標準時間） */
+    function materialRowsHtmlRirekiStyle() {
+      return MATERIALS.map((m, i) => {
+        const s = sulalaSampleByIndex(i);
+        const icon = SUBJ_ICON[s.subj] || SUBJ_ICON.other;
+        const band = s.gradeLabel.replace(SUBJ_LABELS[s.subj], '').trim();
+        return `
+    <tr>
+      <td style="text-align:center;"><i class="fa-solid fa-pen" style="color:var(--text-sub);"></i><br><span style="font-size:10px;color:var(--text-sub);">${m.type}</span></td>
+      <td><span class="tag-band">${band}</span></td>
+      <td><span class="goal-subj-icon ${icon.cls}">${icon.short}</span></td>
+      <td><span class="unit-cell-sub">${s.path}</span><span class="unit-cell-main">${s.title}</span></td>
+      <td style="text-align:center;">${m.time}</td>
+    </tr>`;
+      }).join('');
+    }
+
+    function renderDetailModal() {
+      document.getElementById('mk-detailModalBody').innerHTML = materialRowsHtmlRirekiStyle();
+      grPaginateTable('mk-detailModalBody', 'mk-detailModalPagination', 10);
+    }
+    function renderMaterialSelected() {
+      document.getElementById('mk-materialSelectedBody').innerHTML = materialRowsHtml(true);
+    }
+    function renderConfirmMaterial() {
+      document.getElementById('mk-confirmMaterialBody').innerHTML = MATERIALS.map((m) => `
+    <tr><td><span class="type-cell"><i class="fa-solid fa-pen"></i>${m.type}</span></td>
+    <td><div class="unit-cell"><span class="tag-pill ${tagClass(m.subject)}" style="width:fit-content;">${m.gradeLabel}</span><span class="path">${m.path}</span><span class="title">${m.title}</span></div></td></tr>`).join('');
+    }
+
+    mkRenderGoalList();
+    /* 検索するボタンを押す前から検索結果を表示しておく */
+    runSearch('mk-goalListHintBody', 'mk-goalListBody', 'mk-goalListCountBadge', 'mk-goalListPagination');
+    filterPaginate('mk-goalListBody', 'mk-goalListPagination', 10);
+    renderDetailModal();
+    renderMaterialSelected();
+    renderConfirmMaterial();
+
+    function openDetail(i) { openModal('mk-modal-detail'); }
+    function confirmDelete() { closeModal('mk-modal-delete'); showToast('削除しました(モック)'); }
+
+    function openWizardNew() {
+      showToast('目標配信画面へ遷移します');
+    }
+    function goStep(n) {
+      document.querySelectorAll('.wizard-step').forEach((s) => s.style.display = 'none');
+      document.getElementById('mk-wizard-step' + n).style.display = '';
+      [1, 2, 3].forEach((i) => {
+        const el = document.getElementById('mk-step-badge-' + i);
+        el.classList.remove('active', 'done');
+        if (i < n) el.classList.add('done');
+        if (i === n && n <= 3) el.classList.add('active');
+      });
+      if (n === 3) {
+        hideSearchResults('mk-deliverStudentHintBody', 'mk-deliverStudentBody');
+        hideSearchResults('mk-deliverGroupHintBody', 'mk-deliverGroupBody');
+      }
+      if (n === 4) {
+        document.getElementById('mk-confirmGoalName').textContent = document.getElementById('mk-wGoalName').value || '目標名を入力してください';
+        document.getElementById('mk-confirmGoalName').classList.toggle('placeholder', !document.getElementById('mk-wGoalName').value);
+        document.getElementById('mk-confirmStart').textContent = document.getElementById('mk-wStart').value || 'YYYY/MM/DD';
+        document.getElementById('mk-confirmDue').textContent = document.getElementById('mk-wDue').value || 'YYYY/MM/DD';
+        document.getElementById('mk-confirmMemo').textContent = document.getElementById('mk-wMemo').value || '備考を入力してください';
+      }
+      window.scrollTo({ top: 0 });
+    }
+
+    function switchMaterialMode(mode, btn) {
+      document.querySelectorAll('.toggle-pair button').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('mk-modeSulala').style.display = mode === 'sulala' ? '' : 'none';
+      document.getElementById('mk-modeTextbook').style.display = mode === 'textbook' ? '' : 'none';
+      if (mode === 'sulala') resetStageFlow();
+    }
+
+    function selectSinglePill(el) {
+      el.parentElement.querySelectorAll('.pill').forEach((p) => p.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function selectSingleSubjectCheck(el) {
+      const group = el.parentElement;
+      group.querySelectorAll('.subject-check').forEach((s) => {
+        s.classList.remove('on');
+        s.querySelector('input').checked = false;
+      });
+      el.classList.add('on');
+      el.querySelector('input').checked = true;
+    }
+
+    const SUBJ_PILL_MAP = { '国語': 'jp', '算数・数学': 'math', '英語': 'en', '理科': 'sci', '社会': 'soc', '情報': 'info' };
+    const BAND_PILL_MAP = { '小学校低学年': 'low', '小学校高学年': 'high', '中学校': 'jhs', '高校': 'hs' };
+    let currentSulalaStages = [];
+    function renderSulalaStages(subjCode, bandCode) {
+      currentSulalaStages = (SULALA_TREE[subjCode] && SULALA_TREE[subjCode][bandCode]) || [];
+      const col = document.getElementById('mk-stageListBody');
+      col.innerHTML = currentSulalaStages.length
+        ? currentSulalaStages.map((s, i) => `<div class="drill-row" onclick="selectStage(this, ${i})">${s.name}</div>`).join('')
+        : '<div class="hint-empty">この教科・学年帯の単元はまだありません</div>';
+    }
+    function selectStage(el, stageIdx) {
+      el.parentElement.querySelectorAll('.drill-row').forEach((r) => r.classList.remove('selected'));
+      el.classList.add('selected');
+      const lessons = (currentSulalaStages[stageIdx] && currentSulalaStages[stageIdx].lessons) || [];
+      document.getElementById('mk-lessonListEmpty').style.display = lessons.length ? 'none' : '';
+      document.getElementById('mk-lessonListContent').style.display = lessons.length ? '' : 'none';
+      document.getElementById('mk-lessonListContent').innerHTML = lessons.map((l, i) => `<div class="drill-row" onclick="selectLesson(this, ${stageIdx}, ${i})">${l.name}</div>`).join('');
+      resetUnitStage();
+    }
+    function selectLesson(el, stageIdx, lessonIdx) {
+      el.parentElement.querySelectorAll('.drill-row').forEach((r) => r.classList.remove('selected'));
+      el.classList.add('selected');
+      const units = (currentSulalaStages[stageIdx].lessons[lessonIdx] && currentSulalaStages[stageIdx].lessons[lessonIdx].units) || [];
+      document.getElementById('mk-unitListEmpty').style.display = units.length ? 'none' : '';
+      document.getElementById('mk-unitListContent').style.display = units.length ? '' : 'none';
+      document.getElementById('mk-unitListContent').innerHTML = units.map((u) => `
+    <div class="unit-group" onclick="toggleUnitGroup(this)">
+      <div class="unit-group-head"><span>${u}</span><span class="chev"><i class="fa-solid fa-chevron-right"></i></span></div>
+      <div class="unit-group-body" onclick="event.stopPropagation()">
+        <span class="drill-btn" onclick="toggleDrillBtn(this)"><i class="fa-solid fa-pen"></i>ドリル1</span>
+        <span class="drill-btn" onclick="toggleDrillBtn(this)"><i class="fa-solid fa-pen"></i>ドリル2</span>
+      </div>
+    </div>`).join('');
+    }
+    function resetUnitStage() {
+      document.getElementById('mk-unitListEmpty').style.display = '';
+      document.getElementById('mk-unitListContent').style.display = 'none';
+      document.getElementById('mk-unitListContent').innerHTML = '';
+    }
+    function resetStageFlow() {
+      const pillRows = document.querySelectorAll('#mk-modeSulala .pill-row');
+      const subjPill = pillRows[0] && pillRows[0].querySelector('.pill.active');
+      const bandPill = pillRows[1] && pillRows[1].querySelector('.pill.active');
+      const subjCode = SUBJ_PILL_MAP[subjPill ? subjPill.textContent.trim() : ''] || 'jp';
+      const bandCode = BAND_PILL_MAP[bandPill ? bandPill.textContent.trim() : ''] || 'high';
+      renderSulalaStages(subjCode, bandCode);
+      document.getElementById('mk-lessonListEmpty').style.display = '';
+      document.getElementById('mk-lessonListContent').style.display = 'none';
+      document.getElementById('mk-lessonListContent').innerHTML = '';
+      resetUnitStage();
+    }
+    resetStageFlow();
+
+    const TEXTBOOK_GROUPS = [
+      { page: 'p.8〜9', title: 'よろしくね', units: [{ name: 'じこしょうかい', type: 'Aドリル' }] },
+      { page: 'p.12〜13', title: 'なんて いうのかな', units: [{ name: 'あいさつの ことば', type: 'Aドリル' }] },
+      { page: 'p.30〜31', title: 'ふたと ぶた', units: [{ name: 'にごるおん', type: 'Aドリル' }, { name: 'はじくおん', type: 'Bドリル' }] },
+    ];
+    function renderTextbookTable() {
+      let rows = '';
+      TEXTBOOK_GROUPS.forEach((g, gi) => {
+        g.units.forEach((u, ui) => {
+          rows += `<tr data-group="${gi}" onclick="selectTextbookUnit(${gi}, this)">`;
+          if (ui === 0) {
+            rows += `<td id="mk-tb-page-${gi}" rowspan="${g.units.length}" onclick="event.stopPropagation(); selectTextbookGroup(${gi}, this)"><span style="color:var(--tag-soc);font-weight:700;">${g.page}</span><br><strong>${g.title}</strong></td>`;
+          }
+          rows += `<td>${u.name}<br><span class="dim" style="font-weight:600;">${u.type}</span></td>`;
+          rows += `<td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation(); showToast('対象ドリルに紐づく問題のプレビューを表示しました(モック)')">プレビュー</button></td>`;
+          rows += '</tr>';
+        });
+      });
+      document.getElementById('mk-textbookBody').innerHTML = rows;
+    }
+    renderTextbookTable();
+
+    function syncTextbookPageCell(gi) {
+      const pageCell = document.getElementById('mk-tb-page-' + gi);
+      if (!pageCell) return;
+      const unitRows = document.querySelectorAll(`#mk-textbookBody tr[data-group="${gi}"]`);
+      const anySelected = Array.from(unitRows).some((r) => r.classList.contains('row-selected'));
+      pageCell.classList.toggle('row-selected', anySelected);
+    }
+    function selectTextbookUnit(gi, trEl) {
+      trEl.classList.toggle('row-selected');
+      syncTextbookPageCell(gi);
+    }
+    function selectTextbookGroup(gi, pageCell) {
+      const unitRows = document.querySelectorAll(`#mk-textbookBody tr[data-group="${gi}"]`);
+      const allSelected = Array.from(unitRows).length > 0 && Array.from(unitRows).every((r) => r.classList.contains('row-selected'));
+      const turnOn = !allSelected;
+      unitRows.forEach((r) => r.classList.toggle('row-selected', turnOn));
+      pageCell.classList.toggle('row-selected', turnOn);
+    }
+
+    function selectDrillRow(el, col) {
+      el.parentElement.querySelectorAll('.drill-row').forEach((r) => r.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function toggleDrillBtn(el) {
+      el.classList.toggle('selected');
+      el.style.background = el.classList.contains('selected') ? 'var(--lime-bg)' : '';
+      showToast(el.classList.contains('selected') ? '教材を選択しました(モック)' : '選択を解除しました(モック)');
+    }
+    function switchDeliverMode(mode) {
+      const isStudent = mode === 'student';
+      document.getElementById('mk-deliverSearchStudent').style.display = isStudent ? '' : 'none';
+      document.getElementById('mk-deliverSearchGroup').style.display = isStudent ? 'none' : '';
+      document.getElementById('mk-deliverTableStudent').style.display = isStudent ? '' : 'none';
+      document.getElementById('mk-deliverTableGroup').style.display = isStudent ? 'none' : '';
+      document.getElementById('mk-deliverSelectedLabel').textContent = isStudent ? '選択済 1名' : '選択済 1 グループ';
+    }
+    function submitDelivery() {
+      showToast('配信しました(モック)');
+      showView('mk-view-list');
+    }
+  </script>
+
+  <script>
+    /* ============ 学習履歴ページ用スクリプト ============ */
+    function unitCellHtml(i) {
+      const s = sulalaSampleByIndex(i || 0);
+      return `<div class="unit-cell"><span class="tag-pill ${tagClass(s.subj)}" style="width:fit-content;">${s.gradeLabel}</span><span class="path">${s.path}</span><span class="title">${s.title}</span></div>`;
+    }
+    function clearFlag(ok) {
+      return ok ? '<span class="clear-flower"><svg class="icon-clear"><use href="#icon-check-circle"/></svg>クリア</span>' : '<span class="clear-none">未(中断)</span>';
+    }
+    function kebab(hint, action) {
+      return `<div class="kebab-wrap"><button class="kebab-btn" onclick="${action}"><i class="fa-solid fa-ellipsis-vertical"></i></button><div class="kebab-hint">${hint}</div></div>`;
+    }
+
+    function setCurrentStudentDisplay(name) {
+      ['gr-currentStudentName', 'gr-goalUnitStudentName', 'gr-problemStudentName', 'gr-goalStudentUnitsStudentName', 'gr-trStudentName'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = name;
+      });
+    }
+    function setCurrentGoalDisplay(name) {
+      ['gr-goalUnitGoalName', 'gr-goalStudentUnitsGoalName'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = name;
+      });
+    }
+
+    const SUBJECTS = [['en', '英語'], ['jp', '国語'], ['math', '算数・数学'], ['sci', '理科'], ['soc', '社会'], ['info', '情報'], ['other', 'その他']];
+    function subjectPillsHtml() {
+      return SUBJECTS.map(([k, label]) =>
+        `<label class="subj-pill subj-pill--${k} on"><input type="checkbox" checked onclick="toggleSubjPill(this.parentElement)">${label}</label>`
+      ).join('');
+    }
+    function toggleSubjPill(el) {
+      const input = el.querySelector('input');
+      el.classList.toggle('on', input.checked);
+    }
+    function renderAllSubjectPills() {
+      [].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = subjectPillsHtml();
+      });
+    }
+
+    /* ============ 学習履歴: 個人・グループ検索モーダル（単一選択のみ） ============ */
+    let grSelectedStudents = [];
+    let grSelectedGroups = [];
+    /* モーダル内で行をクリックした時点の「未確定」の選択（下書き）。
+       「選択を確定する」を押すまでは grSelectedStudents / grSelectedGroups に反映しない。
+       これにより、モーダルを閉じるボタン（×）で閉じた場合に選択が誤って確定されるのを防ぐ。 */
+    let grDraftStudentName = null;
+    let grDraftGroupName = null;
+
+    /* 生徒検索・グループ検索はどちらか一方のみ選択可能。
+       現在どちらのモードで検索中かをボタンの色・状態で表現する。 */
+    function grUpdateModeButtons() {
+      const studentBtn = document.getElementById('gr-btnSearchStudent');
+      const groupBtn = document.getElementById('gr-btnSearchGroup');
+      if (!studentBtn || !groupBtn) return;
+      const hasStudents = grSelectedStudents.length > 0;
+      const hasGroups = grSelectedGroups.length > 0;
+      studentBtn.classList.toggle('is-active', hasStudents);
+      studentBtn.classList.toggle('is-disabled', hasGroups);
+      groupBtn.classList.toggle('is-active', hasGroups);
+      groupBtn.classList.toggle('is-disabled', hasStudents);
+    }
+
+    function grOpenSearchModal(kind) {
+      if (kind === 'student' && grSelectedGroups.length > 0) {
+        showToast('グループを検索中です。個人（生徒）検索を行うには、選択中のグループを解除してください(モック)');
+        return;
+      }
+      if (kind === 'group' && grSelectedStudents.length > 0) {
+        showToast('生徒を検索中です。グループ検索を行うには、選択中の生徒を解除してください(モック)');
+        return;
+      }
+      if (kind === 'student') {
+        grDraftStudentName = grSelectedStudents[0] || null;
+        const cnt = document.getElementById('gr-modalStudentSelCount');
+        if (cnt) cnt.textContent = grDraftStudentName ? 1 : 0;
+      } else {
+        grDraftGroupName = grSelectedGroups[0] || null;
+        const cnt = document.getElementById('gr-modalGroupSelCount');
+        if (cnt) cnt.textContent = grDraftGroupName ? 1 : 0;
+      }
+      openModal(kind === 'student' ? 'gr-modal-search-student' : 'gr-modal-search-group');
+    }
+
+    function renderStudentSearchModal() {
+      const rows = STUDENTS.map((s) => `
+    <tr onclick="grSelectStudentRow(this, '${s.name.replace(/'/g, "\\'")}')" style="cursor:pointer;">
+      <td>${s.id}</td>
+      <td>${s.name}</td>
+      <td>${s.school}</td><td>${s.grade}</td><td>${s.cls}</td><td>${s.seat}</td>
+    </tr>`).join('');
+      document.getElementById('gr-modalStudentBody').innerHTML = rows;
+      document.querySelectorAll('#gr-modalStudentBody tr').forEach((tr) => {
+        if (tr.children[1] && tr.children[1].textContent === grDraftStudentName) tr.classList.add('row-selected');
+      });
+    }
+
+    function renderGroupSearchModal() {
+      const rows = GROUP_SEARCH_LIST.map((name, i) => `
+    <tr onclick="grSelectGroupRow(this, '${name.replace(/'/g, "\\'")}')" style="cursor:pointer;">
+      <td>${name}</td>
+      <td>${8 + i}</td><td>すらら先生</td><td>2026/04/${String(10 + (i % 20)).padStart(2, '0')} 12:00</td>
+    </tr>`).join('');
+      document.getElementById('gr-modalGroupBody').innerHTML = rows;
+      document.querySelectorAll('#gr-modalGroupBody tr').forEach((tr) => {
+        if (tr.children[0] && tr.children[0].textContent === grDraftGroupName) tr.classList.add('row-selected');
+      });
+    }
+
+    function grSearchStudents() {
+      runSearch('gr-modalStudentHintBody', 'gr-modalStudentBody');
+      const bar = document.getElementById('gr-modalStudentPagination');
+      if (bar) bar.setAttribute('data-page', '1');
+      grPaginateTable('gr-modalStudentBody', 'gr-modalStudentPagination', 10);
+    }
+
+    function grSearchGroups() {
+      runSearch('gr-modalGroupHintBody', 'gr-modalGroupBody');
+      const bar = document.getElementById('gr-modalGroupPagination');
+      if (bar) bar.setAttribute('data-page', '1');
+      grPaginateTable('gr-modalGroupBody', 'gr-modalGroupPagination', 10);
+    }
+
+    /* 汎用: 行クリックでチェックボックスをトグルする（グループへの学習者追加モーダルなど、他の複数選択チェックボックス表で使用） */
+    function grToggleRowCheckbox(tr) {
+      const cb = tr.querySelector('.tbl-check');
+      if (!cb) return;
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    /* 行クリックのみで単一選択する（見た目の○は使わず、行のハイライトだけで選択状態を示す）。
+       同じ行をもう一度クリックすると選択解除される。 */
+    function grSelectStudentRow(tr, name) {
+      const alreadySelected = tr.classList.contains('row-selected');
+      document.querySelectorAll('#gr-modalStudentBody tr').forEach((r) => r.classList.remove('row-selected'));
+      grDraftStudentName = alreadySelected ? null : name;
+      if (!alreadySelected) tr.classList.add('row-selected');
+      const el = document.getElementById('gr-modalStudentSelCount');
+      if (el) el.textContent = grDraftStudentName ? 1 : 0;
+    }
+
+    function grSelectGroupRow(tr, name) {
+      const alreadySelected = tr.classList.contains('row-selected');
+      document.querySelectorAll('#gr-modalGroupBody tr').forEach((r) => r.classList.remove('row-selected'));
+      grDraftGroupName = alreadySelected ? null : name;
+      if (!alreadySelected) tr.classList.add('row-selected');
+      const el = document.getElementById('gr-modalGroupSelCount');
+      if (el) el.textContent = grDraftGroupName ? 1 : 0;
+    }
+
+    /* 「個人」を1名だけ選択している時だけ個人モード。
+       未選択（全体）またはグループ選択時は、複数名を扱うグループモードとして表示する。 */
+    function grGetMode() {
+      return grSelectedStudents.length > 0 ? 'individual' : 'group';
+    }
+
+    function grRefreshRirekiViews() {
+      /* グループ選択時は「月ごと」タブを削除する（グループ向けの月次集計は個人選択時のみ提供） */
+      const mode = grGetMode();
+      const monthTabBtn = document.querySelector('.tab[data-tab-group="rireki-mode"][data-tab-target="month"]');
+      if (monthTabBtn) {
+        monthTabBtn.style.display = mode === 'group' ? 'none' : '';
+        if (mode === 'group' && monthTabBtn.classList.contains('active')) {
+          const dateTabBtn = document.querySelector('.tab[data-tab-group="rireki-mode"][data-tab-target="date"]');
+          if (dateTabBtn) dateTabBtn.click();
+        }
+      }
+      renderRirekiDate();
+      renderRirekiGoal();
+      renderRirekiTest();
+      renderRirekiMonth();
+      renderGoalUnit();
+    }
+
+    function grUpdateTargetLabel() {
+      const chipsEl = document.getElementById('gr-currentTargetChips');
+      if (!chipsEl) return;
+      const studentChips = grSelectedStudents.map((name) => `
+    <span class="target-chip type-student">
+      <span class="chip-type">生徒</span>${name}
+      <button class="chip-remove" title="選択を解除" onclick="grRemoveTarget('student', '${name.replace(/'/g, "\\'")}')"><i class="fa-solid fa-xmark"></i></button>
+    </span>`).join('');
+      const groupChips = grSelectedGroups.map((name) => `
+    <span class="target-chip type-group">
+      <span class="chip-type">グループ</span>${name}
+      <button class="chip-remove" title="選択を解除" onclick="grRemoveTarget('group', '${name.replace(/'/g, "\\'")}')"><i class="fa-solid fa-xmark"></i></button>
+    </span>`).join('');
+      const html = studentChips + groupChips;
+      chipsEl.innerHTML = html || '<span class="empty-label">全体（未選択のため全件が対象）</span>';
+      if (grSelectedStudents.length) setCurrentStudentDisplay(grSelectedStudents[0]);
+      grUpdateModeButtons();
+      grRefreshRirekiViews();
+    }
+
+    function grRemoveTarget(kind, name) {
+      if (kind === 'group') {
+        grSelectedGroups = grSelectedGroups.filter((n) => n !== name);
+        if (grDraftGroupName === name) grDraftGroupName = null;
+        const cnt = document.getElementById('gr-modalGroupSelCount');
+        if (cnt) cnt.textContent = grSelectedGroups.length;
+      } else {
+        grSelectedStudents = grSelectedStudents.filter((n) => n !== name);
+        if (grDraftStudentName === name) grDraftStudentName = null;
+        const cnt = document.getElementById('gr-modalStudentSelCount');
+        if (cnt) cnt.textContent = grSelectedStudents.length;
+      }
+      grUpdateTargetLabel();
+      showToast((kind === 'group' ? 'グループ' : '生徒') + '「' + name + '」の選択を解除しました(モック)');
+    }
+
+    function grConfirmSelection(kind) {
+      /* モーダル内の下書き選択を、確定時にはじめて実際の選択状態へ反映する */
+      if (kind === 'student') {
+        grSelectedStudents = grDraftStudentName ? [grDraftStudentName] : [];
+      } else {
+        grSelectedGroups = grDraftGroupName ? [grDraftGroupName] : [];
+      }
+
+      /* 生徒検索とグループ検索はどちらか一方のみ。一方を確定したら、もう一方の選択はクリアする */
+      if (kind === 'group' && grSelectedGroups.length > 0) {
+        grSelectedStudents = [];
+        grDraftStudentName = null;
+        const cnt = document.getElementById('gr-modalStudentSelCount');
+        if (cnt) cnt.textContent = 0;
+      } else if (kind === 'student' && grSelectedStudents.length > 0) {
+        grSelectedGroups = [];
+        grDraftGroupName = null;
+        const cnt = document.getElementById('gr-modalGroupSelCount');
+        if (cnt) cnt.textContent = 0;
+      }
+      grUpdateTargetLabel();
+      closeModal(kind === 'group' ? 'gr-modal-search-group' : 'gr-modal-search-student');
+      const n = kind === 'group' ? grSelectedGroups.length : grSelectedStudents.length;
+      if (n === 0) {
+        showToast((kind === 'group' ? 'グループ' : '生徒') + 'の選択を解除しました。全体の学習履歴を表示します(モック)');
+      } else {
+        showToast((kind === 'group' ? 'グループ' : '生徒') + n + '件を選択しました(モック)');
+      }
+    }
+
+    function rirekiClearHtml(ok) {
+      return ok
+        ? '<span class="clear-flower"><svg class="icon-clear"><use href="#icon-check-circle"/></svg>クリア</span>'
+        : '<span class="not-cleared">未</span>';
+    }
+
+    const RIREKI_DATE_RAW = [
+      { date: '2025.12.01', t1: '01:03', t2: '01:13', subj: 'jp', seed: 0, rate: 100, clear: true, type: 'drill', source: 'teacher' },
+      { date: '2025.12.01', t1: '01:20', t2: '01:30', subj: 'jp', seed: 1, rate: 75, clear: false, type: 'test', source: 'teacher' },
+      { date: '2025.12.02', t1: '09:00', t2: '09:10', subj: 'math', seed: 2, rate: 75, clear: false, type: 'drill', source: 'self' },
+      { date: '2025.12.03', t1: '15:40', t2: '15:50', subj: 'en', seed: 3, rate: 100, clear: true, type: 'drill', source: 'self' },
+      { date: '2025.12.04', t1: '08:10', t2: '08:20', subj: 'sci', seed: 4, rate: 75, clear: false, type: 'test', source: 'teacher' },
+      { date: '2025.12.05', t1: '17:00', t2: '17:10', subj: 'soc', seed: 5, rate: 75, clear: false, type: 'drill', source: 'self' },
+      { date: '2025.12.06', t1: '19:00', t2: '19:10', subj: 'info', seed: 6, rate: 100, clear: true, type: 'test', source: 'teacher' },
+      { date: '2025.12.07', t1: '10:05', t2: '10:15', subj: 'jp', seed: 7, rate: 60, clear: false, type: 'drill', source: 'self' },
+      { date: '2025.12.08', t1: '14:20', t2: '14:35', subj: 'math', seed: 8, rate: 90, clear: true, type: 'test', source: 'teacher' },
+      { date: '2025.12.09', t1: '18:00', t2: '18:12', subj: 'en', seed: 9, rate: 85, clear: true, type: 'drill', source: 'self' },
+      { date: '2025.12.10', t1: '07:30', t2: '07:45', subj: 'sci', seed: 10, rate: 70, clear: false, type: 'drill', source: 'teacher' },
+      { date: '2025.12.11', t1: '16:10', t2: '16:20', subj: 'soc', seed: 11, rate: 95, clear: true, type: 'test', source: 'self' },
+      { date: '2025.12.12', t1: '20:00', t2: '20:15', subj: 'other', seed: 12, rate: 55, clear: false, type: 'drill', source: 'self' },
+    ];
+
+    /* 学習区分（先生からの目標／自主学習）のバッジHTMLを返す */
+    function rirekiSourceHtml(source) {
+      return source === 'teacher'
+        ? '<span class="source-badge source-teacher">先生からの目標</span>'
+        : '<span class="source-badge source-self">自主学習</span>';
+    }
+
+
+    function rirekiYmd(dateStr) {
+      const parts = dateStr.split('.');
+      return { y: parts[0] + '年', md: parts[1] + '/' + parts[2] };
+    }
+
+    /* 学年表記を「小学校○年生」「中学校○年生」「高校○年生」のような正式表記に揃える */
+    function formatGradeLabel(grade) {
+      if (!grade) return grade;
+      return grade
+        .replace(/^小学(?!校)/, '小学校')
+        .replace(/^中学(?!校)/, '中学校');
+    }
+
+    function renderRirekiDate() {
+      const mode = grGetMode();
+      const thead = document.getElementById('gr-rirekiDateThead');
+      if (thead) {
+        thead.innerHTML = mode === 'individual'
+          ? `<tr>
+          <th style="width:170px;">学習日時</th>
+          <th style="width:100px;">区分</th>
+          <th style="width:110px;">学年</th>
+          <th style="width:70px;">科目</th>
+          <th>単元名</th>
+          <th style="width:80px; text-align:center;">学習時間</th>
+          <th style="width:80px; text-align:center;">正解率</th>
+          <th style="width:80px;">クリア</th>
+        </tr>`
+          : `<tr>
+          <th style="width:170px;">学習日時</th>
+          <th style="width:100px;">区分</th>
+          <th style="width:70px;">科目</th>
+          <th>単元名</th>
+          <th style="width:90px;">学年</th>
+          <th style="width:70px;">クラス</th>
+          <th style="width:80px;">出席番号</th>
+          <th style="width:130px;">学習者名</th>
+          <th style="width:80px; text-align:center;">学習時間</th>
+          <th style="width:80px; text-align:center;">正解率</th>
+          <th style="width:80px;">クリア</th>
+        </tr>`;
+      }
+      const hintBody = document.getElementById('gr-rirekiDateHintBody');
+      if (hintBody) {
+        const cols = mode === 'individual' ? 8 : 11;
+        hintBody.querySelectorAll('td.hint-empty').forEach((td) => td.setAttribute('colspan', cols));
+      }
+
+      const rows = RIREKI_DATE_RAW.map((r, i) => {
+        const s = sulalaSampleByIndex(r.seed);
+        const bandLabel = s.gradeLabel.replace(SUBJ_LABELS[r.subj], '').trim();
+        const icon = SUBJ_ICON[r.subj] || SUBJ_ICON.other;
+        const d = rirekiYmd(r.date);
+        const student = STUDENTS[i % STUDENTS.length];
+        if (mode === 'individual') {
+          return `
+      <tr onclick="openProblemDetail('date', ${r.seed})" style="cursor:pointer;" data-subject="${r.subj}" data-type="${r.type}" data-source="${r.source}" data-date-iso="${r.date.replace(/\./g, '-')}">
+        <td><div class="goal-date-cell"><div class="date-line"><span class="y">${d.y}</span><span class="md">${d.md}</span></div><span class="time-range">${r.t1} ~ ${r.t2}</span></div></td>
+        <td>${rirekiSourceHtml(r.source)}</td>
+        <td><span class="tag-band">${bandLabel}</span></td>
+        <td><span class="goal-subj-icon ${icon.cls}">${icon.short}</span></td>
+        <td><div class="unit-cell-wrap"><i class="fa-solid ${r.type === 'test' ? 'fa-clipboard-check' : 'fa-pen'} unit-type-icon" title="${r.type === 'test' ? 'テスト' : 'ドリル'}"></i><div><span class="unit-cell-sub">${s.path}</span><span class="unit-cell-main">${s.title}</span></div></div></td>
+        <td style="text-align:center;">⏱ 10分</td>
+        <td style="text-align:center;"><span class="rireki-pct">${r.rate}<small>%</small></span></td>
+        <td>${rirekiClearHtml(r.clear)}</td>
+      </tr>`;
+        }
+        return `
+    <tr onclick="openProblemDetail('date', ${r.seed})" style="cursor:pointer;" data-subject="${r.subj}" data-type="${r.type}" data-source="${r.source}" data-date-iso="${r.date.replace(/\./g, '-')}">
+      <td><div class="goal-date-cell"><div class="date-line"><span class="y">${d.y}</span><span class="md">${d.md}</span></div><span class="time-range">${r.t1} ~ ${r.t2}</span></div></td>
+      <td>${rirekiSourceHtml(r.source)}</td>
+      <td><span class="goal-subj-icon ${icon.cls}">${icon.short}</span></td>
+      <td><div class="unit-cell-wrap"><i class="fa-solid ${r.type === 'test' ? 'fa-clipboard-check' : 'fa-pen'} unit-type-icon" title="${r.type === 'test' ? 'テスト' : 'ドリル'}"></i><div><span class="unit-cell-sub">${s.path}</span><span class="unit-cell-main">${s.title}</span></div></div></td>
+      <td><span class="tag-band">${formatGradeLabel(student.grade)}</span></td>
+      <td>${student.cls}</td>
+      <td>${student.seat}</td>
+      <td>${student.name}</td>
+      <td style="text-align:center;">⏱ 10分</td>
+      <td style="text-align:center;"><span class="rireki-pct">${r.rate}<small>%</small></span></td>
+      <td>${rirekiClearHtml(r.clear)}</td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-rirekiDateBody').innerHTML = rows;
+    }
+
+    const RIREKI_GOAL_RAW = [
+      { date: '2025.12.01', pct: 75, subj: 'jp', creator: 'すらら 花子', dest: 'グループA', campus: 'あおぞら校舎' },
+      { date: '2025.12.01', pct: 100, subj: 'math', creator: 'すらら 花子', dest: 'グループB', campus: 'あおぞら校舎' },
+      { date: '2025.12.05', pct: 75, subj: 'jp', creator: 'すらら 次郎', dest: 'すらら太郎', campus: 'うみべの校舎' },
+      { date: '2025.12.10', pct: 75, subj: 'en', creator: 'すらら 次郎', dest: 'グループA', campus: 'うみべの校舎' },
+      { date: '2026.01.05', pct: 60, subj: 'other', creator: 'すらら 花子', dest: 'グループC', campus: 'ほしぞら校舎' },
+      { date: '2026.01.10', pct: 60, subj: 'math', creator: 'すらら 三郎', dest: 'すらら太郎', campus: 'ほしぞら校舎' },
+      { date: '2026.01.20', pct: 100, subj: 'en', creator: 'すらら 花子', dest: 'グループB', campus: 'あおぞら校舎' },
+      { date: '2026.01.25', pct: 80, subj: 'math', creator: 'すらら 三郎', dest: 'グループD', campus: 'うみべの校舎' },
+      { date: '2026.02.01', pct: 45, subj: 'sci', creator: 'すらら 次郎', dest: 'グループA', campus: 'あおぞら校舎' },
+      { date: '2026.02.05', pct: 88, subj: 'soc', creator: 'すらら 花子', dest: 'グループC', campus: 'うみべの校舎' },
+      { date: '2026.02.10', pct: 70, subj: 'info', creator: 'すらら 三郎', dest: 'すらら太郎', campus: 'ほしぞら校舎' },
+      { date: '2026.02.15', pct: 55, subj: 'jp', creator: 'すらら 花子', dest: 'グループD', campus: 'あおぞら校舎' },
+    ];
+
+    function renderRirekiGoal() {
+      const mode = grGetMode();
+
+      /* 検索条件: グループ選択時は「配信先」を非表示にし、期日選択/目標名/作成者/教科選択のみにする */
+      const destField = document.getElementById('gr-goalDestinationField');
+      if (destField) destField.style.display = mode === 'individual' ? '' : 'none';
+
+      const thead = document.getElementById('gr-rirekiGoalThead');
+      if (thead) {
+        thead.innerHTML = mode === 'individual'
+          ? `<tr><th style="width:90px;">期日</th><th>目標名</th><th style="width:280px;">達成度</th><th style="width:80px;">クリア</th></tr>`
+          : `<tr><th style="width:90px;">期日</th><th>目標名</th><th style="width:220px;">進捗</th><th style="width:100px; text-align:center;">正解率</th><th style="width:80px;">クリア</th></tr>`;
+      }
+      const hintBody = document.getElementById('gr-rirekiGoalHintBody');
+      if (hintBody) {
+        const cols = mode === 'individual' ? 4 : 5;
+        hintBody.querySelectorAll('td.hint-empty').forEach((td) => td.setAttribute('colspan', cols));
+      }
+
+      const rows = RIREKI_GOAL_RAW.map((g, i) => {
+        const name = GOAL_NAMES[i % GOAL_NAMES.length];
+        const icon = SUBJ_ICON[g.subj] || SUBJ_ICON.other;
+        const d = rirekiYmd(g.date);
+        if (mode === 'individual') {
+          return `
+      <tr onclick="setCurrentGoalDisplay('${name}'); showView('gr-view-goal-unit-detail')" style="cursor:pointer;" data-subject="${g.subj}" data-date-iso="${g.date.replace(/\./g, '-')}" data-goal-name="${name}" data-creator="${g.creator}" data-dest="${g.dest}" data-campus="${g.campus}">
+        <td><div class="goal-date-cell"><div class="date-line"><span class="y">${d.y}</span><span class="md">${d.md}</span></div></div></td>
+        <td><div class="goal-title-cell"><span class="goal-subj-icon ${icon.cls}">${icon.short}</span><span>${name}</span></div></td>
+        <td><div class="rireki-progress"><span class="bar"><span style="width:${g.pct}%"></span></span><span class="rireki-pct">${g.pct}<small>%</small></span></div></td>
+        <td>${g.pct >= 100 ? rirekiClearHtml(true) : ''}</td>
+      </tr>`;
+        }
+        /* グループ選択時: 「進捗」（目標の消化度）と「正解率」（ドリルの正解率）を別々の指標として表示する */
+        const accuracy = Math.max(50, Math.min(100, g.pct - 5 + ((i * 7) % 15)));
+        return `
+    <tr onclick="setCurrentGoalDisplay('${name}'); showView('gr-view-goal-unit-detail')" style="cursor:pointer;" data-subject="${g.subj}" data-date-iso="${g.date.replace(/\./g, '-')}" data-goal-name="${name}" data-creator="${g.creator}" data-dest="${g.dest}" data-campus="${g.campus}">
+      <td><div class="goal-date-cell"><div class="date-line"><span class="y">${d.y}</span><span class="md">${d.md}</span></div></div></td>
+      <td><div class="goal-title-cell"><span class="goal-subj-icon ${icon.cls}">${icon.short}</span><span>${name}</span></div></td>
+      <td><div class="rireki-progress"><span class="bar"><span style="width:${g.pct}%"></span></span><span class="rireki-pct pct-progress">${g.pct}<small>%</small></span></div></td>
+      <td style="text-align:center;"><span class="rireki-pct">${accuracy}<small>%</small></span></td>
+      <td>${g.pct >= 100 ? rirekiClearHtml(true) : ''}</td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-rirekiGoalBody').innerHTML = rows;
+    }
+
+    /* テストの種類ラベル */
+    const TEST_TYPE_LABELS = {
+      surala: 'すらら単元テスト',
+      textbook: '教科書単元テスト',
+      gakuryoku: '学力診断テスト',
+      pre: '単元別プレテスト',
+    };
+
+    const TEST_NAMES = [
+      '小学4年生 1学期 単元確認テスト',
+      '小学5年生 算数 図形強化テスト',
+      '小学6年生 中学準備 総合テスト',
+      '中学1年生 定期テスト対策(数学)',
+      '中学1年生 英語 基礎確認テスト',
+      '中学2年生 2学期期末対策テスト',
+      '中学3年生 入試対策 総合テスト',
+      '難関校志望者用 発展テスト',
+      '中学3年生 過去問演習(数学)',
+      '小学5年生 漢字・語彙確認テスト',
+    ];
+
+    const RIREKI_TEST_RAW = [
+      { date: '2025.12.01', subj: 'jp', type: 'surala', score: 90 },
+      { date: '2025.12.02', subj: 'math', type: 'textbook', score: 75 },
+      { date: '2025.12.05', subj: 'en', type: 'gakuryoku', score: 88 },
+      { date: '2025.12.10', subj: 'sci', type: 'pre', score: 64 },
+      { date: '2026.01.05', subj: 'soc', type: 'surala', score: 92 },
+      { date: '2026.01.10', subj: 'info', type: 'textbook', score: 70 },
+      { date: '2026.01.15', subj: 'jp', type: 'gakuryoku', score: 81 },
+      { date: '2026.01.20', subj: 'math', type: 'pre', score: 77 },
+      { date: '2026.01.25', subj: 'en', type: 'surala', score: 95 },
+      { date: '2026.01.30', subj: 'sci', type: 'textbook', score: 68 },
+      { date: '2026.02.05', subj: 'soc', type: 'gakuryoku', score: 73 },
+      { date: '2026.02.10', subj: 'other', type: 'pre', score: 58 },
+    ];
+
+    function renderRirekiTest() {
+      const mode = grGetMode();
+      const scoreLabel = mode === 'individual' ? '正解率' : '平均正解率';
+      const thead = document.getElementById('gr-rirekiTestThead');
+      if (thead) {
+        thead.innerHTML = `<tr>
+        <th style="width:110px;">受験日</th>
+        <th style="width:70px; text-align:center;">科目</th>
+        <th style="width:160px;">種類</th>
+        <th>テスト名</th>
+        <th style="width:100px; text-align:center;">${scoreLabel}</th>
+      </tr>`;
+      }
+      const hintBody = document.getElementById('gr-rirekiTestHintBody');
+      if (hintBody) {
+        hintBody.querySelectorAll('td.hint-empty').forEach((td) => td.setAttribute('colspan', 5));
+      }
+
+      const rows = RIREKI_TEST_RAW.map((r, i) => {
+        const name = TEST_NAMES[i % TEST_NAMES.length];
+        const icon = SUBJ_ICON[r.subj] || SUBJ_ICON.other;
+        const d = rirekiYmd(r.date);
+        return `
+    <tr data-subject="${r.subj}" data-test-type="${r.type}" data-date-iso="${r.date.replace(/\./g, '-')}" onclick="${grGetMode() === 'individual' ? `grOpenTestResultDetail(${i})` : `grOpenTestStudentList(${i})`}" style="cursor:pointer;">
+      <td><div class="goal-date-cell"><div class="date-line"><span class="y">${d.y}</span><span class="md">${d.md}</span></div></div></td>
+      <td style="text-align:center;"><span class="goal-subj-icon ${icon.cls}">${icon.short}</span></td>
+      <td><span class="tag-band">${TEST_TYPE_LABELS[r.type]}</span></td>
+      <td class="text-left">${name}</td>
+      <td style="text-align:center;"><span class="rireki-pct">${r.score}<small>%</small></span></td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-rirekiTestBody').innerHTML = rows;
+    }
+
+    /* ============ テスト結果詳細：学習履歴一覧のテスト明細クリックで遷移（studentのテスト結果詳細ページに準拠） ============
+       概要カード（学習者・実施日・種別・テスト名・得点）はクリックした行のデータから設定する。
+       単元／ユニットごとの表・問題正誤一覧の中身はサンプル表示（studentと同じ内容の見本）。
+       個人検索時はテスト明細から直接遷移、グループ／全体検索時は「学習者ごとの進捗・正解率」画面を経由して遷移する。
+       studentName を渡した場合はその名前を、渡さない場合は「すらら太郎」を表示する。 */
+    function grOpenTestResultDetail(i, studentName) {
+      const r = RIREKI_TEST_RAW[i];
+      if (!r) return;
+      const name = TEST_NAMES[i % TEST_NAMES.length];
+      const icon = SUBJ_ICON[r.subj] || SUBJ_ICON.other;
+      const d = rirekiYmd(r.date);
+      const isMergedType = (r.type === 'textbook' || r.type === 'gakuryoku' || r.type === 'pre');
+      const useTen = (r.type === 'gakuryoku' || r.type === 'pre');
+      const viaStudentList = !!studentName;
+
+      setCurrentStudentDisplay(studentName || 'すらら太郎');
+      document.getElementById('gr-trDateVal').textContent = d.y.replace('年', '.') + d.md.replace('/', '.');
+      document.getElementById('gr-trTitleVal').textContent = name;
+      document.getElementById('gr-trScoreNum').textContent = r.score;
+      document.getElementById('gr-trScoreUnit').textContent = useTen ? '点' : '%';
+      document.getElementById('gr-trScoreSub').textContent = useTen ? '' : '(8/10)';
+
+      document.getElementById('gr-trLeftTableTitle').textContent = isMergedType ? '単元／ユニットごと' : 'ユニットごと';
+      document.getElementById('gr-tr-unit-list').style.display = isMergedType ? 'none' : '';
+      document.getElementById('gr-tr-mergedunit-list').style.display = isMergedType ? '' : 'none';
+
+      document.querySelectorAll('#gr-view-test-result .gr-tr-col-hairten').forEach((el) => {
+        el.style.display = useTen ? '' : 'none';
+      });
+
+      const qBar = document.getElementById('gr-tr-questionPagination');
+      if (qBar) qBar.setAttribute('data-page', '1');
+      grPaginateTable('gr-tr-question-body', 'gr-tr-questionPagination', 10);
+
+      const bc = document.querySelector('#gr-view-test-result .breadcrumb');
+      if (bc) {
+        bc.innerHTML = viaStudentList
+          ? `<a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span class="sep">&gt;</span><a href="#" onclick="showView('gr-view-test-student-list');return false;">学習者ごとの進捗・正解率</a><span class="sep">&gt;</span><span class="current">テスト結果詳細</span>`
+          : `<a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span class="sep">&gt;</span><span class="current">テスト結果詳細</span>`;
+      }
+
+      showView('gr-view-test-result');
+    }
+
+    /* ============ 学習者ごとの進捗・正解率一覧：学習履歴一覧（グループ／全体検索）のテスト明細クリックで表示 ============
+       同じテストを受けた学習者の一覧（進捗・正解率）を表示し、学習者行をクリックするとテスト結果詳細に遷移する。 */
+    function grOpenTestStudentList(i) {
+      const r = RIREKI_TEST_RAW[i];
+      if (!r) return;
+      const name = TEST_NAMES[i % TEST_NAMES.length];
+      const d = rirekiYmd(r.date);
+
+      document.getElementById('gr-tsl-dateVal').textContent = d.y.replace('年', '.') + d.md.replace('/', '.');
+      document.getElementById('gr-tsl-titleVal').textContent = name;
+      document.getElementById('gr-tsl-scoreNum').textContent = r.score;
+      document.getElementById('gr-tsl-scoreUnit').textContent = (r.type === 'gakuryoku' || r.type === 'pre') ? '点' : '%';
+      document.getElementById('gr-tsl-scoreSub').textContent = (r.type === 'gakuryoku' || r.type === 'pre') ? '' : '(8/10)';
+
+      const useTen = (r.type === 'gakuryoku' || r.type === 'pre');
+      const members = STUDENTS;
+      const rows = members.map((s, idx) => {
+        const progress = Math.max(30, Math.min(100, 40 + ((idx * 11) % 60)));
+        const accuracy = Math.max(50, Math.min(100, 60 + ((idx * 7) % 40)));
+        const studyMin = 10 + ((idx * 3) % 20);
+        return `
+    <tr onclick="grOpenTestResultDetail(${i}, '${s.name}')" style="cursor:pointer;">
+      <td>${s.name}</td>
+      <td><span class="tag-band">${formatGradeLabel(s.grade)}</span></td>
+      <td>${s.cls}</td>
+      <td>${s.seat}</td>
+      <td style="text-align:center;">${studyMin}分</td>
+      <td><div class="rireki-progress"><span class="bar"><span style="width:${progress}%"></span></span><span class="gr-tsl-progress-badge">${progress}<small>%</small></span></div></td>
+      <td><span class="rireki-pct">${accuracy}<small>${useTen ? '点' : '%'}</small></span></td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-tsl-body').innerHTML = rows;
+      grPaginateTable('gr-tsl-body', 'gr-tsl-pagination', 10);
+
+      const bc = document.getElementById('gr-tsl-breadcrumb');
+      if (bc) {
+        bc.innerHTML = `<a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span class="sep">&gt;</span><span class="current">学習者ごとの進捗・正解率</span>`;
+      }
+
+      showView('gr-view-test-student-list');
+    }
+
+
+    function renderGoalUnit() {
+      const mode = grGetMode();
+      const studentField = document.getElementById('gr-goalUnitStudentField');
+      const thead = document.getElementById('gr-goalUnitThead');
+      const compactList = document.getElementById('gr-goalUnitCompactList');
+      const tableWrap = document.getElementById('gr-goalUnitTableWrap');
+      const titleLabel = document.getElementById('gr-goalUnitTitleLabel');
+
+      if (mode === 'individual') {
+        if (studentField) studentField.style.display = '';
+        if (titleLabel) titleLabel.textContent = '単元一覧';
+        if (compactList) compactList.style.display = '';
+        if (tableWrap) tableWrap.style.display = 'none';
+
+        const items = Array.from({ length: 4 }).map((_, i) => {
+          const s = sulalaSampleByIndex(i);
+          const icon = SUBJ_ICON[s.subj] || SUBJ_ICON.other;
+          const rate = i === 0 ? 100 : 75;
+          return `
+      <div class="gsu-unit-item" data-sample-index="${i}" onclick="selectIndividualGoalUnit(this, ${i}, ${rate}, ${i === 0})">
+        <div class="gsu-type"><i class="fa-solid fa-pen"></i><span>ドリル</span></div>
+        <div class="gsu-body">
+          <div class="gsu-title-row">
+            <span class="goal-subj-icon ${icon.cls}" style="width:20px;height:20px;font-size:0.65rem;">${icon.short}</span>
+            <span class="unit-cell-main">${s.title}</span>
+          </div>
+        </div>
+      </div>`;
+        }).join('');
+        if (compactList) compactList.innerHTML = items;
+        const badge = document.getElementById('gr-goalUnitCountBadge');
+        if (badge) badge.textContent = '検索結果 ' + 4 + '件';
+        const paginationBar = document.getElementById('gr-goalUnitPagination');
+        if (paginationBar) paginationBar.style.display = 'none';
+
+        /* 問題正誤一覧を同一ページ内に表示し、初期表示は先頭の単元を選択状態にする */
+        const problemCard = document.getElementById('gr-guProblemCard');
+        if (problemCard) problemCard.style.display = '';
+        const firstItem = document.querySelector('#gr-goalUnitCompactList .gsu-unit-item');
+        if (firstItem) selectIndividualGoalUnit(firstItem, 0, 100, true);
+        return;
+      }
+
+      /* グループ選択時: この目標に取り組む学習者ごとの進捗・正解率一覧を表示する */
+      if (titleLabel) titleLabel.textContent = '目標単位の学習履歴';
+      if (compactList) compactList.style.display = 'none';
+      if (tableWrap) tableWrap.style.display = '';
+      const problemCardGroup = document.getElementById('gr-guProblemCard');
+      if (problemCardGroup) problemCardGroup.style.display = 'none';
+      if (studentField) studentField.style.display = 'none';
+      if (thead) {
+        thead.innerHTML = `<tr>
+      <th>学習者名</th>
+      <th style="width:150px;">学年</th>
+      <th style="width:70px;">クラス</th>
+      <th style="width:80px;">出席番号</th>
+      <th style="width:90px;text-align:center;">学習時間</th>
+      <th style="width:200px;">進捗</th>
+      <th style="width:90px; text-align:center;">正解率</th>
+    </tr>`;
+      }
+      const members = STUDENTS;
+      const rows = members.map((s, i) => {
+        const progress = Math.max(30, Math.min(100, 40 + ((i * 11) % 60)));
+        const accuracy = Math.max(50, Math.min(100, 60 + ((i * 7) % 40)));
+        return `
+    <tr onclick="setCurrentStudentDisplay('${s.name}'); showGoalStudentUnits(${i})" style="cursor:pointer;">
+      <td>${s.name}</td>
+      <td><span class="tag-band">${formatGradeLabel(s.grade)}</span></td>
+      <td>${s.cls}</td>
+      <td>${s.seat}</td>
+      <td style="text-align:center;">${20 + i * 5}分</td>
+      <td><div class="rireki-progress"><span class="bar"><span style="width:${progress}%"></span></span><span class="rireki-pct pct-progress">${progress}<small>%</small></span></div></td>
+      <td style="text-align:center;"><span class="rireki-pct">${accuracy}<small>%</small></span></td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-goalUnitBody').innerHTML = rows;
+      const badge = document.getElementById('gr-goalUnitCountBadge');
+      if (badge) badge.textContent = '検索結果 ' + members.length + '件';
+      grPaginateTable('gr-goalUnitBody', 'gr-goalUnitPagination', 10);
+    }
+
+    /* グループ選択時: 学習者を選ぶと、その目標に紐づく複数単元名を一覧表示する（左のコンパクトリスト） */
+    function renderGoalStudentUnits(memberIndex) {
+      const items = Array.from({ length: 4 }).map((_, i) => {
+        const sampleIndex = (memberIndex * 4 + i) % 12;
+        const s = sulalaSampleByIndex(sampleIndex);
+        const icon = SUBJ_ICON[s.subj] || SUBJ_ICON.other;
+        const band = s.gradeLabel.replace(SUBJ_LABELS[s.subj], '').trim();
+        const rate = i === 0 ? 100 : 75;
+        const type = i % 2 === 0 ? 'drill' : 'test';
+        return `
+    <div class="gsu-unit-item" data-sample-index="${sampleIndex}" onclick="selectGoalStudentUnit(this, ${sampleIndex}, ${rate}, ${i === 0})">
+      <div class="gsu-type"><i class="fa-solid ${type === 'test' ? 'fa-clipboard-check' : 'fa-pen'}"></i><span>${type === 'test' ? 'テスト' : 'ドリル'}</span></div>
+      <div class="gsu-body">
+        <div class="gsu-title-row">
+          <span class="goal-subj-icon ${icon.cls}" style="width:20px;height:20px;font-size:0.65rem;">${icon.short}</span>
+          <span class="unit-cell-main">${s.title}</span>
+        </div>
+      </div>
+    </div>`;
+      }).join('');
+      document.getElementById('gr-goalStudentUnitsBody').innerHTML = items;
+      const badge = document.getElementById('gr-goalStudentUnitsCountBadge');
+      if (badge) badge.textContent = '検索結果 4件';
+
+      /* 初期表示として先頭の単元を選択状態にし、その問題正誤一覧を表示する */
+      const firstItem = document.querySelector('#gr-goalStudentUnitsBody .gsu-unit-item');
+      if (firstItem) selectGoalStudentUnit(firstItem, 0, 100, true);
+    }
+
+    /* 単元をクリックした時、同一ページ内の「問題正誤一覧」を更新する（別画面には遷移しない） */
+    function selectGoalStudentUnit(itemEl, sampleIndex, rate, cleared) {
+      document.querySelectorAll('#gr-goalStudentUnitsBody .gsu-unit-item').forEach((el) => el.classList.remove('selected'));
+      itemEl.classList.add('selected');
+
+      const s = sulalaSampleByIndex(sampleIndex);
+      const icon = SUBJ_ICON[s.subj] || SUBJ_ICON.other;
+      document.getElementById('gr-gsuProblemGradeBand').textContent = s.gradeLabel.replace(SUBJ_LABELS[s.subj], '').trim();
+      const iconEl = document.getElementById('gr-gsuProblemSubjectIcon');
+      iconEl.className = 'goal-subj-icon ' + icon.cls;
+      iconEl.textContent = icon.short;
+      document.getElementById('gr-gsuProblemUnitPath').textContent = s.path;
+      document.getElementById('gr-gsuProblemUnitTitle').textContent = s.title;
+      document.getElementById('gr-gsuProblemTime').textContent = '1分30秒';
+      const correctCount = Math.round((rate / 100) * 12);
+      document.getElementById('gr-gsuProblemRate').innerHTML = rate + '<small>% (' + correctCount + '/12)</small>';
+      document.getElementById('gr-gsuProblemClearWrap').innerHTML = cleared ? rirekiClearHtml(true) : '<span class="not-cleared">未(中断)</span>';
+
+      const total = 12;
+      const rows = Array.from({ length: total }).map((_, i) => {
+        const n = i + 1;
+        const ok = n <= correctCount;
+        return `
+    <tr>
+      <td style="text-align:center;"><span class="gr-pd-judge ${ok ? 'ok' : 'ng'}">${ok ? '〇' : '×'}</span></td>
+      <td><b>第${n}問</b>&nbsp;&nbsp;&nbsp;言葉の意味を選びましょう</td>
+      <td style="text-align:center;">0:00:40</td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-gsuProblemBody').innerHTML = rows;
+      const badge = document.getElementById('gr-gsuProblemCountBadge');
+      if (badge) badge.textContent = '全' + total + '問';
+      grPaginateTable('gr-gsuProblemBody', 'gr-gsuProblemPagination', 10);
+    }
+
+    /* 個人検索時: 目標単位の学習履歴で単元をクリックした際、同一ページ内の「問題正誤一覧」を更新する（別画面には遷移しない） */
+    function selectIndividualGoalUnit(itemEl, sampleIndex, rate, cleared) {
+      document.querySelectorAll('#gr-goalUnitCompactList .gsu-unit-item').forEach((el) => el.classList.remove('selected'));
+      itemEl.classList.add('selected');
+
+      const s = sulalaSampleByIndex(sampleIndex);
+      const icon = SUBJ_ICON[s.subj] || SUBJ_ICON.other;
+      document.getElementById('gr-guProblemGradeBand').textContent = s.gradeLabel.replace(SUBJ_LABELS[s.subj], '').trim();
+      const iconEl = document.getElementById('gr-guProblemSubjectIcon');
+      iconEl.className = 'goal-subj-icon ' + icon.cls;
+      iconEl.textContent = icon.short;
+      document.getElementById('gr-guProblemUnitPath').textContent = s.path;
+      document.getElementById('gr-guProblemUnitTitle').textContent = s.title;
+      document.getElementById('gr-guProblemTime').textContent = '1分30秒';
+      const correctCount = Math.round((rate / 100) * 12);
+      document.getElementById('gr-guProblemRate').innerHTML = rate + '<small>% (' + correctCount + '/12)</small>';
+      document.getElementById('gr-guProblemClearWrap').innerHTML = cleared ? rirekiClearHtml(true) : '<span class="not-cleared">未(中断)</span>';
+
+      const total = 12;
+      const rows = Array.from({ length: total }).map((_, i) => {
+        const n = i + 1;
+        const ok = n <= correctCount;
+        return `
+    <tr>
+      <td style="text-align:center;"><span class="gr-pd-judge ${ok ? 'ok' : 'ng'}">${ok ? '〇' : '×'}</span></td>
+      <td><b>第${n}問</b>&nbsp;&nbsp;&nbsp;言葉の意味を選びましょう</td>
+      <td style="text-align:center;">0:00:40</td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-guProblemBody').innerHTML = rows;
+      const badge = document.getElementById('gr-guProblemCountBadge');
+      if (badge) badge.textContent = '全' + total + '問';
+      grPaginateTable('gr-guProblemBody', 'gr-guProblemPagination', 10);
+    }
+
+    function showGoalStudentUnits(memberIndex) {
+      renderGoalStudentUnits(memberIndex);
+      showView('gr-view-goal-student-units');
+    }
+
+    function renderProblemDetail() {
+      const total = 10;
+      const rows = Array.from({ length: total }).map((_, i) => {
+        const n = i + 1;
+        const ok = n % 2 === 0;
+        return `
+    <tr>
+      <td style="text-align:center;"><span class="gr-pd-judge ${ok ? 'ok' : 'ng'}">${ok ? '〇' : '×'}</span></td>
+      <td><b>第${n}問</b>&nbsp;&nbsp;&nbsp;言葉の意味を選びましょう</td>
+      <td style="text-align:center;">0:00:40</td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-problemDetailBody').innerHTML = rows;
+      const badge = document.getElementById('gr-problemDetailCountBadge');
+      if (badge) badge.textContent = '全' + total + '問';
+    }
+
+    /* ============ 問題単位の学習履歴：解答確認モーダル（きろく詳細ページと同じもの） ============ */
+    const GR_AM_WORDS = ['ゆくえ', 'うつろ', 'せつない', 'いつくしむ', 'たたずむ', 'おもむろに', 'かたくな', 'ほのか', 'あどけない', 'いぶかしむ'];
+    const GR_AM_CHOICES_SET = ['行った先・結果', 'なりゆき・様子', '人がら・性格', '思い出・記憶'];
+    const GR_AM_DATA = [];
+    (function buildGrAnswerData() {
+      for (let i = 1; i <= 10; i++) {
+        const ok = (i % 2 === 1);
+        const correctIndex = i % 4;
+        const selectedIndex = ok ? correctIndex : (correctIndex + 1) % 4;
+        const word = GR_AM_WORDS[i - 1];
+        const correctText = GR_AM_CHOICES_SET[correctIndex];
+        GR_AM_DATA.push({
+          no: i,
+          word: word,
+          choices: GR_AM_CHOICES_SET,
+          correctIndex: correctIndex,
+          selectedIndex: selectedIndex,
+          correct: ok,
+          explanation: '「' + word + '」の意味は「' + correctText + '」です。文脈の中でどのように使われているかをあわせて確認しておきましょう。'
+        });
+      }
+    })();
+
+    let grAmCurrentIndex = 1;
+
+    function grRenderAnswerModalPagenav() {
+      const wrap = document.getElementById('gr-am-pagenav');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      for (let i = 1; i <= GR_AM_DATA.length; i++) {
+        const a = document.createElement('a');
+        a.href = 'javascript:void(0)';
+        let cls = 'page-num-btn';
+        cls += GR_AM_DATA[i - 1].correct ? ' pn-correct' : ' pn-incorrect';
+        if (i === grAmCurrentIndex) cls += ' pn-current';
+        a.className = cls;
+        a.textContent = i;
+        a.addEventListener('click', (function (idx) { return function () { grRenderAnswerModal(idx); }; })(i));
+        wrap.appendChild(a);
+      }
+    }
+
+    function grRenderAnswerModal(index) {
+      const total = GR_AM_DATA.length;
+      if (index < 1) index = 1;
+      if (index > total) index = total;
+      grAmCurrentIndex = index;
+
+      const data = GR_AM_DATA[index - 1];
+
+      const titleEl = document.getElementById('gr-am-title');
+      const descEl = document.getElementById('gr-problemUnitTitle');
+      if (titleEl) titleEl.textContent = (descEl && descEl.textContent) ? descEl.textContent : '情景描写を読みとる';
+
+      document.getElementById('gr-am-qnum').textContent = '問題番号：' + index;
+      document.getElementById('gr-am-qmeta').textContent = '[ ' + index + '問目 / 全' + total + '問 ]';
+
+      document.getElementById('gr-am-qbody').innerHTML = '「' + data.word + '」の意味として正しいものを選びましょう。';
+
+      document.getElementById('gr-am-answer').textContent = data.choices[data.selectedIndex];
+
+      const resultEl = document.getElementById('gr-am-result');
+      if (data.correct) {
+        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:4px; font-size:0.95rem; font-weight:800; color:var(--ok); flex-shrink:0;"><span style="font-size:1.3rem; line-height:1;">〇</span>正解！</span>';
+      } else {
+        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:4px; font-size:0.95rem; font-weight:800; color:var(--danger); flex-shrink:0;"><span style="font-size:1.3rem; line-height:1;">×</span>不正解</span>';
+      }
+
+      const correctRowEl = document.getElementById('gr-am-correct-row');
+      if (data.correct) {
+        correctRowEl.style.display = 'none';
+      } else {
+        document.getElementById('gr-am-correct').textContent = data.choices[data.correctIndex];
+        correctRowEl.style.display = 'flex';
+      }
+
+      document.getElementById('gr-am-explanation').textContent = data.explanation;
+
+      grRenderAnswerModalPagenav();
+    }
+
+    function grAnswerModalStep(delta) {
+      grRenderAnswerModal(grAmCurrentIndex + delta);
+    }
+
+    function grOpenAnswerModal(index) {
+      grRenderAnswerModal(index || 1);
+      openModal('gr-answer-modal');
+    }
+
+    function renderGoalDetailModal() {
+      const rows = Array.from({ length: 12 }).map((_, i) => {
+        const s = sulalaSampleByIndex(i);
+        const icon = SUBJ_ICON[s.subj] || SUBJ_ICON.other;
+        const band = s.gradeLabel.replace(SUBJ_LABELS[s.subj], '').trim();
+        return `
+    <tr>
+      <td style="text-align:center;"><i class="fa-solid fa-pen" style="color:var(--text-sub);"></i><br><span style="font-size:10px;color:var(--text-sub);">ドリル</span></td>
+      <td><span class="tag-band">${band}</span></td>
+      <td><span class="goal-subj-icon ${icon.cls}">${icon.short}</span></td>
+      <td><span class="unit-cell-sub">${s.path}</span><span class="unit-cell-main">${s.title}</span></td>
+      <td style="text-align:center;">20分</td>
+    </tr>`;
+      }).join('');
+      document.getElementById('gr-goalDetailModalBody').innerHTML = rows;
+      grPaginateTable('gr-goalDetailModalBody', 'gr-goalDetailModalPagination', 10);
+    }
+
+    function renderRirekiMonth() {
+      const mode = grGetMode();
+      const individualView = document.getElementById('gr-monthIndividualView');
+      const groupView = document.getElementById('gr-monthGroupView');
+      const unitLabel = document.getElementById('gr-monthUnitLabel');
+
+      if (mode === 'individual') {
+        if (individualView) individualView.style.display = '';
+        if (groupView) groupView.style.display = 'none';
+        if (unitLabel) unitLabel.textContent = '期間中に学習した総ユニット数';
+        renderRirekiMonthIndividual();
+      } else {
+        if (individualView) individualView.style.display = 'none';
+        if (groupView) groupView.style.display = '';
+        if (unitLabel) unitLabel.textContent = '期間中にグループで学習した総ユニット数';
+        renderRirekiMonthGroup();
+      }
+    }
+
+    function renderRirekiMonthIndividual() {
+      const dataDays = { 1: { u: 2, t: 45 }, 3: { u: 3, t: 60 }, 8: { u: 3, t: 60 }, 9: { u: 2, t: 45 }, 10: { u: 4, t: 90 }, 15: { u: 4, t: 90 }, 18: { u: 2, t: 40 }, 22: { u: 3, t: 60 } };
+      const firstWeekday = 0; // 2025年12月1日は月曜始まりで0番目
+      const daysInMonth = 31;
+      let cells = '';
+      for (let i = 0; i < firstWeekday; i++) cells += '<div class="cal-cell empty"></div>';
+      for (let d = 1; d <= daysInMonth; d++) {
+        const info = dataDays[d];
+        if (info) {
+          cells += `<div class="cal-cell has-data"><span class="cal-badge"><i class="fa-regular fa-circle-check"></i>${info.u}</span><span class="date-num">${d}</span><span class="cal-time">${info.t}分</span></div>`;
+        } else {
+          cells += `<div class="cal-cell"><span class="date-num">${d}</span></div>`;
+        }
+      }
+      const grid = document.getElementById('gr-monthCalGrid');
+      if (grid) {
+        grid.querySelectorAll('.cal-cell').forEach((c) => c.remove());
+        grid.insertAdjacentHTML('beforeend', cells);
+      }
+
+      const subjRows = [
+        ['jp', '国語', 24, 24, 45],
+        ['math', '算数・数学', 24, 24, 45],
+        ['en', '英語', 24, 24, 45],
+        ['sci', '理科', 24, 24, 45],
+        ['soc', '社会', 24, 24, 45],
+        ['info', '情報', 24, 24, 45],
+        ['other', 'その他', 24, 24, 45],
+      ];
+      const totalUnit = subjRows.reduce((s, r) => s + r[2], 0);
+      const totalClear = subjRows.reduce((s, r) => s + r[3], 0);
+      const totalTime = subjRows.reduce((s, r) => s + r[4], 0);
+
+      const rows = subjRows.map(([code, label, unit, clear, time]) => `
+    <tr>
+      <td class="subj-name"><span class="mst-subj-pill" style="background-color:var(--tag-${code});">${label}</span></td>
+      <td><span class="mst-num">${unit}</span> <span class="mst-unit">unit</span></td>
+      <td style="padding-left:24px;"><span class="mst-num">${clear}</span> <span class="mst-unit">unit</span></td>
+      <td><span class="mst-num">${time}</span><span class="mst-unit">分</span></td>
+    </tr>`).join('') + `
+    <tr class="mst-total">
+      <td class="subj-name">合計</td>
+      <td><span class="mst-num">${totalUnit}</span> <span class="mst-unit">unit</span></td>
+      <td style="padding-left:24px;"><span class="mst-num">${totalClear}</span> <span class="mst-unit">unit</span></td>
+      <td><span class="mst-num">${totalTime}</span><span class="mst-unit">分</span></td>
+    </tr>`;
+      const body = document.getElementById('gr-monthSummaryBody');
+      if (body) body.innerHTML = rows;
+
+      const topUnit = document.getElementById('gr-monthTopUnit');
+      const topClear = document.getElementById('gr-monthTopClear');
+      const topTime = document.getElementById('gr-monthTopTime');
+      if (topUnit) topUnit.textContent = totalUnit;
+      if (topClear) topClear.textContent = totalClear;
+      if (topTime) topTime.textContent = totalTime.toLocaleString();
+    }
+
+    function renderRirekiMonthGroup() {
+      /* 選択中のグループのメンバー、またはグループ未選択時は全体の学習者を対象に、
+         学習者ごとの月間サマリーを一覧表示する（生徒1人あたりのカレンダー表示は行わない） */
+      const members = STUDENTS;
+      const perStudent = members.map((s, i) => {
+        const unit = 12 + ((i * 3) % 10);
+        const clear = Math.max(unit - (i % 4), 0);
+        const time = 30 + i * 15;
+        return { s, unit, clear, time };
+      });
+
+      const rows = perStudent.map(({ s, unit, clear, time }) => {
+        const pct = Math.round((clear / unit) * 100);
+        return `
+    <tr onclick="setCurrentStudentDisplay('${s.name}')" style="cursor:pointer;">
+      <td>${s.name}</td>
+      <td>${s.cls}</td>
+      <td><span class="mst-num">${unit}</span> <span class="mst-unit">unit</span></td>
+      <td><span class="mst-num">${clear}</span> <span class="mst-unit">unit</span></td>
+      <td><span class="mst-num">${time}</span><span class="mst-unit">分</span></td>
+      <td><span class="progress-track"><span class="progress-fill" style="width:${pct}%"></span></span><span class="progress-num">${pct}%</span></td>
+    </tr>`;
+      }).join('');
+      const body = document.getElementById('gr-monthGroupBody');
+      if (body) body.innerHTML = rows;
+      grPaginateTable('gr-monthGroupBody', 'gr-monthGroupPagination', 10);
+
+      const totalUnit = perStudent.reduce((s, r) => s + r.unit, 0);
+      const totalClear = perStudent.reduce((s, r) => s + r.clear, 0);
+      const totalTime = perStudent.reduce((s, r) => s + r.time, 0);
+      const topUnit = document.getElementById('gr-monthTopUnit');
+      const topClear = document.getElementById('gr-monthTopClear');
+      const topTime = document.getElementById('gr-monthTopTime');
+      if (topUnit) topUnit.textContent = totalUnit;
+      if (topClear) topClear.textContent = totalClear;
+      if (topTime) topTime.textContent = totalTime.toLocaleString();
+    }
+
+    renderAllSubjectPills();
+    renderStudentSearchModal();
+    renderGroupSearchModal();
+    renderRirekiDate();
+    grUpdateModeButtons();
+    renderRirekiGoal();
+    renderRirekiTest();
+    renderRirekiMonth();
+    renderGoalUnit();
+    grPaginateTable('gr-goalUnitBody', 'gr-goalUnitPagination', 10);
+    /* 初期表示（未選択＝グループモード）でも「月ごと」タブを非表示にする */
+    (function grInitMonthTabVisibility() {
+      const monthTabBtn = document.querySelector('.tab[data-tab-group="rireki-mode"][data-tab-target="month"]');
+      if (monthTabBtn) monthTabBtn.style.display = grGetMode() === 'group' ? 'none' : '';
+    })();
+    renderProblemDetail();
+    grPaginateTable('gr-problemDetailBody', 'gr-problemDetailPagination', 10);
+    renderGoalDetailModal();
+    grPaginateTable('gr-tr-question-body', 'gr-tr-questionPagination', 10);
+
+    /* 検索するボタンを押す前から検索結果を表示しておく */
+    applyRirekiSearch('date', true);
+    applyRirekiSearch('goal', true);
+    applyRirekiSearch('test', true);
+    grSearchStudents();
+    grSearchGroups();
+
+    function applyRirekiSearch(mode, silent) {
+      if (mode === 'goal') {
+        const start = document.getElementById('gr-rirekiGoalDateStart').value.trim();
+        const end = document.getElementById('gr-rirekiGoalDateEnd').value.trim();
+        const nameQuery = document.getElementById('gr-rirekiGoalName').value.trim().toLowerCase();
+        const creatorQuery = document.getElementById('gr-rirekiGoalCreator').value.trim().toLowerCase();
+        const destQuery = document.getElementById('gr-rirekiGoalDestination').value.trim().toLowerCase();
+        const checked = Array.from(document.querySelectorAll('#gr-chkGoalSubjects input:checked')).map((c) => c.value);
+        document.querySelectorAll('#gr-rirekiGoalBody tr').forEach((tr) => {
+          const subjOk = checked.indexOf(tr.getAttribute('data-subject')) > -1;
+          const iso = tr.getAttribute('data-date-iso');
+          const dateOk = (!start || iso >= start) && (!end || iso <= end);
+          const nameOk = !nameQuery || (tr.getAttribute('data-goal-name') || '').toLowerCase().indexOf(nameQuery) > -1;
+          const creatorOk = !creatorQuery || (tr.getAttribute('data-creator') || '').toLowerCase().indexOf(creatorQuery) > -1;
+          const destOk = !destQuery || (tr.getAttribute('data-dest') || '').toLowerCase().indexOf(destQuery) > -1;
+          tr.dataset.match = (subjOk && dateOk && nameOk && creatorOk && destOk) ? '1' : '0';
+        });
+        const visible = document.querySelectorAll('#gr-rirekiGoalBody tr[data-match="1"]').length;
+        document.getElementById('gr-rirekiGoalCountBadge').textContent = '検索結果 ' + visible + '件';
+        runSearch('gr-rirekiGoalHintBody', 'gr-rirekiGoalBody', 'gr-rirekiGoalCountBadge');
+        const grpBar = document.getElementById('gr-rirekiGoalPagination');
+        if (grpBar) grpBar.setAttribute('data-page', '1');
+        filterPaginate('gr-rirekiGoalBody', 'gr-rirekiGoalPagination', 10);
+      } else if (mode === 'date') {
+        const start = document.getElementById('gr-rirekiDateStart').value.trim();
+        const end = document.getElementById('gr-rirekiDateEnd').value.trim();
+        const checked = Array.from(document.querySelectorAll('#gr-chkDateSubjects input:checked')).map((c) => c.value);
+        const typeChecked = Array.from(document.querySelectorAll('#gr-chkDateTypes input:checked')).map((c) => c.value);
+        const sourceChecked = Array.from(document.querySelectorAll('#gr-chkDateSources input:checked')).map((c) => c.value);
+        document.querySelectorAll('#gr-rirekiDateBody tr').forEach((tr) => {
+          const subjOk = checked.indexOf(tr.getAttribute('data-subject')) > -1;
+          const typeOk = typeChecked.indexOf(tr.getAttribute('data-type')) > -1;
+          const sourceOk = sourceChecked.indexOf(tr.getAttribute('data-source')) > -1;
+          const iso = tr.getAttribute('data-date-iso');
+          const dateOk = (!start || iso >= start) && (!end || iso <= end);
+          tr.dataset.match = (subjOk && typeOk && sourceOk && dateOk) ? '1' : '0';
+        });
+        const visible = document.querySelectorAll('#gr-rirekiDateBody tr[data-match="1"]').length;
+        document.getElementById('gr-rirekiDateCountBadge').textContent = '検索結果 ' + visible + '件';
+        runSearch('gr-rirekiDateHintBody', 'gr-rirekiDateBody', 'gr-rirekiDateCountBadge');
+        const drpBar = document.getElementById('gr-rirekiDatePagination');
+        if (drpBar) drpBar.setAttribute('data-page', '1');
+        filterPaginate('gr-rirekiDateBody', 'gr-rirekiDatePagination', 10);
+      } else if (mode === 'test') {
+        const start = document.getElementById('gr-rirekiTestDateStart').value.trim();
+        const end = document.getElementById('gr-rirekiTestDateEnd').value.trim();
+        const checked = Array.from(document.querySelectorAll('#gr-chkTestSubjects input:checked')).map((c) => c.value);
+        const typeChecked = Array.from(document.querySelectorAll('#gr-chkTestTypes input:checked')).map((c) => c.value);
+        document.querySelectorAll('#gr-rirekiTestBody tr').forEach((tr) => {
+          const subjOk = checked.indexOf(tr.getAttribute('data-subject')) > -1;
+          const typeOk = typeChecked.indexOf(tr.getAttribute('data-test-type')) > -1;
+          const iso = tr.getAttribute('data-date-iso');
+          const dateOk = (!start || iso >= start) && (!end || iso <= end);
+          tr.dataset.match = (subjOk && typeOk && dateOk) ? '1' : '0';
+        });
+        const visible = document.querySelectorAll('#gr-rirekiTestBody tr[data-match="1"]').length;
+        document.getElementById('gr-rirekiTestCountBadge').textContent = '検索結果 ' + visible + '件';
+        runSearch('gr-rirekiTestHintBody', 'gr-rirekiTestBody', 'gr-rirekiTestCountBadge');
+        const trpBar = document.getElementById('gr-rirekiTestPagination');
+        if (trpBar) trpBar.setAttribute('data-page', '1');
+        filterPaginate('gr-rirekiTestBody', 'gr-rirekiTestPagination', 10);
+      }
+      if (!silent) showToast('検索しました(モック)');
+    }
+
+    function openProblemDetail(source, sampleIndex) {
+      const bc = document.getElementById('gr-problemBreadcrumb');
+      const s = sulalaSampleByIndex(sampleIndex || 0);
+      const icon = SUBJ_ICON[s.subj] || SUBJ_ICON.other;
+      document.getElementById('gr-problemGradeBand').textContent = s.gradeLabel.replace(SUBJ_LABELS[s.subj], '').trim();
+      const iconEl = document.getElementById('gr-problemSubjectIcon');
+      iconEl.className = 'goal-subj-icon ' + icon.cls;
+      iconEl.textContent = icon.short;
+      document.getElementById('gr-problemUnitPath').textContent = s.path;
+      document.getElementById('gr-problemUnitTitle').textContent = s.title;
+      const titleEl = document.getElementById('gr-problemPageTitle');
+      if (source === 'date') {
+        bc.innerHTML = `<a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span class="sep">&gt;</span><span class="current">問題単位の学習履歴</span>`;
+        if (titleEl) titleEl.textContent = '問題単位の学習履歴';
+      } else if (source === 'goal') {
+        bc.innerHTML = `<a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span class="sep">&gt;</span><a href="#" onclick="showView('gr-view-goal-unit-detail');return false;">目標単位の学習履歴</a><span class="sep">&gt;</span><span class="current">問題単位の学習履歴</span>`;
+        if (titleEl) titleEl.textContent = '問題単位の学習履歴';
+      } else if (source === 'goal-student') {
+        bc.innerHTML = `<a href="#" onclick="showView('gr-view-list');return false;">学習履歴</a><span class="sep">&gt;</span><a href="#" onclick="showView('gr-view-goal-unit-detail');return false;">目標単位の学習履歴</a><span class="sep">&gt;</span><a href="#" onclick="showView('gr-view-goal-student-units');return false;">単元一覧</a><span class="sep">&gt;</span><span class="current">問題単位の学習履歴</span>`;
+        if (titleEl) titleEl.textContent = '問題単位の学習履歴';
+      }
+      showView('gr-view-problem-detail');
+    }
+  </script>
+
+  <script>
+    /* ============ グループページ用スクリプト ============ */
+    const GROUP_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+    function renderGroupList() {
+      const rows = GROUP_LETTERS.map((letter) => `
+    <tr>
+      <td class="student-name-cell">グループ${letter}</td>
+      <td>10</td><td>すらら太郎</td><td>2026/04/10 12:00</td>
+      <td>
+        <div class="flex-row" style="gap:6px;">
+          <button class="kebab-btn kebab-btn-lg" title="編集" onclick="openGroupEdit('グループ${letter}')"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></button>
+          <button class="kebab-btn kebab-btn-lg" title="削除" onclick="openGroupDeleteModal(this, 'グループ${letter}')"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
+        </div>
+      </td>
+    </tr>`).join('');
+      document.getElementById('gp-groupListBody').innerHTML = rows;
+    }
+
+    let gpDeleteTargetRow = null;
+    function openGroupDeleteModal(btn, name) {
+      gpDeleteTargetRow = btn.closest('tr');
+      document.getElementById('gp-deleteTargetName').textContent = name;
+      openModal('gp-modal-delete');
+    }
+    function confirmGroupDelete() {
+      const name = document.getElementById('gp-deleteTargetName').textContent;
+      closeModal('gp-modal-delete');
+      if (gpDeleteTargetRow) {
+        gpDeleteTargetRow.remove();
+        gpDeleteTargetRow = null;
+      }
+      showToast(name + 'を削除しました(モック)');
+    }
+    function renderAddStudents() {
+      const rows = STUDENTS.map((s) => `
+    <tr onclick="grToggleRowCheckbox(this)" style="cursor:pointer;">
+      <td><input type="checkbox" class="tbl-check" data-id="${s.id}" onclick="event.stopPropagation()"></td>
+      <td>${s.id}</td><td class="student-name-cell">${s.name}</td><td>${s.grade.replace('中学', '中学校').replace('小学', '小学校')}</td><td>${s.cls}クラス</td><td>${s.seat}</td><td>${s.school}</td>
+    </tr>`).join('');
+      document.getElementById('gp-addStudentBody').innerHTML = rows;
+      gpUpdateAddButtonState();
+    }
+
+    /* 「選択した学習者をグループに追加する」ボタンの活性/非活性制御 */
+    function gpUpdateAddButtonState() {
+      const btn = document.getElementById('gpAddToGroupBtn');
+      if (!btn) return;
+      const hasChecked = document.querySelectorAll('#gp-addStudentBody .tbl-check:checked').length > 0;
+      btn.disabled = !hasChecked;
+    }
+    document.addEventListener('change', (e) => {
+      if (e.target.matches && e.target.matches('#gp-addStudentBody .tbl-check')) {
+        gpUpdateAddButtonState();
+      }
+    });
+
+    /* グループ登録：選択済の学習者（新規追加分） */
+    let gpSelectedStudents = [];
+
+    function gpAddCheckedToSelection() {
+      const checked = document.querySelectorAll('#gp-addStudentBody .tbl-check:checked');
+      if (checked.length === 0) {
+        showToast('追加する学習者を選択してください');
+        return;
+      }
+      let addedCount = 0;
+      checked.forEach((cb) => {
+        const id = cb.dataset.id;
+        const student = STUDENTS.find((s) => s.id === id);
+        if (student && !gpSelectedStudents.some((s) => s.id === id)) {
+          gpSelectedStudents.push(student);
+          addedCount++;
+        }
+        cb.checked = false;
+      });
+      const headerCb = document.querySelector('#gp-addStudentBody').closest('table').querySelector('thead .tbl-check');
+      if (headerCb) headerCb.checked = false;
+      gpUpdateAddButtonState();
+
+      renderSelectedStudents();
+      updateGroupSelCount();
+
+      if (addedCount > 0) {
+        showToast(addedCount + '名を選択済みに追加しました');
+        document.querySelector('.tab[data-tab-group="group-reg"][data-tab-target="selected"]').click();
+      } else {
+        showToast('選択した学習者はすでに追加されています');
+      }
+    }
+
+    function renderSelectedStudents() {
+      if (gpSelectedStudents.length === 0) {
+        document.getElementById('gp-selectedStudentBody').innerHTML =
+          '<tr><td colspan="8" class="hint-empty">「学習者の追加」タブで学習者を検索し、グループに追加してください。</td></tr>';
+        const bar = document.getElementById('gp-selectedStudentPagination');
+        if (bar) bar.style.display = 'none';
+        return;
+      }
+      const rows = gpSelectedStudents.map((s) => `
+    <tr>
+      <td><input type="checkbox" class="tbl-check" data-id="${s.id}"></td>
+      <td>${s.id}</td><td class="student-name-cell">${s.name}</td><td>${s.school}</td><td>${s.grade.replace('中学', '中学校').replace('小学', '小学校')}</td><td>${s.cls}クラス</td><td>${s.seat}</td>
+      <td><button class="kebab-btn kebab-btn-lg" title="削除" onclick="gpRemoveSelectedStudent('${s.id}')"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td>
+    </tr>`).join('');
+      document.getElementById('gp-selectedStudentBody').innerHTML = rows;
+      grPaginateTable('gp-selectedStudentBody', 'gp-selectedStudentPagination', 10);
+    }
+
+    function gpRemoveSelectedStudent(id) {
+      gpSelectedStudents = gpSelectedStudents.filter((s) => s.id !== id);
+      renderSelectedStudents();
+      updateGroupSelCount();
+    }
+
+    function gpRemoveCheckedSelected() {
+      const checked = document.querySelectorAll('#gp-selectedStudentBody .tbl-check:checked');
+      if (checked.length === 0) {
+        showToast('削除する学習者を選択してください');
+        return;
+      }
+      const idsToRemove = Array.from(checked).map((cb) => cb.dataset.id);
+      gpSelectedStudents = gpSelectedStudents.filter((s) => !idsToRemove.includes(s.id));
+      renderSelectedStudents();
+      updateGroupSelCount();
+      showToast(idsToRemove.length + '名を削除しました');
+    }
+
+    function updateGroupSelCount() {
+      document.getElementById('gp-groupSelCount').textContent = gpSelectedStudents.length;
+      const submitBtn = document.getElementById('gpSubmitGroupBtn');
+      if (submitBtn) submitBtn.disabled = gpSelectedStudents.length === 0;
+    }
+    renderGroupList();
+    renderAddStudents();
+
+    /* 検索するボタンを押す前から検索結果を表示しておく */
+    runSearch('gp-groupListHintBody', 'gp-groupListBody', 'gp-groupListCountBadge', 'gp-groupListPagination');
+    runSearch('gp-addStudentHintBody', 'gp-addStudentBody', 'gp-addStudentCountBadge', 'gp-addStudentPagination', 10);
+    renderSelectedStudents();
+    updateGroupSelCount();
+
+    function openGroupNew() {
+      gpSelectedStudents = [];
+      renderSelectedStudents();
+      updateGroupSelCount();
+      gpUpdateAddButtonState();
+      const nameInput = document.querySelector('#gp-view-register input[type="text"]');
+      if (nameInput) nameInput.value = '';
+      showView('gp-view-register');
+      document.querySelector('.tab[data-tab-group="group-reg"][data-tab-target="add"]').click();
+    }
+    function openGroupEdit(name) {
+      gpSelectedStudents = [];
+      renderSelectedStudents();
+      updateGroupSelCount();
+      gpUpdateAddButtonState();
+      const nameInput = document.querySelector('#gp-view-register input[type="text"]');
+      if (nameInput) nameInput.value = name;
+      showView('gp-view-register');
+      document.querySelector('.tab[data-tab-group="group-reg"][data-tab-target="add"]').click();
+    }
+    function submitGroup() {
+      const nameInput = document.querySelector('#gp-view-register input[type="text"]');
+      const groupName = nameInput ? nameInput.value.trim() : '';
+      if (!groupName) {
+        showToast('グループ名を入力してください');
+        return;
+      }
+      if (gpSelectedStudents.length === 0) {
+        showToast('学習者を1名以上選択してください');
+        document.querySelector('.tab[data-tab-group="group-reg"][data-tab-target="add"]').click();
+        return;
+      }
+      const rows = `
+    <tr>
+      <td class="student-name-cell">${groupName}</td>
+      <td>${gpSelectedStudents.length}</td><td>すらら太郎</td><td>2026/08/26 12:00</td>
+      <td>
+        <div class="flex-row" style="gap:6px;">
+          <button class="kebab-btn kebab-btn-lg" title="編集" onclick="openGroupEdit('${groupName}')"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></button>
+          <button class="kebab-btn kebab-btn-lg" title="削除" onclick="openGroupDeleteModal(this, '${groupName}')"><svg class="icon" style="width:16px;height:16px;" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
+        </div>
+      </td>
+    </tr>`;
+      document.getElementById('gp-groupListBody').insertAdjacentHTML('afterbegin', rows);
+      document.getElementById('gp-registeredGroupName').textContent = groupName;
+      openModal('gp-modal-registered');
+    }
+  </script>
+
+
+  <script>
+    /* ページ切替 */
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach((p) => p.classList.remove('active'));
+      const target = document.getElementById('page-' + name);
+      if (target) target.classList.add('active');
+      document.querySelectorAll('.sidebar .nav-item[data-page]').forEach((li) => {
+        li.classList.toggle('active', li.dataset.page === name);
+      });
+      window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    }
+  </script>
+
+  <script>
+    /* ==========================================================
+       3.4 検索結果テーブル - マルチソート (複数列並び替え)
+       通常クリック: 昇順/降順 (▲▼)
+       Shift + クリック: 複数列ソート (優先順位の数字 ▲1, ▼2 を表示)
+       ========================================================== */
+    const tableSortStates = new WeakMap();
+
+    function getSortableDataTbodies(table) {
+      return Array.from(table.querySelectorAll(':scope > tbody, :scope > .table-wrap tbody'))
+        .filter((tb) => {
+          const rows = Array.from(tb.children).filter((r) => r.tagName === 'TR');
+          if (!rows.length) return false;
+          return rows.some((r) => !r.querySelector(':scope > td[colspan]'));
+        });
+    }
+
+    function cellSortValue(text) {
+      const t = (text || '').trim();
+      if (t === '') return { type: 'str', value: '' };
+      const dm = t.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})(?:[^\d]+(\d{1,2}):(\d{2}))?/);
+      if (dm) {
+        const y = Number(dm[1]), mo = Number(dm[2]), d = Number(dm[3]);
+        const h = Number(dm[4] || 0), mi = Number(dm[5] || 0);
+        return { type: 'num', value: y * 100000000 + mo * 1000000 + d * 10000 + h * 100 + mi };
+      }
+      const cleaned = t.replace(/[,%分件名点]/g, '').trim();
+      if (/^-?\d+(\.\d+)?$/.test(cleaned)) {
+        return { type: 'num', value: parseFloat(cleaned) };
+      }
+      return { type: 'str', value: t };
+    }
+
+    function compareRows(rowA, rowB, colIndex, dir) {
+      const cellA = rowA.children[colIndex];
+      const cellB = rowB.children[colIndex];
+      const a = cellSortValue(cellA ? cellA.textContent : '');
+      const b = cellSortValue(cellB ? cellB.textContent : '');
+      let result;
+      if (a.type === 'num' && b.type === 'num') {
+        result = a.value - b.value;
+      } else {
+        result = String(a.value).localeCompare(String(b.value), 'ja');
+      }
+      return dir === 'desc' ? -result : result;
+    }
+
+    function applyTableSort(table, state) {
+      if (!state.length) return;
+      const tbodies = getSortableDataTbodies(table);
+      tbodies.forEach((tbody) => {
+        const rows = Array.from(tbody.children).filter((r) => r.tagName === 'TR' && !r.querySelector(':scope > td[colspan]'));
+        if (rows.length < 2) return;
+        rows.sort((rowA, rowB) => {
+          for (const s of state) {
+            const c = compareRows(rowA, rowB, s.col, s.dir);
+            if (c !== 0) return c;
+          }
+          return 0;
+        });
+        rows.forEach((r) => tbody.appendChild(r));
+      });
+    }
+
+    function updateSortIndicators(table, state) {
+      table.querySelectorAll('thead th.sortable-th').forEach((th) => {
+        const colIndex = Number(th.dataset.colIndex);
+        const indicator = th.querySelector('.sort-indicator');
+        if (!indicator) return;
+        const entry = state.find((s) => s.col === colIndex);
+        const priorityIdx = state.findIndex((s) => s.col === colIndex);
+        if (entry) {
+          const arrow = entry.dir === 'asc' ? '▲' : '▼';
+          const priorityHtml = state.length > 1 ? `<span class="priority">${priorityIdx + 1}</span>` : '';
+          indicator.innerHTML = `<span class="arrow active">${arrow}</span>${priorityHtml}`;
+        } else {
+          indicator.innerHTML = `<span class="arrow">▲▼</span>`;
+        }
+      });
+    }
+
+    function handleSortableHeaderClick(event, table, colIndex) {
+      let state = (tableSortStates.get(table) || []).slice();
+      if (!event.shiftKey) {
+        const existing = state.find((s) => s.col === colIndex);
+        const dir = existing && existing.dir === 'asc' ? 'desc' : 'asc';
+        state = [{ col: colIndex, dir }];
+      } else {
+        const idx = state.findIndex((s) => s.col === colIndex);
+        if (idx >= 0) {
+          state[idx] = { col: colIndex, dir: state[idx].dir === 'asc' ? 'desc' : 'asc' };
+        } else {
+          state.push({ col: colIndex, dir: 'asc' });
+        }
+      }
+      tableSortStates.set(table, state);
+      applyTableSort(table, state);
+      updateSortIndicators(table, state);
+    }
+
+    function initSortableTables() {
+      document.querySelectorAll('table.data-table').forEach((table) => {
+        if (table.dataset.sortInit) return;
+        if (table.querySelector('td[rowspan]')) return; // 結合セルを持つ特殊テーブルは対象外
+        const headerRow = table.querySelector('thead tr');
+        if (!headerRow) return;
+        const ths = Array.from(headerRow.children);
+        let hasSortable = false;
+        ths.forEach((th, colIndex) => {
+          if (th.querySelector('input')) return; // チェックボックス列は対象外
+          const label = th.textContent.trim();
+          if (label === '') return; // 操作アイコン列は対象外
+          th.classList.add('sortable-th');
+          th.dataset.colIndex = String(colIndex);
+          const indicator = document.createElement('span');
+          indicator.className = 'sort-indicator';
+          indicator.innerHTML = '<span class="arrow">▲▼</span>';
+          th.appendChild(indicator);
+          th.addEventListener('click', (e) => handleSortableHeaderClick(e, table, colIndex));
+          hasSortable = true;
+        });
+        if (hasSortable) table.dataset.sortInit = 'true';
+      });
+    }
+    initSortableTables();
+  </script>
+
+  <script>
+    /* ============ ヘッダー: 校舎切替 / 権限 / ログインユーザー ============ */
+    const HEADER_USER = {
+      name: 'すらら 花子',
+      role: '法人管理者',     // 例: '担当教師' / '校舎管理者' / '法人管理者'
+      campus: 'あおぞら校舎'  // ログインユーザーの所属校舎（法人管理者はここから他校舎にも切替可能）
+    };
+
+    function initHeaderInfo() {
+      document.getElementById('headerUserName').textContent = HEADER_USER.name;
+      document.getElementById('headerRoleInfo').textContent = '権限：' + HEADER_USER.role;
+
+      const select = document.getElementById('headerCampusSelect');
+      select.innerHTML = SCHOOLS.map(function (s) {
+        return '<option value="' + s + '"' + (s === HEADER_USER.campus ? ' selected' : '') + '>' + s + '</option>';
+      }).join('');
+
+      // 法人管理者のみヘッダーから校舎を切替可能にする。それ以外の権限は自分の所属校舎が
+      // 選択された状態のまま操作不可（disabled）にする
+      select.disabled = (HEADER_USER.role !== '法人管理者');
+    }
+    initHeaderInfo();
+
+    function onHeaderCampusChange(value) {
+      HEADER_USER.campus = value;
+      // TODO: 実際は選択された校舎スコープに応じて画面のデータを再取得する
+      console.log('ヘッダーで校舎を切り替えました:', value);
+    }
+  </script>
+
+  <script>
+    /* ============ ログインページ用 ============ */
+    function lgLoginSuccess() {
+      document.getElementById('page-login').style.display = 'none';
+      document.getElementById('shell').style.display = 'block';
+      window.scrollTo({ top: 0 });
+    }
+    document.getElementById('lg-login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var id = document.getElementById('lg-login-id').value.trim();
+      var pw = document.getElementById('lg-login-pw').value.trim();
+      var err = document.getElementById('lg-login-error');
+      if (!id || !pw) {
+        err.textContent = 'IDとパスワードを入力してください。';
+        return;
+      }
+      err.textContent = '';
+      lgLoginSuccess();
+    });
+  </script>
+
+</body>
+
+</html>

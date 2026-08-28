@@ -42,8 +42,8 @@
             <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </button>
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <img class="logo-icon" src="images/surala-i_logo.png">
+        <div style="display: flex; align-items: center;">
+          <img class="logo-icon" src="images/logo/surala-i_logo.png">
           <!-- <svg class="icon" style="color: var(--primary-light);" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 8v8M8 12h8"></path>
@@ -84,7 +84,7 @@
               <span>ドリル</span>
             </a>
           </li>
-          <li class="nav-item has-sub open active" id="nav-item-test" data-page="test">
+          <li class="nav-item has-sub" id="nav-item-test" data-page="test">
             <a href="javascript:void(0)" onclick="toggleTestMenu()">
               <svg class="icon" viewBox="0 0 24 24">
                 <path d="M9 11l3 3L22 4"></path>
@@ -111,7 +111,7 @@
                   <!-- <a href="javascript:void(0)" onclick="showTestSubPage('gakuryoku')"><ruby>学力<rt>がくりょく</rt> -->
                 </ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</a>
             </li>
-            <li class="nav-sub-item active" data-sub="pre">
+            <li class="nav-sub-item" data-sub="pre">
               <a href="student_test_unit_by_unit_pre_tests_(単元別プレテスト).html"><ruby>単元<rt>たんげん</rt>
                   <!-- <a href="javascript:void(0)" onclick="showTestSubPage('pre')"><ruby>単元<rt>たんげん</rt> -->
                 </ruby><ruby>別<rt>べつ</rt></ruby>プレテスト</a>
@@ -168,980 +168,79 @@
     </aside>
 
     <main class="main-wrapper">
-      <!-- ============ ページ: テスト ============ -->
-      <section class="page active" id="page-test">
-        <div class="breadcrumb" id="ts-breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; テスト</div>
-        <h1 class="page-title" id="ts-page-title">テスト</h1>
 
-        <div id="ts-main-view">
-          <div class="pill-tabs"
-            style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
-            <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button class="btn-pill lg" id="ts-tab-surala" onclick="tsSwitchTab('surala')">すらら<ruby>単元<rt>たんげん
-                  </rt></ruby>テスト</button>
-              <button class="btn-pill lg" id="ts-tab-textbook" onclick="tsSwitchTab('textbook')"><ruby>教科<rt>きょうか</rt>
-                </ruby><ruby>書<rt>しょ</rt></ruby><ruby>単元<rt>たんげん</rt></ruby>テスト</button>
-              <button class="btn-pill lg" id="ts-tab-gakuryoku" onclick="tsSwitchTab('gakuryoku')"><ruby>学力<rt>がくりょく
-                  </rt></ruby><ruby>診断<rt>しんだん</rt></ruby>テスト</button>
-              <button class="btn-pill lg active" id="ts-tab-pre" onclick="tsSwitchTab('pre')"><ruby>単元<rt>たんげん</rt>
-                </ruby><ruby>別<rt>べつ</rt></ruby>プレテスト</button>
+      <!-- ============ ページ: もくひょう ============ -->
+      <section class="page active" id="page-mokuhyou">
+        <div class="breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; <ruby>目標<rt>もくひょう</rt></ruby><ruby>一覧<rt>いちらん
+            </rt></ruby></div>
+        <h1 class="page-title"><ruby>目標<rt>もくひょう</rt></ruby><ruby>一覧<rt>いちらん</rt></ruby></h1>
+
+        <div class="card">
+          <div class="filter-row">
+            <div class="filter-label"><ruby>教科<rt>きょうか</rt></ruby></div>
+            <div class="filter-options">
+              <label class="chk c-eng"><input type="checkbox" checked value="eng"><span class="box"><ruby>英語<rt>えいご</rt>
+                  </ruby></span></label>
+              <label class="chk c-koku"><input type="checkbox" checked value="koku"><span class="box"><ruby>国語<rt>こくご
+                    </rt></ruby></span></label>
+              <label class="chk c-math"><input type="checkbox" checked value="math"><span class="box"><ruby>算数<rt>さんすう
+                    </rt></ruby>・<ruby>数学<rt>すうがく</rt></ruby></span></label>
+              <label class="chk c-sci"><input type="checkbox" checked value="sci"><span class="box"><ruby>理科<rt>りか</rt>
+                  </ruby></span></label>
+              <label class="chk c-shakai"><input type="checkbox" checked value="shakai"><span class="box"><ruby>社会<rt>
+                      しゃかい</rt></ruby></span></label>
+              <label class="chk c-joho"><input type="checkbox" checked value="joho"><span class="box"><ruby>情報<rt>じょうほう
+                    </rt></ruby></span></label>
+              <label class="chk c-other"><input type="checkbox" checked value="other"><span class="box">その<ruby>他<rt>ほか
+                    </rt></ruby></span></label>
             </div>
-            <button class="btn btn-outline"
-              style="width: auto; padding: 5px 14px; font-weight: 700; white-space: nowrap;"
-              onclick="tsSwitchTab('history')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-              </svg>
-              テスト<ruby>履歴<rt>りれき</rt></ruby>
-            </button>
           </div>
-
-          <div class="card white" style="padding:14px 16px;">
-            <div id="ts-standard-filters" style="display: none;">
-              <div class="pill-tabs" id="ts-subject-pills" style="margin-bottom:8px;">
-                <button class="btn-pill c-koku active" data-v="koku"><ruby>国語<rt>こくご</rt></ruby></button>
-                <button class="btn-pill c-math" data-v="math"><ruby>算数<rt>さんすう</rt></ruby>・<ruby>数学<rt>すうがく</rt>
-                  </ruby></button>
-                <button class="btn-pill c-eng" data-v="eng"><ruby>英語<rt>えいご</rt></ruby></button>
-                <button class="btn-pill c-sci" data-v="sci"><ruby>理科<rt>りか</rt></ruby></button>
-                <button class="btn-pill c-shakai" data-v="shakai"><ruby>社会<rt>しゃかい</rt></ruby></button>
-                <button class="btn-pill c-joho" data-v="joho"><ruby>情報<rt>じょうほう</rt></ruby></button>
-              </div>
-              <div class="grade-tabs" id="ts-grade-pills" style="margin-bottom:14px;">
-                <button class="btn-pill" data-v="low"><ruby>小<rt>しょう</rt></ruby><ruby>学校<rt>がっこう</rt></ruby><ruby>低<rt>
-                      てい</rt></ruby><ruby>学年<rt>がくねん</rt></ruby></button>
-                <button class="btn-pill active" data-v="high"><ruby>小<rt>しょう</rt></ruby><ruby>学校<rt>がっこう</rt>
-                  </ruby><ruby>高<rt>こう</rt></ruby><ruby>学年<rt>がくねん</rt></ruby></button>
-                <button class="btn-pill" data-v="junior"><ruby>中<rt>ちゅう</rt></ruby><ruby>学校<rt>がっこう</rt></ruby></button>
-                <button class="btn-pill" data-v="senior"><ruby>高校<rt>こうこう</rt></ruby></button>
-              </div>
+          <div class="filter-row">
+            <div class="filter-label"><ruby>状態<rt>じょうたい</rt></ruby></div>
+            <div class="filter-options">
+              <label class="chk c-plain"><input type="checkbox" id="mk-chk-uncompleted" checked><span
+                  class="box"><ruby>未<rt>み</rt></ruby><ruby>完了<rt>かんりょう</rt></ruby>のみ<ruby>表示<rt>ひょうじ</rt>
+                  </ruby></span></label>
+              <label class="chk c-plain"><input type="checkbox" id="mk-chk-expired" checked><span class="box"><ruby>期限
+                    <rt>きげん</rt>
+                  </ruby><ruby>切れ<rt>きれ</rt></ruby>を<ruby>表示<rt>ひょうじ</rt></ruby></span></label>
             </div>
-
-            <div id="ts-gakuryoku-filters" style="display:none; margin-bottom:14px;">
-              <div class="filter-row">
-                <div class="filter-label"><ruby>学年<rt>がくねん</rt></ruby><ruby>選択<rt>せんたく</rt></ruby></div>
-                <select class="select-box" id="ts-gk-grade" style="min-width:140px; font-weight:700;">
-                  <option value="all">すべての学年</option>
-                  <option value="e1">小学1年</option>
-                  <option value="e2">小学2年</option>
-                  <option value="e3">小学3年</option>
-                  <option value="e4">小学4年</option>
-                  <option value="e5">小学5年</option>
-                  <option value="e6">小学6年</option>
-                  <option value="j1">中学1年</option>
-                  <option value="j2">中学2年</option>
-                  <option value="j3">中学3年</option>
-                  <option value="h1">高校1年</option>
-                  <option value="h2" selected>高校2年</option>
-                  <option value="h3">高校3年</option>
-                </select>
-                <div class="filter-label" style="width:auto; margin-left:12px;"><ruby>教科<rt>きょうか</rt></ruby><ruby>選択<rt>
-                      せんたく</rt></ruby></div>
-                <select class="select-box" id="ts-gk-subject" style="min-width:140px; font-weight:700;">
-                  <option value="all" selected>教科選択 (すべて)</option>
-                  <option value="eng">英語</option>
-                  <option value="koku">国語</option>
-                  <option value="math">算数・数学</option>
-                  <option value="sci">理科</option>
-                  <option value="shakai">社会</option>
-                  <option value="joho">情報</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="ts-surala-view" style="display:none;">
-              <div
-                style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-                <div style="display:flex; gap:8px;">
-                  <button class="btn-pill mode-tab active" id="sr-tab-add" onclick="srSwitchMode('add')"><ruby>追加<rt>ついか
-                      </rt></ruby></button>
-                  <button class="btn-pill mode-tab" id="sr-tab-selected" onclick="srSwitchMode('selected')"><ruby>選択<rt>
-                        せんたく</rt></ruby><ruby>済<rt>ずみ</rt></ruby>（<span id="sr-tab-badge">0</span><ruby>件<rt>けん</rt>
-                    </ruby>）</button>
-                </div>
-                <button class="btn btn-primary" id="sr-btn-commit"
-                  style="width:auto; white-space:nowrap; padding:7px 20px; font-weight:800; font-size:0.82rem;">
-                  テストを<ruby>追加<rt>ついか</rt></ruby>する
-                </button>
-              </div>
-
-              <div id="sr-mode-hint"
-                style="font-size:0.8rem; font-weight:600; color:var(--text-main); margin-bottom:12px; background:var(--bg-body); padding:8px 12px; border-radius:var(--radius-sm); border-left:4px solid var(--primary);">
-                <ruby>対象<rt>たいしょう</rt></ruby>の<ruby>単元<rt>たんげん</rt></ruby>・ユニットをクリックして<ruby>選び<rt>えらび</rt>
-                </ruby>、「テストを<ruby>追加<rt>ついか</rt></ruby>する」を<ruby>押す<rt>おす</rt></ruby>と<ruby>選択済<rt>せんたくずみ</rt>
-                </ruby>に<ruby>追加<rt>ついか</rt></ruby>されます。
-              </div>
-
-              <div class="filter-row"
-                style="background:var(--bg-body); padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); gap:16px;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>教科<rt>きょうか</rt>
-                    </ruby></span>
-                  <select class="select-box" id="sr-test-subj" style="font-weight:700; min-width:110px;">
-                    <option value="math">数学 / 算数</option>
-                    <option value="koku">国語</option>
-                    <option value="eng">英語</option>
-                    <option value="sci">理科</option>
-                    <option value="shakai">社会</option>
-                    <option value="joho">情報</option>
-                  </select>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>学年<rt>がくねん</rt>
-                    </ruby></span>
-                  <select class="select-box" id="sr-test-grade" style="font-weight:700; min-width:130px;">
-                    <option value="low">小学校低学年</option>
-                    <option value="high" selected>小学校高学年</option>
-                    <option value="junior">中学校</option>
-                    <option value="senior">高校</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="table-scroll"
-                style="max-height:320px; border:1px solid var(--border-color); border-top:none; border-radius:0 0 var(--radius-sm) var(--radius-sm); margin-bottom:16px;">
-                <table class="data-table" id="sr-test-table">
-                  <thead>
-                    <tr id="sr-table-head-row">
-                      <th style="width:180px;" data-sort-key="stage">ステージ</th>
-                      <th style="width:220px;" data-sort-key="lesson">レッスン</th>
-                      <th data-sort-key="unit">ユニット</th>
-                    </tr>
-                  </thead>
-                  <tbody id="sr-test-body"></tbody>
-                </table>
-              </div>
-
-              <div
-                style="background:var(--bg-body); padding:12px 16px; border-radius:var(--radius-md); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-                <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <span style="font-weight:800; font-size:0.8rem; color:var(--text-main);"><ruby>制限時間<rt>せいげんじかん</rt>
-                      </ruby></span>
-                    <select class="select-box" id="sr-test-time"
-                      style="font-weight:700; padding:6px 12px; font-size:0.85rem;">
-                      <option value="15">15分</option>
-                      <option value="30" selected>30分</option>
-                      <option value="45">45分</option>
-                      <option value="60">60分</option>
-                    </select>
-                  </div>
-
-                  <div
-                    style="display:flex; align-items:center; background:#fff; padding:6px 14px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
-                    <span style="font-size:0.75rem; font-weight:700; color:var(--text-sub); margin-right:8px;"><ruby>選択
-                        <rt>せんたく</rt>
-                      </ruby>ユニット<ruby>数<rt>すう</rt></ruby></span>
-                    <span style="font-size:1.2rem; font-weight:800; color:var(--teal); margin-right:4px;"
-                      id="sr-selected-count">0</span>
-                    <span style="font-size:0.75rem; font-weight:700; color:var(--text-main);">ユニット</span>
-                  </div>
-
-                  <button class="btn btn-outline" id="sr-btn-clear"
-                    style="width:auto; white-space:nowrap; padding:6px 14px; font-weight:700; font-size:0.75rem;">
-                    <ruby>選<rt>えら</rt></ruby>んだ<ruby>範囲<rt>はんい</rt></ruby>をクリア
-                  </button>
-                </div>
-
-                <div>
-                  <button class="btn btn-primary" id="sr-btn-start"
-                    style="width:auto; white-space:nowrap; padding:8px 24px; font-weight:800; font-size:0.9rem; background:#d33b3b; border-color:#d33b3b;"
-                    onclick="showPage('test-study')">
-                    テスト<ruby>開始<rt>かいし</rt></ruby>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div id="ts-pre-view" style="display:none;">
-              <div class="filter-row"
-                style="background:#0590b1; padding:8px 12px; border-radius:var(--radius-sm) var(--radius-sm) 0 0; color:#fff; gap:12px; margin-bottom:0;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <select class="select-box" id="pre-test-subj"
-                    style="font-weight:700; padding:6px 12px; border-radius:4px; border:1px solid #04728d; background:#fff; color:#2A2F40; min-width:110px;">
-                    <option value="math">数学 / 算数</option>
-                    <option value="koku">国語</option>
-                    <option value="eng">英語</option>
-                    <option value="sci">理科</option>
-                    <option value="shakai">社会</option>
-                    <option value="joho">情報</option>
-                  </select>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <select class="select-box" id="pre-test-grade"
-                    style="font-weight:700; padding:6px 12px; border-radius:4px; border:1px solid #04728d; background:#fff; color:#2A2F40; min-width:120px;">
-                    <option value="e1">小学1年</option>
-                    <option value="e2">小学2年</option>
-                    <option value="e3">小学3年</option>
-                    <option value="e4">小学4年</option>
-                    <option value="e5">小学5年</option>
-                    <option value="e6" selected>小学6年</option>
-                    <option value="j1">中学1年</option>
-                    <option value="j2">中学2年</option>
-                    <option value="j3">中学3年</option>
-                  </select>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; flex:1;">
-                  <select class="select-box" id="pre-test-book"
-                    style="font-weight:700; padding:6px 12px; border-radius:4px; border:1px solid #04728d; background:#fff; color:#2A2F40; flex:1; max-width:340px;">
-                    <option>大日本図書：たのしい算数6年</option>
-                    <option>東京書籍：あたらしい算数6年</option>
-                    <option>啓林館：わくわく算数6年</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="table-scroll"
-                style="max-height:380px; border:1px solid var(--border-color); border-top:none; border-radius:0 0 var(--radius-sm) var(--radius-sm); margin-bottom:16px;">
-                <table class="data-table" id="pre-test-table" style="width:100%; border-collapse:collapse;">
-                  <thead>
-                    <tr style="background:#0590b1; color:#fff;">
-                      <th
-                        style="background:#0590b1; color:#fff; width:150px; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
-                        <ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt></ruby>
-                      </th>
-                      <th
-                        style="background:#0590b1; color:#fff; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
-                        <ruby>テスト名<rt>めい</rt></ruby>
-                      </th>
-                      <th
-                        style="background:#0590b1; color:#fff; width:120px; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
-                        ページ</th>
-                      <th
-                        style="background:#0590b1; color:#fff; width:120px; text-align:center; padding:10px 8px; border-right:1px dashed rgba(255,255,255,0.4);">
-                        <ruby>テスト時間<rt>じかん</rt></ruby>
-                      </th>
-                      <th style="background:#0590b1; color:#fff; width:140px; text-align:center; padding:10px 8px;">
-                        <ruby>受験履歴<rt>じゅけんりれき</rt></ruby>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="pre-test-table-body"></tbody>
-                </table>
-              </div>
-
-              <div
-                style="background:#a6a6a6; padding:12px 16px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:flex-end;">
-                <button class="btn" id="pre-btn-start"
-                  style="width:auto; white-space:nowrap; padding:8px 32px; font-weight:800; font-size:0.95rem; background:#d33b3b; color:#fff; border:1px solid #b22a2a; border-radius:var(--radius-sm); box-shadow:0 2px 4px rgba(0,0,0,0.2);"
-                  onclick="drShowToast()">
-                  <ruby>テスト開始<rt>かいし</rt></ruby>
-                </button>
-              </div>
-            </div>
-
-            <div id="ts-textbook-view" style="display:none;">
-              <div
-                style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-                <div style="display:flex; gap:8px;">
-                  <button class="btn-pill mode-tab active" id="tb-tab-add" onclick="tbSwitchMode('add')"><ruby>追加<rt>ついか
-                      </rt></ruby></button>
-                  <button class="btn-pill mode-tab" id="tb-tab-selected" onclick="tbSwitchMode('selected')"><ruby>選択<rt>
-                        せんたく</rt></ruby><ruby>済<rt>ずみ</rt></ruby>（<span id="tb-tab-badge">0</span><ruby>件<rt>けん</rt>
-                    </ruby>）</button>
-                </div>
-                <button class="btn btn-primary" id="tb-btn-commit"
-                  style="width:auto; white-space:nowrap; padding:7px 20px; font-weight:800; font-size:0.82rem;">
-                  テストを<ruby>追加<rt>ついか</rt></ruby>する
-                </button>
-              </div>
-
-              <div id="tb-mode-hint"
-                style="font-size:0.8rem; font-weight:600; color:var(--text-main); margin-bottom:12px; background:var(--bg-body); padding:8px 12px; border-radius:var(--radius-sm); border-left:4px solid var(--primary);">
-                <ruby>対象<rt>たいしょう</rt></ruby>の<ruby>単元<rt>たんげん</rt></ruby>・ユニットをクリックして<ruby>選び<rt>えらび</rt>
-                </ruby>、「テストを<ruby>追加<rt>ついか</rt></ruby>する」を<ruby>押す<rt>おす</rt></ruby>と<ruby>選択済<rt>せんたくずみ</rt>
-                </ruby>に<ruby>追加<rt>ついか</rt></ruby>されます。
-              </div>
-
-              <div class="filter-row"
-                style="background:var(--bg-body); padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-color); gap:16px;">
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>教科<rt>きょうか</rt>
-                    </ruby></span>
-                  <select class="select-box" id="tb-test-subj" style="font-weight:700; min-width:110px;">
-                    <option value="math">数学 / 算数</option>
-                    <option value="koku">国語</option>
-                    <option value="eng">英語</option>
-                    <option value="sci">理科</option>
-                    <option value="shakai">社会</option>
-                  </select>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>学年<rt>がくねん</rt>
-                    </ruby></span>
-                  <select class="select-box" id="tb-test-grade" style="font-weight:700; min-width:110px;">
-                    <option value="e1" selected>小学1年</option>
-                    <option value="e2">小学2年</option>
-                    <option value="e3">小学3年</option>
-                    <option value="e4">小学4年</option>
-                    <option value="e5">小学5年</option>
-                    <option value="e6">小学6年</option>
-                    <option value="j1">中学1年</option>
-                    <option value="j2">中学2年</option>
-                    <option value="j3">中学3年</option>
-                  </select>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; flex:1;">
-                  <span style="font-weight:700; font-size:0.75rem; color:var(--text-sub);"><ruby>教科書<rt>きょうかしょ</rt>
-                    </ruby></span>
-                  <select class="select-box" id="tb-test-book" style="font-weight:700; flex:1; max-width:320px;">
-                    <option>東京書籍：あたらしいさんすう1年①</option>
-                    <option>大日本図書：たのしいさんすう1年</option>
-                    <option>啓林館：わくわく算数1年</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="table-scroll"
-                style="max-height:320px; border:1px solid var(--border-color); border-top:none; border-radius:0 0 var(--radius-sm) var(--radius-sm); margin-bottom:16px;">
-                <table class="data-table" id="tb-test-table">
-                  <thead>
-                    <tr id="tb-table-head-row">
-                      <th style="width:120px;" data-sort-key="grade"><ruby>学年<rt>がくねん</rt></ruby>・<ruby>科目<rt>かもく</rt>
-                        </ruby></th>
-                      <th data-sort-key="unit"><ruby>単元名<rt>たんげんめい</rt></ruby></th>
-                      <th style="width:100px; text-align:center;" data-sort-key="page">ページ</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tb-test-body"></tbody>
-                </table>
-              </div>
-
-              <div
-                style="background:var(--bg-body); padding:12px 16px; border-radius:var(--radius-md); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-                <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <span style="font-weight:800; font-size:0.8rem; color:var(--text-main);"><ruby>制限時間<rt>せいげんじかん</rt>
-                      </ruby></span>
-                    <select class="select-box" id="tb-test-time"
-                      style="font-weight:700; padding:6px 12px; font-size:0.85rem;">
-                      <option value="15">15分</option>
-                      <option value="30" selected>30分</option>
-                      <option value="45">45分</option>
-                      <option value="60">60分</option>
-                    </select>
-                  </div>
-
-                  <div
-                    style="display:flex; align-items:center; background:#fff; padding:6px 14px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
-                    <span style="font-size:0.75rem; font-weight:700; color:var(--text-sub); margin-right:8px;"><ruby>選択
-                        <rt>せんたく</rt>
-                      </ruby>ユニット<ruby>数<rt>すう</rt></ruby></span>
-                    <span style="font-size:1.2rem; font-weight:800; color:var(--teal); margin-right:4px;"
-                      id="tb-selected-count">0</span>
-                    <span style="font-size:0.75rem; font-weight:700; color:var(--text-main);">ユニット</span>
-                  </div>
-
-                  <button class="btn btn-outline" id="tb-btn-clear"
-                    style="width:auto; white-space:nowrap; padding:6px 14px; font-weight:700; font-size:0.75rem;">
-                    <ruby>選<rt>えら</rt></ruby>んだ<ruby>範囲<rt>はんい</rt></ruby>をクリア
-                  </button>
-                </div>
-
-                <div>
-                  <button class="btn btn-primary" id="tb-btn-start"
-                    style="width:auto; white-space:nowrap; padding:8px 24px; font-weight:800; font-size:0.9rem; background:#d33b3b; border-color:#d33b3b;"
-                    onclick="drShowToast()">
-                    テスト<ruby>開始<rt>かいし</rt></ruby>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="table-scroll" id="ts-test-table-container" style="max-height:420px;">
-              <table class="data-table" id="ts-test-table">
-                <thead id="ts-table-head">
-                  <tr>
-                    <th style="width:70px;"><ruby>種別<rt>しゅべつ</rt></ruby></th>
-                    <th>テスト<ruby>名<rt>めい</rt></ruby> / <ruby>対象<rt>たいしょう</rt></ruby><ruby>単元<rt>たんげん</rt></ruby></th>
-                    <th style="width:90px;"><ruby>問題<rt>もんだい</rt></ruby><ruby>数<rt>すう</rt></ruby> / <ruby>時間<rt>じかん</rt>
-                      </ruby></th>
-                    <th style="width:80px;"><ruby>最高<rt>さいこう</rt></ruby><ruby>得点<rt>とくてん</rt></ruby></th>
-                    <th style="width:80px;"><ruby>状態<rt>じょうたい</rt></ruby></th>
-                    <th style="width:100px;"></th>
-                  </tr>
-                </thead>
-                <tbody id="ts-test-body"></tbody>
-              </table>
-            </div>
+          </div>
+          <div class="filter-row">
+            <div class="spacer-flex"></div>
+            <button class="btn btn-primary btn-search" id="mk-search-btn"><ruby>検索<rt>けんさく</rt></ruby>する</button>
           </div>
         </div>
 
-        <!-- テスト履歴表示ビュー -->
-        <div id="ts-history-view" style="display:none;">
-          <div class="card" style="padding:16px;">
-            <div class="history-top-bar">
-              <div class="history-subject-filter-container">
-                <div class="history-subject-label-group">
-                  <span class="ruby">きょうか</span>
-                  <span class="title"><ruby>教科<rt>きょうか</rt></ruby></span>
-                </div>
-                <div class="history-subject-chips">
-                  <label class="history-subject-chip history-chip-english">
-                    <input type="checkbox" checked value="eng">
-                    <span class="history-chip-body"><ruby>英語<rt>えいご</rt></ruby></span>
-                  </label>
-                  <label class="history-subject-chip history-chip-japanese">
-                    <input type="checkbox" checked value="koku">
-                    <span class="history-chip-body"><ruby>国語<rt>こくご</rt></ruby></span>
-                  </label>
-                  <label class="history-subject-chip history-chip-math">
-                    <input type="checkbox" checked value="math">
-                    <span class="history-chip-body"><ruby>算数<rt>さんすう</rt></ruby>・<ruby>数学<rt>すうがく</rt></ruby></span>
-                  </label>
-                  <label class="history-subject-chip history-chip-science">
-                    <input type="checkbox" checked value="sci">
-                    <span class="history-chip-body"><ruby>理科<rt>りか</rt></ruby></span>
-                  </label>
-                  <label class="history-subject-chip history-chip-social">
-                    <input type="checkbox" checked value="shakai">
-                    <span class="history-chip-body"><ruby>社会<rt>しゃかい</rt></ruby></span>
-                  </label>
-                  <label class="history-subject-chip history-chip-info">
-                    <input type="checkbox" checked value="joho">
-                    <span class="history-chip-body"><ruby>情報<rt>じょうほう</rt></ruby></span>
-                  </label>
-                  <label class="history-subject-chip history-chip-other">
-                    <input type="checkbox" checked value="other">
-                    <span class="history-chip-body">その<ruby>他<rt>ほか</rt></ruby></span>
-                  </label>
-                </div>
-              </div>
-
-              <button class="btn-outline" style="width: 130px; padding: 4px 0; font-size: 0.78rem;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                </svg>
-                <ruby>表示<rt>ひょうじ</rt></ruby><ruby>項目<rt>こうもく</rt></ruby>の<ruby>変更<rt>へんこう</rt></ruby>
-              </button>
-            </div>
-
-            <div class="history-table-container">
-              <table class="history-table" id="ts-history-table">
-                <thead>
-                  <tr>
-                    <th style="width: 14%;" data-sort-key="col0"><ruby>受験<rt>じゅけん</rt></ruby><ruby>日<rt>ひ</rt></ruby>
-                    </th>
-                    <th style="width: 18%;" data-sort-key="col1"><ruby>目標<rt>もくひょう</rt></ruby><ruby>名<rt>めい</rt></ruby>
-                    </th>
-                    <th style="width: 10%;" data-sort-key="col2"><ruby>期日<rt>きじつ</rt></ruby></th>
-                    <th style="width: 8%;" data-sort-key="col3"><ruby>科目<rt>かもく</rt></ruby></th>
-                    <th style="width: 8%;" data-sort-key="col4"><ruby>種類<rt>しゅるい</rt></ruby></th>
-                    <th style="width: 18%;" data-sort-key="col5">テスト<ruby>範囲<rt>はんい</rt></ruby></th>
-                    <th style="width: 8%;" data-sort-key="col6"><ruby>得点<rt>とくてん</rt></ruby></th>
-                    <th style="width: 10%;"><ruby>成績<rt>せいせき</rt></ruby><ruby>詳細<rt>しょうさい</rt></ruby></th>
-                    <th style="width: 10%;"><ruby>内容<rt>ないよう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby></th>
-                  </tr>
-                </thead>
-                <tbody id="ts-history-body">
-                  <tr>
-                    <td>2024/05/05 14:39:06</td>
-                    <td class="text-left">テスト<ruby>名<rt>めい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td>2024/05/10</td>
-                    <td><ruby>国語<rt>こくご</rt></ruby></td>
-                    <td><ruby>小<rt>しょう</rt></ruby>テスト</td>
-                    <td class="text-left">テスト<ruby>範囲<rt>はんい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
-                        onclick="trOpenResultFromHistory()"><ruby>成績<rt>せいせき</rt></ruby><ruby>詳細<rt>しょうさい</rt>
-                        </ruby></button></td>
-                    <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)"><ruby>内容<rt>
-                            ないよう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby></a></td>
-                  </tr>
-                  <tr>
-                    <td>2024/05/05 14:39:06</td>
-                    <td class="text-left">テスト<ruby>名<rt>めい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td>2024/05/10</td>
-                    <td><ruby>国語<rt>こくご</rt></ruby></td>
-                    <td><ruby>小<rt>しょう</rt></ruby>テスト</td>
-                    <td class="text-left">テスト<ruby>範囲<rt>はんい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
-                        onclick="trOpenResultFromHistory()"><ruby>成績<rt>せいせき</rt></ruby><ruby>詳細<rt>しょうさい</rt>
-                        </ruby></button></td>
-                    <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)"><ruby>内容<rt>
-                            ないよう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby></a></td>
-                  </tr>
-                  <tr>
-                    <td>2024/05/05 14:39:06</td>
-                    <td class="text-left">テスト<ruby>名<rt>めい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td>2024/05/10</td>
-                    <td><ruby>国語<rt>こくご</rt></ruby></td>
-                    <td><ruby>小<rt>しょう</rt></ruby>テスト</td>
-                    <td class="text-left">テスト<ruby>範囲<rt>はんい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
-                        onclick="trOpenResultFromHistory()"><ruby>成績<rt>せいせき</rt></ruby><ruby>詳細<rt>しょうさい</rt>
-                        </ruby></button></td>
-                    <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)"><ruby>内容<rt>
-                            ないよう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby></a></td>
-                  </tr>
-                  <tr>
-                    <td>2024/05/05 14:39:06</td>
-                    <td class="text-left">テスト<ruby>名<rt>めい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td>2024/05/10</td>
-                    <td><ruby>国語<rt>こくご</rt></ruby></td>
-                    <td><ruby>小<rt>しょう</rt></ruby>テスト</td>
-                    <td class="text-left">テスト<ruby>範囲<rt>はんい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
-                        onclick="trOpenResultFromHistory()"><ruby>成績<rt>せいせき</rt></ruby><ruby>詳細<rt>しょうさい</rt>
-                        </ruby></button></td>
-                    <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)"><ruby>内容<rt>
-                            ないよう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby></a></td>
-                  </tr>
-                  <tr>
-                    <td>2024/05/05 14:39:06</td>
-                    <td class="text-left">テスト<ruby>名<rt>めい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td>2024/05/10</td>
-                    <td><ruby>国語<rt>こくご</rt></ruby></td>
-                    <td><ruby>小<rt>しょう</rt></ruby>テスト</td>
-                    <td class="text-left">テスト<ruby>範囲<rt>はんい</rt></ruby>が<ruby>入り<rt>はいり</rt></ruby>ます。</td>
-                    <td><span class="score-text">90%</span></td>
-                    <td><button class="btn btn-primary" style="width: 80px; padding: 3px 0; font-size: 0.72rem;"
-                        onclick="trOpenResultFromHistory()"><ruby>成績<rt>せいせき</rt></ruby><ruby>詳細<rt>しょうさい</rt>
-                        </ruby></button></td>
-                    <td><a class="link-content" href="javascript:void(0)" onclick="trOpenAnswerModal(1)"><ruby>内容<rt>
-                            ないよう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby></a></td>
-                  </tr>
-                </tbody>
-              </table>
+        <div class="card white">
+          <div class="table-toolbar" id="mk-table-toolbar" style="display:none;">
+            <div style="font-size: 0.8rem; color: var(--text-sub);"><ruby>検索<rt>けんさく</rt></ruby><ruby>結果<rt>けっか</rt>
+              </ruby> <strong id="mk-total-count" style="color: var(--text-main); font-size: 0.88rem;">0</strong>
+              <ruby>件<rt>けん</rt></ruby>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- ============ ページ: テスト学習 (test.html 準拠) ============ -->
-      <section class="page" id="page-test-study">
-        <div class="breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; <a href="javascript:void(0)"
-            onclick="showPage('test')">テスト</a> &gt; テスト<ruby>学習<rt>がくしゅう</rt></ruby></div>
-
-        <div style="display: flex; gap: 16px; align-items: flex-start;">
-          <!-- 左側：問題ワークスペース -->
-          <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
-
-            <!-- テストコントロールカード -->
-            <div class="card" style="display: flex; flex-direction: column; gap: 12px;">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <h1 class="page-title" style="margin-bottom: 0;">
-                  <ruby>単元<rt>たんげん</rt></ruby><ruby>確認<rt>かくにん</rt></ruby>テスト
-                  <span
-                    style="display: inline-block; padding: 2px 8px; border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 600; background-color: #EEF9D6; color: #536913; margin-left: 8px;"><ruby>実施
-                      <rt>じっし</rt>
-                    </ruby><ruby>中<rt>ちゅう</rt></ruby></span>
-                </h1>
-                <button class="btn btn-outline" onclick="finishTest()">テスト<ruby>終了<rt>しゅうりょう</rt></ruby></button>
-              </div>
-
-              <div
-                style="font-size: 0.72rem; color: var(--text-sub); line-height: 1.5; background-color: var(--bg-body); padding: 8px 12px; border-radius: var(--radius-sm);">
-                ※ <ruby>問題<rt>もんだい</rt></ruby><ruby>番号<rt>ばんごう</rt></ruby>をクリックして<ruby>任意<rt>にんい</rt></ruby>の<ruby>解答
-                  <rt>かいとう</rt>
-                </ruby>ページへ<ruby>移動<rt>いどう</rt></ruby>できます。<br>
-                ※ すべての<ruby>解答<rt>かいとう</rt></ruby>を<ruby>入力<rt>にゅうりょく</rt></ruby><ruby>後<rt>ご</rt></ruby>、「テスト<ruby>終了
-                  <rt>しゅうりょう</rt>
-                </ruby>」ボタンで<ruby>確認<rt>かくにん</rt></ruby><ruby>画面<rt>がめん</rt></ruby>へ<ruby>進み<rt>すすみ
-                  </rt></ruby>ます。
-              </div>
-
-              <!-- ページネーション & ナビゲーション -->
-              <div
-                style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 4px;">
-                <div style="display: flex; gap: 4px; flex-wrap: wrap;">
-                  <a href="javascript:void(0)" class="page-num-btn active">1</a>
-                  <a href="javascript:void(0)" class="page-num-btn">2</a>
-                  <a href="javascript:void(0)" class="page-num-btn">3</a>
-                  <a href="javascript:void(0)" class="page-num-btn">4</a>
-                  <a href="javascript:void(0)" class="page-num-btn">5</a>
-                  <a href="javascript:void(0)" class="page-num-btn">6</a>
-                  <a href="javascript:void(0)" class="page-num-btn">7</a>
-                  <a href="javascript:void(0)" class="page-num-btn">8</a>
-                  <a href="javascript:void(0)" class="page-num-btn">9</a>
-                  <a href="javascript:void(0)" class="page-num-btn">10</a>
-                  <a href="javascript:void(0)" class="page-num-btn">11</a>
-                  <a href="javascript:void(0)" class="page-num-btn">12</a>
-                  <a href="javascript:void(0)" class="page-num-btn">13</a>
-                  <a href="javascript:void(0)" class="page-num-btn">14</a>
-                  <a href="javascript:void(0)" class="page-num-btn">15</a>
-                  <a href="javascript:void(0)" class="page-num-btn">16</a>
-                  <a href="javascript:void(0)" class="page-num-btn">17</a>
-                  <a href="javascript:void(0)" class="page-num-btn">18</a>
-                  <a href="javascript:void(0)" class="page-num-btn">19</a>
-                  <a href="javascript:void(0)" class="page-num-btn">20</a>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                  <button class="btn btn-outline"><ruby>前<rt>まえ</rt></ruby>へ</button>
-                  <button class="btn btn-outline"><ruby>次<rt>つぎ</rt></ruby>へ</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- メイン問題表示カード -->
-            <div class="card"
-              style="min-height: 320px; display: flex; flex-direction: column; justify-content: space-between;">
-              <div>
-                <div
-                  style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color);">
-                  <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);"><ruby>問題<rt>もんだい</rt>
-                    </ruby><ruby>番号<rt>ばんごう</rt></ruby>：1</span>
-                  <span style="font-size: 0.72rem; color: var(--text-sub);">[ 1<ruby>問<rt>もん</rt></ruby><ruby>目<rt>め
-                      </rt></ruby> / <ruby>全<rt>ぜん</rt></ruby>24<ruby>問<rt>もん</rt></ruby> ] [A<ruby>分野<rt>ぶんや</rt>
-                    </ruby>：ステージ1 レッスン3 ユニット3-Aドリル (1 / 1) No.1]</span>
-                </div>
-
-                <div style="font-size: 0.95rem; line-height: 2; margin: 16px 0; color: var(--text-main);">
-                  □ に あてはまる かずを いれよう。<br><br>
-                  5 は 1 と <input type="text" class="form-input-number"> で できている。
-                </div>
-              </div>
-
-              <div style="margin-top: 24px; display: flex; justify-content: flex-start;">
-                <button class="btn btn-primary"><ruby>解答<rt>かいとう</rt></ruby>する</button>
-              </div>
-            </div>
-
+          <div class="table-scroll">
+            <table class="data-table" id="mk-goal-table">
+              <thead>
+                <tr>
+                  <th style="width:90px;" data-sort-key="date"><ruby>期日<rt>きじつ</rt></ruby></th>
+                  <th data-sort-key="name"><ruby>目標名<rt>もくひょうめい</rt></ruby></th>
+                  <th style="width:280px;" data-sort-key="pct"><ruby>達成度<rt>たっせいど</rt></ruby></th>
+                  <th style="width:100px; padding-left:24px; text-align:center;" data-sort-key="clear"><ruby>状態<rt>じょうたい
+                      </rt></ruby></th>
+                </tr>
+              </thead>
+              <tbody id="mk-goal-hint-body">
+                <tr>
+                  <td colspan="4" class="hint-empty"><ruby>検索<rt>けんさく</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>を<ruby>入力
+                      <rt>にゅうりょく</rt>
+                    </ruby>し、「<ruby>検索<rt>けんさく</rt></ruby>する」ボタンを<ruby>押し<rt>おし</rt></ruby>てください。</td>
+                </tr>
+              </tbody>
+              <tbody id="mk-goal-body"></tbody>
+            </table>
           </div>
-
-          <!-- 右側：残り時間タイマーパネル -->
-          <aside
-            style="width: 140px; background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px 12px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0;">
-            <div style="font-size: 0.72rem; color: var(--text-sub); font-weight: 600; margin-bottom: 4px;"><ruby>残り<rt>
-                  のこり</rt></ruby><ruby>時間<rt>じかん</rt></ruby></div>
-            <div
-              style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 16px; font-variant-numeric: tabular-nums;">
-              00:29:10</div>
-            <div
-              style="flex: 1; width: 16px; background-color: var(--bg-body); border: 1px solid var(--border-color); border-radius: var(--radius-sm); position: relative; overflow: hidden; min-height: 200px;">
-              <div
-                style="position: absolute; bottom: 0; left: 0; width: 100%; height: 75%; background-color: var(--primary); transition: height 0.3s ease;">
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <!-- ============ ページ: テスト結果 (test_results_sample.html 準拠) ============ -->
-      <section class="page" id="page-test-result">
-        <div class="breadcrumb" id="tr-breadcrumb"><ruby>学習<rt>がくしゅう</rt></ruby>メニュー &gt; <a href="javascript:void(0)"
-            onclick="showPage('test')">テスト</a> &gt; テスト<ruby>結果<rt>けっか</rt></ruby><ruby>詳細<rt>しょうさい</rt></ruby></div>
-        <h1 class="page-title">テスト<ruby>結果<rt>けっか</rt></ruby><ruby>詳細<rt>しょうさい</rt></ruby></h1>
-
-        <!-- テスト概要カード -->
-        <div class="tr-summary-card">
-          <div class="tr-summary-item">
-            <span class="tr-summary-label"><ruby>実施<rt>じっし</rt></ruby><ruby>日<rt>ひ</rt></ruby></span>
-            <span class="tr-date-val" id="tr-date-val">2024.01.01</span>
-          </div>
-          <div class="tr-summary-item">
-            <span class="tr-summary-label">テスト<ruby>名<rt>めい</rt></ruby></span>
-            <span class="tr-title-val" id="tr-title-val" title="単元確認テスト"><ruby>単元<rt>たんげん</rt></ruby><ruby>確認<rt>かくにん
-                </rt></ruby>テスト</span>
-          </div>
-          <div class="tr-summary-item">
-            <span class="tr-summary-label"><ruby>解答<rt>かいとう</rt></ruby><ruby>時間<rt>じかん</rt></ruby></span>
-            <span class="tr-time-val" id="tr-time-val">15<ruby>分<rt>ふん</rt></ruby>30<ruby>秒<rt>びょう</rt></ruby><span
-                class="tr-time-sub"> / 15<ruby>分<rt>ふん</rt></ruby></span></span>
-          </div>
-          <div class="tr-summary-item">
-            <span class="tr-summary-label"><ruby>得点<rt>とくてん</rt></ruby></span>
-            <div class="tr-score-group">
-              <span class="tr-score-num" id="tr-score-num">80</span>
-              <span class="tr-score-unit">%</span>
-              <span class="tr-score-sub" id="tr-score-sub">(8/10)</span>
-            </div>
-          </div>
-          <button class="btn btn-primary" onclick="trOpenAnswerModal(1)"><ruby>解答<rt>かいとう</rt></ruby>と<ruby>解説<rt>かいせつ
-              </rt></ruby></button>
-        </div>
-
-        <!-- タブ切替ボタン -->
-        <div class="pill-tabs" style="margin-bottom:10px;">
-          <button class="btn-pill lg active" id="tr-tab-question" onclick="trSwitchTab('question')"><ruby>問題<rt>もんだい
-              </rt></ruby>ごと</button>
-          <button class="btn-pill lg" id="tr-tab-unit" onclick="trSwitchTab('unit')">ユニットごと</button>
-          <button class="btn-pill lg" id="tr-tab-tangen" onclick="trSwitchTab('tangen')"><ruby>単元<rt>たんげん</rt>
-            </ruby>ごと</button>
-        </div>
-
-        <!-- 1. 問題ごと -->
-        <section class="view active" id="tr-view-question">
-          <div class="card white">
-            <div class="table-scroll">
-              <table class="data-table" id="tr-question-table">
-                <thead>
-                  <tr>
-                    <th class="tr-sort-header" style="width:60px; text-align:center;" data-sort-key="judge"><ruby>判定<rt>
-                          はんてい</rt></ruby></th>
-                    <th class="tr-sort-header" data-sort-key="question"><ruby>問題<rt>もんだい</rt></ruby></th>
-                    <th class="tr-sort-header" data-sort-key="unit">ユニット</th>
-                    <th class="tr-sort-header" data-sort-key="atime"><ruby>解答<rt>かいとう</rt></ruby><ruby>時間<rt>じかん</rt>
-                      </ruby></th>
-                    <th class="tr-sort-header" data-sort-key="stime"><ruby>標準<rt>ひょうじゅん</rt></ruby><ruby>解答<rt>かいとう</rt>
-                      </ruby><ruby>時間<rt>じかん</rt></ruby></th>
-                    <th class="tr-sort-header" data-sort-key="avgrate"><ruby>全国<rt>ぜんこく</rt></ruby><ruby>平均<rt>へいきん</rt>
-                      </ruby><ruby>正解<rt>せいかい</rt></ruby><ruby>率<rt>りつ</rt></ruby></th>
-                  </tr>
-                </thead>
-                <tbody id="tr-question-body">
-                  <tr class="is-visible">
-                    <td style="text-align:center;"><span class="tr-judge-icon tr-judge-incorrect">×</span></td>
-                    <td>
-                      <div class="tr-cell-main"><ruby>第<rt>だい</rt></ruby>1<ruby>問<rt>もん</rt></ruby></div>
-                      <div class="tr-cell-sub">2けたの<ruby>たし算<rt>たしざん</rt></ruby>の<ruby>筆算<rt>ひっさん</rt></ruby></div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット1-A</div>
-                      <div class="tr-cell-sub"><ruby>整数<rt>せいすう</rt></ruby>の<ruby>計算<rt>けいさん</rt></ruby>・<ruby>くり上がり<rt>
-                            くりあがり</rt></ruby></div>
-                    </td>
-                    <td>0:00:40</td>
-                    <td>0:02:00</td>
-                    <td>70%</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
-                    <td>
-                      <div class="tr-cell-main"><ruby>第<rt>だい</rt></ruby>2<ruby>問<rt>もん</rt></ruby></div>
-                      <div class="tr-cell-sub"><ruby>くり上がり<rt>くりあがり</rt></ruby>のある<ruby>たし算<rt>たしざん</rt></ruby></div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット1-B</div>
-                      <div class="tr-cell-sub"><ruby>整数<rt>せいすう</rt></ruby>の<ruby>計算<rt>けいさん</rt></ruby>・<ruby>くり上がり<rt>
-                            くりあがり</rt></ruby></div>
-                    </td>
-                    <td>0:00:35</td>
-                    <td>0:02:00</td>
-                    <td>75%</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
-                    <td>
-                      <div class="tr-cell-main"><ruby>第<rt>だい</rt></ruby>3<ruby>問<rt>もん</rt></ruby></div>
-                      <div class="tr-cell-sub"><ruby>かけ算<rt>かけざん</rt></ruby><ruby>九九<rt>くく</rt></ruby>の<ruby>復習<rt>ふくしゅう
-                          </rt></ruby></div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット2-A</div>
-                      <div class="tr-cell-sub"><ruby>かけ算<rt>かけざん</rt></ruby>・<ruby>わり算<rt>わりざん</rt></ruby></div>
-                    </td>
-                    <td>0:00:50</td>
-                    <td>0:02:00</td>
-                    <td>68%</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td style="text-align:center;"><span class="tr-judge-icon tr-judge-incorrect">×</span></td>
-                    <td>
-                      <div class="tr-cell-main"><ruby>第<rt>だい</rt></ruby>4<ruby>問<rt>もん</rt></ruby></div>
-                      <div class="tr-cell-sub"><ruby>小数<rt>しょうすう</rt></ruby>の<ruby>たし算<rt>たしざん</rt></ruby>・<ruby>ひき算<rt>
-                            ひきざん</rt></ruby></div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット3-A</div>
-                      <div class="tr-cell-sub"><ruby>小数<rt>しょうすう</rt></ruby>・<ruby>分数<rt>ぶんすう</rt></ruby>の<ruby>基礎<rt>きそ
-                          </rt></ruby></div>
-                    </td>
-                    <td>0:01:10</td>
-                    <td>0:02:00</td>
-                    <td>60%</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td style="text-align:center;"><span class="tr-judge-icon tr-judge-correct">〇</span></td>
-                    <td>
-                      <div class="tr-cell-main"><ruby>第<rt>だい</rt></ruby>5<ruby>問<rt>もん</rt></ruby></div>
-                      <div class="tr-cell-sub"><ruby>同<rt>どう</rt></ruby><ruby>分母<rt>ぶんぼ</rt></ruby>の<ruby>たし算<rt>たしざん
-                          </rt></ruby></div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット4-A</div>
-                      <div class="tr-cell-sub"><ruby>分数<rt>ぶんすう</rt></ruby>の<ruby>性質<rt>せいしつ</rt></ruby></div>
-                    </td>
-                    <td>0:00:25</td>
-                    <td>0:02:00</td>
-                    <td>82%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="pagination-bar">
-              <span style="font-size:0.72rem; color:var(--text-sub); margin-right:auto;"><ruby>全<rt>ぜん</rt></ruby> 10
-                <ruby>件<rt>けん</rt></ruby><ruby>中<rt>ちゅう</rt></ruby> 1 - 5 <ruby>件<rt>けん</rt></ruby>を<ruby>表示<rt>ひょうじ
-                  </rt></ruby></span>
-              <div class="page-nav-btns">
-                <button class="page-btn" disabled>&laquo;</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">&raquo;</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 2. ユニットごと -->
-        <section class="view" id="tr-view-unit">
-          <div class="card white">
-            <div class="table-scroll">
-              <table class="data-table" id="tr-unit-table">
-                <thead>
-                  <tr>
-                    <th class="tr-sort-header" style="width:110px;" data-sort-key="rate"><ruby>正解<rt>せいかい</rt>
-                      </ruby><ruby>率<rt>りつ</rt></ruby></th>
-                    <th class="tr-sort-header" data-sort-key="unit">ユニット</th>
-                    <th class="tr-sort-header" data-sort-key="history"><ruby>学習<rt>がくしゅう</rt></ruby><ruby>履歴<rt>りれき</rt>
-                      </ruby></th>
-                    <th class="tr-sort-header" data-sort-key="goal"><ruby>目標<rt>もくひょう</rt></ruby><ruby>登録<rt>とうろく</rt>
-                      </ruby><ruby>状況<rt>じょうきょう</rt></ruby></th>
-                  </tr>
-                </thead>
-                <tbody id="tr-unit-body">
-                  <tr class="is-visible">
-                    <td>
-                      <div class="tr-accuracy-box">
-                        <div class="tr-accuracy-rate">50<span>%</span></div>
-                        <div class="tr-accuracy-sub">1/2<ruby>問<rt>もん</rt></ruby></div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット1-A</div>
-                      <div class="tr-unit-desc tr-cell-sub">2けたの<ruby>たし算<rt>たしざん</rt></ruby>・<ruby>くり上がり<rt>くりあがり</rt>
-                        </ruby>の<ruby>理解<rt>りかい</rt></ruby></div>
-                    </td>
-                    <td><ruby>学習<rt>がくしゅう</rt></ruby>したことがないユニットです</td>
-                    <td><ruby>目標<rt>もくひょう</rt></ruby>として<ruby>登録<rt>とうろく</rt></ruby>されていません</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td>
-                      <div class="tr-accuracy-box">
-                        <div class="tr-accuracy-rate">100<span>%</span></div>
-                        <div class="tr-accuracy-sub">1/1<ruby>問<rt>もん</rt></ruby></div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット2-A</div>
-                      <div class="tr-unit-desc tr-cell-sub"><ruby>かけ算<rt>かけざん</rt></ruby><ruby>九九<rt>くく</rt>
-                        </ruby>の<ruby>復習<rt>ふくしゅう</rt></ruby>・<ruby>基礎<rt>きそ</rt></ruby><ruby>計算<rt>けいさん</rt></ruby>
-                      </div>
-                    </td>
-                    <td>
-                      <div>24/10/01 <ruby>学習<rt>がくしゅう</rt></ruby><ruby>済<rt>ずみ</rt></ruby></div>
-                      <button class="btn btn-outline"
-                        style="width:80px; padding:2px 0; margin-top:4px; font-size:0.7rem;"><ruby>履歴<rt>りれき</rt>
-                        </ruby>をみる</button>
-                    </td>
-                    <td><ruby>目標<rt>もくひょう</rt></ruby>として<ruby>登録<rt>とうろく</rt></ruby>されていません</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td>
-                      <div class="tr-accuracy-box">
-                        <div class="tr-accuracy-rate">50<span>%</span></div>
-                        <div class="tr-accuracy-sub">1/2<ruby>問<rt>もん</rt></ruby></div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="tr-cell-main">ユニット3-A / ユニット4-A</div>
-                      <div class="tr-unit-desc tr-cell-sub"><ruby>小数<rt>しょうすう</rt></ruby>・<ruby>分数<rt>ぶんすう</rt>
-                        </ruby>の<ruby>基礎<rt>きそ</rt></ruby><ruby>理解<rt>りかい</rt></ruby>と<ruby>応用<rt>おうよう</rt></ruby>
-                      </div>
-                    </td>
-                    <td><ruby>学習<rt>がくしゅう</rt></ruby>したことがないユニットです</td>
-                    <td><ruby>目標<rt>もくひょう</rt></ruby>として<ruby>登録<rt>とうろく</rt></ruby>されていません</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="pagination-bar">
-              <span style="font-size:0.72rem; color:var(--text-sub); margin-right:auto;"><ruby>全<rt>ぜん</rt></ruby> 3
-                <ruby>件<rt>けん</rt></ruby><ruby>中<rt>ちゅう</rt></ruby> 1 - 3 <ruby>件<rt>けん</rt></ruby>を<ruby>表示<rt>ひょうじ
-                  </rt></ruby></span>
-              <div class="page-nav-btns">
-                <button class="page-btn active">1</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 3. 単元ごと -->
-        <section class="view" id="tr-view-tangen">
-          <div class="card white">
-            <div class="table-scroll">
-              <table class="data-table" id="tr-tangen-table">
-                <thead>
-                  <tr>
-                    <th class="tr-sort-header" style="width:110px;" data-sort-key="rate"><ruby>正解<rt>せいかい</rt>
-                      </ruby><ruby>率<rt>りつ</rt></ruby></th>
-                    <th class="tr-sort-header" data-sort-key="tangen"><ruby>単元<rt>たんげん</rt></ruby></th>
-                    <th class="tr-sort-header" style="width:90px; text-align:center;" data-sort-key="page">ページ<ruby>数
-                        <rt>すう</rt>
-                      </ruby></th>
-                  </tr>
-                </thead>
-                <tbody id="tr-tangen-body">
-                  <tr class="is-visible">
-                    <td>
-                      <div class="tr-accuracy-box">
-                        <div class="tr-accuracy-rate">50<span>%</span></div>
-                        <div class="tr-accuracy-sub">1/2<ruby>問<rt>もん</rt></ruby></div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="tr-unit-desc" style="max-width:560px;"><ruby>単元<rt>たんげん</rt></ruby>1：<ruby>整数<rt>せいすう
-                          </rt></ruby>の<ruby>計算<rt>けいさん</rt></ruby>（<ruby>たし算<rt>たしざん</rt></ruby>・<ruby>ひき算<rt>ひきざん</rt>
-                        </ruby>の<ruby>基礎<rt>きそ</rt></ruby>と<ruby>くり上がり<rt>くりあがり</rt></ruby>）</div>
-                    </td>
-                    <td style="text-align:center;">1-1</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td>
-                      <div class="tr-accuracy-box">
-                        <div class="tr-accuracy-rate">100<span>%</span></div>
-                        <div class="tr-accuracy-sub">1/1<ruby>問<rt>もん</rt></ruby></div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="tr-unit-desc" style="max-width:560px;"><ruby>単元<rt>たんげん</rt></ruby>2：<ruby>かけ算<rt>かけざん
-                          </rt></ruby>・<ruby>わり算<rt>わりざん</rt></ruby>（<ruby>九九<rt>くく</rt></ruby>の<ruby>復習<rt>ふくしゅう</rt>
-                        </ruby>と<ruby>基礎<rt>きそ</rt></ruby><ruby>計算<rt>けいさん</rt></ruby>）</div>
-                    </td>
-                    <td style="text-align:center;">1-2</td>
-                  </tr>
-                  <tr class="is-visible">
-                    <td>
-                      <div class="tr-accuracy-box">
-                        <div class="tr-accuracy-rate">50<span>%</span></div>
-                        <div class="tr-accuracy-sub">1/2<ruby>問<rt>もん</rt></ruby></div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="tr-unit-desc" style="max-width:560px;"><ruby>単元<rt>たんげん</rt></ruby>3：<ruby>小数<rt>しょうすう
-                          </rt></ruby>・<ruby>分数<rt>ぶんすう</rt></ruby>（<ruby>仕組み<rt>しくみ</rt></ruby>の<ruby>理解<rt>りかい</rt>
-                        </ruby>と<ruby>計算<rt>けいさん</rt></ruby>の<ruby>応用<rt>おうよう</rt></ruby>）</div>
-                    </td>
-                    <td style="text-align:center;">2-1</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="pagination-bar">
-              <span style="font-size:0.72rem; color:var(--text-sub); margin-right:auto;"><ruby>全<rt>ぜん</rt></ruby> 3
-                <ruby>件<rt>けん</rt></ruby><ruby>中<rt>ちゅう</rt></ruby> 1 - 3 <ruby>件<rt>けん</rt></ruby>を<ruby>表示<rt>ひょうじ
-                  </rt></ruby></span>
-              <div class="page-nav-btns">
-                <button class="page-btn active">1</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div style="margin-top:14px;">
-          <button class="btn btn-outline" id="tr-back-btn" onclick="showPage('test')">テスト<ruby>一覧<rt>いちらん</rt>
-            </ruby>へ<ruby>戻る<rt>もどる</rt></ruby></button>
+          <div class="pagination-bar" id="mk-pagination" style="display:none;"></div>
         </div>
       </section>
 
@@ -1190,6 +289,7 @@
           </div>
         </div>
       </div>
+
     </main>
   </div>
 
@@ -1240,11 +340,7 @@
 
   <div class="toast" id="dr-toast"><ruby>既存<rt>きそん</rt></ruby>のドリル<ruby>学習<rt>がくしゅう</rt></ruby><ruby>画面<rt>がめん</rt>
     </ruby>へ<ruby>遷移<rt>せんい</rt></ruby>します（このモックの<ruby>対象<rt>たいしょう</rt></ruby><ruby>外<rt>がい</rt></ruby>）</div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      showTestSubPage('pre')// your code here
-    }, false);
-  </script>
+
   <script>
     function ym(dateStr) {
       var p = dateStr.split('.');
@@ -1704,7 +800,7 @@
         window.scrollTo({ top: 0 });
         return;
       }
-      // document.getElementById('page-login').style.display = 'none';
+      document.getElementById('page-login').style.display = 'none';
       document.getElementById('shell').style.display = 'flex';
       document.querySelectorAll('#shell main > .page').forEach(function (p) { p.classList.remove('active'); });
       var target = document.getElementById('page-' + name);
