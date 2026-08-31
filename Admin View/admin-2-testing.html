@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>中学数学 ドリルコース - テスト追加</title>
+  <meta charset="UTF-8">
+  <title>Textbook Unit Management UI</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,39 +12,35 @@
     }
 
     body {
-      background-color: #f8fafc;
+      background-color: #ffffff;
       color: #333333;
       padding: 24px;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .container {
-      max-width: 750px;
+      max-width: 900px;
       margin: 0 auto;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 4px;
     }
 
-    /* Top Breadcrumb Navigation */
+    /* Breadcrumb */
     .breadcrumb {
-      font-size: 13px;
-      color: #333333;
+      font-size: 12px;
+      color: #666666;
       margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    }
+    .breadcrumb span {
+      margin-left: 4px;
     }
 
-    /* Radio Group */
+    /* Top Radio Group */
     .radio-group {
       display: flex;
       gap: 16px;
-      align-items: center;
       margin-bottom: 16px;
+      font-weight: bold;
       font-size: 13px;
     }
-
     .radio-group label {
       display: flex;
       align-items: center;
@@ -53,334 +48,289 @@
       cursor: pointer;
     }
 
-    /* Filter Outer Panel */
-    .filter-panel {
-      border: 1px solid #d1d5db;
+    /* Filter Box */
+    .filter-card {
+      border: 1px solid #dcdcdc;
       border-radius: 4px;
-      padding: 16px;
-      margin-bottom: 20px;
+      padding: 20px;
+      margin-bottom: 24px;
+      background-color: #ffffff;
     }
 
-    /* Top Dropdowns Grid */
-    .dropdown-grid {
+    .form-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 12px 16px;
+      margin-bottom: 16px;
     }
 
-    .select-group {
+    .form-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
-    .select-group label {
+    .form-group label {
       font-weight: bold;
-      color: #374151;
       font-size: 11px;
+      color: #333333;
     }
 
-    .select-group select {
+    .form-control {
       width: 100%;
-      padding: 5px 8px;
-      border: 1px solid #d1d5db;
+      height: 36px;
+      padding: 0 10px;
+      border: 1px solid #dcdcdc;
       border-radius: 4px;
-      font-size: 11px;
-      color: #374151;
       background-color: #ffffff;
+      font-size: 13px;
+      color: #333333;
       outline: none;
-      cursor: pointer;
     }
 
-    /* Middle Inputs Row */
-    .middle-grid {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 9px;
+      padding-right: 24px;
+    }
+
+    .search-row {
+      display: flex;
+      align-items: center;
       gap: 12px;
       margin-bottom: 12px;
     }
 
     .search-input-group {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     .search-input-group label {
       font-weight: bold;
-      color: #374151;
       font-size: 11px;
+      color: #333333;
     }
 
-    .search-input {
-      width: 100%;
-      padding: 6px 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      font-size: 11px;
-      color: #9ca3af;
-      outline: none;
-    }
-
-    /* Filter Bottom Controls */
-    .filter-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .checkbox-group {
-      display: flex;
-      gap: 16px;
-    }
-
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .btn {
+      height: 36px;
+      padding: 0 24px;
+      border-radius: 18px;
+      font-size: 13px;
+      font-weight: bold;
       cursor: pointer;
-      color: #4b5563;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      accent-color: #6366f1;
-      width: 15px;
-      height: 15px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 8px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-reset {
-      background-color: #9ca3af;
+      background-color: #a6a6a6;
       color: #ffffff;
-      border: none;
-      padding: 6px 20px;
-      border-radius: 16px;
-      font-size: 12px;
-      cursor: pointer;
+      margin-top: 18px;
     }
 
     .btn-search {
-      background-color: #2563eb;
+      background-color: #1a73e8;
       color: #ffffff;
-      border: none;
-      padding: 6px 20px;
-      border-radius: 16px;
+      margin-top: 18px;
+    }
+
+    /* Checkbox */
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 12px;
+      font-weight: bold;
+      color: #333333;
       cursor: pointer;
+    }
+
+    .checkbox-label input {
+      accent-color: #6f42c1;
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
     }
 
     /* Data Table */
     .table-container {
-      border: 1px solid #d1d5db;
+      border: 1px solid #dcdcdc;
       border-radius: 2px;
-      background-color: #ffffff;
+      overflow: hidden;
     }
 
-    .table-header {
-      display: grid;
-      grid-template-columns: 1fr 2.5fr 2fr 1.2fr;
-      background-color: #e5e7eb;
-      padding: 10px 16px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    thead {
+      background-color: #e0e0e0;
+      color: #333333;
+    }
+
+    th {
+      padding: 10px 12px;
       font-weight: bold;
-      color: #4b5563;
-      border-bottom: 1px solid #d1d5db;
-      font-size: 11px;
+      white-space: nowrap;
+      border-right: 1px solid #dcdcdc;
     }
 
-    .header-cell {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-right: 8px;
+    th:last-child {
+      border-right: none;
     }
 
-    .sort-icon {
-      color: #6b7280;
+    th .sort-icon {
       font-size: 9px;
-      line-height: 1;
+      margin-left: 4px;
+      color: #666666;
     }
 
-    .table-body {
-      max-height: 240px;
-      overflow-y: auto;
+    tbody tr {
+      border-top: 1px dashed #dcdcdc;
     }
 
-    .table-row {
-      display: grid;
-      grid-template-columns: 1fr 2.5fr 2fr 1.2fr;
-      padding: 10px 16px;
-      border-bottom: 1px dashed #d1d5db;
-      align-items: center;
-      font-size: 11px;
-      color: #374151;
+    td {
+      padding: 10px 12px;
+      color: #333333;
     }
 
-    .table-row:last-child {
-      border-bottom: none;
-    }
-
-    /* Bottom Action */
-    .footer-actions {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 20px;
-    }
-
-    .btn-submit {
-      background-color: #6366f1;
-      color: #ffffff;
-      border: none;
-      padding: 10px 32px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
+    /* Selected Row Highlight */
+    tbody tr.selected {
+      background-color: #fce4d6;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Header Breadcrumb -->
     <div class="breadcrumb">
-      <span>中学数学 ドリルコース</span>
-      <span>&gt;</span>
-      <span>Stage5 正負の数・文字を使った...</span>
-      <span>&gt;</span>
+      中学数学 教科書単元 <span>&gt;</span>
     </div>
 
-    <!-- Navigation Options -->
     <div class="radio-group">
-      <label><input type="radio" name="addition_type"> ステージ追加</label>
-      <label><input type="radio" name="addition_type"> レッスン追加</label>
-      <label><input type="radio" name="addition_type"> ユニット追加</label>
-      <label><input type="radio" name="addition_type"> 教科書追加</label>
-      <label><input type="radio" name="addition_type" checked> テスト追加</label>
+      <label><input type="radio" name="unit_type"> ステージ追加</label>
+      <label><input type="radio" name="unit_type"> レッスン追加</label>
+      <label><input type="radio" name="unit_type"> ユニット追加</label>
+      <label><input type="radio" name="unit_type" checked> 教科書追加</label>
+      <label><input type="radio" name="unit_type"> テスト追加</label>
     </div>
 
-    <!-- Filter Panel -->
-    <div class="filter-panel">
-      <!-- 4 Top Select Inputs -->
-      <div class="dropdown-grid">
-        <div class="select-group">
-          <label>テストカテゴリ</label>
-          <select>
-            <option>学力診断テスト</option>
+    <div class="filter-card">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>出版社</label>
+          <select class="form-control">
+            <option>東京書籍</option>
           </select>
         </div>
-        <div class="select-group">
+        <div class="form-group">
           <label>教科</label>
-          <select>
-            <option>数学</option>
+          <select class="form-control">
+            <option>算数・数学</option>
           </select>
         </div>
-        <div class="select-group">
+        <div class="form-group">
+          <label>科目</label>
+          <select class="form-control">
+            <option>数学 I</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label>学年</label>
-          <select>
-            <option>中学1年生</option>
-          </select>
-        </div>
-        <div class="select-group">
-          <label>学期</label>
-          <select>
-            <option>1学期</option>
+          <select class="form-control">
+            <option>高校1年</option>
           </select>
         </div>
       </div>
 
-      <!-- Middle Inputs -->
-      <div class="middle-grid">
-        <div class="select-group">
-          <label>偏差値</label>
-          <select>
-            <option>あり</option>
-          </select>
-        </div>
+      <div class="search-row">
         <div class="search-input-group">
-          <label>テスト名</label>
-          <input 
-            type="text" 
-            class="search-input" 
-            value="検索対象カラム：テストID／テスト名" 
-          />
+          <label>出版社・教科書</label>
+          <input type="text" class="form-control" placeholder="検索対象カラム：教科書ID／教科書名／出版社ID／出版社名">
         </div>
+        <button class="btn btn-reset">リセット</button>
+        <button class="btn btn-search">検索</button>
       </div>
 
-      <!-- Controls & Checkboxes -->
-      <div class="filter-controls">
-        <div class="checkbox-group">
-          <label><input type="checkbox" checked> 非表示も含めて表示する</label>
-          <label><input type="checkbox" checked> 対象ユニットと紐付きのないテストのみ表示</label>
-        </div>
-        <div class="button-group">
-          <button class="btn-reset">リセット</button>
-          <button class="btn-search">検索</button>
-        </div>
-      </div>
+      <label class="checkbox-label">
+        <input type="checkbox" checked> 非表示も含めて表示する
+      </label>
     </div>
 
-    <!-- Data Table -->
     <div class="table-container">
-      <div class="table-header">
-        <div class="header-cell"><span>テストID</span><span class="sort-icon">▲<br>▼</span></div>
-        <div class="header-cell"><span>テスト名</span><span class="sort-icon">▲<br>▼</span></div>
-        <div class="header-cell"><span>テストカテゴリ</span><span class="sort-icon">▲<br>▼</span></div>
-        <div class="header-cell"><span>表示設定</span><span class="sort-icon">▲<br>▼</span></div>
-      </div>
-
-      <div class="table-body">
-        <div class="table-row">
-          <span>XXXXXXX</span>
-          <span>中1 学力診断テスト...</span>
-          <span>学力診断テスト</span>
-          <span>表示</span>
-        </div>
-
-        <div class="table-row">
-          <span>XXXXXXX</span>
-          <span>中1 学力診断テスト...</span>
-          <span>学力診断テスト</span>
-          <span>表示</span>
-        </div>
-
-        <div class="table-row">
-          <span>XXXXXXX</span>
-          <span>中1 学力診断テスト...</span>
-          <span>学力診断テスト</span>
-          <span>表示</span>
-        </div>
-
-        <div class="table-row">
-          <span>XXXXXXX</span>
-          <span>中1 学力診断テスト...</span>
-          <span>学力診断テスト</span>
-          <span>表示</span>
-        </div>
-
-        <div class="table-row">
-          <span>XXXXXXX</span>
-          <span>中1 学力診断テスト...</span>
-          <span>学力診断テスト</span>
-          <span>表示</span>
-        </div>
-
-        <div class="table-row">
-          <span>XXXXXXX</span>
-          <span>中1 学力診断テスト...</span>
-          <span>学力診断テスト</span>
-          <span>表示</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer Action -->
-    <div class="footer-actions">
-      <button class="btn-submit">紐付を設定する</button>
+      <table>
+        <thead>
+          <tr>
+            <th>教科書 <span class="sort-icon">▲▼</span></th>
+            <th>出版社 <span class="sort-icon">▲▼</span></th>
+            <th>教科 <span class="sort-icon">▲▼</span></th>
+            <th>科目 <span class="sort-icon">▲▼</span></th>
+            <th>対象学年 <span class="sort-icon">▲▼</span></th>
+            <th>表示設定 <span class="sort-icon">▲▼</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>新しい数学</td>
+            <td>東京書籍</td>
+            <td>算数・数学</td>
+            <td>数学 I</td>
+            <td>高校</td>
+            <td>表示</td>
+          </tr>
+          <tr>
+            <td>新しい数学</td>
+            <td>東京書籍</td>
+            <td>算数・数学</td>
+            <td>数学 I</td>
+            <td>高校</td>
+            <td>表示</td>
+          </tr>
+          <tr>
+            <td>新しい数学</td>
+            <td>東京書籍</td>
+            <td>算数・数学</td>
+            <td>数学 I</td>
+            <td>高校</td>
+            <td>表示</td>
+          </tr>
+          <tr class="selected">
+            <td>新しい数学</td>
+            <td>東京書籍</td>
+            <td>算数・数学</td>
+            <td>数学 I</td>
+            <td>高校</td>
+            <td>表示</td>
+          </tr>
+          <tr>
+            <td>新しい数学</td>
+            <td>東京書籍</td>
+            <td>算数・数学</td>
+            <td>数学 I</td>
+            <td>高校</td>
+            <td>表示</td>
+          </tr>
+          <tr>
+            <td>新しい数学</td>
+            <td>東京書籍</td>
+            <td>算数・数学</td>
+            <td>数学 I</td>
+            <td>高校</td>
+            <td>表示</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
