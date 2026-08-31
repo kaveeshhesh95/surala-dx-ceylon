@@ -1241,11 +1241,13 @@
 
   <div class="toast" id="dr-toast"><ruby>既存<rt>きそん</rt></ruby>のドリル<ruby>学習<rt>がくしゅう</rt></ruby><ruby>画面<rt>がめん</rt>
     </ruby>へ<ruby>遷移<rt>せんい</rt></ruby>します（このモックの<ruby>対象<rt>たいしょう</rt></ruby><ruby>外<rt>がい</rt></ruby>）</div>
+  
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       showTestSubPage('gakuryoku')// your code here
     }, false);
   </script>
+  
   <script>
     function ym(dateStr) {
       var p = dateStr.split('.');
@@ -1681,20 +1683,17 @@
       'kr-view-list': [['kr-hint-body', 'kr-body'], ['kr-goal-hint-body', 'kr-goal-body']]
     };
     function resetSearchUI(key) {
+      /* 検索するボタンを押す前から検索結果を表示しておくため、
+         ページ切替時にも結果を隠さず再表示する */
       var pairs = SEARCH_RESET_MAP[key];
       if (!pairs) return;
-      pairs.forEach(function (ids) { hideSearchResults(ids[0], ids[1]); });
+      pairs.forEach(function (ids) { runSearch(ids[0], ids[1]); });
 
       if (key === 'mokuhyou') {
-        var tb = document.getElementById('mk-table-toolbar');
-        var pg = document.getElementById('mk-pagination');
-        if (tb) tb.style.display = 'none';
-        if (pg) pg.style.display = 'none';
+        if (typeof mkApplyFilter === 'function') mkApplyFilter();
       } else if (key === 'kiroku' || key === 'kr-view-list') {
-        ['kr-table-toolbar', 'kr-pagination', 'kr-goal-table-toolbar', 'kr-goal-pagination'].forEach(function (id) {
-          var el = document.getElementById(id);
-          if (el) el.style.display = 'none';
-        });
+        if (typeof krApplyDateFilter === 'function') krApplyDateFilter();
+        if (typeof krApplyGoalFilter === 'function') krApplyGoalFilter();
       }
     }
 
@@ -1705,7 +1704,7 @@
         window.scrollTo({ top: 0 });
         return;
       }
-      // document.getElementById('page-login').style.display = 'none';
+      document.getElementById('page-login').style.display = 'none';
       document.getElementById('shell').style.display = 'flex';
       document.querySelectorAll('#shell main > .page').forEach(function (p) { p.classList.remove('active'); });
       var target = document.getElementById('page-' + name);
@@ -1915,6 +1914,10 @@
 
     mkRenderGoals();
     mkInitSort();
+
+    /* 検索ボタンを押す前から検索結果を表示しておく */
+    runSearch('mk-goal-hint-body', 'mk-goal-body');
+    mkApplyFilter();
   </script>
 
   <script>
@@ -2039,7 +2042,8 @@
         lec.innerHTML = '<span class="opt-label">レクチャー</span><span class="main-txt">\u3000' + u + '</span>';
         lec.addEventListener('click', function (e) {
           e.stopPropagation();
-          drShowToast();
+          var subjCode = drGetActiveSubject();
+          drOpenLecture(SUBJ_LABEL[subjCode] || 'その他', u);
         });
         body.appendChild(lec);
         ['ドリル1', 'ドリル2'].forEach(function (dr) {
@@ -2055,7 +2059,7 @@
           db.innerHTML = '<span class="opt-label">' + dr + '</span><span class="main-txt">\u3000' + u + '</span>';
           db.addEventListener('click', function (e) {
             e.stopPropagation();
-            drShowToast();
+            drOpenNormalDrill();
           });
           body.appendChild(db);
         });
@@ -2840,7 +2844,7 @@
 
     // krToggleAccordion removed (always expanded)
 
-    document.getElementById('kr-search-btn-date').addEventListener('click', function () {
+    function krApplyDateFilter() {
       var start = document.getElementById('kr-date-start').value.trim();
       var end = document.getElementById('kr-date-end').value.trim();
 
@@ -2861,9 +2865,10 @@
       if (pEl) pEl.setAttribute('data-page', '1');
       runSearch('kr-hint-body', 'kr-body');
       updatePagination('kr-body', 'kr-pagination', 'kr-total-count', 'kr-table-toolbar', 10);
-    });
+    }
+    document.getElementById('kr-search-btn-date').addEventListener('click', krApplyDateFilter);
 
-    document.getElementById('kr-search-btn-goal').addEventListener('click', function () {
+    function krApplyGoalFilter() {
       var start = document.getElementById('kr-goal-date-start').value.trim();
       var end = document.getElementById('kr-goal-date-end').value.trim();
 
@@ -2884,13 +2889,18 @@
       if (pGoalEl) pGoalEl.setAttribute('data-page', '1');
       runSearch('kr-goal-hint-body', 'kr-goal-body');
       updatePagination('kr-goal-body', 'kr-goal-pagination', 'kr-goal-total-count', 'kr-goal-table-toolbar', 10);
-    });
+    }
+    document.getElementById('kr-search-btn-goal').addEventListener('click', krApplyGoalFilter);
 
     krRenderRecords();
     krRenderGoalTable();
     krInitRecordsSort();
     krInitGoalTableSort();
-    krSetMode('goal');
+    krSetMode('date');
+
+    /* 検索ボタンを押す前から検索結果を表示しておく */
+    krApplyDateFilter();
+    krApplyGoalFilter();
   </script>
 
   <script>
@@ -2905,14 +2915,7 @@
       document.getElementById('kd-time').textContent = '1分30秒';
       var rate = r.rate;
       var correct = Math.round(rate / 10);
-      document.getElementById('kd-rate').innerHTML = rate + '<small style="font-size:0.75rem;">% (' + correct + '/10)</small>';
-
-      if (studentName) {
-        document.getElementById('kd-student').textContent = studentName;
-        document.getElementById('kd-student-row').style.display = '';
-      } else {
-        document.getElementById('kd-student-row').style.display = 'none';
-      }
+      document.getElementById('kd-rate').innerHTML = rate + '<small>% (' + correct + '/10)</small>';
 
       var body = document.getElementById('kd-q-body');
       body.innerHTML = '';
@@ -2924,7 +2927,7 @@
         tr.setAttribute('data-question', '第' + i + '問');
         tr.setAttribute('data-time', 40);
         tr.innerHTML =
-          '<td class="' + (ok ? 'result-o' : 'result-x') + '">' + (ok ? '○' : '✕') + '</td>' +
+          '<td style="text-align:center;"><span class="tr-judge-icon ' + (ok ? 'tr-judge-correct' : 'tr-judge-incorrect') + '">' + (ok ? '〇' : '×') + '</span></td>' +
           '<td><b>第' + i + '問</b><br>言葉の意味を選びましょう</td>' +
           '<td>0:00:40</td>';
         body.appendChild(tr);
@@ -2961,13 +2964,16 @@
         var ok = (i % 2 === 1);
         var correctIndex = i % 4;
         var selectedIndex = ok ? correctIndex : (correctIndex + 1) % 4;
+        var word = KD_WORDS[i - 1];
+        var correctText = KD_CHOICES_SET[correctIndex];
         KD_ANSWER_DATA.push({
           no: i,
-          word: KD_WORDS[i - 1],
+          word: word,
           choices: KD_CHOICES_SET,
           correctIndex: correctIndex,
           selectedIndex: selectedIndex,
-          correct: ok
+          correct: ok,
+          explanation: '「' + word + '」の意味は「' + correctText + '」です。文脈の中でどのように使われているかをあわせて確認しておきましょう。'
         });
       }
     })();
@@ -2982,7 +2988,10 @@
         (function (idx) {
           var a = document.createElement('a');
           a.href = 'javascript:void(0)';
-          a.className = 'page-num-btn' + (idx === kdAmCurrentIndex ? ' active' : '');
+          var cls = 'page-num-btn';
+          cls += KD_ANSWER_DATA[idx - 1].correct ? ' pn-correct' : ' pn-incorrect';
+          if (idx === kdAmCurrentIndex) cls += ' pn-current';
+          a.className = cls;
           a.textContent = idx;
           a.addEventListener('click', function () { kdRenderAnswerModal(idx); });
           wrap.appendChild(a);
@@ -3007,34 +3016,28 @@
 
       document.getElementById('kd-am-qbody').innerHTML = '「' + data.word + '」の意味として正しいものを選びましょう。';
 
-      var choicesEl = document.getElementById('kd-am-choices');
-      choicesEl.innerHTML = '';
-      data.choices.forEach(function (choiceText, idx) {
-        var isCorrect = (idx === data.correctIndex);
-        var isSelected = (idx === data.selectedIndex);
-        var borderColor = 'var(--border-color)';
-        var bg = '#fff';
-        var extra = '';
-        if (isCorrect) { borderColor = 'var(--ok)'; bg = 'var(--lime-bg)'; }
-        if (isSelected && !isCorrect) { borderColor = 'var(--danger)'; bg = '#fdeceb'; }
+      // 解答（生徒が選んだ回答）
+      document.getElementById('kd-am-answer').textContent = data.choices[data.selectedIndex];
 
-        var row = document.createElement('div');
-        row.style.cssText = 'display:flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid ' + borderColor + '; border-radius:var(--radius-sm); background:' + bg + ';';
-
-        var label = String.fromCharCode(65 + idx);
-        row.innerHTML =
-          '<span style="width:20px; height:20px; border-radius:50%; border:1px solid ' + borderColor + '; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:700; flex-shrink:0;">' + label + '</span>' +
-          '<span style="flex:1; font-size:0.82rem; font-weight:600; color:var(--text-main);">' + choiceText + '</span>' +
-          (isSelected ? '<span style="font-size:0.68rem; font-weight:700; color:var(--text-sub);">あなたの回答</span>' : '');
-        choicesEl.appendChild(row);
-      });
-
+      // ○ / ✕ 判定（解答欄と同じ行に表示）
       var resultEl = document.getElementById('kd-am-result');
       if (data.correct) {
-        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:8px; font-size:1.4rem; font-weight:800; color:var(--ok);"><span style="font-size:1.8rem; line-height:1;">〇</span>正解！</span>';
+        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:4px; font-size:0.95rem; font-weight:800; color:var(--ok); flex-shrink:0;"><span style="font-size:1.3rem; line-height:1;">〇</span>正解！</span>';
       } else {
-        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:8px; font-size:1.4rem; font-weight:800; color:var(--danger);"><span style="font-size:1.8rem; line-height:1;">×</span>不正解</span>';
+        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:4px; font-size:0.95rem; font-weight:800; color:var(--danger); flex-shrink:0;"><span style="font-size:1.3rem; line-height:1;">×</span>不正解</span>';
       }
+
+      // 正解（不正解の場合のみ表示）
+      var correctRowEl = document.getElementById('kd-am-correct-row');
+      if (data.correct) {
+        correctRowEl.style.display = 'none';
+      } else {
+        document.getElementById('kd-am-correct').textContent = data.choices[data.correctIndex];
+        correctRowEl.style.display = 'flex';
+      }
+
+      // 解説
+      document.getElementById('kd-am-explanation').textContent = data.explanation;
 
       kdRenderAnswerModalPagenav();
     }
@@ -3099,6 +3102,8 @@
       GOAL_DRILLS.forEach(function (r, i) {
         var tr = document.createElement('tr');
         tr.setAttribute('data-kind', 'ドリル');
+        tr.setAttribute('data-grade', r.grade);
+        tr.setAttribute('data-subj-label', SUBJ_LABEL[r.subj] || 'その他');
         tr.setAttribute('data-unit', r.unit + r.desc);
         tr.setAttribute('data-time', r.time);
         tr.setAttribute('data-count', r.count);
@@ -3110,16 +3115,12 @@
         tr.style.cursor = 'pointer';
         tr.innerHTML =
           '<td><svg class="icon-pict"><use href="#icon-pencil"/></svg><br><span style="font-size:10px;color:var(--text-sub);">ドリル</span></td>' +
-          '<td>' +
-          '<div class="unit-cell-row">' +
-          '<span class="tag-band">' + r.grade + '</span><span class="goal-subj-icon c-' + r.subj + '">' + (SUBJ_LABEL_SHORT[r.subj] || '他') + '</span>' +
-          '<span class="unit-cell-sub">' + r.unit + '</span>' +
-          '<span class="unit-cell-main">' + r.desc + '</span>' +
-          '</div>' +
-          '</td>' +
+          '<td><span class="tag-band">' + r.grade + '</span></td>' +
+          '<td><span class="goal-subj-icon c-' + r.subj + '">' + (SUBJ_LABEL_SHORT[r.subj] || '他') + '</span></td>' +
+          '<td><span class="unit-cell-sub">' + r.unit + '</span><br><span class="unit-cell-main">' + r.desc + '</span></td>' +
           '<td style="text-align:center;">' + r.time + '</td>' +
           '<td>' + r.count + '</td>' +
-          '<td style="font-weight:700;font-size:0.9rem;color:var(--teal);">' + r.rate + '<small style="font-size:0.65rem;">%</small></td>' +
+          '<td><span class="pct">' + r.rate + '<small>%</small></span></td>' +
           '<td>' + clearHtml + '</td>';
         tr.addEventListener('click', function () { openKdFromGoal(i); });
         tbody.appendChild(tr);
@@ -3140,6 +3141,8 @@
         getRows: function () { return Array.from(document.getElementById('kg-drill-body').querySelectorAll('tr')); },
         columns: {
           kind: { type: 'text', getValue: function (tr) { return tr.getAttribute('data-kind') || ''; } },
+          grade: { type: 'text', getValue: function (tr) { return tr.getAttribute('data-grade') || ''; } },
+          subj: { type: 'text', getValue: function (tr) { return tr.getAttribute('data-subj-label') || ''; } },
           unit: { type: 'text', getValue: function (tr) { return tr.getAttribute('data-unit') || ''; } },
           time: { type: 'text', getValue: function (tr) { return tr.getAttribute('data-time') || ''; } },
           count: { type: 'number', getValue: function (tr) { return parseFloat(tr.getAttribute('data-count')) || 0; } },
@@ -3255,6 +3258,8 @@
         if (historyView) historyView.style.display = 'block';
         if (breadcrumb) breadcrumb.innerHTML = '学習メニュー &gt; <a href="javascript:void(0)" onclick="tsSwitchTab(\'surala\')">テスト</a> &gt; テスト履歴';
         if (pageTitle) pageTitle.textContent = 'テスト履歴';
+        document.querySelectorAll('#ts-history-body tr').forEach(function (r) { r.classList.add('is-visible'); });
+        updatePagination('ts-history-body', 'ts-history-pagination', 'ts-history-total-count', 'ts-history-toolbar', 10);
         return;
       }
 
@@ -3283,16 +3288,14 @@
         if (tableContainer) tableContainer.style.display = 'none';
         if (tbView) tbView.style.display = 'none';
         if (srView) srView.style.display = 'block';
-        srRenderAvailableUnits();
-        srRenderSelectedUnits();
+        srRenderStages();
       } else if (type === 'textbook') {
         if (stdFilters) stdFilters.style.display = 'none';
         if (gkFilters) gkFilters.style.display = 'none';
         if (tableContainer) tableContainer.style.display = 'none';
         if (srView) srView.style.display = 'none';
         if (tbView) tbView.style.display = 'block';
-        tbRenderAvailableUnits();
-        tbRenderSelectedUnits();
+        tbRenderPages();
       } else if (type === 'gakuryoku' || type === 'pre') {
         if (srView) srView.style.display = 'none';
         if (tbView) tbView.style.display = 'none';
@@ -3323,9 +3326,31 @@
     });
 
     var tsGkGradeEl = document.getElementById('ts-gk-grade');
-    var tsGkSubjEl = document.getElementById('ts-gk-subject');
     if (tsGkGradeEl) tsGkGradeEl.addEventListener('change', tsRenderTestList);
-    if (tsGkSubjEl) tsGkSubjEl.addEventListener('change', tsRenderTestList);
+
+    function tsGetActiveGkSubject() {
+      var btn = document.querySelector('#ts-gk-subject-pills button.active');
+      return btn ? btn.getAttribute('data-v') : 'koku';
+    }
+    document.querySelectorAll('#ts-gk-subject-pills button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('#ts-gk-subject-pills button').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        tsRenderTestList();
+      });
+    });
+
+    var tsGkSelectedIdx = null;
+
+    function tsGkUpdateStartBtn() {
+      var startBtn = document.getElementById('ts-gk-btn-start');
+      var rows = document.querySelectorAll('#ts-test-body tr');
+      rows.forEach(function (tr, i) {
+        tr.classList.toggle('row-selected', tsGkSelectedIdx !== null && i === tsGkSelectedIdx);
+      });
+      if (!startBtn) return;
+      startBtn.disabled = (tsGkSelectedIdx === null);
+    }
 
     var TEST_NAMES = {
       surala: ['すらら単元確認テスト ①', 'すらら単元確認テスト ②', 'すらら章末総合テスト'],
@@ -3359,11 +3384,10 @@
           '<th data-sort-key="name"><ruby>テスト名<rt>めい</rt></ruby></th>' +
           '<th style="width:100px; text-align:center;" data-sort-key="time"><ruby>テスト時間<rt>じかん</rt></ruby></th>' +
           '<th style="width:140px; text-align:center;" data-sort-key="history"><ruby>受験履歴<rt>じゅけんりれき</rt></ruby></th>' +
-          '<th style="width:100px;"></th>' +
           '</tr>';
 
         var selGrade = tsGkGradeEl ? tsGkGradeEl.value : 'h2';
-        var selSubj = tsGkSubjEl ? tsGkSubjEl.value : 'all';
+        var selSubj = tsGetActiveGkSubject();
 
         var sourceData = (TS_TYPE === 'pre') ? PRE_TEST_DATA : GK_TEST_DATA;
 
@@ -3373,16 +3397,20 @@
           return gradeOk && subjOk;
         });
 
+        tsGkSelectedIdx = null;
+        tsGkUpdateStartBtn();
+
         if (!filteredList.length) {
           var testTypeName = (TS_TYPE === 'pre') ? '単元別プレテスト' : '学力診断テスト';
-          tbody.innerHTML = '<tr><td colspan="6" class="hint-empty">選択した条件の' + testTypeName + 'はありません</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="5" class="hint-empty">選択した条件の' + testTypeName + 'はありません</td></tr>';
           tsInitSort();
           return;
         }
 
-        filteredList.forEach(function (item) {
+        filteredList.forEach(function (item, idx) {
           var tr = document.createElement('tr');
           tr.classList.add('is-visible');
+          tr.style.cursor = 'pointer';
           var isDone = item.history !== '未受験';
           var scoreMatch = item.history.match(/(\d+)点/);
           var scoreVal = scoreMatch ? parseInt(scoreMatch[1], 10) : -1;
@@ -3400,8 +3428,12 @@
             '<td><span class="goal-subj-icon c-' + item.subj + '">' + (SUBJ_LABEL_SHORT[item.subj] || '他') + '</span></td>' +
             '<td style="font-weight:700; color:var(--text-main);">' + item.name + '</td>' +
             '<td style="text-align:center; font-weight:700;">' + item.time + '</td>' +
-            '<td style="text-align:center;">' + historyHtml + '</td>' +
-            '<td><button class="btn btn-dark" onclick="showPage(\'test-study\')">テストを受ける</button></td>';
+            '<td style="text-align:center;">' + historyHtml + '</td>';
+
+          tr.addEventListener('click', function () {
+            tsGkSelectedIdx = idx;
+            tsGkUpdateStartBtn();
+          });
 
           tbody.appendChild(tr);
         });
@@ -3456,7 +3488,7 @@
             '<td style="text-align:center;">10問 / 15分</td>' +
             '<td style="font-weight:700;font-size:0.9rem;color:var(--teal);">' + score + '</td>' +
             '<td>' + statusHtml + '</td>' +
-            '<td><button class="btn btn-dark" onclick="showPage(\'test-study\')">テストを受ける</button></td>';
+            '<td><button class="btn btn-dark" onclick="tsStudyOpen()">テストを受ける</button></td>';
 
           tbody.appendChild(tr);
         });
@@ -3504,6 +3536,16 @@
           }
         });
       }
+
+      var tsSearchBtn = document.getElementById('ts-search-btn');
+      if (tsSearchBtn) {
+        tsSearchBtn.addEventListener('click', function () {
+          document.querySelectorAll('#ts-history-body tr').forEach(function (r) { r.classList.add('is-visible'); });
+          var bar = document.getElementById('ts-history-pagination');
+          if (bar) bar.setAttribute('data-page', '1');
+          updatePagination('ts-history-body', 'ts-history-pagination', 'ts-history-total-count', 'ts-history-toolbar', 10);
+        });
+      }
     });
   </script>
 
@@ -3530,18 +3572,42 @@
   </script>
 
   <script>
+    /* ============ テスト種別ごとの結果詳細画面 表示切替 ============ */
+    function trApplyTestTypeSettings(type) {
+      // すらら単元テストは「単元ごと」タブを非表示にする
+      var showTangen = (type !== 'surala');
+      var tangenTab = document.getElementById('tr-tab-tangen');
+      var tangenView = document.getElementById('tr-view-tangen');
+      if (tangenTab) tangenTab.style.display = showTangen ? '' : 'none';
+      if (!showTangen && tangenView && tangenView.classList.contains('active')) {
+        trSwitchTab('question');
+      }
+      if (tangenView && !showTangen) tangenView.classList.remove('active');
+
+      // 学力診断テスト／単元別プレテストは得点単位を「点」表示にし、問題ごとの表に配点列を出す
+      var useTen = (type === 'gakuryoku' || type === 'pre');
+      var scoreUnit = document.getElementById('tr-score-unit');
+      if (scoreUnit) scoreUnit.textContent = useTen ? '点' : '%';
+      document.querySelectorAll('.tr-col-hairten').forEach(function (el) {
+        el.style.display = useTen ? '' : 'none';
+      });
+    }
+
     /* ============ テスト終了 → テスト結果画面 ============ */
     function finishTest() {
       // 実際の実装では、ここで解答を採点しテスト結果データを取得する
+      if (typeof window.tsStudyResetState === 'function') window.tsStudyResetState();
       trSetResultOrigin('test');
       showPage('test-result');
+      trApplyTestTypeSettings(TS_TYPE);
       trSwitchTab('question');
     }
 
     /* ============ テスト履歴 → 成績詳細 → テスト結果画面 ============ */
-    function trOpenResultFromHistory() {
+    function trOpenResultFromHistory(type) {
       trSetResultOrigin('history');
       showPage('test-result');
+      trApplyTestTypeSettings(type || 'surala');
       trSwitchTab('question');
     }
 
@@ -3647,151 +3713,189 @@
 
   <script>
     /* ============ すらら単元テスト JS ============ */
-    var SR_SAMPLE_UNITS = [
-      { id: 1, stage: "ステージ1：整数の計算", lesson: "レッスン1：たし算・ひき算", unit: "1. 2けたのたし算", subj: "math", grade: "high" },
-      { id: 2, stage: "ステージ1：整数の計算", lesson: "レッスン1：たし算・ひき算", unit: "2. くり上がりのあるたし算", subj: "math", grade: "high" },
-      { id: 3, stage: "ステージ1：整数の計算", lesson: "レッスン2：かけ算・わり算", unit: "1. かけ算九九の復習", subj: "math", grade: "high" },
-      { id: 4, stage: "ステージ2：小数・分数", lesson: "レッスン1：小数の仕組み", unit: "1. 小数のたし算・ひき算", subj: "math", grade: "high" },
-      { id: 5, stage: "ステージ2：小数・分数", lesson: "レッスン2：分数の性質", unit: "1. 同分母のたし算", subj: "math", grade: "high" }
-    ];
-
     var srSelectedUnits = [
-      { id: 1, stage: "ステージ1：整数の計算", lesson: "レッスン1：たし算・ひき算", unit: "1. 2けたのたし算", subj: "math", grade: "high" },
-      { id: 2, stage: "ステージ1：整数の計算", lesson: "レッスン1：たし算・ひき算", unit: "2. くり上がりのあるたし算", subj: "math", grade: "high" }
+      { key: 'math|high|0|0|0', subj: 'math', grade: 'high', stageNo: 1, lessonNo: 1, unitNo: 1, stage: '整数の計算', lesson: 'たし算・ひき算', unit: '2けたの計算' },
+      { key: 'math|high|0|1|0', subj: 'math', grade: 'high', stageNo: 1, lessonNo: 2, unitNo: 1, stage: '整数の計算', lesson: 'かけ算・わり算', unit: 'かけ算九九' }
     ];
-    var srCheckedIds = [];   /* 追加モードでクリックしてチェックした一時選択 */
-    var srMode = 'add';      /* 'add' | 'selected' */
+    var srMode = 'add';          /* 'add' | 'selected' */
+    var srCurrentStages = [];
+    var srPickedStageIdx = null;
+    var srPickedLessonIdx = null;
 
-    function srGetAvailableUnits() {
-      var selSubj = document.getElementById('sr-test-subj') ? document.getElementById('sr-test-subj').value : 'math';
-      var selGrade = document.getElementById('sr-test-grade') ? document.getElementById('sr-test-grade').value : 'high';
+    function srGetActiveSubject() {
+      var btn = document.querySelector('#sr-subject-pills button.active');
+      return btn ? btn.getAttribute('data-v') : null;
+    }
+    function srGetActiveGrade() {
+      var btn = document.querySelector('#sr-grade-pills button.active');
+      return btn ? btn.getAttribute('data-v') : null;
+    }
 
-      var available = SR_SAMPLE_UNITS.filter(function (item) {
-        var notInSelected = !srSelectedUnits.some(function (s) { return s.id === item.id; });
-        var matchSubj = (selSubj === 'all' || item.subj === selSubj);
-        var matchGrade = (selGrade === 'all' || item.grade === selGrade);
-        return notInSelected && matchSubj && matchGrade;
-      });
-
-      if (!available.length) {
-        var subjName = SUBJ_LABEL[selSubj] || '教科';
-        var gradeName = BAND_LABEL[selGrade] || '選択学年';
-
-        available = [
-          { id: 801, stage: "ステージ1：" + subjName + "の基礎", lesson: "レッスン1：基本概念", unit: "1. 標準ユニットA", subj: selSubj, grade: selGrade },
-          { id: 802, stage: "ステージ1：" + subjName + "の基礎", lesson: "レッスン1：基本概念", unit: "2. 標準ユニットB", subj: selSubj, grade: selGrade },
-          { id: 803, stage: "ステージ2：" + subjName + "の応用", lesson: "レッスン1：発展演習", unit: "1. 総合演習ユニット", subj: selSubj, grade: selGrade }
-        ].filter(function (item) {
-          return !srSelectedUnits.some(function (s) { return s.id === item.id; });
-        });
-      }
-      return available;
+    function updateSrCounts() {
+      var badgeEl = document.getElementById('sr-tab-badge');
+      if (badgeEl) badgeEl.textContent = srSelectedUnits.length;
+      var startBtn = document.getElementById('sr-btn-start');
+      if (startBtn) startBtn.disabled = (srSelectedUnits.length === 0);
     }
 
     function srSwitchMode(mode) {
       srMode = mode;
       document.getElementById('sr-tab-add').classList.toggle('active', mode === 'add');
       document.getElementById('sr-tab-selected').classList.toggle('active', mode === 'selected');
-      document.getElementById('sr-btn-commit').style.display = (mode === 'add') ? '' : 'none';
-      var hint = document.getElementById('sr-mode-hint');
-      if (hint) {
-        hint.innerHTML = (mode === 'add')
-          ? '対象の単元・ユニットをクリックして選び、「テストを追加する」を押すと<ruby>選択済<rt>せんたくずみ</rt></ruby>に追加されます。'
-          : '<ruby>選択済<rt>せんたくずみ</rt></ruby>の単元・ユニットです。「×」で個別に取り消せます。制限時間を選んでテスト開始を押してください。';
-      }
-      srRenderTable();
+      document.getElementById('sr-add-panel').style.display = (mode === 'add') ? '' : 'none';
+      document.getElementById('sr-selected-panel').style.display = (mode === 'selected') ? '' : 'none';
+      if (mode === 'selected') srRenderSelectedTable();
+      updateSrCounts();
     }
 
-    function srRenderTable() {
+    function srResetBrowseFlow() {
+      document.getElementById('sr-col-lesson').style.display = 'none';
+      document.getElementById('sr-col-unit').style.display = 'none';
+      srPickedStageIdx = null;
+      srPickedLessonIdx = null;
+      srRenderStages();
+    }
+
+    document.querySelectorAll('#sr-subject-pills button, #sr-grade-pills button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var siblings = btn.parentElement.querySelectorAll('button');
+        siblings.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        srResetBrowseFlow();
+      });
+    });
+
+    function srRenderStages() {
+      var subjCode = srGetActiveSubject();
+      var gradeCode = srGetActiveGrade();
+      var el = document.getElementById('sr-stage-list');
+      if (!subjCode || !gradeCode) {
+        srCurrentStages = [];
+        el.innerHTML = '<div class="hint-empty"><ruby>教科<rt>きょうか</rt></ruby>・<ruby>学年<rt>がくねん</rt></ruby>を<ruby>選択<rt>せんたく</rt></ruby>してください</div>';
+        return;
+      }
+      srCurrentStages = (SULALA_TREE[subjCode] && SULALA_TREE[subjCode][gradeCode]) || [];
+      el.innerHTML = '';
+      if (!srCurrentStages.length) {
+        el.innerHTML = '<div class="hint-empty">この<ruby>教科<rt>きょうか</rt></ruby>・<ruby>学年<rt>がくねん</rt></ruby>の<ruby>単元<rt>たんげん</rt></ruby>はまだありません</div>';
+        return;
+      }
+      srCurrentStages.forEach(function (s, i) {
+        var d = document.createElement('div');
+        d.className = 'opt' + (i === srPickedStageIdx ? ' sel' : '');
+        d.innerHTML = '<span class="opt-label">ステージ' + (i + 1) + '</span><br><span class="main-txt">' + s.name + '</span>';
+        d.addEventListener('click', function () {
+          srPickedStageIdx = i;
+          srPickedLessonIdx = null;
+          document.getElementById('sr-col-lesson').style.display = '';
+          document.getElementById('sr-col-unit').style.display = 'none';
+          srRenderStages();
+          srRenderLessons(i);
+        });
+        el.appendChild(d);
+      });
+    }
+
+    function srRenderLessons(stageIdx) {
+      var el = document.getElementById('sr-lesson-list');
+      el.innerHTML = '';
+      var lessons = (srCurrentStages[stageIdx] && srCurrentStages[stageIdx].lessons) || [];
+      lessons.forEach(function (l, i) {
+        var d = document.createElement('div');
+        d.className = 'opt' + (i === srPickedLessonIdx ? ' sel' : '');
+        d.innerHTML = '<span class="opt-label">レッスン' + (i + 1) + '</span><br><span class="main-txt">' + l.name + '</span>';
+        d.addEventListener('click', function () {
+          srPickedLessonIdx = i;
+          document.getElementById('sr-col-unit').style.display = '';
+          srRenderLessons(stageIdx);
+          srRenderUnits(stageIdx, i);
+        });
+        el.appendChild(d);
+      });
+    }
+
+    function srUnitKey(subjCode, gradeCode, stageIdx, lessonIdx, unitIdx) {
+      return [subjCode, gradeCode, stageIdx, lessonIdx, unitIdx].join('|');
+    }
+
+    function srRenderUnits(stageIdx, lessonIdx) {
+      var el = document.getElementById('sr-unit-list');
+      el.innerHTML = '';
+      var subjCode = srGetActiveSubject();
+      var gradeCode = srGetActiveGrade();
+      var stage = srCurrentStages[stageIdx];
+      var lesson = stage && stage.lessons[lessonIdx];
+      var units = (lesson && lesson.units) || [];
+      units.forEach(function (u, i) {
+        var key = srUnitKey(subjCode, gradeCode, stageIdx, lessonIdx, i);
+        var checked = srSelectedUnits.some(function (s) { return s.key === key; });
+        var d = document.createElement('div');
+        d.className = 'opt drill-item' + (checked ? ' sel' : '');
+        d.style.display = 'flex';
+        d.style.justifyContent = 'space-between';
+        d.style.alignItems = 'center';
+        d.innerHTML =
+          '<span><span class="opt-label">ユニット' + (i + 1) + '</span><span class="main-txt">' + u + '</span></span>' +
+          '<input type="checkbox" class="chk-native" ' + (checked ? 'checked' : '') + '>';
+        d.addEventListener('click', function () {
+          var idx = srSelectedUnits.findIndex(function (s) { return s.key === key; });
+          if (idx > -1) {
+            srSelectedUnits.splice(idx, 1);
+          } else {
+            srSelectedUnits.push({
+              key: key,
+              subj: subjCode,
+              grade: gradeCode,
+              stageNo: stageIdx + 1,
+              lessonNo: lessonIdx + 1,
+              unitNo: i + 1,
+              stage: stage.name,
+              lesson: lesson.name,
+              unit: u
+            });
+          }
+          srRenderUnits(stageIdx, lessonIdx);
+          updateSrCounts();
+          if (srMode === 'selected') srRenderSelectedTable();
+        });
+        el.appendChild(d);
+      });
+    }
+
+    function srRenderSelectedTable() {
       var tbody = document.getElementById('sr-test-body');
-      var countEl = document.getElementById('sr-selected-count');
-      var badgeEl = document.getElementById('sr-tab-badge');
       if (!tbody) return;
       tbody.innerHTML = '';
-
-      if (countEl) countEl.textContent = srSelectedUnits.length;
-      if (badgeEl) badgeEl.textContent = srSelectedUnits.length;
-
-      if (srMode === 'add') {
-        var available = srGetAvailableUnits();
-        if (!available.length) {
-          tbody.innerHTML = '<tr><td colspan="3" class="hint-empty">選択した教科・学年の単元はありません</td></tr>';
-          return;
-        }
-        available.forEach(function (item) {
-          var tr = document.createElement('tr');
-          tr.classList.add('is-visible');
-          tr.style.cursor = 'pointer';
-          if (srCheckedIds.indexOf(item.id) > -1) tr.classList.add('unit-row-checked');
-
-          tr.innerHTML =
-            '<td style="font-weight:700;">' + item.stage + '</td>' +
-            '<td style="font-weight:700; color:var(--text-sub);">' + item.lesson + '</td>' +
-            '<td style="font-weight:700; color:var(--text-main);">' + item.unit + '</td>';
-
-          tr.addEventListener('click', function () {
-            var idx = srCheckedIds.indexOf(item.id);
-            if (idx > -1) { srCheckedIds.splice(idx, 1); } else { srCheckedIds.push(item.id); }
-            srRenderTable();
-          });
-
-          tbody.appendChild(tr);
-        });
-      } else {
-        if (!srSelectedUnits.length) {
-          tbody.innerHTML = '<tr><td colspan="3" class="hint-empty">「追加」タブから単元・ユニットを選んでください</td></tr>';
-          return;
-        }
-        srSelectedUnits.forEach(function (item) {
-          var tr = document.createElement('tr');
-          tr.classList.add('is-visible');
-
-          tr.innerHTML =
-            '<td style="font-weight:700;">' + item.stage + '</td>' +
-            '<td style="font-weight:700; color:var(--text-sub);">' + item.lesson + '</td>' +
-            '<td style="font-weight:700; color:var(--text-main); display:flex; align-items:center; justify-content:space-between; gap:8px;">' +
-            '<span>' + item.unit + '</span>' +
-            '<button type="button" class="unit-row-remove-btn" title="選択済から削除">×</button>' +
-            '</td>';
-
-          tr.querySelector('.unit-row-remove-btn').addEventListener('click', function (e) {
-            e.stopPropagation();
-            srSelectedUnits = srSelectedUnits.filter(function (s) { return s.id !== item.id; });
-            srRenderTable();
-          });
-
-          tbody.appendChild(tr);
-        });
+      if (!srSelectedUnits.length) {
+        tbody.innerHTML = '<tr><td colspan="3" class="hint-empty">「<ruby>追加<rt>ついか</rt></ruby>」タブから<ruby>単元<rt>たんげん</rt></ruby>・ユニットを<ruby>選んで<rt>えらんで</rt></ruby>ください</td></tr>';
+        return;
       }
+      srSelectedUnits.forEach(function (item) {
+        var tr = document.createElement('tr');
+        tr.classList.add('is-visible');
+
+        tr.innerHTML =
+          '<td style="font-weight:700;"><span style="display:inline-block; font-size:0.68rem; font-weight:800; color:var(--sub-shakai); margin-right:6px;">ステージ' + item.stageNo + '</span>' + item.stage + '</td>' +
+          '<td style="font-weight:700; color:var(--text-sub);"><span style="display:inline-block; font-size:0.68rem; font-weight:800; color:var(--sub-shakai); margin-right:6px;">レッスン' + item.lessonNo + '</span>' + item.lesson + '</td>' +
+          '<td style="font-weight:700; color:var(--text-main); display:flex; align-items:center; justify-content:space-between; gap:8px;">' +
+          '<span><span style="display:inline-block; font-size:0.68rem; font-weight:800; color:var(--sub-shakai); margin-right:6px;">ユニット' + item.unitNo + '</span>' + item.unit + '</span>' +
+          '<button type="button" class="unit-row-remove-btn" title="選択済から削除">×</button>' +
+          '</td>';
+
+        tr.querySelector('.unit-row-remove-btn').addEventListener('click', function (e) {
+          e.stopPropagation();
+          srSelectedUnits = srSelectedUnits.filter(function (s) { return s.key !== item.key; });
+          srRenderSelectedTable();
+          updateSrCounts();
+          if (srPickedStageIdx !== null && srPickedLessonIdx !== null) srRenderUnits(srPickedStageIdx, srPickedLessonIdx);
+        });
+
+        tbody.appendChild(tr);
+      });
     }
 
-    document.getElementById('sr-btn-commit').addEventListener('click', function () {
-      if (!srCheckedIds.length) return;
-      var available = srGetAvailableUnits();
-
-      srCheckedIds.forEach(function (id) {
-        var item = available.find(function (a) { return a.id === id; });
-        if (item && !srSelectedUnits.some(function (s) { return s.id === item.id; })) {
-          srSelectedUnits.push(item);
-        }
-      });
-
-      srCheckedIds = [];
-      srRenderTable();
-    });
-
-    document.getElementById('sr-btn-clear').addEventListener('click', function () {
-      srSelectedUnits = [];
-      srCheckedIds = [];
-      srRenderTable();
-    });
-
-    var srSubjEl = document.getElementById('sr-test-subj');
-    var srGradeEl = document.getElementById('sr-test-grade');
-    if (srSubjEl) srSubjEl.addEventListener('change', function () { srRenderTable(); });
-    if (srGradeEl) srGradeEl.addEventListener('change', function () { srRenderTable(); });
-
-    srRenderTable();
+    srRenderStages();
+    updateSrCounts();
 
     (function initSrSort() {
       var table = document.getElementById('sr-test-table');
@@ -3814,156 +3918,150 @@
     /* ============ 教科書単元テスト JS ============ */
     var TB_GRADE_LABEL = {
       e1: '小学1年', e2: '小学2年', e3: '小学3年', e4: '小学4年', e5: '小学5年', e6: '小学6年',
-      j1: '中学1年', j2: '中学2年', j3: '中学3年'
+      j1: '中学1年', j2: '中学2年', j3: '中学3年', h1: '高校1年', h2: '高校2年', h3: '高校3年'
     };
 
-    var TB_SAMPLE_UNITS = [
-      { id: 1, subj: 'math', grade: 'e1', gradeLabel: '小学1年・算数', unit: '1. なかまづくりと かず', page: '8-15' },
-      { id: 2, subj: 'math', grade: 'e1', gradeLabel: '小学1年・算数', unit: '2. なんばんめ', page: '16-19' },
-      { id: 3, subj: 'math', grade: 'e1', gradeLabel: '小学1年・算数', unit: '3. いくつと いくつ', page: '20-27' },
-      { id: 4, subj: 'koku', grade: 'e1', gradeLabel: '小学1年・国語', unit: '1. ひらがなを おぼえよう', page: '4-11' },
-      { id: 5, subj: 'eng', grade: 'e5', gradeLabel: '小学5年・英語', unit: 'Unit 1: Hello, friends!', page: '2-9' }
-    ];
-
     var tbSelectedUnits = [
-      { id: 1, subj: 'math', grade: 'e1', gradeLabel: '小学1年・算数', unit: '1. なかまづくりと かず', page: '8-15' },
-      { id: 2, subj: 'math', grade: 'e1', gradeLabel: '小学1年・算数', unit: '2. なんばんめ', page: '16-19' }
+      { key: 'math|e1|0', subj: 'math', gradeCode: 'e1', gradeLabel: '小学1年・算数', page: 'p.10〜11', title: '10までのかず' },
+      { key: 'math|e1|1', subj: 'math', gradeCode: 'e1', gradeLabel: '小学1年・算数', page: 'p.30〜31', title: 'たしざん' }
     ];
-    var tbCheckedIds = [];   /* 追加モードでクリックしてチェックした一時選択 */
     var tbMode = 'add';      /* 'add' | 'selected' */
+    var tbCurrentGroups = [];
 
-    function tbGetAvailableUnits() {
-      var selSubj = document.getElementById('tb-test-subj') ? document.getElementById('tb-test-subj').value : 'math';
-      var selGrade = document.getElementById('tb-test-grade') ? document.getElementById('tb-test-grade').value : 'e1';
-
-      var available = TB_SAMPLE_UNITS.filter(function (item) {
-        var notInSelected = !tbSelectedUnits.some(function (s) { return s.id === item.id; });
-        var matchSubj = (selSubj === 'all' || item.subj === selSubj);
-        var matchGrade = (selGrade === 'all' || item.grade === selGrade);
-        return notInSelected && matchSubj && matchGrade;
-      });
-
-      if (!available.length) {
-        var subjName = SUBJ_LABEL[selSubj] || '教科';
-        var gradeName = TB_GRADE_LABEL[selGrade] || '選択学年';
-
-        available = [
-          { id: 901, subj: selSubj, grade: selGrade, gradeLabel: gradeName + '・' + subjName, unit: '1. 標準単元A', page: '2-9' },
-          { id: 902, subj: selSubj, grade: selGrade, gradeLabel: gradeName + '・' + subjName, unit: '2. 標準単元B', page: '10-17' },
-          { id: 903, subj: selSubj, grade: selGrade, gradeLabel: gradeName + '・' + subjName, unit: '3. 総合演習単元', page: '18-25' }
-        ].filter(function (item) {
-          return !tbSelectedUnits.some(function (s) { return s.id === item.id; });
-        });
-      }
-      return available;
+    function tbGetActiveSubject() {
+      var btn = document.querySelector('#tb-subject-pills button.active');
+      return btn ? btn.getAttribute('data-v') : null;
     }
+
+    function tbFilterBooksBySubject() {
+      var subj = tbGetActiveSubject();
+      var bookEl = document.getElementById('tb-tree-book');
+      var opts = bookEl.querySelectorAll('option[data-subj]');
+      var currentVisible = false;
+      opts.forEach(function (o) {
+        var match = o.getAttribute('data-subj') === subj;
+        o.style.display = match ? '' : 'none';
+        o.disabled = !match;
+        if (match && o.value === bookEl.value) currentVisible = true;
+      });
+      if (!currentVisible) bookEl.value = '';
+    }
+
+    document.querySelectorAll('#tb-subject-pills button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('#tb-subject-pills button').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('tb-tree-grade').value = '';
+        tbFilterBooksBySubject();
+        tbRenderPages();
+      });
+    });
 
     function tbSwitchMode(mode) {
       tbMode = mode;
       document.getElementById('tb-tab-add').classList.toggle('active', mode === 'add');
       document.getElementById('tb-tab-selected').classList.toggle('active', mode === 'selected');
-      document.getElementById('tb-btn-commit').style.display = (mode === 'add') ? '' : 'none';
-      var hint = document.getElementById('tb-mode-hint');
-      if (hint) {
-        hint.innerHTML = (mode === 'add')
-          ? '対象の単元・ユニットをクリックして選び、「テストを追加する」を押すと<ruby>選択済<rt>せんたくずみ</rt></ruby>に追加されます。'
-          : '<ruby>選択済<rt>せんたくずみ</rt></ruby>の単元・ユニットです。「×」で個別に取り消せます。制限時間を選んでテスト開始を押してください。';
-      }
-      tbRenderTable();
+      document.getElementById('tb-add-panel').style.display = (mode === 'add') ? '' : 'none';
+      document.getElementById('tb-selected-panel').style.display = (mode === 'selected') ? '' : 'none';
+      if (mode === 'selected') tbRenderSelectedTable();
+      updateTbCounts();
     }
 
-    function tbRenderTable() {
-      var tbody = document.getElementById('tb-test-body');
-      var countEl = document.getElementById('tb-selected-count');
+    function updateTbCounts() {
       var badgeEl = document.getElementById('tb-tab-badge');
+      if (badgeEl) badgeEl.textContent = tbSelectedUnits.length;
+      var startBtn = document.getElementById('tb-btn-start');
+      if (startBtn) startBtn.disabled = (tbSelectedUnits.length === 0);
+    }
+
+    function tbPageKey(subj, gradeCode, pageIdx) {
+      return [subj, gradeCode, pageIdx].join('|');
+    }
+
+    function tbRenderPages() {
+      var subj = tbGetActiveSubject();
+      var gradeCode = document.getElementById('tb-tree-grade').value;
+      var bookVal = document.getElementById('tb-tree-book').value;
+      var pageList = document.getElementById('tb-page-list');
+
+      if (!subj || !gradeCode || !bookVal) {
+        tbCurrentGroups = [];
+        pageList.innerHTML = '<div class="hint-empty"><ruby>学年<rt>がくねん</rt></ruby>・<ruby>教科<rt>きょうか</rt></ruby><ruby>書<rt>しょ</rt></ruby>を<ruby>選択<rt>せんたく</rt></ruby>してください</div>';
+        return;
+      }
+      tbCurrentGroups = (TEXTBOOK_TREE[subj] && TEXTBOOK_TREE[subj][gradeCode]) || [];
+      pageList.innerHTML = '';
+      if (!tbCurrentGroups.length) {
+        pageList.innerHTML = '<div class="hint-empty">この<ruby>学年<rt>がくねん</rt></ruby>・<ruby>教科<rt>きょうか</rt></ruby><ruby>書<rt>しょ</rt></ruby>の<ruby>単元<rt>たんげん</rt></ruby>はまだありません</div>';
+        return;
+      }
+      tbCurrentGroups.forEach(function (g, gi) {
+        var key = tbPageKey(subj, gradeCode, gi);
+        var checked = tbSelectedUnits.some(function (s) { return s.key === key; });
+        var d = document.createElement('div');
+        d.className = 'opt' + (checked ? ' sel' : '');
+        d.innerHTML = '<span class="opt-label">' + g.page + '</span><br><span class="main-txt">' + g.title + '</span>';
+        d.addEventListener('click', function () {
+          var idx = tbSelectedUnits.findIndex(function (s) { return s.key === key; });
+          if (idx > -1) {
+            tbSelectedUnits.splice(idx, 1);
+            d.classList.remove('sel');
+          } else {
+            tbSelectedUnits.push({
+              key: key,
+              subj: subj,
+              gradeCode: gradeCode,
+              gradeLabel: (TB_GRADE_LABEL[gradeCode] || gradeCode) + '・' + (SUBJ_LABEL[subj] || subj),
+              page: g.page,
+              title: g.title
+            });
+            d.classList.add('sel');
+          }
+          updateTbCounts();
+          if (tbMode === 'selected') tbRenderSelectedTable();
+        });
+        pageList.appendChild(d);
+      });
+    }
+
+    function tbRenderSelectedTable() {
+      var tbody = document.getElementById('tb-test-body');
       if (!tbody) return;
       tbody.innerHTML = '';
-
-      if (countEl) countEl.textContent = tbSelectedUnits.length;
-      if (badgeEl) badgeEl.textContent = tbSelectedUnits.length;
-
-      if (tbMode === 'add') {
-        var available = tbGetAvailableUnits();
-        if (!available.length) {
-          tbody.innerHTML = '<tr><td colspan="3" class="hint-empty">選択した教科・学年の単元はありません</td></tr>';
-          return;
-        }
-        available.forEach(function (item) {
-          var tr = document.createElement('tr');
-          tr.classList.add('is-visible');
-          tr.style.cursor = 'pointer';
-          if (tbCheckedIds.indexOf(item.id) > -1) tr.classList.add('unit-row-checked');
-
-          tr.innerHTML =
-            '<td style="font-weight:700;">' + item.gradeLabel + '</td>' +
-            '<td style="font-weight:700; color:var(--text-main);">' + item.unit + '</td>' +
-            '<td style="text-align:center; color:var(--text-sub);">' + item.page + '</td>';
-
-          tr.addEventListener('click', function () {
-            var idx = tbCheckedIds.indexOf(item.id);
-            if (idx > -1) { tbCheckedIds.splice(idx, 1); } else { tbCheckedIds.push(item.id); }
-            tbRenderTable();
-          });
-
-          tbody.appendChild(tr);
-        });
-      } else {
-        if (!tbSelectedUnits.length) {
-          tbody.innerHTML = '<tr><td colspan="3" class="hint-empty">「追加」タブから単元・ユニットを選んでください</td></tr>';
-          return;
-        }
-        tbSelectedUnits.forEach(function (item) {
-          var tr = document.createElement('tr');
-          tr.classList.add('is-visible');
-
-          tr.innerHTML =
-            '<td style="font-weight:700;">' + item.gradeLabel + '</td>' +
-            '<td style="font-weight:700; color:var(--text-main); display:flex; align-items:center; justify-content:space-between; gap:8px;">' +
-            '<span>' + item.unit + '</span>' +
-            '<button type="button" class="unit-row-remove-btn" title="選択済から削除">×</button>' +
-            '</td>' +
-            '<td style="text-align:center; color:var(--text-sub);">' + item.page + '</td>';
-
-          tr.querySelector('.unit-row-remove-btn').addEventListener('click', function (e) {
-            e.stopPropagation();
-            tbSelectedUnits = tbSelectedUnits.filter(function (s) { return s.id !== item.id; });
-            tbRenderTable();
-          });
-
-          tbody.appendChild(tr);
-        });
+      if (!tbSelectedUnits.length) {
+        tbody.innerHTML = '<tr><td colspan="3" class="hint-empty">「<ruby>追加<rt>ついか</rt></ruby>」タブから<ruby>単元<rt>たんげん</rt></ruby>を<ruby>選んで<rt>えらんで</rt></ruby>ください</td></tr>';
+        return;
       }
+      tbSelectedUnits.forEach(function (item) {
+        var tr = document.createElement('tr');
+        tr.classList.add('is-visible');
+
+        tr.innerHTML =
+          '<td style="font-weight:700;">' + item.gradeLabel + '</td>' +
+          '<td style="font-weight:700; color:var(--text-main); display:flex; align-items:center; justify-content:space-between; gap:8px;">' +
+          '<span>' + item.title + '</span>' +
+          '<button type="button" class="unit-row-remove-btn" title="選択済から削除">×</button>' +
+          '</td>' +
+          '<td style="text-align:center; color:var(--text-sub);">' + item.page + '</td>';
+
+        tr.querySelector('.unit-row-remove-btn').addEventListener('click', function (e) {
+          e.stopPropagation();
+          tbSelectedUnits = tbSelectedUnits.filter(function (s) { return s.key !== item.key; });
+          tbRenderSelectedTable();
+          updateTbCounts();
+          tbRenderPages();
+        });
+
+        tbody.appendChild(tr);
+      });
     }
 
-    var tbBtnCommit = document.getElementById('tb-btn-commit');
-    if (tbBtnCommit) tbBtnCommit.addEventListener('click', function () {
-      if (!tbCheckedIds.length) return;
-      var available = tbGetAvailableUnits();
+    tbFilterBooksBySubject();
+    tbRenderPages();
+    updateTbCounts();
 
-      tbCheckedIds.forEach(function (id) {
-        var item = available.find(function (a) { return a.id === id; });
-        if (item && !tbSelectedUnits.some(function (s) { return s.id === item.id; })) {
-          tbSelectedUnits.push(item);
-        }
-      });
-
-      tbCheckedIds = [];
-      tbRenderTable();
-    });
-
-    var tbBtnClear = document.getElementById('tb-btn-clear');
-    if (tbBtnClear) tbBtnClear.addEventListener('click', function () {
-      tbSelectedUnits = [];
-      tbCheckedIds = [];
-      tbRenderTable();
-    });
-
-    var tbSubjEl = document.getElementById('tb-test-subj');
-    var tbGradeEl = document.getElementById('tb-test-grade');
-    if (tbSubjEl) tbSubjEl.addEventListener('change', function () { tbRenderTable(); });
-    if (tbGradeEl) tbGradeEl.addEventListener('change', function () { tbRenderTable(); });
-
-    tbRenderTable();
+    document.getElementById('tb-tree-grade').addEventListener('change', tbRenderPages);
+    document.getElementById('tb-tree-book').addEventListener('change', tbRenderPages);
 
     (function initTbSort() {
       var table = document.getElementById('tb-test-table');
@@ -3988,52 +4086,62 @@
       {
         unit: 'ユニット1-A：整数の計算・くり上がり', drill: 'A分野：ステージ1 レッスン3 ユニット1-Aドリル (1 / 1) No.1',
         q: 'つぎの 筆算を しましょう。<br><br>&nbsp;&nbsp;4 7<br>+ 3 8<br>――――',
-        userAnswer: '75', correctAnswer: '85', correct: false
+        userAnswer: '75', correctAnswer: '85', correct: false,
+        explanation: '一の位は 7 + 8 = 15 で、5 を書いて 1 くり上げます。十の位は 4 + 3 + 1(くり上がり) = 8 なので、答えは 85 になります。'
       },
       {
         unit: 'ユニット1-B：整数の計算・くり上がり', drill: 'A分野：ステージ1 レッスン3 ユニット1-Bドリル (1 / 1) No.1',
         q: 'つぎの けいさんを しましょう。<br><br>8 + 6 =',
-        userAnswer: '14', correctAnswer: '14', correct: true
+        userAnswer: '14', correctAnswer: '14', correct: true,
+        explanation: '8 に 6 を たすと 14 になります。8 を 10 にするために 2 をたして、のこりの 4 をたすと考えるとよいでしょう。'
       },
       {
         unit: 'ユニット2-A：かけ算・わり算', drill: 'A分野：ステージ1 レッスン4 ユニット2-Aドリル (1 / 1) No.1',
         q: 'つぎの 九九を こたえましょう。<br><br>7 × 8 =',
-        userAnswer: '56', correctAnswer: '56', correct: true
+        userAnswer: '56', correctAnswer: '56', correct: true,
+        explanation: '7の段の九九「7 × 8 = 56」です。九九の表を思い出しながら確認しておきましょう。'
       },
       {
         unit: 'ユニット3-A：小数・分数の基礎', drill: 'A分野：ステージ2 レッスン1 ユニット3-Aドリル (1 / 1) No.1',
         q: 'つぎの けいさんを しましょう。<br><br>1.2 + 0.9 =',
-        userAnswer: '1.11', correctAnswer: '2.1', correct: false
+        userAnswer: '1.11', correctAnswer: '2.1', correct: false,
+        explanation: '小数のたし算は、小数点の位置をそろえて計算します。1.2 + 0.9 は、位をそろえると 2.1 になります。'
       },
       {
         unit: 'ユニット4-A：分数の性質', drill: 'A分野：ステージ2 レッスン2 ユニット4-Aドリル (1 / 1) No.1',
         q: 'つぎの けいさんを しましょう。<br><br>1/5 + 2/5 =',
-        userAnswer: '3/5', correctAnswer: '3/5', correct: true
+        userAnswer: '3/5', correctAnswer: '3/5', correct: true,
+        explanation: '分母が同じ分数のたし算は、分子だけをたします。1 + 2 = 3 なので、答えは 3/5 です。'
       },
       {
         unit: 'ユニット4-B：分数の性質', drill: 'A分野：ステージ2 レッスン2 ユニット4-Bドリル (1 / 1) No.1',
         q: 'つぎの けいさんを しましょう。<br><br>2/7 + 3/7 =',
-        userAnswer: '5/7', correctAnswer: '5/7', correct: true
+        userAnswer: '5/7', correctAnswer: '5/7', correct: true,
+        explanation: '分母が同じ分数のたし算は、分子だけをたします。2 + 3 = 5 なので、答えは 5/7 です。'
       },
       {
         unit: 'ユニット5-A：かけ算の筆算', drill: 'A分野：ステージ2 レッスン3 ユニット5-Aドリル (1 / 1) No.1',
         q: 'つぎの 筆算を しましょう。<br><br>&nbsp;&nbsp;2 3<br>×&nbsp;&nbsp;4<br>――――',
-        userAnswer: '92', correctAnswer: '92', correct: true
+        userAnswer: '92', correctAnswer: '92', correct: true,
+        explanation: '23 × 4 は、3 × 4 = 12 で 2 を書いて 1 くり上げ、2 × 4 + 1 = 9 なので、答えは 92 になります。'
       },
       {
         unit: 'ユニット5-B：わり算の基礎', drill: 'A分野：ステージ2 レッスン3 ユニット5-Bドリル (1 / 1) No.1',
         q: 'つぎの けいさんを しましょう。<br><br>36 ÷ 4 =',
-        userAnswer: '9', correctAnswer: '9', correct: true
+        userAnswer: '9', correctAnswer: '9', correct: true,
+        explanation: '4 の段の九九「4 × 9 = 36」から、36 ÷ 4 = 9 になります。'
       },
       {
         unit: 'ユニット6-A：長さと単位', drill: 'A分野：ステージ2 レッスン4 ユニット6-Aドリル (1 / 1) No.1',
-        q: '□ に あてはまる かずを いれよう。<br><br>1m = <input type="text" class="form-input-number" value="100" disabled> cm',
-        userAnswer: '100', correctAnswer: '100', correct: true
+        q: '□ に あてはまる かずを いれよう。<br><br>1m = ___ cm',
+        userAnswer: '100', correctAnswer: '100', correct: true,
+        explanation: '1m は 100cm です。長さの単位換算はよく出るので、しっかり覚えておきましょう。'
       },
       {
         unit: 'ユニット6-B：時間と単位', drill: 'A分野：ステージ2 レッスン4 ユニット6-Bドリル (1 / 1) No.1',
-        q: '□ に あてはまる かずを いれよう。<br><br>1分 = <input type="text" class="form-input-number" value="60" disabled> 秒',
-        userAnswer: '60', correctAnswer: '60', correct: true
+        q: '□ に あてはまる かずを いれよう。<br><br>1分 = ___ 秒',
+        userAnswer: '60', correctAnswer: '60', correct: true,
+        explanation: '1分は60秒です。時間の単位換算も長さと同じようによく出題されます。'
       }
     ];
 
@@ -4047,7 +4155,10 @@
         (function (idx) {
           var a = document.createElement('a');
           a.href = 'javascript:void(0)';
-          a.className = 'page-num-btn' + (idx === trAmCurrentIndex ? ' active' : '');
+          var cls = 'page-num-btn';
+          cls += TR_ANSWER_DATA[idx - 1].correct ? ' pn-correct' : ' pn-incorrect';
+          if (idx === trAmCurrentIndex) cls += ' pn-current';
+          a.className = cls;
           a.textContent = idx;
           a.addEventListener('click', function () { trRenderAnswerModal(idx); });
           wrap.appendChild(a);
@@ -4066,21 +4177,30 @@
       document.getElementById('tr-am-qnum').textContent = '問題番号：' + index;
       document.getElementById('tr-am-qmeta').textContent = '[ ' + index + '問目 / 全' + total + '問 ] [' + data.drill + ']';
 
-      var bodyHtml = data.q;
-      if (bodyHtml.indexOf('<input') === -1) {
-        bodyHtml += '<br><br>答え：<input type="text" class="form-input-number" value="' + data.userAnswer + '" disabled>';
-      }
-      document.getElementById('tr-am-qbody').innerHTML = bodyHtml;
+      document.getElementById('tr-am-qbody').innerHTML = data.q;
 
+      // 解答（生徒が入力した回答）
+      document.getElementById('tr-am-answer').textContent = data.userAnswer;
+
+      // ○ / ✕ 判定（解答欄と同じ行に表示）
       var resultEl = document.getElementById('tr-am-result');
       if (data.correct) {
-        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:8px; font-size:1.4rem; font-weight:800; color:var(--ok);"><span style="font-size:1.8rem; line-height:1;">〇</span>正解！</span>';
+        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:4px; font-size:0.95rem; font-weight:800; color:var(--ok); flex-shrink:0;"><span style="font-size:1.3rem; line-height:1;">〇</span>正解！</span>';
       } else {
-        resultEl.innerHTML = '<span style="display:flex; flex-direction:column; align-items:center; gap:4px;">' +
-          '<span style="display:flex; align-items:center; gap:8px; font-size:1.4rem; font-weight:800; color:var(--danger);"><span style="font-size:1.8rem; line-height:1;">×</span>不正解</span>' +
-          '<span style="font-size:0.75rem; color:var(--text-sub);">正解：' + data.correctAnswer + '</span>' +
-          '</span>';
+        resultEl.innerHTML = '<span style="display:flex; align-items:center; gap:4px; font-size:0.95rem; font-weight:800; color:var(--danger); flex-shrink:0;"><span style="font-size:1.3rem; line-height:1;">×</span>不正解</span>';
       }
+
+      // 正解（不正解の場合のみ表示）
+      var correctRowEl = document.getElementById('tr-am-correct-row');
+      if (data.correct) {
+        correctRowEl.style.display = 'none';
+      } else {
+        document.getElementById('tr-am-correct').textContent = data.correctAnswer;
+        correctRowEl.style.display = 'flex';
+      }
+
+      // 解説
+      document.getElementById('tr-am-explanation').textContent = data.explanation;
 
       trRenderAnswerModalPagenav();
     }
@@ -4092,6 +4212,909 @@
     function trOpenAnswerModal(index) {
       trRenderAnswerModal(index || 1);
       openModal('tr-answer-modal');
+    }
+  </script>
+
+  <script>
+    /* 手書き入力パッド（自由記述の解答欄に付随。文字認識→解答欄へ反映するデモ／画面共通で利用） */
+    function attachHandwritingPad(container, input, opts) {
+      container.innerHTML = '';
+      var wrap = document.createElement('div');
+      wrap.className = 'ts-handwriting-pad';
+      wrap.innerHTML =
+        '<div class="ts-hw-toolbar">' +
+        '<span class="ts-hw-label">✎ 手書き入力</span>' +
+        '<div class="ts-hw-tools">' +
+        '<button class="ts-note-tool-btn" id="tsHwUndo" disabled>↺ 1つもどる</button>' +
+        '<button class="ts-note-tool-btn" id="tsHwRedo" disabled>↻ 1つすすむ</button>' +
+        '<button class="ts-note-tool-btn" id="tsHwClear">🗑 すべてクリア</button>' +
+        '<button class="ts-hw-decide" id="tsHwDecide">決定</button>' +
+        '</div>' +
+        '</div>' +
+        '<canvas class="ts-handwriting-canvas"></canvas>';
+      container.appendChild(wrap);
+
+      var canvas = wrap.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      var undoBtn = wrap.querySelector('#tsHwUndo');
+      var redoBtn = wrap.querySelector('#tsHwRedo');
+      var clearBtn = wrap.querySelector('#tsHwClear');
+      var decideBtn = wrap.querySelector('#tsHwDecide');
+
+      var strokes = [];
+      var redoStack = [];
+      var currentStroke = null;
+      var drawing = false;
+
+      function sizeCanvas() {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        redrawAll();
+      }
+      function redrawAll() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#2A2F40';
+        ctx.lineWidth = 2.2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        strokes.forEach(function (stroke) {
+          if (stroke.length < 2) return;
+          ctx.beginPath();
+          ctx.moveTo(stroke[0].x, stroke[0].y);
+          for (var i = 1; i < stroke.length; i++) ctx.lineTo(stroke[i].x, stroke[i].y);
+          ctx.stroke();
+        });
+      }
+      function updateButtons() {
+        undoBtn.disabled = strokes.length === 0;
+        redoBtn.disabled = redoStack.length === 0;
+      }
+      function pointFromEvent(e) {
+        var rect = canvas.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      }
+
+      canvas.addEventListener('pointerdown', function (e) {
+        drawing = true;
+        currentStroke = [pointFromEvent(e)];
+        canvas.setPointerCapture(e.pointerId);
+      });
+      canvas.addEventListener('pointermove', function (e) {
+        if (!drawing) return;
+        var p = pointFromEvent(e);
+        currentStroke.push(p);
+        redrawAll();
+        if (currentStroke.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(currentStroke[0].x, currentStroke[0].y);
+          for (var i = 1; i < currentStroke.length; i++) ctx.lineTo(currentStroke[i].x, currentStroke[i].y);
+          ctx.stroke();
+        }
+      });
+      function endStroke() {
+        if (!drawing) return;
+        drawing = false;
+        if (currentStroke && currentStroke.length > 1) {
+          strokes.push(currentStroke);
+          redoStack = [];
+        }
+        currentStroke = null;
+        updateButtons();
+      }
+      canvas.addEventListener('pointerup', endStroke);
+      canvas.addEventListener('pointerleave', endStroke);
+
+      undoBtn.onclick = function () {
+        if (strokes.length === 0) return;
+        redoStack.push(strokes.pop());
+        redrawAll();
+        updateButtons();
+      };
+      redoBtn.onclick = function () {
+        if (redoStack.length === 0) return;
+        strokes.push(redoStack.pop());
+        redrawAll();
+        updateButtons();
+      };
+      clearBtn.onclick = function () {
+        strokes = [];
+        redoStack = [];
+        redrawAll();
+        updateButtons();
+      };
+      decideBtn.onclick = function () {
+        if (decideBtn.disabled) return;
+        var original = decideBtn.textContent;
+        decideBtn.disabled = true;
+        decideBtn.textContent = '認識中…';
+        setTimeout(function () {
+          input.value = (opts && opts.handwritingSample) || input.value;
+          input.focus();
+          decideBtn.disabled = false;
+          decideBtn.textContent = original;
+        }, 500);
+      };
+
+      setTimeout(sizeCanvas, 0);
+      window.addEventListener('resize', sizeCanvas);
+
+      return {
+        disable: function () {
+          canvas.style.pointerEvents = 'none';
+          canvas.style.opacity = '0.6';
+          undoBtn.disabled = true; redoBtn.disabled = true; clearBtn.disabled = true; decideBtn.disabled = true;
+        },
+        reset: function () {
+          strokes = []; redoStack = []; currentStroke = null; drawing = false;
+          canvas.style.pointerEvents = ''; canvas.style.opacity = '';
+          clearBtn.disabled = false;
+          redrawAll();
+          updateButtons();
+        }
+      };
+    }
+
+    /* ノートパネルのUIを組み立てる共通ヘルパー（トグル表示 & 簡易Undo/Redo履歴） */
+    function buildNotePanel() {
+      var notePanel = document.createElement('div');
+      notePanel.className = 'ts-note-panel';
+      notePanel.innerHTML =
+        '<div class="ts-note-panel-head">' +
+        '<span class="ts-note-head-left">ノート</span>' +
+        '<div class="ts-note-head-right">' +
+        '<button class="ts-note-tool-btn" id="tsNoteUndo" disabled>↺ 1つもどる</button>' +
+        '<button class="ts-note-tool-btn" id="tsNoteRedo" disabled>↻ 1つすすむ</button>' +
+        '<button class="ts-note-tool-btn" id="tsNoteClear">🗑 すべてクリア</button>' +
+        '<span class="ts-note-close-x" id="tsNoteClose">✕</span>' +
+        '</div>' +
+        '</div>' +
+        '<textarea placeholder="ここに計算式やメモを書けます（手書き入力欄の代替）"></textarea>';
+
+      var closeX = notePanel.querySelector('#tsNoteClose');
+      var textarea = notePanel.querySelector('textarea');
+      var undoBtn = notePanel.querySelector('#tsNoteUndo');
+      var redoBtn = notePanel.querySelector('#tsNoteRedo');
+      var clearBtn = notePanel.querySelector('#tsNoteClear');
+
+      closeX.onclick = function () { notePanel.classList.remove('open'); };
+
+      var history = [''];
+      var pointer = 0;
+      var debounceTimer = null;
+
+      function refreshButtons() {
+        undoBtn.disabled = pointer <= 0;
+        redoBtn.disabled = pointer >= history.length - 1;
+      }
+      function pushState(value) {
+        if (value === history[pointer]) return;
+        history = history.slice(0, pointer + 1);
+        history.push(value);
+        pointer = history.length - 1;
+        refreshButtons();
+      }
+      textarea.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function () { pushState(textarea.value); }, 300);
+      });
+      undoBtn.onclick = function () {
+        if (pointer <= 0) return;
+        pointer--;
+        textarea.value = history[pointer];
+        refreshButtons();
+      };
+      redoBtn.onclick = function () {
+        if (pointer >= history.length - 1) return;
+        pointer++;
+        textarea.value = history[pointer];
+        refreshButtons();
+      };
+      clearBtn.onclick = function () {
+        textarea.value = '';
+        pushState('');
+        textarea.focus();
+      };
+
+      return {
+        el: notePanel,
+        toggle: function () { notePanel.classList.toggle('open'); }
+      };
+    }
+
+    /* ============ テスト学習：解答チェックフロー (通常ドリル準拠) ============ */
+    (function () {
+      var TS_STUDY_QUESTIONS = [
+        {
+          instruction: '□ に あてはまる かずを いれよう。',
+          questionHtml: '5 は 1 と <input type="text" class="form-input-number" id="ts-study-input"> で できている。',
+          answer: '4',
+          unitMeta: 'ステージ1 レッスン3 ユニット3-Aドリル (1 / 1) No.1'
+        },
+        {
+          instruction: '□ に あてはまる かずを いれよう。',
+          questionHtml: '6 は 2 と <input type="text" class="form-input-number" id="ts-study-input"> で できている。',
+          answer: '4',
+          unitMeta: 'ステージ1 レッスン3 ユニット3-Aドリル (1 / 1) No.2'
+        },
+        {
+          instruction: '□ に あてはまる かずを いれよう。',
+          questionHtml: '7 は 4 と <input type="text" class="form-input-number" id="ts-study-input"> で できている。',
+          answer: '3',
+          unitMeta: 'ステージ1 レッスン3 ユニット3-Aドリル (1 / 1) No.3'
+        },
+        {
+          instruction: 'たしざんを しましょう。',
+          questionHtml: '3 ＋ 4 ＝ <input type="text" class="form-input-number" id="ts-study-input">',
+          answer: '7',
+          unitMeta: 'ステージ1 レッスン3 ユニット3-Bドリル (1 / 1) No.4'
+        },
+        {
+          instruction: 'ひきざんを しましょう。',
+          questionHtml: '8 － 5 ＝ <input type="text" class="form-input-number" id="ts-study-input">',
+          answer: '3',
+          unitMeta: 'ステージ1 レッスン3 ユニット3-Bドリル (1 / 1) No.5'
+        }
+      ];
+      var TS_STUDY_TOTAL = 24;
+      var tsStudyCurrent = 1;
+      var tsHwInstance = null;
+
+      function tsStudyEls() {
+        return {
+          input: document.getElementById('ts-study-input'),
+          submitBtn: document.getElementById('ts-study-submit-btn'),
+          qnum: document.getElementById('ts-study-qnum'),
+          meta: document.getElementById('ts-study-meta'),
+          qbody: document.getElementById('ts-study-qbody'),
+          pagination: document.getElementById('ts-study-pagination'),
+          hwContainer: document.getElementById('ts-study-hw-container')
+        };
+      }
+
+      // ノートパネル（トグル表示 & 簡易Undo/Redo履歴）
+      function setupTsNotePanel() {
+        var noteBtn = document.getElementById('ts-study-note-btn');
+        var notePanel = document.getElementById('ts-study-note-panel');
+        var closeX = document.getElementById('ts-note-close');
+        var textarea = document.getElementById('ts-note-textarea');
+        var undoBtn = document.getElementById('ts-note-undo');
+        var redoBtn = document.getElementById('ts-note-redo');
+        var clearBtn = document.getElementById('ts-note-clear');
+        if (!noteBtn || !notePanel || !textarea) return;
+
+        noteBtn.onclick = function () { notePanel.classList.toggle('open'); };
+        closeX.onclick = function () { notePanel.classList.remove('open'); };
+
+        var history = [''];
+        var pointer = 0;
+        var debounceTimer = null;
+
+        function refreshButtons() {
+          undoBtn.disabled = pointer <= 0;
+          redoBtn.disabled = pointer >= history.length - 1;
+        }
+        function pushState(value) {
+          if (value === history[pointer]) return;
+          history = history.slice(0, pointer + 1);
+          history.push(value);
+          pointer = history.length - 1;
+          refreshButtons();
+        }
+        textarea.addEventListener('input', function () {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () { pushState(textarea.value); }, 300);
+        });
+        undoBtn.onclick = function () {
+          if (pointer <= 0) return;
+          pointer--;
+          textarea.value = history[pointer];
+          refreshButtons();
+        };
+        redoBtn.onclick = function () {
+          if (pointer >= history.length - 1) return;
+          pointer++;
+          textarea.value = history[pointer];
+          refreshButtons();
+        };
+        clearBtn.onclick = function () {
+          textarea.value = '';
+          pushState('');
+          textarea.focus();
+        };
+      }
+
+      function tsStudyUpdatePagination() {
+        var els = tsStudyEls();
+        if (!els.pagination) return;
+        var btns = els.pagination.querySelectorAll('.page-num-btn');
+        var activeIdx = ((tsStudyCurrent - 1) % btns.length);
+        btns.forEach(function (btn, i) {
+          btn.classList.toggle('active', i === activeIdx);
+        });
+      }
+
+      function tsStudyGoTo(n) {
+        tsStudyCurrent = n;
+        tsStudyRender();
+      }
+
+      function tsStudySetupPagination() {
+        var els = tsStudyEls();
+        if (!els.pagination) return;
+        var btns = els.pagination.querySelectorAll('.page-num-btn');
+        btns.forEach(function (btn, i) {
+          btn.addEventListener('click', function () {
+            tsStudyGoTo(i + 1);
+          });
+        });
+      }
+
+      function tsStudyShowError(msg) {
+        var zone = document.getElementById('ts-study-result-zone');
+        if (!zone) return;
+        zone.innerHTML = '<div class="ts-input-error" style="color: var(--danger); font-size: 0.78rem; font-weight: 700; margin-top: 10px;">' + msg + '</div>';
+      }
+
+      function tsStudyClearError() {
+        var zone = document.getElementById('ts-study-result-zone');
+        if (zone) zone.innerHTML = '';
+      }
+
+      function tsStudyRender() {
+        var els = tsStudyEls();
+        var q = TS_STUDY_QUESTIONS[(tsStudyCurrent - 1) % TS_STUDY_QUESTIONS.length];
+
+        els.qnum.textContent = tsStudyCurrent;
+        els.meta.innerHTML = '[ ' + tsStudyCurrent + '<ruby>問<rt>もん</rt></ruby><ruby>目<rt>め</rt></ruby> / <ruby>全<rt>ぜん</rt></ruby>' + TS_STUDY_TOTAL + '<ruby>問<rt>もん</rt></ruby> ] [A<ruby>分野<rt>ぶんや</rt></ruby>：' + q.unitMeta + ']';
+        els.qbody.innerHTML = q.instruction + '<br><br>' + q.questionHtml;
+
+        tsStudyUpdatePagination();
+        tsStudyClearError();
+
+        var input = document.getElementById('ts-study-input');
+        if (input) input.focus();
+
+        if (els.hwContainer) {
+          tsHwInstance = attachHandwritingPad(els.hwContainer, input, { handwritingSample: q.answer });
+        }
+      }
+
+      function tsStudyNext() {
+        if (tsStudyCurrent >= TS_STUDY_TOTAL) {
+          if (typeof finishTest === 'function') finishTest();
+          return;
+        }
+        tsStudyCurrent++;
+        tsStudyRender();
+      }
+
+      var tsStudySavedQuestion = null;
+      var tsStudyPendingAction = null;
+
+      function tsStudyIsActive() {
+        var page = document.getElementById('page-test-study');
+        return !!(page && page.classList.contains('active'));
+      }
+
+      // サイドバーの他ボタン押下でページ離脱しようとした場合、中断確認モーダルを表示する
+      document.addEventListener('click', function (e) {
+        if (!tsStudyIsActive()) return;
+        var link = e.target.closest('.sidebar a[onclick]');
+        if (!link) return;
+        var onclickAttr = link.getAttribute('onclick') || '';
+        if (onclickAttr.indexOf('showPage(') === -1 && onclickAttr.indexOf('showTestSubPage(') === -1) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        tsStudyPendingAction = function () {
+          (0, eval)(onclickAttr);
+        };
+        if (typeof openModal === 'function') openModal('ts-study-leave-modal');
+      }, true);
+
+      window.tsStudyCancelLeave = function () {
+        tsStudyPendingAction = null;
+        if (typeof closeModal === 'function') closeModal('ts-study-leave-modal');
+      };
+
+      window.tsStudyConfirmLeave = function () {
+        tsStudySavedQuestion = tsStudyCurrent;
+        if (typeof closeModal === 'function') closeModal('ts-study-leave-modal');
+        var action = tsStudyPendingAction;
+        tsStudyPendingAction = null;
+        if (action) action();
+      };
+
+      window.tsStudyResetState = function () {
+        tsStudySavedQuestion = null;
+      };
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var els = tsStudyEls();
+        if (!els.submitBtn) return;
+        setupTsNotePanel();
+        tsStudySetupPagination();
+        els.submitBtn.addEventListener('click', function () {
+          var input = document.getElementById('ts-study-input');
+          var val = input ? input.value.trim() : '';
+          if (!val) {
+            tsStudyShowError('解答が入っていません。');
+            return;
+          }
+          tsStudyNext();
+        });
+      });
+
+      window.tsStudyOpen = function () {
+        tsStudyCurrent = tsStudySavedQuestion || 1;
+        showPage('test-study');
+        tsStudyRender();
+      };
+    })();
+  </script>
+
+  <script>
+    /* ============ ドリルページ：通常ドリル／レクチャー モーダル (student_drill_260820 準拠) ============ */
+    function drRenderFlowTracker(activeKey) {
+      var FLOW = [
+        { key: 'q1', label: '問題1／3' },
+        { key: 'q2', label: '問題2／3' },
+        { key: 'q3', label: '問題3／3' },
+        { key: 'result', label: 'ドリル結果' }
+      ];
+      var wrap = document.getElementById('dr-normal-flow-tracker');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      FLOW.forEach(function (s) {
+        var d = document.createElement('span');
+        d.className = 'dr-flow-step' + (s.key === activeKey ? ' active' : '');
+        d.textContent = s.label;
+        wrap.appendChild(d);
+      });
+    }
+
+    function drNormalizeList(s) { return (s || '').toString().trim().replace(/[、]/g, ',').replace(/\s+/g, ''); }
+    function drNormalize(s) { return (s || '').toString().trim().toLowerCase().replace(/\s+/g, ' ').replace(/[.,、。]/g, ''); }
+
+    function drRenderTextbox(container, opts) {
+      opts = opts || {};
+      var wrap = document.createElement('div');
+      wrap.className = 'dr-answer-zone';
+      var row = document.createElement('div');
+      row.className = 'dr-fill-blank-row';
+      row.innerHTML = (opts.prefix ? '<span>' + opts.prefix + '</span>' : '') +
+        '<input type="text" class="dr-text-input" style="width:' + (opts.width || 220) + 'px;" placeholder="' + (opts.placeholder || '') + '">' +
+        (opts.suffix ? '<span>' + opts.suffix + '</span>' : '');
+      wrap.appendChild(row);
+      container.appendChild(wrap);
+      var input = row.querySelector('input');
+      var hwContainer = document.createElement('div');
+      wrap.appendChild(hwContainer);
+      var hw = attachHandwritingPad(hwContainer, input, opts);
+      return {
+        getValue: function () { return input.value; },
+        disable: function () { input.disabled = true; hw.disable(); },
+        reset: function () { input.value = ''; input.disabled = false; input.focus(); hw.reset(); }
+      };
+    }
+
+    function drRenderChoice(container, choices) {
+      var wrap = document.createElement('div');
+      wrap.className = 'dr-answer-zone';
+      var row = document.createElement('div');
+      row.className = 'dr-choice-row';
+      choices.forEach(function (c) {
+        var b = document.createElement('button');
+        b.className = 'dr-choice-btn';
+        b.textContent = c;
+        b.addEventListener('click', function () {
+          row.querySelectorAll('.dr-choice-btn').forEach(function (x) { x.classList.remove('active'); });
+          b.classList.add('active');
+        });
+        row.appendChild(b);
+      });
+      wrap.appendChild(row);
+      container.appendChild(wrap);
+      return {
+        getValue: function () { var a = row.querySelector('.dr-choice-btn.active'); return a ? a.textContent : ''; },
+        disable: function () { row.querySelectorAll('.dr-choice-btn').forEach(function (b) { b.disabled = true; }); },
+        reset: function () { row.querySelectorAll('.dr-choice-btn').forEach(function (b) { b.disabled = false; b.classList.remove('active'); }); }
+      };
+    }
+
+    function drRenderReorder(container, tiles) {
+      var wrap = document.createElement('div');
+      wrap.className = 'dr-answer-zone';
+      wrap.innerHTML =
+        '<div class="dr-reorder-line" id="drRzLine"></div>' +
+        '<div style="margin-bottom:14px;"><button class="btn btn-outline" id="drRzClear">消す</button></div>' +
+        '<div class="dr-reorder-tile-row" id="drRzRow"></div>';
+      container.appendChild(wrap);
+      var line = wrap.querySelector('#drRzLine');
+      var row = wrap.querySelector('#drRzRow');
+      var picked = [];
+      function renderLine() {
+        line.innerHTML = '';
+        picked.forEach(function (t, idx) {
+          var span = document.createElement('span');
+          span.className = 'dr-reorder-line-item';
+          span.textContent = t.label;
+          span.title = 'クリックで取り消し';
+          span.addEventListener('click', function () {
+            picked.splice(idx, 1);
+            var tile = tiles.find(function (x) { return x.id === t.id; });
+            if (tile && tile.usedEl) tile.usedEl.classList.remove('used');
+            renderLine();
+          });
+          line.appendChild(span);
+        });
+      }
+      tiles.forEach(function (t) {
+        var b = document.createElement('button');
+        b.className = 'dr-reorder-tile';
+        b.textContent = t.label;
+        b.addEventListener('click', function () {
+          if (b.classList.contains('used')) return;
+          b.classList.add('used');
+          t.usedEl = b;
+          picked.push(t);
+          renderLine();
+        });
+        row.appendChild(b);
+      });
+      wrap.querySelector('#drRzClear').addEventListener('click', function () {
+        picked = [];
+        row.querySelectorAll('.dr-reorder-tile').forEach(function (b) { b.classList.remove('used'); });
+        renderLine();
+      });
+      return {
+        getValue: function () { return picked.map(function (p) { return p.label; }).join(' '); },
+        disable: function () {
+          row.querySelectorAll('.dr-reorder-tile').forEach(function (b) { b.style.pointerEvents = 'none'; });
+          wrap.querySelector('#drRzClear').style.pointerEvents = 'none';
+        },
+        reset: function () {
+          picked = [];
+          row.querySelectorAll('.dr-reorder-tile').forEach(function (b) { b.classList.remove('used'); b.style.pointerEvents = ''; });
+          wrap.querySelector('#drRzClear').style.pointerEvents = '';
+          renderLine();
+        }
+      };
+    }
+
+    function drRenderProblem(opts) {
+      drRenderFlowTracker(opts.flowKey);
+      var fill = document.getElementById('dr-normal-progress-fill');
+      if (fill) fill.style.width = opts.progress + '%';
+
+      var body = document.getElementById('dr-normal-body');
+      body.innerHTML = '';
+
+      var instr = document.createElement('div');
+      instr.className = 'dr-instruction';
+      instr.textContent = opts.instruction;
+      body.appendChild(instr);
+
+      var jp = document.createElement('div');
+      jp.className = 'dr-jp-sentence';
+      jp.textContent = opts.jp;
+      body.appendChild(jp);
+
+      var answerArea = document.createElement('div');
+      body.appendChild(answerArea);
+      var api = opts.answerRenderer(answerArea);
+
+      var actionsRow = document.createElement('div');
+      actionsRow.style.marginTop = '20px';
+      actionsRow.style.display = 'flex';
+      actionsRow.style.alignItems = 'center';
+      actionsRow.style.gap = '10px';
+      var submitBtn = document.createElement('button');
+      submitBtn.className = 'btn btn-primary';
+      submitBtn.textContent = '解答する';
+      actionsRow.appendChild(submitBtn);
+
+      var noteBtn = document.createElement('button');
+      noteBtn.className = 'ts-btn-icon';
+      noteBtn.title = 'ノート';
+      noteBtn.textContent = '📝';
+      actionsRow.appendChild(noteBtn);
+
+      body.appendChild(actionsRow);
+
+      var resultZone = document.createElement('div');
+      body.appendChild(resultZone);
+
+      var notePanel = buildNotePanel();
+      body.appendChild(notePanel.el);
+      noteBtn.onclick = function () { notePanel.toggle(); };
+
+      var attempt = 0;
+
+      function showCorrect() {
+        if (api.disable) api.disable();
+        resultZone.innerHTML = '';
+        var badge = document.createElement('div');
+        badge.className = 'ts-result-badge correct';
+        badge.textContent = '😊 正解！';
+        resultZone.appendChild(badge);
+        resultZone.appendChild(document.createElement('br'));
+
+        var toggleBtn = document.createElement('button');
+        toggleBtn.className = 'ts-explain-toggle';
+        toggleBtn.textContent = '解説 かくにんする ＋';
+        resultZone.appendChild(toggleBtn);
+
+        var explainPanel = document.createElement('div');
+        explainPanel.className = 'ts-explain-panel';
+        explainPanel.innerHTML =
+          '<div class="ts-correct-row"><span class="label">正解</span>' + opts.correctAnswerLabel + '</div>' +
+          '<div class="ts-explain-body"><h4>解説</h4>' + opts.explanationHtml + '</div>';
+        resultZone.appendChild(explainPanel);
+
+        toggleBtn.addEventListener('click', function () {
+          explainPanel.classList.toggle('open');
+          toggleBtn.textContent = explainPanel.classList.contains('open') ? '解説 とじる  −' : '解説 かくにんする ＋';
+        });
+
+        var nextBtn = document.createElement('button');
+        nextBtn.className = 'btn btn-primary';
+        nextBtn.style.marginTop = '14px';
+        nextBtn.textContent = '次の問題へ';
+        resultZone.appendChild(nextBtn);
+        nextBtn.addEventListener('click', function () { opts.onNext(true); });
+
+        submitBtn.style.display = 'none';
+      }
+
+      function showGaveUpWrong() {
+        if (api.disable) api.disable();
+        resultZone.innerHTML = '';
+        var badge = document.createElement('div');
+        badge.className = 'ts-result-badge wrong';
+        badge.textContent = '😞 残念…';
+        resultZone.appendChild(badge);
+        resultZone.appendChild(document.createElement('br'));
+
+        var hintBtn = document.createElement('button');
+        hintBtn.className = 'btn ts-hint-btn';
+        hintBtn.style.marginRight = '10px';
+        hintBtn.textContent = 'AIヒント';
+        resultZone.appendChild(hintBtn);
+
+        var hintTip = document.createElement('div');
+        hintTip.className = 'ts-hint-tip';
+        hintTip.textContent = '💡 ' + (opts.hintText || '落ち着いてもう一度考えてみましょう。');
+        resultZone.appendChild(hintTip);
+        hintBtn.addEventListener('click', function () { hintTip.classList.toggle('open'); });
+
+        var toggleBtn = document.createElement('button');
+        toggleBtn.className = 'ts-explain-toggle';
+        toggleBtn.textContent = '解説 とじる  −';
+        resultZone.appendChild(toggleBtn);
+
+        var explainPanel = document.createElement('div');
+        explainPanel.className = 'ts-explain-panel open';
+        explainPanel.innerHTML =
+          '<div class="ts-correct-row"><span class="label">正解</span>' + opts.correctAnswerLabel + '</div>' +
+          '<div class="ts-explain-body"><h4>解説</h4>' + opts.explanationHtml + '</div>';
+        resultZone.appendChild(explainPanel);
+
+        toggleBtn.addEventListener('click', function () {
+          explainPanel.classList.toggle('open');
+          toggleBtn.textContent = explainPanel.classList.contains('open') ? '解説 とじる  −' : '解説 かくにんする ＋';
+        });
+
+        var nextBtn = document.createElement('button');
+        nextBtn.className = 'btn btn-primary';
+        nextBtn.style.marginTop = '14px';
+        nextBtn.textContent = '次の問題へ';
+        resultZone.appendChild(nextBtn);
+        nextBtn.addEventListener('click', function () { opts.onNext(false); });
+
+        submitBtn.style.display = 'none';
+      }
+
+      function showRetryWrong() {
+        resultZone.innerHTML = '';
+        var badge = document.createElement('div');
+        badge.className = 'ts-result-badge wrong';
+        badge.textContent = '😞 残念…';
+        resultZone.appendChild(badge);
+        resultZone.appendChild(document.createElement('br'));
+
+        var hintBtn = document.createElement('button');
+        hintBtn.className = 'btn ts-hint-btn';
+        hintBtn.style.marginRight = '10px';
+        hintBtn.textContent = 'AIヒント';
+        resultZone.appendChild(hintBtn);
+
+        var retryBtn = document.createElement('button');
+        retryBtn.className = 'btn btn-primary';
+        retryBtn.textContent = '再チャレンジ！';
+        resultZone.appendChild(retryBtn);
+
+        var hintTip = document.createElement('div');
+        hintTip.className = 'ts-hint-tip';
+        hintTip.textContent = '💡 ' + (opts.hintText || '落ち着いてもう一度考えてみましょう。');
+        resultZone.appendChild(hintTip);
+        hintBtn.addEventListener('click', function () { hintTip.classList.toggle('open'); });
+
+        retryBtn.addEventListener('click', function () {
+          resultZone.innerHTML = '';
+          if (api.reset) api.reset();
+          submitBtn.style.display = '';
+        });
+
+        submitBtn.style.display = 'none';
+      }
+
+      submitBtn.addEventListener('click', function () {
+        attempt++;
+        var val = api.getValue();
+        var correct = opts.checkCorrect(val);
+        if (correct) {
+          showCorrect();
+        } else if (attempt < 2) {
+          showRetryWrong();
+        } else {
+          showGaveUpWrong();
+        }
+      });
+    }
+
+    var DR_NORMAL_CORRECT_COUNT = 0;
+    var DR_NORMAL_START_TIME = 0;
+    var DR_NORMAL_CURRENT_STEP = 'q1';
+    var DR_NORMAL_SAVED_STEP = null;
+    var drNormalPendingAction = null;
+
+    function drNormalQ1() {
+      DR_NORMAL_CURRENT_STEP = 'q1';
+      drRenderProblem({
+        flowKey: 'q1',
+        progress: 0,
+        instruction: '次の問題に答えましょう。',
+        jp: '18の約数をすべて求めなさい。※数と数の間にはカンマ(,)を入れること。',
+        answerRenderer: function (area) { return drRenderTextbox(area, { width: 260, placeholder: '例：1,2,3', handwritingSample: '1,2,3,6,9,18' }); },
+        checkCorrect: function (v) { return drNormalizeList(v) === '1,2,3,6,9,18'; },
+        correctAnswerLabel: '1, 2, 3, 6, 9, 18',
+        explanationHtml: '約数とは、整数 a が b で割り切れるときの b のことです。<br>18 ＝ 1×18、2×9、3×6 なので、約数は 1, 2, 3, 6, 9, 18 です。',
+        hintText: '1から順番に18を割ってみよう。割り切れる数をペアで書き出すと見つけやすいよ。',
+        onNext: function (wasCorrect) { if (wasCorrect) DR_NORMAL_CORRECT_COUNT++; drNormalQ2(); }
+      });
+    }
+
+    function drNormalQ2() {
+      DR_NORMAL_CURRENT_STEP = 'q2';
+      drRenderProblem({
+        flowKey: 'q2',
+        progress: 33,
+        instruction: '与えられた語を並べかえて、日本語に合う英文を完成しましょう。ただし使わない単語もあります。',
+        jp: 'かれの兄は俳優ですか。',
+        answerRenderer: function (area) {
+          return drRenderReorder(area, [
+            { id: 1, label: 'Is' }, { id: 2, label: 'his' }, { id: 3, label: 'brother' }, { id: 4, label: 'an' },
+            { id: 5, label: 'actor' }, { id: 6, label: '?' }, { id: 7, label: 'Am' }, { id: 8, label: 'Are' }
+          ]);
+        },
+        checkCorrect: function (v) { return drNormalize(v) === drNormalize('Is his brother an actor ?'); },
+        correctAnswerLabel: 'Is his brother an actor?',
+        explanationHtml: 'be動詞の疑問文の語順は、<b>be動詞 ＋ 主語 ＋ 名詞（代名詞）？</b><br><br>主語「かれの兄」は his brother。名詞「俳優」は an actor。his brother は3人称単数なので、be動詞は Is になります。',
+        hintText: '疑問文なので be動詞を文頭に置こう。「かれの兄」＝his brother だよ。',
+        onNext: function (wasCorrect) { if (wasCorrect) DR_NORMAL_CORRECT_COUNT++; drNormalQ3(); }
+      });
+    }
+
+    function drNormalQ3() {
+      DR_NORMAL_CURRENT_STEP = 'q3';
+      drRenderProblem({
+        flowKey: 'q3',
+        progress: 66,
+        instruction: '空らんに入る単語は「This」と「That」のどちらが正しいか答えましょう。',
+        jp: '（　　）is Japan.　―　遠くにある国旗（日本）を指しています。',
+        answerRenderer: function (area) { return drRenderChoice(area, ['This', 'That']); },
+        checkCorrect: function (v) { return v === 'That'; },
+        correctAnswerLabel: 'That',
+        explanationHtml: 'That is Japan.「あれは日本です。」<br><br>自分から近いものを指すときは This is 〜、遠くのものを指すときは That is 〜 を使います。',
+        hintText: '自分から近いか遠いか、で This か That かが決まるよ。',
+        onNext: function (wasCorrect) { if (wasCorrect) DR_NORMAL_CORRECT_COUNT++; drNormalResult(); }
+      });
+    }
+
+    function drNormalResult() {
+      DR_NORMAL_CURRENT_STEP = 'result';
+      drRenderFlowTracker('result');
+      var fill = document.getElementById('dr-normal-progress-fill');
+      if (fill) fill.style.width = '100%';
+      var body = document.getElementById('dr-normal-body');
+      var elapsed = Math.max(1, Math.round((Date.now() - DR_NORMAL_START_TIME) / 1000));
+      var m = Math.floor(elapsed / 60), s = Math.floor(elapsed % 60);
+      var timeStr = m + ':' + (s < 10 ? '0' : '') + s;
+      var pctVal = Math.floor((DR_NORMAL_CORRECT_COUNT / 3) * 100);
+      body.innerHTML =
+        '<h2 style="font-size:1.1rem; font-weight:700; color:var(--text-main); margin:4px 0 16px;">ドリル結果</h2>' +
+        '<div class="dr-result-card">' +
+        '<table class="dr-result-table">' +
+        '<tr><td class="metric-label">正答率</td><td>' + pctVal + '%</td></tr>' +
+        '<tr><td class="metric-label">回答時間</td><td>' + timeStr + '</td></tr></table>' +
+        '</div>' +
+        '<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">' +
+        '<button class="btn btn-outline" id="dr-quit-drill-btn">学習をやめる</button>' +
+        '<button class="btn btn-primary" id="dr-next-drill-btn">次へ進む</button>' +
+        '</div>';
+      document.getElementById('dr-next-drill-btn').addEventListener('click', function () {
+        DR_NORMAL_SAVED_STEP = null;
+        alert('次のドリルへ遷移します（モックのためここで終了）。');
+        showPage('drill');
+      });
+      document.getElementById('dr-quit-drill-btn').addEventListener('click', function () {
+        DR_NORMAL_SAVED_STEP = null;
+        showPage('drill');
+      });
+    }
+
+    function drNormalGoToStep(step) {
+      if (step === 'q2') { drNormalQ2(); return; }
+      if (step === 'q3') { drNormalQ3(); return; }
+      if (step === 'result') { drNormalResult(); return; }
+      drNormalQ1();
+    }
+
+    function drOpenNormalDrill() {
+      if (DR_NORMAL_SAVED_STEP) {
+        var resumeStep = DR_NORMAL_SAVED_STEP;
+        DR_NORMAL_SAVED_STEP = null;
+        showPage('drill-normal');
+        drNormalGoToStep(resumeStep);
+        return;
+      }
+      DR_NORMAL_CORRECT_COUNT = 0;
+      DR_NORMAL_START_TIME = Date.now();
+      showPage('drill-normal');
+      drNormalQ1();
+    }
+
+    function drNormalIsActive() {
+      var page = document.getElementById('page-drill-normal');
+      return !!(page && page.classList.contains('active'));
+    }
+
+    // サイドバーの他ボタン押下でページ離脱しようとした場合、中断確認モーダルを表示する
+    document.addEventListener('click', function (e) {
+      if (!drNormalIsActive()) return;
+      var link = e.target.closest('.sidebar a[onclick]');
+      if (!link) return;
+      var onclickAttr = link.getAttribute('onclick') || '';
+      if (onclickAttr.indexOf('showPage(') === -1 && onclickAttr.indexOf('showTestSubPage(') === -1) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      drNormalPendingAction = function () {
+        (0, eval)(onclickAttr);
+      };
+      if (typeof openModal === 'function') openModal('dr-normal-leave-modal');
+    }, true);
+
+    window.drNormalCancelLeave = function () {
+      drNormalPendingAction = null;
+      if (typeof closeModal === 'function') closeModal('dr-normal-leave-modal');
+    };
+
+    window.drNormalConfirmLeave = function () {
+      DR_NORMAL_SAVED_STEP = DR_NORMAL_CURRENT_STEP;
+      if (typeof closeModal === 'function') closeModal('dr-normal-leave-modal');
+      var action = drNormalPendingAction;
+      drNormalPendingAction = null;
+      if (action) action();
+    };
+
+    function drOpenLecture(subjectLabel, stageLabel) {
+      var subjEl = document.getElementById('dr-lecture-subject');
+      var stageEl = document.getElementById('dr-lecture-stage');
+      if (subjEl) subjEl.textContent = subjectLabel || '';
+      if (stageEl) stageEl.textContent = stageLabel || '';
+      showPage('drill-lecture');
     }
   </script>
 </body>

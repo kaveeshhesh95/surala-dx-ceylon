@@ -168,74 +168,56 @@ html.hide-furigana ruby rt {
 
 /* --------------------------------------------------
    2. ログインページ
-   （メイン: ライム #B7E300 / #9FC238、サブ: ラベンダー #D6C8FF・
-     パープル #9F90C0・シアン #1DC8FF、テキスト: #2A2F40）
 -------------------------------------------------- */
 .login-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
-    background:
-        radial-gradient(130% 130% at 0% 0%, #BFE3F7 0%, transparent 58%),
-        radial-gradient(130% 130% at 0% 100%, #D9CCEA 0%, transparent 60%),
-        linear-gradient(90deg, #EEF3E2 0%, #F4F8EC 55%, #F7FAF0 100%);
+    background: linear-gradient(135deg, #e0e6ed 0%, #d6c8ff 50%, #eef1f5 100%);
     padding: 40px 16px;
 }
 
 .login-wrap {
-    position: relative;
-    z-index: 1;
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
 }
 
 .login-logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 9px;
+    gap: 8px;
+    margin-bottom: 24px;
 }
 
 .login-logo .logo-text {
-    font-size: 34px;
+    font-size: 32px;
     font-weight: 800;
     color: var(--dark-header);
-    letter-spacing: -0.02em;
 }
 
 .login-logo .logo-dot {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #B7E300, #9FC238);
-    color: #2A2F40;
+    background: var(--primary);
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     font-weight: 800;
     font-style: italic;
-    box-shadow: 0 6px 16px rgba(159, 194, 56, 0.45);
-}
-
-.login-tagline {
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-sub);
-    margin-bottom: 26px;
+    box-shadow: var(--shadow-sm);
 }
 
 .login-card {
-    position: relative;
     background: var(--bg-surface);
-    border-radius: 18px;
-    border: 1px solid rgba(42, 47, 64, 0.05);
-    box-shadow: 0 24px 48px -12px rgba(42, 47, 64, 0.18), 0 2px 8px rgba(42, 47, 64, 0.05);
-    padding: 38px 32px 32px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    padding: 32px 36px 36px;
 }
 
 .field {
@@ -253,9 +235,10 @@ html.hide-furigana ruby rt {
 .field input[type=text],
 .field input[type=password] {
     width: 100%;
-    padding: 9px 12px;
-    border: 1.5px solid var(--border-color);
-    border-radius: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    /* 4px */
     font-size: 0.78rem;
     background: #fff;
     outline: none;
@@ -263,24 +246,8 @@ html.hide-furigana ruby rt {
 }
 
 .field input:focus {
-    border-color: #1DC8FF;
-    box-shadow: 0 0 0 3px rgba(29, 200, 255, 0.18);
-}
-
-#page-login .btn-primary {
-    background: #9FC238;
-    color: #EEF1F5;
-    border: none;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    padding: 9.5px 0;
-    transition: all var(--transition);
-}
-
-#page-login .btn-primary:hover {
-    background: #8fae32;
-    border: none;
-    transform: translateY(-1px);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(159, 144, 192, 0.25);
 }
 
 .divider {
@@ -302,12 +269,12 @@ html.hide-furigana ruby rt {
 
 .btn-oauth {
     width: 100%;
-    display: grid;
-    grid-template-columns: 20px 1fr;
+    display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 16px;
-    border: 1.5px solid var(--border-color);
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     background: #fff;
     font-weight: 700;
@@ -318,14 +285,13 @@ html.hide-furigana ruby rt {
 }
 
 .btn-oauth:hover {
-    background: #FAF8FF;
-    border-color: #9F90C0;
+    background: var(--bg-body);
+    border-color: var(--primary);
 }
 
 .btn-oauth svg {
-    width: 20px;
-    height: 20px;
-    justify-self: center;
+    width: 16px;
+    height: 16px;
 }
 
 .login-error {
@@ -334,18 +300,6 @@ html.hide-furigana ruby rt {
     font-weight: 700;
     margin: -4px 0 12px;
     min-height: 16px;
-}
-
-.login-footnote {
-    text-align: center;
-    font-size: 0.68rem;
-    color: var(--text-sub);
-    margin-top: 20px;
-}
-
-.login-footnote a {
-    color: #9F90C0;
-    font-weight: 700;
 }
 
 /* --------------------------------------------------
@@ -623,19 +577,6 @@ h1.page-title {
     transition: all var(--transition);
     background: var(--bg-surface);
     text-align: center;
-}
-
-.btn:disabled,
-.btn[disabled] {
-    opacity: 0.45;
-    cursor: not-allowed;
-    box-shadow: none;
-    filter: grayscale(20%);
-}
-
-.btn:disabled:hover,
-.btn[disabled]:hover {
-    box-shadow: none;
 }
 
 .btn-primary {
@@ -1143,10 +1084,7 @@ h1.page-title {
 }
 
 #mk-goal-table,
-#kr-goal-table,
-#tr-question-table,
-#tr-unit-table,
-#tr-tangen-table {
+#kr-goal-table {
     table-layout: fixed;
 }
 
@@ -1164,14 +1102,6 @@ h1.page-title {
 }
 
 .data-table tbody tr:hover td:first-child {
-    box-shadow: inset 3px 0 0 var(--lime);
-}
-
-.data-table tbody tr.row-selected {
-    background-color: var(--table-hover);
-}
-
-.data-table tbody tr.row-selected td:first-child {
     box-shadow: inset 3px 0 0 var(--lime);
 }
 
@@ -2079,23 +2009,6 @@ html.hide-furigana .required {
     font-weight: 600;
 }
 
-.page-num-btn.pn-correct {
-    background-color: #eaf7ef;
-    color: var(--text-main);
-    border-color: #cdeedb;
-}
-
-.page-num-btn.pn-incorrect {
-    background-color: #fdeceb;
-    color: var(--text-main);
-    border-color: #f7cfcb;
-}
-
-.page-num-btn.pn-current {
-    border: 2px solid var(--primary);
-    font-weight: 700;
-}
-
 .form-input-number {
     width: 70px;
     height: 32px;
@@ -2228,6 +2141,8 @@ html.hide-furigana .required {
 
 .history-table-container {
     overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
 }
 
 .history-table {
@@ -2240,33 +2155,35 @@ html.hide-furigana .required {
 
 .history-table th {
     background-color: var(--bg-body);
-    color: var(--text-sub);
-    padding: 10px 10px 6px;
+    color: var(--text-main);
+    padding: 6px 8px;
     font-weight: 600;
     border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
     white-space: nowrap;
-    text-align: left;
     position: relative;
 }
 
+.history-table th:last-child {
+    border-right: none;
+}
+
 .history-table td {
-    padding: 6px 10px;
+    padding: 4px 8px;
     border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
     color: var(--text-main);
     vertical-align: middle;
     white-space: nowrap;
+    height: 36px;
+}
+
+.history-table td:last-child {
+    border-right: none;
 }
 
 .history-table tbody tr {
     transition: background-color 0.15s ease;
-}
-
-#ts-history-body tr {
-    display: none;
-}
-
-#ts-history-body tr.is-visible {
-    display: table-row;
 }
 
 .history-table tbody tr:hover {
@@ -2332,12 +2249,12 @@ html.hide-furigana .required {
 }
 
 /* --------------------------------------------------
-   月ごとビュー（カレンダー & 集計テーブル）スタイル
+   月ごとビュー（カレンダー & 集計テーブル）スタイル修正
 -------------------------------------------------- */
 .kr-month-container {
     display: grid;
-    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
-    gap: 32px;
+    grid-template-columns: minmax(0, 520px) minmax(0, 1fr);
+    gap: 24px;
     align-items: start;
 }
 
@@ -2346,77 +2263,62 @@ html.hide-furigana .required {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 12px;
 }
 
 .cal-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 800;
-    color: var(--text-main);
-    letter-spacing: 0.01em;
+    color: #1a1a1a;
+    letter-spacing: 0.02em;
 }
 
 .cal-nav-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: var(--bg-body);
-    border: 1px solid var(--border-color);
-    font-size: 1rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #e2e8f0;
+    border: none;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: var(--text-sub);
+    color: #4a5568;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all var(--transition);
+    transition: all 0.2s;
 }
 
 .cal-nav-btn:hover {
-    background: var(--primary-light);
-    border-color: var(--primary);
-    color: var(--primary-hover);
+    background: #cbd5e1;
 }
 
 /* カレンダーグリッド */
 .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    gap: 8px;
 }
 
 .cal-day-label {
     text-align: center;
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 800;
-    color: var(--text-sub);
-    letter-spacing: 0.04em;
-    padding-bottom: 8px;
-}
-
-.cal-day-label.is-sat {
-    color: #2f7fd1;
-}
-
-.cal-day-label.is-sun {
-    color: #d1483f;
+    color: #a0aec0;
+    padding-bottom: 4px;
 }
 
 .cal-cell {
     aspect-ratio: 1 / 1.05;
-    background: var(--bg-body);
-    border: 1px solid transparent;
-    border-radius: var(--radius-md);
-    padding: 6px 4px 5px;
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 6px 4px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: all var(--transition);
 }
 
 .cal-cell.empty {
@@ -2424,205 +2326,146 @@ html.hide-furigana .required {
 }
 
 .cal-cell .date-num {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: var(--text-main);
+    color: #2d3748;
     line-height: 1.1;
 }
 
 .cal-cell.has-data {
-    background: var(--lime-bg);
-    border-color: rgba(183, 227, 0, 0.5);
-    box-shadow: inset 3px 0 0 var(--lime);
-}
-
-.cal-cell.has-data:hover {
-    box-shadow: inset 3px 0 0 var(--lime), var(--shadow-sm);
-    transform: translateY(-1px);
+    background: #fefcf3;
 }
 
 /* バッジ＆時間表示 */
 .cal-badge {
     position: absolute;
-    top: -6px;
-    right: -4px;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 5px;
-    background: var(--primary);
+    top: 4px;
+    background: #ffb100;
     color: #ffffff;
     font-weight: 800;
-    font-size: 0.62rem;
-    border-radius: 999px;
-    line-height: 18px;
-    box-shadow: 0 1px 3px rgba(42, 47, 64, 0.25), 0 0 0 2px #ffffff;
+    font-size: 0.65rem;
+    padding: 1px 6px 0;
+    border-radius: 3px 3px 1px 1px;
+    line-height: 1.1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.cal-badge::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px 4px 0 4px;
+    border-style: solid;
+    border-color: #ffb100 transparent transparent transparent;
 }
 
 .cal-cell .cal-time {
-    font-size: 0.64rem;
+    font-size: 0.65rem;
     font-weight: 700;
-    color: var(--primary-hover);
+    color: #4a5568;
     margin-top: 2px;
-}
-
-/* 上部サマリーバー（期間中の総ユニット数・クリア数・総学習時間） */
-.kr-month-topbar {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    background: var(--bg-body);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 14px 22px;
-    margin-bottom: 22px;
-    flex-wrap: wrap;
-}
-
-.kmt-item {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    white-space: nowrap;
-}
-
-.kmt-icon {
-    font-size: 0.85rem;
-    color: var(--primary-hover);
-    margin-right: 2px;
-}
-
-.kmt-label {
-    font-size: 0.82rem;
-    font-weight: 800;
-    color: var(--text-main);
-    margin-right: 6px;
-}
-
-.kmt-value {
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: var(--primary);
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-}
-
-.kmt-unit {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--teal);
-    margin-left: 2px;
 }
 
 /* 右側 サマリーエリア */
 .kr-month-right {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
+}
+
+.summary-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.summary-row {
+    display: flex;
+    align-items: baseline;
+    font-size: 0.88rem;
+}
+
+.summary-label {
+    font-weight: 800;
+    color: #1a202c;
+    margin-right: 8px;
+}
+
+.summary-val {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #1a202c;
+    margin-left: auto;
+    margin-right: 4px;
+}
+
+.summary-unit {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #009cb8;
 }
 
 /* 教科別グラデーションカラーバー */
 .subj-progress-bar {
     display: flex;
-    height: 12px;
-    border-radius: 999px;
+    height: 14px;
+    border-radius: 7px;
     overflow: hidden;
     width: 100%;
-    gap: 2px;
-    background: var(--bg-body);
-    box-shadow: var(--shadow-sm);
 }
 
 .subj-progress-bar .bar-seg {
     height: 100%;
 }
 
-/* 科目別詳細カード */
-.subj-detail-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 20px 22px 12px;
-    box-shadow: var(--shadow-sm);
-}
-
-.sdc-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
-
-.sdc-title {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--text-main);
-}
-
-.sdc-collabels {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-sub);
-    letter-spacing: 0.03em;
-}
-
 /* 月別教科テーブル */
 .month-summary-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .month-summary-table th {
-    font-size: 0.78rem;
+    background: #52636c;
+    color: #ffffff;
     font-weight: 700;
-    color: var(--text-main);
-    padding: 0 0 10px;
-    text-align: right;
-    border-bottom: 2px solid var(--text-main);
+    font-size: 0.8rem;
+    padding: 8px 10px;
+    text-align: center;
+    border-right: 1px solid #64748b;
 }
 
-.month-summary-table th:first-child {
-    text-align: left;
+.month-summary-table th:last-child {
+    border-right: none;
 }
 
 .month-summary-table td {
-    padding: 12px 0;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
     font-size: 0.85rem;
     font-weight: 700;
-    text-align: right;
-    color: var(--text-main);
-    border-bottom: 1px solid var(--border-color);
-    font-variant-numeric: tabular-nums;
+    text-align: center;
+    color: #1a202c;
+}
+
+.month-summary-table td:last-child {
+    border-right: none;
+}
+
+.month-summary-table tr:last-child td {
+    border-bottom: none;
 }
 
 .month-summary-table td.subj-name {
-    text-align: left;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    font-weight: 700;
-}
-
-.month-summary-table tr.mst-total td.subj-name {
-    align-items: baseline;
-}
-
-.subj-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
-}
-
-.month-summary-table tr.mst-total td {
-    background: var(--bg-body);
     font-weight: 800;
-    border-bottom: none;
-    border-top: 2px solid var(--border-color);
-}
-
-.month-summary-table tr.mst-total td.subj-name {
-    display: table-cell;
+    font-size: 0.9rem;
+    width: 25%;
 }
 
 @media (max-width: 900px) {
@@ -2653,7 +2496,7 @@ html.hide-furigana .required {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 10px 18px;
+    padding: 14px 18px;
     margin-bottom: 14px;
     display: flex;
     align-items: center;
@@ -2665,16 +2508,14 @@ html.hide-furigana .required {
 
 .tr-summary-item {
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 8px;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .tr-summary-label {
     font-size: 0.72rem;
     color: var(--text-sub);
     font-weight: 600;
-    white-space: nowrap;
 }
 
 .tr-date-val {
@@ -2751,40 +2592,6 @@ html.hide-furigana .required {
     color: var(--danger);
 }
 
-/* ---------- きろく詳細：判定バッジ ---------- */
-.kd-judge-cell {
-    text-align: center;
-}
-
-.kd-judge-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 1.05rem;
-    font-weight: 800;
-    line-height: 1;
-    transition: transform var(--transition);
-}
-
-.kd-judge-badge.is-correct {
-    background: rgba(16, 185, 129, 0.12);
-    color: var(--ok);
-    box-shadow: inset 0 0 0 1.5px rgba(16, 185, 129, 0.35);
-}
-
-.kd-judge-badge.is-incorrect {
-    background: rgba(211, 59, 59, 0.12);
-    color: var(--danger);
-    box-shadow: inset 0 0 0 1.5px rgba(211, 59, 59, 0.35);
-}
-
-#kd-q-body tr:hover .kd-judge-badge {
-    transform: scale(1.08);
-}
-
 .tr-cell-main {
     font-weight: 700;
     color: var(--text-main);
@@ -2796,29 +2603,6 @@ html.hide-furigana .required {
     margin-top: 2px;
 }
 
-.tr-cell-row {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    min-width: 0;
-}
-
-.tr-cell-row .tr-cell-main {
-    flex-shrink: 0;
-    white-space: nowrap;
-    margin-top: 0;
-}
-
-.tr-cell-row .tr-cell-sub,
-.tr-cell-row .tr-unit-desc {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-top: 0;
-}
-
 .tr-unit-desc {
     max-width: 380px;
     white-space: normal;
@@ -2828,10 +2612,8 @@ html.hide-furigana .required {
 
 .tr-accuracy-box {
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 6px;
-    white-space: nowrap;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .tr-accuracy-rate {
@@ -2839,6 +2621,9 @@ html.hide-furigana .required {
     font-weight: 700;
     color: var(--teal);
     line-height: 1.1;
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 2px;
+    margin-bottom: 2px;
 }
 
 .tr-accuracy-rate span {
@@ -2863,523 +2648,4 @@ html.hide-furigana .required {
     margin-left: 4px;
     font-size: 0.65rem;
     color: var(--text-sub);
-}
-
-/* ---------- テスト学習：解答チェックフロー (通常ドリル準拠) ---------- */
-.ts-result-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-}
-
-.ts-result-badge.correct {
-    background: var(--lime-bg);
-    color: var(--ok);
-}
-
-.ts-result-badge.wrong {
-    background: #fdeceb;
-    color: var(--danger);
-}
-
-.ts-hint-btn {
-    background: var(--lime);
-    color: var(--dark-header);
-}
-
-.ts-hint-btn:hover {
-    background: #a3cc00;
-}
-
-.ts-hint-tip {
-    display: none;
-    background: var(--lime-bg);
-    border: 1px solid var(--lime);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-size: 0.78rem;
-    color: var(--lime-text);
-    margin: 10px 0;
-    line-height: 1.8;
-}
-
-.ts-hint-tip.open {
-    display: block;
-}
-
-.ts-explain-toggle {
-    all: unset;
-    cursor: pointer;
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-sub);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 6px 14px;
-    margin-bottom: 10px;
-}
-
-.ts-explain-toggle:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.ts-explain-panel {
-    margin-top: 8px;
-    display: none;
-}
-
-.ts-explain-panel.open {
-    display: block;
-}
-
-.ts-correct-row {
-    background: var(--bg-body);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.ts-correct-row .label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-sub);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 2px 8px;
-    margin-right: 10px;
-}
-
-.ts-explain-body {
-    background: var(--bg-body);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    font-size: 0.8rem;
-    line-height: 1.9;
-    color: var(--text-main);
-}
-
-.ts-explain-body h4 {
-    margin: 0 0 10px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--text-sub);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 6px;
-}
-
-/* ---------- テスト学習：手書き入力／ノート (student_drill_260824 準拠) ---------- */
-.ts-btn-icon {
-    all: unset;
-    cursor: pointer;
-    box-sizing: border-box;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-md);
-    background: #fff;
-    border: 1px solid var(--border-color);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: var(--text-sub);
-}
-
-.ts-btn-icon:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.ts-handwriting-pad {
-    margin-top: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background: #fff;
-    overflow: hidden;
-}
-
-.ts-hw-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 10px;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--bg-body);
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.ts-hw-label {
-    font-size: 0.7rem;
-    color: var(--text-sub);
-    font-weight: 700;
-}
-
-.ts-hw-tools {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.ts-note-tool-btn {
-    all: unset;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-sub);
-}
-
-.ts-note-tool-btn:hover {
-    color: var(--primary);
-}
-
-.ts-note-tool-btn:disabled {
-    opacity: .35;
-    pointer-events: none;
-}
-
-.ts-hw-decide {
-    all: unset;
-    cursor: pointer;
-    background: var(--lime);
-    color: var(--dark-header);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: var(--radius-sm);
-}
-
-.ts-hw-decide:hover {
-    background: #a3cc00;
-}
-
-.ts-hw-decide:disabled {
-    opacity: .55;
-    pointer-events: none;
-}
-
-.ts-handwriting-canvas {
-    display: block;
-    width: 100%;
-    height: 120px;
-    background: repeating-linear-gradient(var(--bg-surface) 0px, var(--bg-surface) 27px, var(--border-color) 28px);
-    touch-action: none;
-    cursor: crosshair;
-}
-
-.ts-note-panel {
-    margin-top: 14px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background: #fff;
-    display: none;
-}
-
-.ts-note-panel.open {
-    display: block;
-}
-
-.ts-note-panel-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 0.7rem;
-    color: var(--text-sub);
-    font-weight: 700;
-}
-
-.ts-note-head-left {
-    font-size: 0.72rem;
-    color: var(--dark-header);
-}
-
-.ts-note-head-right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.ts-note-close-x {
-    cursor: pointer;
-    color: var(--text-sub);
-    font-size: 0.85rem;
-}
-
-.ts-note-close-x:hover {
-    color: var(--primary);
-}
-
-.ts-note-panel textarea {
-    all: unset;
-    display: block;
-    width: 100%;
-    min-height: 110px;
-    padding: 12px;
-    font-size: 0.8rem;
-    line-height: 2;
-    background: repeating-linear-gradient(var(--bg-surface) 0px, var(--bg-surface) 27px, var(--border-color) 28px);
-    box-sizing: border-box;
-}
-
-
-/* ---------- ドリルページ：通常ドリル／レクチャー モーダル (通常ドリルモック準拠) ---------- */
-.dr-flow-tracker {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-}
-
-.dr-flow-step {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-sub);
-    background: var(--bg-body);
-    border-radius: 12px;
-    padding: 3px 10px;
-}
-
-.dr-flow-step.active {
-    background: var(--primary);
-    color: #fff;
-}
-
-.dr-modal-progress-track {
-    width: 100%;
-    height: 6px;
-    background: var(--bg-body);
-    border-radius: 3px;
-    overflow: hidden;
-    margin: 0 0 16px;
-}
-
-.dr-modal-progress-fill {
-    height: 100%;
-    background: var(--primary);
-    transition: width .3s ease;
-}
-
-.dr-modal-subject-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 10px;
-    border-radius: 12px;
-    background: var(--lime-bg);
-    color: var(--lime-text);
-    font-size: 0.68rem;
-    font-weight: 700;
-}
-
-.dr-modal-stage-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.dr-instruction {
-    font-size: 0.85rem;
-    color: var(--text-sub);
-    margin-bottom: 8px;
-}
-
-.dr-jp-sentence {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.8;
-    margin: 8px 0 20px;
-    color: var(--text-main);
-}
-
-.dr-answer-zone {
-    margin: 16px 0;
-}
-
-.dr-fill-blank-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.95rem;
-    flex-wrap: wrap;
-}
-
-.dr-text-input {
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 8px 12px;
-    font-size: 0.9rem;
-}
-
-.dr-choice-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.dr-choice-btn {
-    all: unset;
-    cursor: pointer;
-    box-sizing: border-box;
-    padding: 8px 22px;
-    border-radius: 20px;
-    border: 1px solid var(--border-color);
-    background: #fff;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.dr-choice-btn:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.dr-choice-btn.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #fff;
-}
-
-.dr-choice-btn:disabled {
-    opacity: .5;
-    pointer-events: none;
-}
-
-.dr-reorder-line {
-    min-height: 40px;
-    border-bottom: 2px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    padding-bottom: 10px;
-    margin-bottom: 16px;
-}
-
-.dr-reorder-line-item {
-    background: var(--lime-bg);
-    color: var(--lime-text);
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.dr-reorder-tile-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.dr-reorder-tile {
-    all: unset;
-    cursor: pointer;
-    box-sizing: border-box;
-    padding: 8px 18px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    background: #fff;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.dr-reorder-tile:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-.dr-reorder-tile.used {
-    opacity: .35;
-    pointer-events: none;
-}
-
-.dr-result-card {
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-}
-
-.dr-result-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.dr-result-table th {
-    background: var(--bg-body);
-    font-size: 0.7rem;
-    color: var(--text-sub);
-    font-weight: 700;
-    padding: 10px 18px;
-    text-align: left;
-}
-
-.dr-result-table td {
-    padding: 14px 18px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-main);
-    border-top: 1px solid var(--border-color);
-}
-
-.dr-result-table tr:first-child td {
-    border-top: none;
-}
-
-.dr-result-table td.metric-label {
-    color: var(--text-sub);
-    font-weight: 700;
-    font-size: 0.82rem;
-}
-
-.dr-result-table tr:hover td {
-    background: var(--bg-body);
-}
-
-.dr-lecture-topbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.dr-lecture-stage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0 4px;
-}
-
-.dr-lecture-frame {
-    width: 100%;
-    max-width: 640px;
-    aspect-ratio: 1000 / 700;
-    background: var(--dark-header);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 48px;
-    box-shadow: var(--shadow-md);
 }
