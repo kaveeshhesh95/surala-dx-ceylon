@@ -1233,6 +1233,62 @@ main .login-card .login-btn:hover {
     font-size: 12px;
 }
 
+#table-page .data-table .item-cell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 52px;
+    padding: 6px 8px;
+}
+
+#table-page .data-table .item-cell>div:nth-child(2),
+#table-page .data-table .item-cell>span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+#table-page .data-table .item-controls {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 24px;
+    gap: 2px;
+}
+
+#table-page .data-table .item-controls-sub {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 24px;
+    gap: 2px;
+}
+
+#table-page .data-table .empty-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+#table-page .data-table .control-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
 /* Table Two */
 #table-page .admin-container.cnt-01 .data-table-two thead tr th:nth-child(1) {
     width: calc((100% - 80px) / 4);
@@ -1377,6 +1433,17 @@ main .login-card .login-btn:hover {
     align-items: center;
     justify-content: center;
     font-size: 12px;
+}
+
+#table-page .data-table .icon-btn {
+    flex: 0 0 auto;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 16px;
+    line-height: 1;
+    color: #909399;
+    cursor: pointer;
 }
 
 #table-page .data-table-two .icon-btn {
@@ -1990,6 +2057,18 @@ main .login-card .login-btn:hover {
     font-size: 0;
     background: url("../images/icon-bin.png") center / contain no-repeat;
 }
+
+#table-page .data-table .icon-btn[title="Add"],
+#table-page .data-table-two .icon-btn[title="Add"],
+#table-page .data-table-three .icon-btn[title="Add"],
+#table-page .data-table-four .icon-btn[title="Add"],
+#table-page .data-table-five .icon-btn[title="Add"] {
+    width: 18px;
+    height: 18px;
+    font-size: 0;
+    background: url("../images/icon-add-circle.png") center / contain no-repeat;
+}
+
 
 #table-page .data-table-five thead tr th {
     text-align: left;
