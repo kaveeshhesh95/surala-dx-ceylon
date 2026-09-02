@@ -2876,3 +2876,204 @@ main .login-card .login-btn:hover {
         font-size: 0.9722vw;
     }
 }
+
+/* ===== RESPONSIVE BUTTON STYLES ===== */
+
+/* Flexible responsive button sizing using clamp */
+#table-page .data-table .control-btn,
+#table-page .data-table-two .control-btn,
+#table-page .data-table-three .control-btn,
+#table-page .data-table-four .control-btn {
+    width: clamp(24px, 4vw, 32px) !important;
+    height: clamp(24px, 4vw, 32px) !important;
+    font-size: clamp(10px, 2vw, 12px) !important;
+    padding: 0 !important;
+    flex: 0 0 auto !important;
+}
+
+#table-page .data-table .icon-btn,
+#table-page .data-table-two .icon-btn,
+#table-page .data-table-three .icon-btn,
+#table-page .data-table-four .icon-btn {
+    font-size: clamp(11px, 2.5vw, 16px) !important;
+    padding: clamp(3px, 1vw, 6px) !important;
+    min-width: clamp(24px, 4vw, 28px) !important;
+    min-height: clamp(24px, 4vw, 28px) !important;
+}
+
+#table-page .data-table .empty-btn,
+#table-page .data-table-two .empty-btn,
+#table-page .data-table-three .empty-btn,
+#table-page .data-table-four .empty-btn {
+    width: clamp(20px, 3vw, 28px) !important;
+    height: clamp(20px, 3vw, 28px) !important;
+    flex: 0 0 auto !important;
+}
+
+/* Adjust button container gaps responsively */
+#table-page .data-table .item-controls,
+#table-page .data-table-two .item-controls,
+#table-page .data-table-three .item-controls,
+#table-page .data-table-four .item-controls {
+    gap: clamp(2px, 1vw, 4px) !important;
+}
+
+#table-page .data-table .item-controls-sub,
+#table-page .data-table-two .item-controls-sub,
+#table-page .data-table-three .item-controls-sub,
+#table-page .data-table-four .item-controls-sub {
+    gap: clamp(2px, 1vw, 4px) !important;
+}
+
+/* Tablets and larger: 769px and up */
+@media (min-width: 769px) {
+    #table-page .data-table .control-btn,
+    #table-page .data-table-two .control-btn,
+    #table-page .data-table-three .control-btn,
+    #table-page .data-table-four .control-btn {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 12px !important;
+    }
+
+    #table-page .data-table .icon-btn,
+    #table-page .data-table-two .icon-btn,
+    #table-page .data-table-three .icon-btn,
+    #table-page .data-table-four .icon-btn {
+        font-size: 16px !important;
+        padding: 6px !important;
+    }
+
+    #table-page .data-table .empty-btn,
+    #table-page .data-table-two .empty-btn,
+    #table-page .data-table-three .empty-btn,
+    #table-page .data-table-four .empty-btn {
+        width: 24px !important;
+        height: 24px !important;
+    }
+}
+
+/* Tablets: 600px to 768px */
+@media (max-width: 768px) {
+    #table-page .data-table .control-btn,
+    #table-page .data-table-two .control-btn,
+    #table-page .data-table-three .control-btn,
+    #table-page .data-table-four .control-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 11px !important;
+    }
+
+    #table-page .data-table .icon-btn,
+    #table-page .data-table-two .icon-btn,
+    #table-page .data-table-three .icon-btn,
+    #table-page .data-table-four .icon-btn {
+        font-size: 13px !important;
+        padding: 5px !important;
+        min-width: 28px !important;
+        min-height: 28px !important;
+    }
+
+    #table-page .data-table .empty-btn,
+    #table-page .data-table-two .empty-btn,
+    #table-page .data-table-three .empty-btn,
+    #table-page .data-table-four .empty-btn {
+        width: 26px !important;
+        height: 26px !important;
+    }
+
+    #table-page .data-table .item-controls,
+    #table-page .data-table-two .item-controls,
+    #table-page .data-table-three .item-controls,
+    #table-page .data-table-four .item-controls {
+        gap: 3px !important;
+    }
+}
+
+/* Mobile: 480px to 599px */
+@media (max-width: 599px) {
+    #table-page .data-table .control-btn,
+    #table-page .data-table-two .control-btn,
+    #table-page .data-table-three .control-btn,
+    #table-page .data-table-four .control-btn {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 10px !important;
+    }
+
+    #table-page .data-table .icon-btn,
+    #table-page .data-table-two .icon-btn,
+    #table-page .data-table-three .icon-btn,
+    #table-page .data-table-four .icon-btn {
+        font-size: 12px !important;
+        padding: 6px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+    }
+
+    #table-page .data-table .empty-btn,
+    #table-page .data-table-two .empty-btn,
+    #table-page .data-table-three .empty-btn,
+    #table-page .data-table-four .empty-btn {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    #table-page .data-table .item-controls,
+    #table-page .data-table-two .item-controls,
+    #table-page .data-table-three .item-controls,
+    #table-page .data-table-four .item-controls {
+        gap: 3px !important;
+    }
+}
+
+/* Small mobile: below 480px */
+@media (max-width: 479px) {
+    #table-page .data-table .control-btn,
+    #table-page .data-table-two .control-btn,
+    #table-page .data-table-three .control-btn,
+    #table-page .data-table-four .control-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 9px !important;
+    }
+
+    #table-page .data-table .icon-btn,
+    #table-page .data-table-two .icon-btn,
+    #table-page .data-table-three .icon-btn,
+    #table-page .data-table-four .icon-btn {
+        font-size: 11px !important;
+        padding: 4px !important;
+        min-width: 28px !important;
+        min-height: 28px !important;
+    }
+
+    #table-page .data-table .empty-btn,
+    #table-page .data-table-two .empty-btn,
+    #table-page .data-table-three .empty-btn,
+    #table-page .data-table-four .empty-btn {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    #table-page .data-table .item-controls,
+    #table-page .data-table-two .item-controls,
+    #table-page .data-table-three .item-controls,
+    #table-page .data-table-four .item-controls {
+        gap: 2px !important;
+    }
+}
+
+/* Touch feedback for mobile devices */
+@media (hover: none) and (pointer: coarse) {
+    #table-page .data-table .control-btn:active,
+    #table-page .data-table-two .control-btn:active,
+    #table-page .data-table-three .control-btn:active,
+    #table-page .data-table-four .control-btn:active,
+    #table-page .data-table .icon-btn:active,
+    #table-page .data-table-two .icon-btn:active,
+    #table-page .data-table-three .icon-btn:active,
+    #table-page .data-table-four .icon-btn:active {
+        opacity: 0.6 !important;
+    }
+}

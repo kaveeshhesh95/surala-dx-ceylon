@@ -294,14 +294,17 @@ main .login-card .login-btn:hover {
 .drill-sidebar-cell {
   border-right: 1px #eee solid !important;
 }
+
 .text-muted {
   font-size: 12px;
 }
+
 .sub-tag .text-muted {
   text-align: left;
   font-size: 12px;
   color: #777575;
 }
+
 #table-page .admin-container.cnt-01 .data-table thead tr th:nth-child(1) {
   width: 400px;
 }
@@ -577,9 +580,32 @@ main .login-card .login-btn:hover {
   width: 100px;
 }
 
+#table-page .data-table .icon-btn {
+  flex: 0 0 auto;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 16px;
+  line-height: 1;
+  color: #909399;
+  cursor: pointer;
+}
+
+#table-page .data-table th:first-child,
+#table-page .data-table td:first-child {
+  width: 30%;
+}
+
 #table-page .data-table input[type=checkbox] {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+#table-page .data-table .icon-btn[title="Add"] {
+  width: 1.3vw;
+  height: 1.3vw;
+  font-size: 0;
+  background: url("../images/icon-add-circle.png") center / contain no-repeat;
 }
 
 #table-page .data-table .icon-btn {
@@ -605,16 +631,50 @@ main .login-card .login-btn:hover {
 #table-page .btn-icon .icon-edit {
   width: 28px;
 }
+
+#table-page .data-table .icon-btn {
+  font-size: 20px;
+  color: #909399;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+#table-page .data-table .control-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+#table-page .data-table .icon-btn:hover {
+  color: #1f2329;
+}
+
 .icon-group.actions {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
+
 .icon-group.actions img {
   width: 80%;
 }
 
-.add-circle-btn {
+#table-page .data-table .item-controls {
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 24px;
+  gap: 2px;
+}
+
+/* .add-circle-btn {
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -631,7 +691,7 @@ main .login-card .login-btn:hover {
   top: -25px;
   left: 60px;
   transform: translateY(-50%);
-}
+} */
 
 .modal .modal-dialog .modal-content .modal-header {
   border-bottom: none;
@@ -871,21 +931,33 @@ main .login-card .login-btn:hover {
 }
 
 #modalForm .modal-problem-table th:nth-child(2),
-#modalForm .modal-problem-table td:nth-child(2) { width: 15%; }
+#modalForm .modal-problem-table td:nth-child(2) {
+  width: 15%;
+}
 
 #modalForm .modal-problem-table th:nth-child(3),
-#modalForm .modal-problem-table td:nth-child(3) { width: 20%; }
+#modalForm .modal-problem-table td:nth-child(3) {
+  width: 20%;
+}
 
 #modalForm .modal-problem-table th:nth-child(4),
-#modalForm .modal-problem-table td:nth-child(4) { width: 12%; }
+#modalForm .modal-problem-table td:nth-child(4) {
+  width: 12%;
+}
 
 #modalForm .modal-problem-table th:nth-child(5),
-#modalForm .modal-problem-table td:nth-child(5) { width: 14%; }
+#modalForm .modal-problem-table td:nth-child(5) {
+  width: 14%;
+}
 
 #modalForm .modal-problem-table th:last-child,
-#modalForm .modal-problem-table td:last-child { width: 5%; }
+#modalForm .modal-problem-table td:last-child {
+  width: 10%;
+}
 
-#modalForm .modal-problem-table tbody tr:last-child td { border-bottom: none; }
+#modalForm .modal-problem-table tbody tr:last-child td {
+  border-bottom: none;
+}
 
 #modalForm .modal-problem-id {
   display: block;
@@ -903,7 +975,7 @@ main .login-card .login-btn:hover {
   width: 28px;
   height: 24px;
   padding: 0;
-  border: 1px solid #6c757d;
+  border: none;
   border-radius: 3px;
   background: #fff;
   color: #495057;
@@ -911,7 +983,9 @@ main .login-card .login-btn:hover {
   line-height: 1;
 }
 
-#modalForm .modal-detail-btn:hover { background: #f8f9fa; }
+#modalForm .modal-detail-btn:hover {
+  background: #f8f9fa;
+}
 
 #modalForm .modal-dialog .modal-content .modal-body .textbook-info {
   font-size: 13px;
@@ -1162,6 +1236,13 @@ main .login-card .login-btn:hover {
     width: 1.9444vw;
   }
 
+  #table-page .data-table .item-controls {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 24px;
+    gap: 2px;
+  }
+
   .modal .modal-dialog .modal-content .modal-body .large-text {
     font-size: 1.5277vw;
   }
@@ -1212,6 +1293,37 @@ main .login-card .login-btn:hover {
   #registerModal .modal-dialog .modal-content .modal-header .btn-close {
     font-size: 0.9722vw;
   }
+
+  /* Control buttons (↑/↓ arrows) */
+  #table-page .data-table .control-btn {
+    width: 1.6666vw;
+    height: 1.6666vw;
+    font-size: 0.8333vw;
+    border-radius: 0.2777vw;
+    border-width: 0.0694vw;
+  }
+
+  /* Empty placeholder buttons */
+  #table-page .data-table .empty-btn {
+    width: 1.6666vw;
+    height: 1.6666vw;
+    font-size: 0.8333vw;
+  }
+
+  #table-page .data-table .item-controls,
+  #table-page .data-table .item-controls-sub {
+    gap: 0.1388vw;
+    flex: 0 0 1.6666vw;
+  }
 }
 
-/*# sourceMappingURL=style.css.map */
+@media screen and (max-width: 1201px) {
+  #table-page .data-table .item-controls {
+    display: block;
+    padding-right: 5px;
+  }
+
+  #table-page .data-table .empty-btn {
+    display: none;
+  }
+}
