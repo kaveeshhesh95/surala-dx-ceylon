@@ -1,0 +1,178 @@
+#modalLectureRegForm .modal-dialog,
+#modalUploadForm .modal-dialog {
+  max-width: 900px;
+}
+#modalUploadForm .modal-dialog {
+  max-width: 600px;
+}
+#modalLectureRegForm .modal-dialog .modal-content,
+#modalUploadForm .modal-dialog .modal-content {
+  padding: 28px 40px;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-header,
+#modalUploadForm .modal-dialog .modal-content .modal-header {
+  position: relative;
+  padding: 14px 0;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-header .btn-close,
+#modalUploadForm .modal-dialog .modal-content .modal-header .btn-close {
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body,
+#modalUploadForm .modal-dialog .modal-content .modal-body {
+  padding: 0;
+  text-align: left;
+}
+#modalUploadForm .modal-dialog .modal-content .modal-body .upload-form {
+  color: #333;
+}
+#modalUploadForm .upload-dropzone {
+  align-items: center;
+  background: #fbfbfc;
+  border: 2px dashed #dfe2e7;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 280px;
+  padding: 32px 20px;
+  text-align: center;
+}
+#modalUploadForm .upload-dropzone:hover,
+#modalUploadForm .upload-dropzone.is-dragging {
+  background: #f2f7ff;
+  border-color: #2f73e6;
+}
+#modalUploadForm .upload-dropzone-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+#modalUploadForm .upload-dropzone-or {
+  color: #a3a5aa;
+  font-size: 14px;
+  margin: 12px 0 14px;
+}
+#modalUploadForm .upload-select-button,
+#modalUploadForm .upload-submit-button {
+  align-items: center;
+  background: #2f73e6;
+  border: 0;
+  border-radius: 28px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 500;
+  justify-content: center;
+  min-height: 55px;
+  padding: 0 40px;
+}
+#modalUploadForm .upload-file-input {
+  display: none;
+}
+#modalUploadForm .upload-list-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 28px 0 14px;
+}
+#modalUploadForm .upload-file-list {
+  display: grid;
+  gap: 14px;
+}
+#modalUploadForm .upload-file-row {
+  align-items: center;
+  border: 1px solid #dfe2e7;
+  border-radius: 6px;
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  min-height: 62px;
+  padding: 10px 13px;
+}
+#modalUploadForm .upload-delete-button {
+  background: #b4b4b4;
+  border: 0;
+  border-radius: 4px;
+  color: #333;
+  min-height: 40px;
+  min-width: 78px;
+  padding: 0 14px;
+}
+#modalUploadForm .upload-delete-button:hover {
+  background: #999;
+}
+#modalUploadForm .upload-submit-button {
+  background: #b4b4b4;
+  border-radius: 4px;
+  display: flex;
+  margin: 26px auto 0;
+  min-height: 52px;
+  min-width: 174px;
+}
+#modalUploadForm .upload-submit-button:hover {
+  background: #999;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body label,
+#modalUploadForm .modal-dialog .modal-content .modal-body label {
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  margin: 0 0 5px 0;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .course-id-text,
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .note-text,
+#modalUploadForm .modal-dialog .modal-content .modal-body .course-id-text,
+#modalUploadForm .modal-dialog .modal-content .modal-body .note-text {
+  font-size: 13px;
+  font-weight: 700;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .note-text,
+#modalUploadForm .modal-dialog .modal-content .modal-body .note-text {
+  font-size: 12px;
+  font-weight: 400;
+  color: #555;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .mb--2,
+#modalUploadForm .modal-dialog .modal-content .modal-body .mb--2 {
+  margin-bottom: -6px;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .form-control,
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .form-select,
+#modalUploadForm .modal-dialog .modal-content .modal-body .form-control,
+#modalUploadForm .modal-dialog .modal-content .modal-body .form-select {
+  font-size: 14px;
+  height: 37px;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .page-input,
+#modalUploadForm .modal-dialog .modal-content .modal-body .page-input {
+  width: 80px;
+  text-align: left;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .btn,
+#modalUploadForm .modal-dialog .modal-content .modal-body .btn {
+  font-size: 14px;
+  height: 37px;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .btn-outline-dark,
+#modalUploadForm .modal-dialog .modal-content .modal-body .btn-outline-dark {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .required,
+#modalUploadForm .modal-dialog .modal-content .modal-body .required {
+  font-size: 12px;
+  color: #f00;
+  margin: 0 0 0 5px;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .section-note,
+#modalUploadForm .modal-dialog .modal-content .modal-body .section-note {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+#modalLectureRegForm .modal-dialog .modal-content .modal-body .textbook-info,
+#modalUploadForm .modal-dialog .modal-content .modal-body .textbook-info {
+  font-size: 13px;
+}

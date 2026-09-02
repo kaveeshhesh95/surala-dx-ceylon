@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ユニット紐付機能 UI</title>
+  <title>Lecture Form</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,538 +14,194 @@
     }
 
     body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .modal-container {
       background-color: #ffffff;
-      padding: 20px 40px;
+      width: 100%;
+      max-width: 600px;
+      padding: 40px;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
       color: #333333;
-    }
-
-    /* Navigation Tabs */
-    .nav-tabs {
-      display: flex;
-      border-bottom: 2px solid #e5e7eb;
-      margin-bottom: 24px;
-      gap: 32px;
-      font-size: 13px;
-    }
-
-    .tab-item {
-      padding: 8px 0 12px 0;
-      color: #4b5563;
       cursor: pointer;
-      position: relative;
-      text-decoration: none;
+      line-height: 1;
     }
 
-    .tab-item.active {
-      color: #6366f1;
-      font-weight: bold;
-    }
-
-    .tab-item.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background-color: #6366f1;
-      border-radius: 2px 2px 0 0;
-    }
-
-    /* Primary Select Control */
-    .selector-container {
-      margin-bottom: 20px;
-    }
-
-    .custom-select {
-      position: relative;
-      display: inline-block;
-      width: 240px;
-    }
-
-    .custom-select select {
-      width: 100%;
-      padding: 8px 32px 8px 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      font-size: 14px;
-      color: #374151;
-      appearance: none;
-      -webkit-appearance: none;
-      background-color: #ffffff;
-      cursor: pointer;
-    }
-
-    .custom-select::after {
-      content: "▼";
-      font-size: 10px;
-      color: #9ca3af;
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-
-    /* Filter Box Panel */
-    .filter-panel {
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      background-color: #ffffff;
-    }
-
-    .form-grid {
+    .lecture-form {
       display: flex;
-      gap: 32px;
-      margin-bottom: 20px;
+      flex-direction: column;
+      gap: 24px;
     }
 
     .form-group {
-      flex: 1;
-      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .form-label {
+      font-weight: 700;
       font-size: 14px;
-      font-weight: bold;
-      color: #374151;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
+      color: #1a1a1a;
     }
 
-    .required-badge {
-      color: #ef4444;
-      margin-left: 4px;
+    .form-label.required::after {
+      content: " ※";
+      color: #e57373;
     }
 
-    .filter-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .checkbox-label {
+    .readonly-field {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 14px;
-      color: #374151;
-      cursor: pointer;
     }
 
-    .checkbox-label input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      accent-color: #6366f1;
-      border-radius: 3px;
-    }
-
-    .btn-submit {
-      background-color: #1d4ed8;
-      color: #ffffff;
-      border: none;
-      border-radius: 20px;
-      padding: 8px 32px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .btn-submit:hover {
-      background-color: #1e40af;
-    }
-
-    /* Table Component */
-    .table-container {
-      border: 1px solid #d1d5db;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-    }
-
-    th {
-      background-color: #e5e7eb;
-      color: #4b5563;
+    .id-value {
       font-weight: bold;
-      padding: 10px 16px;
-      text-align: center;
-      border-bottom: 1px solid #d1d5db;
+      color: #1a1a1a;
     }
 
-    th:nth-child(1) { width: 22%; text-align: left; }
-    th:nth-child(2) { width: 28%; text-align: left; }
-    th:nth-child(3) { width: 50%; text-align: left; }
+    .note {
+      color: #888888;
+      font-size: 13px;
+    }
 
-    td {
-      border: 1px solid #e5e7eb;
-      padding: 0;
-      vertical-align: middle;
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #333333;
+      border: 1px solid #dcdcdc;
+      border-radius: 6px;
+      outline: none;
       background-color: #ffffff;
     }
 
-    .cell-course {
-      padding: 16px;
-      font-size: 12px;
+    .form-input:focus,
+    .form-select:focus {
+      border-color: #999999;
+    }
+
+    .select-wrapper {
       position: relative;
     }
 
-    .btn-add-inline {
+    .select-wrapper::after {
+      content: "";
       position: absolute;
       right: 16px;
       top: 50%;
       transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      border: 1px solid #9ca3af;
-      border-radius: 50%;
-      background: #ffffff;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #333333;
+      pointer-events: none;
+    }
+
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
       cursor: pointer;
+    }
+
+    .button-group {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #6b7280;
+      gap: 12px;
     }
 
-    /* Direction Control Buttons */
-    .direction-btns {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .btn-arrow {
-      width: 28px;
-      height: 24px;
-      border: 1px solid #9ca3af;
-      background: #ffffff;
-      border-radius: 3px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #4b5563;
-    }
-
-    .btn-arrow:hover, .btn-action-icon:hover, .btn-add-inline:hover {
-      background-color: #f3f4f6;
-    }
-
-    .btn-action-icon {
+    .btn {
+      flex: 1;
+      padding: 12px;
+      background-color: #b0b0b0;
+      color: #ffffff;
       border: none;
-      background: transparent;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
-      color: #374151;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
+      transition: background-color 0.2s ease;
     }
 
-    /* Sub-row Layouts inside Table Cells */
-    .unit-row {
-      display: flex;
-      align-items: center;
-      padding: 12px 16px;
-      gap: 12px;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .unit-row:last-child {
-      border-bottom: none;
-    }
-
-    .unit-title {
-      flex: 1;
-      font-size: 12px;
-      color: #374151;
-    }
-
-    .unit-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .content-row {
-      display: flex;
-      align-items: center;
-      padding: 8px 16px;
-      gap: 12px;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .content-row:last-child {
-      border-bottom: none;
-    }
-
-    .content-details {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      font-size: 11px;
-    }
-
-    .content-name {
-      color: #4b5563;
-    }
-
-    .content-subtext {
-      color: #6b7280;
-    }
-
-    /* SVG Icon styles */
-    .trash-icon {
-      width: 14px;
-      height: 14px;
-      fill: currentColor;
-    }
-
-    .plus-circle-icon {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
+    .btn:hover {
+      background-color: #999999;
     }
   </style>
 </head>
+
 <body>
 
-  <nav class="nav-tabs">
-    <a class="tab-item">アカウント管理</a>
-    <a class="tab-item">メイン機能</a>
-    <a class="tab-item">サブ機能</a>
-    <a class="tab-item active">ユニット紐付機能</a>
-    <a class="tab-item">リリース管理</a>
-  </nav>
+  <div class="modal-container">
+    <button class="close-btn" aria-label="Close">&times;</button>
 
-  <div class="selector-container">
-    <div class="custom-select">
-      <select>
-        <option>コース_コンテンツ紐付</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="filter-panel">
-    <div class="form-grid">
+    <form class="lecture-form">
       <div class="form-group">
-        <label class="form-label">コース <span class="required-badge">※</span></label>
-        <div class="custom-select" style="width: 100%;">
-          <select>
-            <option>SPI対策コース</option>
+        <label class="form-label">レクチャーID</label>
+        <div class="readonly-field">
+          <span class="id-value">XXXXX</span>
+          <span class="note">← (編集時のみレクチャーIDを表示。編集不可)</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lecture-name" class="form-label required">レクチャー名</label>
+        <input type="text" id="lecture-name" class="form-input" value="レクチャー1">
+      </div>
+
+      <div class="form-group">
+        <label for="lecture-title" class="form-label required">レクチャータイトル</label>
+        <input type="text" id="lecture-title" class="form-input" value="正負の数の加法・減法">
+      </div>
+
+      <div class="form-group">
+        <label for="subject" class="form-label required">教科</label>
+        <div class="select-wrapper">
+          <select id="subject" class="form-select">
+            <option value="math" selected>数学</option>
           </select>
         </div>
       </div>
+
       <div class="form-group">
-        <label class="form-label">第二階層</label>
-        <div class="custom-select" style="width: 100%;">
-          <select>
-            <option></option>
+        <label for="display-settings" class="form-label">表示設定</label>
+        <div class="select-wrapper">
+          <select id="display-settings" class="form-select">
+            <option value="show" selected>表示</option>
           </select>
         </div>
       </div>
-    </div>
 
-    <div class="filter-controls">
-      <label class="checkbox-label">
-        <input type="checkbox" checked>
-        <span>非表示も含めて表示する</span>
-      </label>
-      <button class="btn-submit">階層を表示</button>
-    </div>
-  </div>
-
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>コース</th>
-          <th>ユニット</th>
-          <th>コンテンツ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="cell-course">
-            <span>SPI対策コース</span>
-            <button class="btn-add-inline">+</button>
-          </td>
-
-          <td style="padding: 0;">
-            <div class="unit-row" style="height: 144px;">
-              <div class="direction-btns">
-                <button class="btn-arrow">↑</button>
-                <button class="btn-arrow">↓</button>
-              </div>
-              <div class="unit-title">比の理解と計算</div>
-              <div class="unit-actions">
-                <button class="btn-action-icon">
-                  <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                </button>
-                <button class="btn-action-icon">
-                  <svg class="plus-circle-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="unit-row" style="height: 72px;">
-              <div class="direction-btns">
-                <button class="btn-arrow">↑</button>
-                <button class="btn-arrow">↓</button>
-              </div>
-              <div class="unit-title">速度の公式の<br>理解と計算</div>
-              <div class="unit-actions">
-                <button class="btn-action-icon">
-                  <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                </button>
-                <button class="btn-action-icon">
-                  <svg class="plus-circle-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="unit-row" style="height: 72px;">
-              <div class="direction-btns">
-                <button class="btn-arrow">↑</button>
-                <button class="btn-arrow">↓</button>
-              </div>
-              <div class="unit-title">公約数と<br>最大公約数</div>
-              <div class="unit-actions">
-                <button class="btn-action-icon">
-                  <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                </button>
-                <button class="btn-action-icon">
-                  <svg class="plus-circle-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                </button>
-              </div>
-            </div>
-          </td>
-
-          <td style="padding: 0;">
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">レクチャー1</span>
-                <span class="content-subtext">比の理解と計算</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">ドリル1</span>
-                <span class="content-subtext">比の理解と計算</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">ドリル2</span>
-                <span class="content-subtext">比の理解と計算</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">ドリル3</span>
-                <span class="content-subtext">比の理解と計算</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">レクチャー1</span>
-                <span class="content-subtext">速度の公式の理解と...</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">ドリル1</span>
-                <span class="content-subtext">速度の公式の理解と...</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">レクチャー1</span>
-                <span class="content-subtext">公約数と最大公約数</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-            <div class="content-row">
-              <div class="direction-btns">
-                <button class="btn-arrow">↓</button>
-                <button class="btn-arrow">↑</button>
-              </div>
-              <div class="content-details">
-                <span class="content-name">ドリル1</span>
-                <span class="content-subtext">公約数と最大公約数</span>
-              </div>
-              <button class="btn-action-icon">
-                <svg class="trash-icon" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="form-group">
+        <label class="form-label">HTML</label>
+        <div class="button-group">
+          <button type="button" class="btn">ファイルをダウンロード</button>
+          <button type="button" class="btn">アップロード画面を開く</button>
+        </div>
+      </div>
+    </form>
   </div>
 
 </body>
+
 </html>

@@ -243,6 +243,8 @@ main .login-card .login-btn:hover {
 .form-check-input:checked {
     background-color: #afd02e !important;
     border-color: #afd02e !important;
+    top: 3px;
+    position: relative;
 }
 
 .form-group label .required {
@@ -421,14 +423,14 @@ main .login-card .login-btn:hover {
 #table-page .btn-dark {
     background-color: #1f2329;
     color: #fff;
-    min-width: 120px;
+    min-width: 150px;
 }
 
 #table-page .btn-outline {
     background-color: #fff;
     border-color: #dcdfe6;
     color: #333;
-    min-width: 120px;
+    min-width: 150px;
 }
 
 #table-page .btn-action {
@@ -2914,6 +2916,7 @@ main .login-card .login-btn:hover {
 }
 
 @media screen and (max-width: 1201px) {
+
     #table-page .data-table .item-controls,
     #table-page .data-table-two .item-controls-sub,
     #table-page .data-table-three .item-controls-sub,
@@ -2929,5 +2932,32 @@ main .login-card .login-btn:hover {
     #table-page .data-table-four .empty-btn,
     #table-page .data-table-five .empty-btn {
         display: none;
+    }
+
+    #table-page .data-table .icon-btn[title="Delete"],
+    #table-page .data-table-two .icon-btn[title="Delete"],
+    #table-page .data-table-three .icon-btn[title="Delete"],
+    #table-page .data-table-four .icon-btn[title="Delete"],
+    #table-page .data-table-five .icon-btn[title="Delete"] {
+        width: 1.5vw;
+        height: 1.5vw;
+    }
+
+    #table-page .data-table .icon-btn[title="Add"],
+    #table-page .data-table-two .icon-btn[title="Add"],
+    #table-page .data-table-three .icon-btn[title="Add"],
+    #table-page .data-table-four .icon-btn[title="Add"],
+    #table-page .data-table-five .icon-btn[title="Add"] {
+        width: 1.5vw;
+        height: 1.5vw;
+    }
+
+    #table-page .data-table .control-btn,
+    #table-page .data-table-two .control-btn,
+    #table-page .data-table-three .control-btn,
+    #table-page .data-table-four .control-btn,
+    #table-page .data-table-five .control-btn {
+        width: 1.8vw;
+        height: 1.8vw;
     }
 }
