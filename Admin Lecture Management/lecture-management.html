@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drill Management</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/modals.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        #table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(1) { width: 80px; }
+        #table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(2) { width: 180px; }
+        #table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(3) { width: 340px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/images/logo.png" class="logo-img" alt="Logo" />Admin
+            </div>
+            <ul class="menu">
+                <li><a href="">アカウント管理</a></li>
+                <li><a href="" class="active">メイン機能</a></li>
+                <li><a href="">サブ機能</a></li>
+                <li><a href="">ユニット紐付機能</a></li>
+                <li><a href="">リリース機能</a></li>
+            </ul>
+            <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Taro Surala  ▼</a>
+                    <!-- <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                    </ul> -->
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+
+        <!-- <h1 class="page-title">メイン機能</h1> -->
+        <main id="table-page">
+            <div class="admin-container cnt-01 mt-3">
+
+                <!-- Top Dropdown -->
+                <div class="dropdown-main-wrap">
+                    <select class="form-control select-main">
+                        <option>レクチャー管理</option>
+                    </select>
+                </div>
+
+                <!-- Search / Filter Panel -->
+                <div class="filter-panel">
+                    <div class="filter-row">
+                        <div class="form-group">
+                            <label>コースタイプ</label>
+                            <select class="form-control"><option>レクチャー・ドリル</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>コース種別</label>
+                            <select class="form-control"><option>すららユニット</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>教科</label>
+                            <select class="form-control"><option>算数／数学</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>対象学年</label>
+                            <select class="form-control"><option>中学</option></select>
+                        </div>
+                    </div>
+                    <div class="filter-row">
+                        <div class="form-group">
+                            <label>コース</label>
+                            <select class="form-control"><option>中学数学 ドリルコース</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>ステージ</label>
+                            <select class="form-control"><option>Stage5 正負の数・文字...</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>レッスン</label>
+                            <select class="form-control"><option>Lesson1 正負の数</option></select>
+                        </div>
+                        <div class="form-group"></div>
+                    </div>
+                    <div class="filter-row">
+                        <!-- Filter Checkbox Groups -->
+                        <div class="form-group d-flex align-items-end w-100">
+                            <div class="form-group w-100">
+                                <label>ユニット・レクチャー</label>
+                                <textarea name="" class="form-control" placeholder="検索対象カラム：ユニットID／ユニット名／ユニットタイトル／レクチャーID／レクチャー名／レクチャータイトル"></textarea>
+                            </div>
+                             <div class="form-group ms-auto">
+                                <div class="filter-buttons">
+                                    <button class="btn btn-outline ms-auto">リセット</button>
+                                    <button class="btn btn-dark">検索</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-row second-row align-items-end">
+                        <div class="checkbox-group form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="checkDefault" checked>
+                            <label class="form-check-label" for="checkDefault">非表示も含めて表示する</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar & Pagination -->
+                <div class="action-bar">
+                    <div class="pagination-container ms-auto">
+                        <select class="form-control select-page-count">
+                            <option>20</option>
+                        </select>
+                        <span class="pagination-text">件 / 表示 20 件 / 全 200 件</span>
+                        <div class="pagination-nav">
+                            <span class="nav-arrow disabled reverse">❯❯</span>
+                            <span class="nav-arrow disabled">❮</span>
+                            <input type="text" class="page-input" value="1/3">
+                            <span class="nav-arrow active">❯</span>
+                            <span class="nav-arrow">❯❯</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <table class="data-table tbl-02">
+                    <thead>
+                        <tr>
+                            <th class="text-start"><button class="btn btn-secondary btn-sm">削除</button></th>
+                            <th class="text-start">ユニット</th>
+                            <th class="text-start">レクチャー</th>
+                            <th>教科 ▼▲</th>
+                            <th>HTML設定 ▼▲</th>
+                            <th>表示設定 ▼▲</th>
+                            <th class="text-center">対象ページ ▼▲</th>
+                            <th class="text-center">検証 ▼▲</th>
+                            <th class="text-center">解答確認</th>
+                            <th class="text-center">編集</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox-group">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault" checked="">
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <span>正負の数の加法</span>
+                            </td>
+                            <td class="text-left">
+                                <div class="sub-id">Unit1</div>
+                                <span>レクチャー1 &nbsp;&nbsp;&nbsp; 正負の数の加法・減法</span>
+                            </td>
+                            <td>数学</td>
+                            <td>設定済</td>
+                            <td>表示</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    <input type="text" style="width: 70px;" class="form-control text-center" value="1,3,5">
+                                </div>
+                                </td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLecturePreviewForm"><img src="assets/images/icon-correct-active.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalAnswerPreviewForm"><img src="assets/images/icon-check-active.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLectureRegForm"><img src="assets/images/icon-edit.png" class="icon-edit" alt="" /></button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-group">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <span>正負の数の加法</span>
+                            </td>
+                            <td class="text-left">
+                                <div class="sub-id">Unit1</div>
+                                <span>レクチャー1 &nbsp;&nbsp;&nbsp; 正負の数の加法・減法</span>
+                            </td>
+                            <td>数学</td>
+                            <td>設定済</td>
+                            <td>表示</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    <input type="text" style="width: 40px;" class="form-control text-center" value="3">
+                                </div>
+                                </td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLecturePreviewForm"><img src="assets/images/icon-correct-active.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalAnswerPreviewForm"><img src="assets/images/icon-check-active.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLectureRegForm"><img src="assets/images/icon-edit.png" class="icon-edit" alt="" /></button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-group">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <span>正負の数の加法</span>
+                            </td>
+                            <td class="text-left">
+                                <div class="sub-id">Unit1</div>
+                                <span>レクチャー1 &nbsp;&nbsp;&nbsp; 正負の数の加法・減法</span>
+                            </td>
+                            <td>数学</td>
+                            <td>設定済</td>
+                            <td>表示</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    _
+                                </div>
+                                </td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLecturePreviewForm"><img src="assets/images/icon-correct.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalAnswerPreviewForm"><img src="assets/images/icon-check.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLectureRegForm"><img src="assets/images/icon-edit.png" class="icon-edit" alt="" /></button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-group">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <span>正負の数の加法</span>
+                            </td>
+                            <td class="text-left">
+                                <div class="sub-id">Unit1</div>
+                                <span>レクチャー1 &nbsp;&nbsp;&nbsp; 正負の数の加法・減法</span>
+                            </td>
+                            <td>数学</td>
+                            <td>設定済</td>
+                            <td>表示</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    <input type="text" style="width: 40px;" class="form-control text-center" value="3">
+                                </div>
+                                </td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLecturePreviewForm"><img src="assets/images/icon-correct-active.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalAnswerPreviewForm"><img src="assets/images/icon-check-active.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLectureRegForm"><img src="assets/images/icon-edit.png" class="icon-edit" alt="" /></button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox-group">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+                                </div>
+                            </td>
+                            <td class="text-left">
+                                <span>正負の数の加法</span>
+                            </td>
+                            <td class="text-left">
+                                <div class="sub-id">Unit1</div>
+                                <span>レクチャー1 &nbsp;&nbsp;&nbsp; 正負の数の加法・減法</span>
+                            </td>
+                            <td>数学</td>
+                            <td>設定済</td>
+                            <td>表示</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center">
+                                    _
+                                </div>
+                                </td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLecturePreviewForm"><img src="assets/images/icon-correct.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalAnswerPreviewForm"><img src="assets/images/icon-check.png" class="icon-edit" alt="" /></button></td>
+                            <td class="text-center"><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLectureRegForm"><img src="assets/images/icon-edit.png" class="icon-edit" alt="" /></button></td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <div class="bottom-action text-end mt-4 d-flex justify-content-end">
+                    <button class="btn btn-dark-action">CSV出力</button>
+                    <button class="btn btn-dark-action">一括登録</button>
+                    <button class="btn btn-dark-action" data-bs-toggle="modal" data-bs-target="#modalLectureRegForm">新規登録</button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <!-- コースID -->
+                                    <div class="text-start mb-2">
+                                        <label class="form-label mb--2 d-block">コースID</label>
+                                        <span class="course-id-text">XXXXXX</span>
+                                        <span class="note-text">← (編集時のみコースIDを表示。編集不可)</span>
+                                    </div>
+
+                                    <!-- コース名 -->
+                                    <div class="mb-2">
+                                        <label for="courseName" class="form-label">コース名<span class="required">※</span></label>
+                                        <input type="text" class="form-control w-100" id="courseName" value="中学数学 ドリルコース">
+                                    </div>
+
+                                    <!-- コースタイプ -->
+                                    <div class="mb-2">
+                                        <label for="courseType" class="form-label">コースタイプ<span class="required">※</span></label>
+                                        <select class="form-select" id="courseType">
+                                            <option selected>レクチャー・ドリル</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- コース種別 -->
+                                    <div class="mb-2">
+                                        <label for="courseCategory" class="form-label">コース種別<span class="required">※</span></label>
+                                        <select class="form-select" id="courseCategory">
+                                            <option selected>すららユニット</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 教科(科目) -->
+                                    <div class="mb-2">
+                                        <label for="subject" class="form-label">教科(科目)<span class="required">※</span></label>
+                                        <select class="form-select" id="subject">
+                                            <option selected>算数／数学</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 対象学年 -->
+                                    <div class="mb-2">
+                                        <label for="targetGrade" class="form-label">対象学年</label>
+                                        <select class="form-select" id="targetGrade">
+                                            <option selected>中学</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="d-flex justify-content-between align-items-center mt-4">
+                                        <button type="button" class="btn btn-secondary">削除</button>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-dark">キャンセル</button>
+                                            <button type="submit" class="btn btn-dark">登録する</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 01 - Lecture Registration -->
+                <div class="modal fade" id="modalLectureRegForm" tabindex="-1"
+                    aria-labelledby="modalLectureRegFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <!-- コースID -->
+                                    <div class="text-start mb-3">
+                                        <label class="form-label mb--2 d-block">コースID</label>
+                                        <span class="course-id-text">XXXXXX</span>
+                                        <span class="note-text">← (編集時のみコースIDを表示。編集不可)</span>
+                                    </div>
+
+                                    <!-- レクチャー名 -->
+                                    <div class="mb-3">
+                                        <label for="courseName" class="form-label">レクチャー名<span
+                                                class="required">※</span></label>
+                                        <input type="text" class="form-control w-100" id="courseName" value="レクチャー1">
+                                    </div>
+
+                                    <!-- レクチャータイトル -->
+                                    <div class="mb-3">
+                                        <label for="courseName" class="form-label">レクチャータイトル<span
+                                                class="required">※</span></label>
+                                        <input type="text" class="form-control w-100" id="courseName"
+                                            value="正負の数の加法・減法">
+                                    </div>
+
+                                    <!-- 教科 -->
+                                    <div class="mb-3">
+                                        <label for="courseCategory" class="form-label">教科<span
+                                                class="required">※</span></label>
+                                        <select class="form-select" id="courseCategory">
+                                            <option selected>数学</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 表示設定 -->
+                                    <div class="mb-3">
+                                        <label for="targetGrade" class="form-label">表示設定</label>
+                                        <select class="form-select" id="targetGrade">
+                                            <option selected>表示</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="targetGrade" class="form-label">HTML</label>
+                                        <div class="d-flex align-items-center gap-3 mt-2">
+                                            <button type="button" class="btn btn-secondary">ファイルをダウンロード</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#modalUploadForm">アップロード画面を開&lt;</button>
+                                        </div>
+                                        <div class="filter-buttons justify-content-end">
+                                            <button class="btn btn-outline">リセット</button>
+                                            <button class="btn btn-dark">登録する</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 02 - Upload modal -->
+                <div class="modal fade" id="modalUploadForm" tabindex="-1" aria-labelledby="modalUploadFormLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="upload-form">
+                                    <label class="upload-dropzone" for="uploadFiles">
+                                        <span class="upload-dropzone-title">ファイルをドラッグ&amp;ドロップ</span>
+                                        <span class="upload-dropzone-or">または</span>
+                                        <span class="upload-select-button">ファイルを選択する</span>
+                                    </label>
+                                    <input type="file" id="uploadFiles" class="upload-file-input" multiple>
+                                    <h2 class="upload-list-title">アップロードファイルまたは既にアップロードされているファイル一覧</h2>
+                                    <div class="upload-file-list">
+                                        <div class="upload-file-row"><span>assets</span><button type="button"
+                                                class="btn btn-secondary">削除</button></div>
+                                        <div class="upload-file-row"><span>main.html</span><button type="button"
+                                                class="btn btn-secondary">削除</button></div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-secondary">アップロード</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 03 - HTML Screen modal -->
+                <div class="modal fade" id="modalLecturePreviewForm" tabindex="-1"
+                    aria-labelledby="modalLecturePreviewFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered lecture-preview-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="lecture-preview-title" id="modalLecturePreviewFormLabel">HTML5 レクチャー動作確認</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="lecture-preview-screen" role="img" aria-label="レクチャーのプレビュー画面">
+                                    <img src="assets/images/samples/flash-html-screen.png" class="lecture-preview-img"
+                                        alt="レクチャーのプレビュー画面" />
+                                </div>
+                                <div class="my-2">
+                                    <button type="button" class="btn btn-outline">更新する</button>
+                                </div>
+                                <div class="preview-history" aria-label="レクチャー操作履歴">
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">12：ページ&gt;10
+                                            (まとめプリント)</span><time class="fw-bold text-dark">[2026/08/24 18:30:20]</time><a href="#">上へ</a></div>
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">11：ページ&gt;9<br>解答情報 ⇒
+                                            問9-1　【正解】option_2</span><time class="fw-bold text-dark">[2026/08/24 18:30:12]</time><a href="#">上へ</a>
+                                    </div>
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">10：ページ&gt;9</span><time class="fw-bold text-dark">[2026/08/24
+                                            18:30:07]</time><a href="#">上へ</a></div>
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">9：ページ&gt;8<br>解答情報 ⇒
+                                            問9-1　【不正解】option_5</span><time class="fw-bold text-dark">[2026/08/24 18:30:02]</time><a
+                                            href="#">上へ</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 04 - Flash Answer Screen modal -->
+                <div class="modal fade" id="modalAnswerPreviewForm" tabindex="-1"
+                    aria-labelledby="modalAnswerPreviewFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-start">
+                                    <h2 class="lecture-preview-title mb-4" id="modalAnswerPreviewFormLabel">
+                                        レクチャー1　正負の数の加法・減法
+                                    </h2>
+                                </div>
+                                <div class="answer-preview-notes text-start">
+                                    <p>※ 回数：問題を「もう一回チャレンジ」で解答した際にカウントアップされます。</p>
+                                    <p>※ 同じ問題の解答回数：問題を再度表示し、解答した際にカウントアップされます。</p>
+                                </div>
+                                <div class="answer-preview-table-wrap">
+                                    <table class="modal-problem-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="fw-bold text-dark">ページ</th>
+                                                <th class="text-center fw-bold text-dark">問題番号</th>
+                                                <th class="text-center fw-bold text-dark">回数</th>
+                                                <th class="text-center fw-bold text-dark">同じ問題の解答回数</th>
+                                                <th class="text-center fw-bold text-dark">解答</th>
+                                                <th class="text-center fw-bold text-dark">判定</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td class="text-start">q1dragItem1,q1dragItem2,q1dragItem3,q1dragItem4</td>
+                                                <td>✕</td>
+                                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalFlashPreviewForm">解答を見る</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td class="text-start">たまご</td>
+                                                <td>◯</td>
+                                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalFlashPreviewForm">解答を見る</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td class="text-start">option_3</td>
+                                                <td>✕</td>
+                                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalFlashPreviewForm">解答を見る</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td class="text-start">option_2</td>
+                                                <td>◯</td>
+                                                <td><button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalFlashPreviewForm">解答を見る</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-start mt-3">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 05 - HTML Screen modal -->
+                <div class="modal fade" id="modalFlashPreviewForm" tabindex="-1"
+                    aria-labelledby="modalFlashPreviewFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="lecture-preview-title" id="modalFlashPreviewFormLabel">FLASH動作確認</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="flash-preview-screen" aria-label="FLASHレクチャーのプレビュー画面">
+                                    <!-- Sample Image -->
+                                    <img src="assets/images/samples/flash-screen.png" class="flash-preview-img"
+                                        alt="FLASHレクチャーのプレビュー画面" />
+                                </div>
+                                <div class="filter-buttons justify-content-start mt-3">
+                                    <button class="btn btn-outline">解答一覧に戻る</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+        </main>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</body>
+</html>

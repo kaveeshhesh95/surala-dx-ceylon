@@ -147,8 +147,9 @@
                             <td>中学</td>
                             <td>1</td>
                             <td>表示</td>
-                            <td><button class="btn-icon" data-bs-toggle="modal" data-bs-target="#modalLectureRegForm"><img
-                                        src="assets/images/icon-edit.png" class="icon-edit" alt="" /></button></td>
+                            <td><button class="btn-icon" data-bs-toggle="modal"
+                                    data-bs-target="#modalLectureRegForm"><img src="assets/images/icon-edit.png"
+                                        class="icon-edit" alt="" /></button></td>
                         </tr>
                         <tr>
                             <td class="text-left">
@@ -159,8 +160,9 @@
                             <td>中学</td>
                             <td>1</td>
                             <td>表示</td>
-                            <td><button class="btn-icon"><img src="assets/images/icon-edit.png" class="icon-edit"
-                                        alt="" /></button></td>
+                            <td><button class="btn-icon" data-bs-toggle="modal"
+                                    data-bs-target="#modalLecturePreviewForm"><img src="assets/images/icon-edit.png"
+                                        class="icon-edit" alt="" /></button></td>
                         </tr>
                         <tr>
                             <td class="text-left">
@@ -171,8 +173,9 @@
                             <td>中学</td>
                             <td>1</td>
                             <td>表示</td>
-                            <td><button class="btn-icon"><img src="assets/images/icon-edit.png" class="icon-edit"
-                                        alt="" /></button></td>
+                            <td><button class="btn-icon" data-bs-toggle="modal"
+                                    data-bs-target="#modalAnswerPreviewForm"><img src="assets/images/icon-edit.png"
+                                        class="icon-edit" alt="" /></button></td>
                         </tr>
                         <tr>
                             <td class="text-left">
@@ -183,8 +186,9 @@
                             <td>中学</td>
                             <td>1</td>
                             <td>表示</td>
-                            <td><button class="btn-icon"><img src="assets/images/icon-edit.png" class="icon-edit"
-                                        alt="" /></button></td>
+                            <td><button class="btn-icon" data-bs-toggle="modal"
+                                    data-bs-target="#modalFlashPreviewForm"><img src="assets/images/icon-edit.png"
+                                        class="icon-edit" alt="" /></button></td>
                         </tr>
                         <tr>
                             <td class="text-left">
@@ -216,8 +220,8 @@
                     <button class="btn btn-dark-action">新規登録</button>
                 </div>
                 <!-- Modal 01 - Lecture Registration -->
-                <div class="modal fade" id="modalLectureRegForm" tabindex="-1" aria-labelledby="modalLectureRegFormLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="modalLectureRegForm" tabindex="-1"
+                    aria-labelledby="modalLectureRegFormLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -269,7 +273,8 @@
                                         <label for="targetGrade" class="form-label">HTML</label>
                                         <div class="d-flex align-items-center gap-3 mt-2">
                                             <button type="button" class="btn btn-secondary">ファイルをダウンロード</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalUploadForm">アップロード画面を開&lt;</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#modalUploadForm">アップロード画面を開&lt;</button>
                                         </div>
                                         <div class="filter-buttons justify-content-end">
                                             <button class="btn btn-outline">リセット</button>
@@ -299,20 +304,156 @@
                                         <span class="upload-select-button">ファイルを選択する</span>
                                     </label>
                                     <input type="file" id="uploadFiles" class="upload-file-input" multiple>
-
                                     <h2 class="upload-list-title">アップロードファイルまたは既にアップロードされているファイル一覧</h2>
                                     <div class="upload-file-list">
-                                        <div class="upload-file-row">
-                                            <span>assets</span>
-                                            <button type="button" class="upload-delete-button">削除</button>
-                                        </div>
-                                        <div class="upload-file-row">
-                                            <span>main.html</span>
-                                            <button type="button" class="upload-delete-button">削除</button>
-                                        </div>
+                                        <div class="upload-file-row"><span>assets</span><button type="button"
+                                                class="btn btn-secondary">削除</button></div>
+                                        <div class="upload-file-row"><span>main.html</span><button type="button"
+                                                class="btn btn-secondary">削除</button></div>
                                     </div>
-                                    <button type="submit" class="upload-submit-button">アップロード</button>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-secondary">アップロード</button>
+                                    </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 03 - HTML Screen modal -->
+                <div class="modal fade" id="modalLecturePreviewForm" tabindex="-1"
+                    aria-labelledby="modalLecturePreviewFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered lecture-preview-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="lecture-preview-title" id="modalLecturePreviewFormLabel">HTML5 レクチャー動作確認</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="lecture-preview-screen" role="img" aria-label="レクチャーのプレビュー画面">
+                                    <img src="assets/images/samples/flash-html-screen.png" class="lecture-preview-img"
+                                        alt="レクチャーのプレビュー画面" />
+                                </div>
+                                <div class="my-2">
+                                    <button type="button" class="btn btn-outline">更新する</button>
+                                </div>
+                                <div class="preview-history" aria-label="レクチャー操作履歴">
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">12：ページ&gt;10
+                                            (まとめプリント)</span><time class="fw-bold text-dark">[2026/08/24 18:30:20]</time><a href="#">上へ</a></div>
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">11：ページ&gt;9<br>解答情報 ⇒
+                                            問9-1　【正解】option_2</span><time class="fw-bold text-dark">[2026/08/24 18:30:12]</time><a href="#">上へ</a>
+                                    </div>
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">10：ページ&gt;9</span><time class="fw-bold text-dark">[2026/08/24
+                                            18:30:07]</time><a href="#">上へ</a></div>
+                                    <div class="preview-history-row"><span class="fw-bold text-dark">9：ページ&gt;8<br>解答情報 ⇒
+                                            問9-1　【不正解】option_5</span><time class="fw-bold text-dark">[2026/08/24 18:30:02]</time><a
+                                            href="#">上へ</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 04 - Flash Answer Screen modal -->
+                <div class="modal fade" id="modalAnswerPreviewForm" tabindex="-1"
+                    aria-labelledby="modalAnswerPreviewFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-start">
+                                    <h2 class="lecture-preview-title mb-4" id="modalAnswerPreviewFormLabel">
+                                        レクチャー1　正負の数の加法・減法
+                                    </h2>
+                                </div>
+                                <div class="answer-preview-notes text-start">
+                                    <p>※ 回数：問題を「もう一回チャレンジ」で解答した際にカウントアップされます。</p>
+                                    <p>※ 同じ問題の解答回数：問題を再度表示し、解答した際にカウントアップされます。</p>
+                                </div>
+                                <div class="answer-preview-table-wrap">
+                                    <table class="modal-problem-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="fw-bold text-dark">ページ</th>
+                                                <th class="text-center fw-bold text-dark">問題番号</th>
+                                                <th class="text-center fw-bold text-dark">回数</th>
+                                                <th class="text-center fw-bold text-dark">同じ問題の解答回数</th>
+                                                <th class="text-center fw-bold text-dark">解答</th>
+                                                <th class="text-center fw-bold text-dark">判定</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>q1dragItem1,q1dragItem2,q1dragItem3,q1dragItem4</td>
+                                                <td>✕</td>
+                                                <td><button class="btn btn-secondary">解答を見る</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>たまご</td>
+                                                <td>◯</td>
+                                                <td><button class="btn btn-secondary">解答を見る</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>option_3</td>
+                                                <td>✕</td>
+                                                <td><button class="btn btn-secondary">解答を見る</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>option_2</td>
+                                                <td>◯</td>
+                                                <td><button class="btn btn-secondary">解答を見る</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-start mt-3">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <!-- Modal 05 - HTML Screen modal -->
+                <div class="modal fade" id="modalFlashPreviewForm" tabindex="-1"
+                    aria-labelledby="modalFlashPreviewFormLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="lecture-preview-title" id="modalFlashPreviewFormLabel">FLASH動作確認</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="flash-preview-screen" aria-label="FLASHレクチャーのプレビュー画面">
+                                    <!-- Sample Image -->
+                                    <img src="assets/images/samples/flash-screen.png" class="flash-preview-img"
+                                        alt="FLASHレクチャーのプレビュー画面" />
+                                </div>
+                                <div class="filter-buttons justify-content-start mt-3">
+                                    <button class="btn btn-outline">解答一覧に戻る</button>
+                                </div>
                             </div>
                         </div>
                     </div>

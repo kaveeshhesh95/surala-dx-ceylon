@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture Form</title>
+  <title>Modal Dialog</title>
   <style>
     * {
       box-sizing: border-box;
@@ -14,7 +13,7 @@
     }
 
     body {
-      background-color: #f5f5f5;
+      background-color: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,186 +21,190 @@
       padding: 20px;
     }
 
+    /* Modal Container */
     .modal-container {
-      background-color: #ffffff;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 600px;
-      padding: 40px;
-      border-radius: 8px;
+      max-width: 800px;
+      padding: 24px;
       position: relative;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .close-btn {
+    /* Close Icon Header */
+    .close-icon {
       position: absolute;
-      top: 20px;
+      top: 16px;
       right: 20px;
       background: none;
       border: none;
-      font-size: 24px;
-      color: #333333;
+      font-size: 20px;
+      color: #666;
       cursor: pointer;
-      line-height: 1;
     }
 
-    .lecture-form {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .form-label {
+    /* Header Title */
+    .modal-header h2 {
+      font-size: 20px;
       font-weight: 700;
-      font-size: 14px;
-      color: #1a1a1a;
+      color: #222;
+      margin-bottom: 16px;
     }
 
-    .form-label.required::after {
-      content: " ※";
-      color: #e57373;
+    /* Notes Section */
+    .modal-notes {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
-    .readonly-field {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
+    /* Table Styling */
+    .table-wrapper {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      border-top: 3px solid #66bb6a; /* Green top accent line */
+      margin-bottom: 24px;
     }
 
-    .id-value {
-      font-weight: bold;
-      color: #1a1a1a;
-    }
-
-    .note {
-      color: #888888;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
       font-size: 13px;
     }
 
-    .form-input,
-    .form-select {
-      width: 100%;
-      padding: 12px 14px;
-      font-size: 14px;
-      color: #333333;
-      border: 1px solid #dcdcdc;
-      border-radius: 6px;
-      outline: none;
-      background-color: #ffffff;
+    thead {
+      background-color: #f7f9fa;
+      border-bottom: 1px solid #e0e0e0;
     }
 
-    .form-input:focus,
-    .form-select:focus {
-      border-color: #999999;
+    th, td {
+      padding: 12px 8px;
+      border-bottom: 1px solid #e0e0e0;
+      border-right: 1px solid #f0f0f0;
+      color: #333;
     }
 
-    .select-wrapper {
-      position: relative;
+    th:last-child, td:last-child {
+      border-right: none;
     }
 
-    .select-wrapper::after {
-      content: "";
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid #333333;
-      pointer-events: none;
+    tr:last-child td {
+      border-bottom: none;
     }
 
-    .form-select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      cursor: pointer;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 12px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 12px;
-      background-color: #b0b0b0;
+    /* Buttons */
+    .btn-action {
+      background-color: #7d7d7d;
       color: #ffffff;
       border: none;
+      padding: 6px 14px;
       border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 12px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s;
     }
 
-    .btn:hover {
-      background-color: #999999;
+    .btn-action:hover {
+      background-color: #666666;
+    }
+
+    .btn-close {
+      background-color: #7d7d7d;
+      color: #ffffff;
+      border: none;
+      padding: 8px 28px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-close:hover {
+      background-color: #666666;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-start;
     }
   </style>
 </head>
-
 <body>
 
   <div class="modal-container">
-    <button class="close-btn" aria-label="Close">&times;</button>
+    <button class="close-icon">&times;</button>
+    
+    <div class="modal-header">
+      <h2>レクチャー1 正負の数の加法・減法</h2>
+    </div>
 
-    <form class="lecture-form">
-      <div class="form-group">
-        <label class="form-label">レクチャーID</label>
-        <div class="readonly-field">
-          <span class="id-value">XXXXX</span>
-          <span class="note">← (編集時のみレクチャーIDを表示。編集不可)</span>
-        </div>
-      </div>
+    <div class="modal-notes">
+      <p>※ 回数 : 問題を「もう一回チャレンジ」で解答した際にカウントアップされます。</p>
+      <p>※ 同じ問題の解答回数 : 問題を再度表示し、解答した際にカウントアップされます。</p>
+    </div>
 
-      <div class="form-group">
-        <label for="lecture-name" class="form-label required">レクチャー名</label>
-        <input type="text" id="lecture-name" class="form-input" value="レクチャー1">
-      </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ページ</th>
+            <th>問題番号</th>
+            <th>回数</th>
+            <th>同じ問題の解答回数</th>
+            <th>解答</th>
+            <th>判定</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>6</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>q1dragItem1,q1dragItem2,q1dragItem3,q1dragItem4</td>
+            <td>✕</td>
+            <td><button class="btn-action">解答を見る</button></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>たまご</td>
+            <td>◯</td>
+            <td><button class="btn-action">解答を見る</button></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>option_3</td>
+            <td>✕</td>
+            <td><button class="btn-action">解答を見る</button></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>option_2</td>
+            <td>◯</td>
+            <td><button class="btn-action">解答を見る</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div class="form-group">
-        <label for="lecture-title" class="form-label required">レクチャータイトル</label>
-        <input type="text" id="lecture-title" class="form-input" value="正負の数の加法・減法">
-      </div>
-
-      <div class="form-group">
-        <label for="subject" class="form-label required">教科</label>
-        <div class="select-wrapper">
-          <select id="subject" class="form-select">
-            <option value="math" selected>数学</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="display-settings" class="form-label">表示設定</label>
-        <div class="select-wrapper">
-          <select id="display-settings" class="form-select">
-            <option value="show" selected>表示</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">HTML</label>
-        <div class="button-group">
-          <button type="button" class="btn">ファイルをダウンロード</button>
-          <button type="button" class="btn">アップロード画面を開く</button>
-        </div>
-      </div>
-    </form>
+    <div class="modal-footer">
+      <button class="btn-close">閉じる</button>
+    </div>
   </div>
 
 </body>
-
 </html>

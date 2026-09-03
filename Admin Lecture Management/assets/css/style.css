@@ -210,6 +210,8 @@ main .login-card .login-btn:hover {
 .form-check-input:checked {
   background-color: #afd02e !important;
   border-color: #afd02e !important;
+  top: 3px;
+  position: relative;
 }
 
 #table-page {
@@ -232,14 +234,26 @@ main .login-card .login-btn:hover {
   gap: 15px;
   margin-bottom: 15px;
 }
+#table-page .admin-container.cnt-01 .filter-row.col3 .form-group {
+  width: 33.3333333333%;
+}
 #table-page .admin-container.cnt-01 .filter-row .form-group {
   width: 25%;
 }
 #table-page .admin-container.cnt-01 .filter-row .form-group .form-control {
   width: 100%;
 }
+#table-page .admin-container.cnt-01 .filter-row .form-group .checkbox-options .checkbox-group {
+  width: 200px;
+}
+#table-page .admin-container.cnt-01 .filter-row .form-group .checkbox-options .checkbox-group label {
+  font-weight: 400;
+}
 #table-page .admin-container.cnt-01 .filter-row .max-width {
   width: 100%;
+}
+#table-page .admin-container.cnt-01 .filter-row .lbl-title {
+  width: 200px;
 }
 #table-page .admin-container.cnt-01 .filter-buttons .btn {
   width: 120px;
@@ -368,6 +382,7 @@ main .login-card .login-btn:hover {
   border-radius: 4px;
   cursor: pointer;
   border: none;
+  width: 150px;
 }
 #table-page .action-bar {
   display: flex;
@@ -441,10 +456,11 @@ main .login-card .login-btn:hover {
   font-size: 17px;
 }
 #table-page .data-table thead tr th {
+  font-size: 13px;
   text-align: center;
   background-color: #eceff2;
   color: #000;
-  font-weight: bold;
+  font-weight: 700;
   padding: 14px 12px;
   border-bottom: 1px solid #dce0e5;
 }
@@ -630,11 +646,6 @@ main .login-card .login-btn:hover {
 #modalForm .modal-dialog .modal-content .modal-body .btn-outline-dark {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
-#modalForm .modal-dialog .modal-content .modal-body .required {
-  font-size: 12px;
-  color: #f00;
-  margin: 0 0 0 5px;
-}
 #modalForm .modal-dialog .modal-content .modal-body .section-note {
   font-size: 13px;
   font-weight: 700;
@@ -642,6 +653,12 @@ main .login-card .login-btn:hover {
 }
 #modalForm .modal-dialog .modal-content .modal-body .textbook-info {
   font-size: 13px;
+}
+
+.required {
+  font-size: 12px;
+  color: #f00;
+  margin: 0 0 0 5px;
 }
 
 @media screen and (max-width: 1440px) {
@@ -884,3 +901,5 @@ main .login-card .login-btn:hover {
     font-size: 0.9722vw;
   }
 }
+
+/*# sourceMappingURL=style.css.map */
