@@ -1,0 +1,72 @@
+ .modal-problem-table {
+     width: 100%;
+     max-width: 100%;
+     margin: 0;
+     border-collapse: separate;
+     border-spacing: 0;
+     table-layout: fixed;
+     font-size: 12px;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th,
+ #modalAnswerPreviewForm .modal-problem-table td {
+     min-width: 0;
+     overflow-wrap: anywhere;
+     word-break: break-word;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th {
+     position: sticky;
+     top: 0;
+     z-index: 1;
+     padding: 10px 8px;
+     background-color: #e8ecef;
+     color: #495057;
+     font-size: 11px;
+     font-weight: 700;
+     text-align: center;
+     border-bottom: 1px solid #dee2e6;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table td {
+     padding: 11px 8px;
+     color: #333;
+     text-align: center;
+     vertical-align: middle;
+     border-bottom: 1px solid #f0f0f0;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th:first-child,
+ #modalAnswerPreviewForm .modal-problem-table td:first-child {
+     width: 34%;
+     text-align: left;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th:nth-child(2),
+ #modalAnswerPreviewForm .modal-problem-table td:nth-child(2) {
+     width: 15%;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th:nth-child(3),
+ #modalAnswerPreviewForm .modal-problem-table td:nth-child(3) {
+     width: 20%;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th:nth-child(4),
+ #modalAnswerPreviewForm .modal-problem-table td:nth-child(4) {
+     width: 12%;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th:nth-child(5),
+ #modalAnswerPreviewForm .modal-problem-table td:nth-child(5) {
+     width: 14%;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table th:last-child,
+ #modalAnswerPreviewForm .modal-problem-table td:last-child {
+     width: 5%;
+ }
+
+ #modalAnswerPreviewForm .modal-problem-table tbody tr:last-child td {
+     border-bottom: none;
+ }

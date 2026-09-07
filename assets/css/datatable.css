@@ -572,7 +572,7 @@ main .login-card .login-btn:hover {
 }
 
 #table-page .data-table thead tr th:nth-child(1) {
-    padding-left: 32px;
+    /* padding-left: 32px; */
 }
 
 #table-page .data-table tbody {
@@ -971,7 +971,6 @@ main .login-card .login-btn:hover {
 }
 
 #modalForm .modal-problem-table td {
-    padding: 11px 8px;
     color: #333;
     text-align: center;
     vertical-align: middle;
@@ -982,31 +981,12 @@ main .login-card .login-btn:hover {
 #modalForm .modal-problem-table td:first-child {
     width: 34%;
     text-align: left;
-}
-
-#modalForm .modal-problem-table th:nth-child(2),
-#modalForm .modal-problem-table td:nth-child(2) {
-    width: 15%;
-}
-
-#modalForm .modal-problem-table th:nth-child(3),
-#modalForm .modal-problem-table td:nth-child(3) {
-    width: 20%;
-}
-
-#modalForm .modal-problem-table th:nth-child(4),
-#modalForm .modal-problem-table td:nth-child(4) {
-    width: 12%;
-}
-
-#modalForm .modal-problem-table th:nth-child(5),
-#modalForm .modal-problem-table td:nth-child(5) {
-    width: 14%;
+    padding: 11px 20px;
 }
 
 #modalForm .modal-problem-table th:last-child,
 #modalForm .modal-problem-table td:last-child {
-    width: 5%;
+    width: 8%;
 }
 
 #modalForm .modal-problem-table tbody tr:last-child td {
@@ -1081,6 +1061,7 @@ main .login-card .login-btn:hover {
 #modalForm .modal-problem-table-three td:first-child {
     width: 34%;
     text-align: left;
+    padding: 11px 20px;
 }
 
 #modalForm .modal-problem-table-four th:first-child,
@@ -1095,10 +1076,6 @@ main .login-card .login-btn:hover {
     text-align: left;
 }
 
-#modalForm .modal-problem-table-two th:nth-child(2),
-#modalForm .modal-problem-table-two td:nth-child(2),
-#modalForm .modal-problem-table-three th:nth-child(2),
-#modalForm .modal-problem-table-three td:nth-child(2),
 #modalForm .modal-problem-table-four th:nth-child(2),
 #modalForm .modal-problem-table-four td:nth-child(2) {
     width: 25%;
@@ -1165,7 +1142,7 @@ main .login-card .login-btn:hover {
 #modalForm .modal-problem-table-two td:last-child,
 #modalForm .modal-problem-table-three th:last-child,
 #modalForm .modal-problem-table-three td:last-child {
-    width: 5%;
+    width: 8%;
 }
 
 #modalForm .modal-problem-table-four th:last-child,
@@ -1291,7 +1268,6 @@ main .login-card .login-btn:hover {
 }
 
 #modalForm2 .modal-problem-table td {
-    padding: 11px 8px;
     color: #333;
     text-align: center;
     vertical-align: middle;
@@ -1302,6 +1278,7 @@ main .login-card .login-btn:hover {
 #modalForm2 .modal-problem-table td:first-child {
     width: 15%;
     text-align: left;
+    padding: 11px 20px;
 }
 
 #modalForm2 .modal-problem-table th:nth-child(2),
@@ -1614,7 +1591,11 @@ main .login-card .login-btn:hover {
     gap: 2px;
 }
 
-#table-page .data-table .empty-btn {
+#table-page .data-table .empty-btn,
+#table-page .data-table-two .empty-btn,
+#table-page .data-table-three .empty-btn,
+#table-page .data-table-four .empty-btn,
+#table-page .data-table-five .empty-btn {
     width: 24px;
     height: 24px;
     padding: 0;
@@ -1642,13 +1623,13 @@ main .login-card .login-btn:hover {
 }
 
 /* Table Two */
-#table-page .admin-container.cnt-01 .data-table-two thead tr th:nth-child(1) {
+/* #table-page .admin-container.cnt-01 .data-table-two thead tr th:nth-child(1) {
     width: calc((100% - 80px) / 4);
 }
 
 #table-page .admin-container.cnt-01 .data-table-two thead tr th:nth-child(2) {
     width: calc((100% - 80px) / 4);
-}
+} */
 
 #table-page .admin-container.cnt-01 .data-table-two tbody tr td.text-left {
     text-align: left;
@@ -1685,12 +1666,12 @@ main .login-card .login-btn:hover {
 
 #table-page .data-table-two thead tr th:nth-child(1),
 #table-page .data-table-two tbody tr td:nth-child(1) {
-    width: calc((100% - 80px) / 4);
+    width: 18%;
 }
 
 #table-page .data-table-two thead tr th:nth-child(2),
 #table-page .data-table-two tbody tr td:nth-child(2) {
-    width: calc((100% - 80px) / 4);
+    width: 18%;
 }
 
 #table-page .data-table-two thead tr th:nth-child(3),
@@ -1879,17 +1860,24 @@ main .login-card .login-btn:hover {
     font-size: 13px;
 }
 
-#table-page .admin-container.cnt-01 .data-table-three.tbl-02 thead tr th:nth-child(1) {
-    width: 60px;
+#table-page .data-table-three thead tr th:nth-child(1),
+#table-page .data-table-three tbody tr td:nth-child(1) {
+    width: 30%;
 }
 
-#table-page .admin-container.cnt-01 .data-table-three.tbl-02 thead tr th:nth-child(2) {
-    width: calc(100% - 300px);
-    text-align: left;
+#table-page .data-table-three thead tr th:nth-child(2),
+#table-page .data-table-three tbody tr td:nth-child(2) {
+    width: 45%;
 }
 
-#table-page .admin-container.cnt-01 .data-table-three.tbl-02 thead tr th:nth-last-child(2) {
-    width: 140px;
+#table-page .data-table-three thead tr th:nth-child(3),
+#table-page .data-table-three tbody tr td:nth-child(3) {
+    width: 65%;
+}
+
+#table-page .data-table-three thead tr th:last-child(),
+#table-page .data-table-three tbody tr td:last-child() {
+    width: 10%;
 }
 
 #table-page .admin-container.cnt-01 .data-table-three.tbl-02 tbody tr td .sub-id {
@@ -1904,22 +1892,8 @@ main .login-card .login-btn:hover {
     table-layout: fixed;
 }
 
-#table-page .data-table-three col.course-column,
-#table-page .data-table-three col.unit-column,
-#table-page .data-table-three col.content-column {
-    width: 25%;
-}
-
-#table-page .data-table-three col.course-column {
-    width: 18%;
-}
-
-#table-page .data-table-three col.empty-column {
-    width: 32%;
-}
-
 #table-page .data-table-three .empty-column {
-    width: 32%;
+    width: 10%;
     padding: 0;
     background-color: #fff;
 }
@@ -2071,21 +2045,26 @@ main .login-card .login-btn:hover {
     font-size: 13px;
 }
 
-#table-page .admin-container.cnt-01 .data-table-four.tbl-02 thead tr th:nth-child(1) {
-    width: 60px;
-}
-
-#table-page .admin-container.cnt-01 .data-table-four.tbl-02 thead tr th:nth-child(2) {
-    width: calc(100% - 300px);
-    text-align: left;
-}
-
-#table-page .admin-container.cnt-01 .data-table-four.tbl-02 thead tr th:nth-last-child(2) {
-    width: 140px;
-}
-
 #table-page .admin-container.cnt-01 .data-table-four.tbl-02 tbody tr td .sub-id {
     font-size: 13px;
+}
+
+#table-page .data-table-four thead tr th:nth-child(1),
+#table-page .data-table-four tbody tr td:nth-child(1) {
+    width: 30%;
+}
+
+#table-page .data-table-four thead tr th:nth-child(2) {
+    width: 60%;
+    text-align: center;
+}
+#table-page .data-table-four tbody tr td:nth-child(2) {
+    width: 60%;
+}
+
+#table-page .data-table-four thead tr th:last-child(),
+#table-page .data-table-four tbody tr td:last-child() {
+    width: 10%;
 }
 
 #table-page .data-table-four {
@@ -2096,21 +2075,8 @@ main .login-card .login-btn:hover {
     table-layout: fixed;
 }
 
-#table-page .data-table-four col.course-column,
-#table-page .data-table-four col.content-column {
-    width: 25%;
-}
-
-#table-page .data-table-four col.course-column {
-    width: 18%;
-}
-
-#table-page .data-table-four col.empty-column {
-    width: 57%;
-}
-
 #table-page .data-table-four .empty-column {
-    width: 57%;
+    width: 20%;
     padding: 0;
     background-color: #fff;
 }
@@ -2131,7 +2097,7 @@ main .login-card .login-btn:hover {
     justify-content: space-between;
     gap: 15px;
     min-height: 52px;
-    padding: 0;
+    padding: 6px 8px;
 }
 
 #table-page .data-table-four .item-cell {
@@ -2156,7 +2122,8 @@ main .login-card .login-btn:hover {
     gap: 2px;
 }
 
-#table-page .data-table-four .item-controls-sub {
+#table-page .data-table-four .item-controls-sub,
+#table-page .data-table-five .item-controls-sub {
     display: flex;
     flex-direction: row;
     flex: 0 0 24px;
@@ -2246,33 +2213,12 @@ main .login-card .login-btn:hover {
 }
 
 /* Table - 05 */
-#table-page .admin-container.cnt-01 .data-table-five thead tr th:nth-child(1) {
-    width: calc((100% - 80px) / 4);
-}
-
-#table-page .admin-container.cnt-01 .data-table-five thead tr th:nth-child(2) {
-    width: calc((100% - 80px) / 4);
-}
-
 #table-page .admin-container.cnt-01 .data-table-five tbody tr td.text-left {
     text-align: left;
 }
 
 #table-page .admin-container.cnt-01 .data-table-five tbody tr td.text-left .sub-id {
     font-size: 13px;
-}
-
-#table-page .admin-container.cnt-01 .data-table-five.tbl-02 thead tr th:nth-child(1) {
-    width: 60px;
-}
-
-#table-page .admin-container.cnt-01 .data-table-five.tbl-02 thead tr th:nth-child(2) {
-    width: calc(100% - 300px);
-    text-align: left;
-}
-
-#table-page .admin-container.cnt-01 .data-table-five.tbl-02 thead tr th:nth-last-child(2) {
-    width: 140px;
 }
 
 #table-page .admin-container.cnt-01 .data-table-five.tbl-02 tbody tr td .sub-id {
@@ -2289,39 +2235,26 @@ main .login-card .login-btn:hover {
 
 #table-page .data-table-five thead tr th:nth-child(1),
 #table-page .data-table-five tbody tr td:nth-child(1) {
-    width: 18%;
+    width: 15%;
 }
 
 #table-page .data-table-five thead tr th:nth-child(2),
 #table-page .data-table-five tbody tr td:nth-child(2) {
-    width: 18%;
+    width: 23%;
 }
 
 #table-page .data-table-five thead tr th:nth-child(3),
 #table-page .data-table-five tbody tr td:nth-child(3) {
-    width: 24%;
+    width: 31%;
 }
 
-#table-page .data-table-five thead tr th:nth-child(4),
-#table-page .data-table-five tbody tr td:nth-child(4) {
-    width: 40%;
-}
-
-#table-page .data-table-five col.course-column,
-#table-page .data-table-five col.textbook-column {
-    width: 18%;
-}
-
-#table-page .data-table-five col.content-column {
-    width: 24%;
-}
-
-#table-page .data-table-five col.empty-column {
-    width: 40%;
+#table-page .data-table-five thead tr th:last-child,
+#table-page .data-table-five tbody tr td:last-child {
+    width: 31%;
 }
 
 #table-page .data-table-five .empty-column {
-    width: 40%;
+    width: 31%;
     padding: 0;
     background-color: #fff;
 }
@@ -2342,7 +2275,7 @@ main .login-card .login-btn:hover {
     justify-content: space-between;
     gap: 12px;
     min-height: 52px;
-    padding: 0;
+    padding: 6px 8px;
 }
 
 #table-page .data-table-five .item-cell {
@@ -2984,26 +2917,31 @@ main .login-card .login-btn:hover {
 }
 
 /* WebKit (Chrome, Edge, Safari) */
-.table-scroll-wrapper::-webkit-scrollbar {
+.table-scroll-wrapper::-webkit-scrollbar,
+.modal-problem-table-wrapper::-webkit-scrollbar {
     width: 8px;
 }
 
-.table-scroll-wrapper::-webkit-scrollbar-track {
+.table-scroll-wrapper::-webkit-scrollbar-track,
+.modal-problem-table-wrap::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
 }
 
-.table-scroll-wrapper::-webkit-scrollbar-thumb {
+.table-scroll-wrapper::-webkit-scrollbar-thumb,
+.modal-problem-table-wrap::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 4px;
 }
 
-.table-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+.table-scroll-wrapper::-webkit-scrollbar-thumb:hover,
+.modal-problem-table-wrap::-webkit-scrollbar-thumb {
     background: #a0a0a0;
 }
 
 /* Firefox */
-.table-scroll-wrapper {
+.table-scroll-wrapper,
+.modal-problem-table-wrap {
     scrollbar-width: thin;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }

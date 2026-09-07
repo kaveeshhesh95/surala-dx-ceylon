@@ -240,6 +240,11 @@ main .login-card .login-btn:hover {
     margin: 15px 0 15px 15px;
 }
 
+.form-check-input {
+    top: 3px;
+    position: relative;
+}
+
 .form-check-input:checked {
     background-color: #afd02e !important;
     border-color: #afd02e !important;
@@ -292,6 +297,25 @@ main .login-card .login-btn:hover {
 .data-table td {
     border: 1px solid #e0e0e0;
     vertical-align: middle;
+}
+
+#table-page .table-scroll-wrapper {
+    width: 100%;
+    max-width: 100%;
+    max-height: min(52vh, 640px);
+    overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+#table-page .table-scroll-wrapper>table {
+    margin-top: 0;
+}
+
+#table-page .table-scroll-wrapper>table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 /* #table-page .admin-container.cnt-01 .data-table thead tr th:nth-child(1) {
@@ -362,7 +386,7 @@ main .login-card .login-btn:hover {
 
 #table-page select.form-control {
     appearance: none;
-    background-image: url("../assets/images/icon-arrow-down.png");
+    background-image: url("../images/icon-arrow-down.png");
     background-size: 10px 7px;
     background-repeat: no-repeat;
     background-position: right 12px center;
@@ -421,14 +445,14 @@ main .login-card .login-btn:hover {
 #table-page .btn-dark {
     background-color: #1f2329;
     color: #fff;
-    min-width: 120px;
+    min-width: 150px;
 }
 
 #table-page .btn-outline {
     background-color: #fff;
     border-color: #dcdfe6;
     color: #333;
-    min-width: 120px;
+    min-width: 150px;
 }
 
 #table-page .btn-action {
@@ -584,8 +608,7 @@ main .login-card .login-btn:hover {
 
 .icon-group {
     display: flex;
-    width: 30px;
-    justify-content: space-between;
+    justify-content: space-evenly;
     color: #888;
     font-size: 14px;
     gap: 2px;
@@ -941,7 +964,7 @@ main .login-card .login-btn:hover {
     padding: 10px 8px;
     background-color: #e8ecef;
     color: #495057;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 700;
     text-align: center;
     border-bottom: 1px solid #dee2e6;
@@ -1017,12 +1040,9 @@ main .login-card .login-btn:hover {
 #modalForm .modal-problem-table-two th,
 #modalForm .modal-problem-table-two td,
 #modalForm .modal-problem-table-three th,
-#modalForm .modal-problem-table-three td
-#modalForm .modal-problem-table-four th,
-#modalForm .modal-problem-table-four td
-#modalForm .modal-problem-table-five th,
-#modalForm .modal-problem-table-five td
- {
+#modalForm .modal-problem-table-three td #modalForm .modal-problem-table-four th,
+#modalForm .modal-problem-table-four td #modalForm .modal-problem-table-five th,
+#modalForm .modal-problem-table-five td {
     min-width: 0;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -1038,7 +1058,7 @@ main .login-card .login-btn:hover {
     padding: 10px 8px;
     background-color: #e8ecef;
     color: #495057;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 700;
     text-align: center;
     border-bottom: 1px solid #dee2e6;
@@ -1335,12 +1355,9 @@ main .login-card .login-btn:hover {
 #modalForm2 .modal-problem-table-two th,
 #modalForm2 .modal-problem-table-two td,
 #modalForm2 .modal-problem-table-three th,
-#modalForm2 .modal-problem-table-three td
-#modalForm2 .modal-problem-table-four th,
-#modalForm2 .modal-problem-table-four td
-#modalForm2 .modal-problem-table-five th,
-#modalForm2 .modal-problem-table-five td
-{
+#modalForm2 .modal-problem-table-three td #modalForm2 .modal-problem-table-four th,
+#modalForm2 .modal-problem-table-four td #modalForm2 .modal-problem-table-five th,
+#modalForm2 .modal-problem-table-five td {
     min-width: 0;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -1416,7 +1433,7 @@ main .login-card .login-btn:hover {
 }
 
 #modalForm2 .modal-problem-table-two th:nth-child(3),
-#modalForm2 .modal-problem-table-two td:nth-child(3){
+#modalForm2 .modal-problem-table-two td:nth-child(3) {
     width: 8%;
 }
 
@@ -1439,6 +1456,7 @@ main .login-card .login-btn:hover {
 #modalForm2 .modal-problem-table-two td:nth-child(4) {
     width: 10%;
 }
+
 #modalForm2 .modal-problem-table-three th:nth-child(4),
 #modalForm2 .modal-problem-table-three td:nth-child(4) {
     width: 12%;
@@ -1458,6 +1476,7 @@ main .login-card .login-btn:hover {
 #modalForm2 .modal-problem-table-two td:nth-child(5) {
     width: 10%;
 }
+
 #modalForm2 .modal-problem-table-three th:nth-child(5),
 #modalForm2 .modal-problem-table-three td:nth-child(5) {
     width: 14%;
@@ -1562,7 +1581,7 @@ main .login-card .login-btn:hover {
 }
 
 
-.cell-text{
+.cell-text {
     text-align: left;
 }
 
@@ -1778,6 +1797,7 @@ main .login-card .login-btn:hover {
     color: #909399;
     cursor: pointer;
 }
+
 #table-page .data-table .icon-btn:hover {
     color: #1f2329;
 }
@@ -2388,8 +2408,8 @@ main .login-card .login-btn:hover {
 #table-page .data-table-three .icon-btn[title="Delete"],
 #table-page .data-table-four .icon-btn[title="Delete"],
 #table-page .data-table-five .icon-btn[title="Delete"] {
-    width: 18px;
-    height: 18px;
+    width: 1.1vw;
+    height: 1.1vw;
     font-size: 0;
     background: url("../images/icon-bin.png") center / contain no-repeat;
 }
@@ -2399,8 +2419,8 @@ main .login-card .login-btn:hover {
 #table-page .data-table-three .icon-btn[title="Add"],
 #table-page .data-table-four .icon-btn[title="Add"],
 #table-page .data-table-five .icon-btn[title="Add"] {
-    width: 18px;
-    height: 18px;
+    width: 1.1vw;
+    height: 1.1vw;
     font-size: 0;
     background: url("../images/icon-add-circle.png") center / contain no-repeat;
 }
@@ -2690,7 +2710,7 @@ main .login-card .login-btn:hover {
     }
 
     #table-page .data-table tbody tr td {
-        /* padding: 0.4166vw 0.5555vw; */
+        padding: 0.5vw 0.5vw;
     }
 
     #table-page .data-table tbody tr td:nth-child(1) {
@@ -2728,7 +2748,7 @@ main .login-card .login-btn:hover {
     }
 
     #table-page .data-table-two tbody tr td {
-        padding: 1.1111vw 0.8333vw;
+        /* padding: 1.1111vw 0.8333vw; */
     }
 
     #table-page .data-table-two tbody tr td:nth-child(1) {
@@ -2757,7 +2777,7 @@ main .login-card .login-btn:hover {
     }
 
     #table-page .data-table-three tbody tr td {
-        padding: 1.1111vw 0.8333vw;
+        /* padding: 1.1111vw 0.8333vw; */
     }
 
     /* #table-page .data-table-three tbody tr td:nth-last-child(1) {
@@ -2875,4 +2895,115 @@ main .login-card .login-btn:hover {
     #registerModal .modal-dialog .modal-content .modal-header .btn-close {
         font-size: 0.9722vw;
     }
+
+    /* Control buttons (↑/↓ arrows) */
+    #table-page .data-table .control-btn,
+    #table-page .data-table-two .control-btn,
+    #table-page .data-table-three .control-btn,
+    #table-page .data-table-four .control-btn,
+    #table-page .data-table-five .control-btn {
+        width: 1.6666vw;
+        height: 1.6666vw;
+        font-size: 0.8333vw;
+        border-radius: 0.2777vw;
+        border-width: 0.0694vw;
+    }
+
+    /* Empty placeholder buttons */
+    #table-page .data-table .empty-btn,
+    #table-page .data-table-two .empty-btn,
+    #table-page .data-table-three .empty-btn,
+    #table-page .data-table-four .empty-btn,
+    #table-page .data-table-five .empty-btn {
+        width: 1.6666vw;
+        height: 1.6666vw;
+        font-size: 0.8333vw;
+    }
+
+    /* Item controls container spacing */
+    #table-page .data-table .item-controls,
+    #table-page .data-table .item-controls-sub,
+    #table-page .data-table-two .item-controls,
+    #table-page .data-table-two .item-controls-sub,
+    #table-page .data-table-three .item-controls,
+    #table-page .data-table-three .item-controls-sub,
+    #table-page .data-table-four .item-controls,
+    #table-page .data-table-four .item-controls-sub,
+    #table-page .data-table-five .item-controls,
+    #table-page .data-table-five .item-controls-sub {
+        gap: 0.1388vw;
+        flex: 0 0 1.6666vw;
+    }
+}
+
+@media screen and (max-width: 1201px) {
+
+    #table-page .data-table .item-controls,
+    #table-page .data-table-two .item-controls-sub,
+    #table-page .data-table-three .item-controls-sub,
+    #table-page .data-table-four .item-controls,
+    #table-page .data-table-five .item-controls {
+        display: block;
+        padding-right: 5px;
+    }
+
+    #table-page .data-table .empty-btn,
+    #table-page .data-table-two .empty-btn,
+    #table-page .data-table-three .empty-btn,
+    #table-page .data-table-four .empty-btn,
+    #table-page .data-table-five .empty-btn {
+        display: none;
+    }
+
+    #table-page .data-table .icon-btn[title="Delete"],
+    #table-page .data-table-two .icon-btn[title="Delete"],
+    #table-page .data-table-three .icon-btn[title="Delete"],
+    #table-page .data-table-four .icon-btn[title="Delete"],
+    #table-page .data-table-five .icon-btn[title="Delete"] {
+        width: 1.5vw;
+        height: 1.5vw;
+    }
+
+    #table-page .data-table .icon-btn[title="Add"],
+    #table-page .data-table-two .icon-btn[title="Add"],
+    #table-page .data-table-three .icon-btn[title="Add"],
+    #table-page .data-table-four .icon-btn[title="Add"],
+    #table-page .data-table-five .icon-btn[title="Add"] {
+        width: 1.5vw;
+        height: 1.5vw;
+    }
+
+    #table-page .data-table .control-btn,
+    #table-page .data-table-two .control-btn,
+    #table-page .data-table-three .control-btn,
+    #table-page .data-table-four .control-btn,
+    #table-page .data-table-five .control-btn {
+        width: 1.8vw;
+        height: 1.8vw;
+    }
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+.table-scroll-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+/* Firefox */
+.table-scroll-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
 }

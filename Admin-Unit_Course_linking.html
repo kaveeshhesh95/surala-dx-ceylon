@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Unit Course Linking Screen</title>
     <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
-    <style>
-
-
-    </style>
     <link rel="stylesheet" href="assets/css/datatable.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -63,17 +59,20 @@
                                 <option value="table-02">中学数学 教科書単元</option>
                                 <option value="table-03">SPI対策コース</option>
                                 <option value="table-04">学力診断テスト_算数・数学_中1</option>
-                                <!-- <option value="table-05">学力診断テスト_算数・数学_中1 -2</option> -->
+                                <option value="table-05">プレテスト_算数・数学_小4</option>
                             </select>
                         </div>
                         <div class="form-group max-width">
                             <label>第二階層</label>
-                            <select class="form-control"></select>
+                            <select id="second-sub-select" class="form-control">
+                                <option value="none"></option>
+                                <option value="tokyo_shoseki">東京書籍：新しい算数4年上</option>
+                            </select>
                         </div>
                         <div class="form-group max-width">
                             <div class="d-flex justify-content-end align-items-end mt-4">
                                 <div class="d-flex gap-2 float-right">
-                                    <button class="btn btn-dark-action">新規登録</button>
+                                    <button class="btn btn-dark-action">階層を表示</button>
                                 </div>
                             </div>
                         </div>
@@ -114,330 +113,359 @@
 
                 <!-- Data Tables -->
                 <div id="table-01" class="table d-block">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>コース</th>
-                                <th>ステージ</th>
-                                <th>レッスン</th>
-                                <th>ユニット</th>
-                                <th>コンテンツ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- 1 Main Row Starts here -->
-                            <!-- Row 1 -->
-                            <tr>
-                                <td rowspan="8" class="course-cell">
-                                    <div class="cell-inner-main">
-                                        <div class="cell-text-main">
-                                            <div>中学数学</div>
-                                            <div>ドリルコース</div>
+                    <div class="table-scroll-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>コース</th>
+                                    <th>ステージ</th>
+                                    <th>レッスン</th>
+                                    <th>ユニット</th>
+                                    <th>コンテンツ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 1 Main Row Starts here -->
+                                <!-- Row 1 -->
+                                <tr>
+                                    <td rowspan="8" class="course-cell">
+                                        <div class="cell-inner-main">
+                                            <div class="cell-text-main">
+                                                <div class="text-dark">中学数学</div>
+                                                <div class="text-dark">ドリルコース</div>
+                                            </div>
+                                            <button class="icon-btn mt-2" title="Add" data-bs-toggle="modal"
+                                                data-bs-target="#modalForm"></button>
                                         </div>
-                                        <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                            data-bs-target="#modalForm"></button>
-                                    </div>
-                                </td>
-                                <td rowspan="5">
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↓</button>
-                                            <button class="empty-btn"></button>
+                                    </td>
+                                    <td rowspan="5">
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↓</button>
+                                                <button class="empty-btn"></button>
+                                            </div>
+                                            <div class="cell-text main-sub-1">
+                                                <div class="text-dark">Stage5</div>
+                                                <div class="text-dark">正負の数・文字...</div>
+                                            </div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <div class="cell-text main-sub-1">
-                                            <div>Stage5</div>
-                                            <div>正負の数・文字...</div>
+                                    </td>
+                                    <td rowspan="3">
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↓</button>
+                                                <button class="empty-btn"></button>
+                                            </div>
+                                            <span class="cell-text text-dark">Lesson1 正負の数</span>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
+                                    </td>
+                                    <td rowspan="2">
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↓</button>
+                                                <button class="empty-btn"></button>
+                                            </div>
+                                            <span class="cell-text text-dark">Unit1 正負的数的加法</span>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                    data-bs-target="#modalForm2">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td rowspan="3">
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↓</button>
-                                            <button class="empty-btn"></button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↓</button>
+                                                <button class="empty-btn"></button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span class="sub-id">レクチャー1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text">Lesson1 正負の数</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span>ドリル1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td rowspan="2">
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↓</button>
-                                            <button class="empty-btn"></button>
+                                    </td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <span class="cell-text text-dark">Unit2 正負的数の加法</span>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                    data-bs-target="#modalForm2">⊕</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text">Unit1 正負的数的加法</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                                data-bs-target="#modalForm2">⊕</button>
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span>レクチャー1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↓</button>
-                                            <button class="empty-btn"></button>
+                                    </td>
+                                </tr>
+                                <!-- Row 4 -->
+                                <tr>
+                                    <td rowspan="2">
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <span class="cell-text text-dark">Lesson2 正負の数</span>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text"><span>レクチャー1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <span class="cell-text text-dark">Unit1 正負的数の加法</span>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                    data-bs-target="#modalForm2">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 2 -->
-                            <tr>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span>ドリル1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text"><span>ドリル1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 5 -->
+                                <tr>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls test-ele">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text text-dark">Unit2 正負的数の加法</div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                    data-bs-target="#modalForm2">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 3 -->
-                            <tr>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span>レクチャー1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text">Unit2 正負的数の加法</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                                data-bs-target="#modalForm2">⊕</button>
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 6 -->
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text main-sub-1 text-dark">
+                                                <span>Stage6</span><br>正負の数・文字...
+                                            </div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td rowspan="2">
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text text-dark">Lesson1 正負の数</div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text"><span>レクチャー1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text text-dark">Unit1 正負的数の加法</div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                    data-bs-target="#modalForm2">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 4 -->
-                            <tr>
-                                <td rowspan="2">
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span>ドリル1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text">Lesson2 正負の数</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 7 -->
+                                <tr>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text text-dark">Unit2 正負的数の加法</div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                    data-bs-target="#modalForm2">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span>ドリル1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text">Unit1 正負的数的加法</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                                data-bs-target="#modalForm2">⊕</button>
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 8 -->
+                                <tr>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text text-dark">Lesson2 正負の数</div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text text-dark">Unit1 正負的数の加法</div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                    data-bs-target="#modalForm2">⊕</button>
+                                            </div>
                                         </div>
-                                        <span class="cell-text"><span>ドリル1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                                    </td>
+                                    <td>
+                                        <div class="cell-inner">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="cell-text">
+                                                <span>レクチャー1</span>
+                                                <div class="text-dark">2次関数的グラフ(1)</div>
+                                            </div>
+                                            <div class="icon-group action-icon justify-content-end">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 5 -->
-                            <tr>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls test-ele">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text">Unit2 正負的数的加法</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                                data-bs-target="#modalForm2">⊕</button>
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text"><span>レクチャー1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 6 -->
-                            <tr>
-                                <td rowspan="3">
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text main-sub-1">Stage6<br>正負の数・文字...</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td rowspan="2">
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text">Lesson1 正負の数</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text">Unit1 正負的数的加法</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                                data-bs-target="#modalForm2">⊕</button>
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text"><span>ドリル1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 7 -->
-                            <tr>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text">Unit2 正負的数的加法</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                                data-bs-target="#modalForm2">⊕</button>
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text"><span>ドリル1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 8 -->
-                            <tr>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text">Lesson2 正負の数</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text">Unit1 正負的数的加法</span>
-                                        <div class="icon-group action-icon">
-                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                                data-bs-target="#modalForm2">⊕</button>
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-inner">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
-                                        </div>
-                                        <span class="cell-text"><span>レクチャー1</span><br>2次関数的グラフ(1)</span>
-                                        <div class="icon-group action-icon justify-content-end">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- 1 Main Row Ends Here -->
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                                <!-- 1 Main Row Ends Here -->
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
@@ -448,234 +476,235 @@
                     </div>
                 </div>
                 <div id="table-02" class="table d-none">
-                    <table class="data-table-two">
-                        <colgroup>
-                            <col class="course-column">
-                            <col class="textbook-column">
-                            <col class="unit-column">
-                            <col class="content-column">
-                            <col class="empty-column">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>コース</th>
-                                <th>教科書</th>
-                                <th>ユニット</th>
-                                <th>コンテンツ</th>
-                                <th class="empty-column"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Row Set 1 -->
-                            <tr>
-                                <td rowspan="8">
-                                    <div class="item-cell">
-                                        <span></span>
-                                        <span>中学数学 教科書単元</span>
-                                        <button class="icon-btn" title="Add">⊕</button>
-                                    </div>
-                                </td>
-                                <td rowspan="8">
-                                    <div class="item-cell">
-                                        <span></span>
-                                        <span>東京書籍 新しい数学1</span>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                    <div class="table-scroll-wrapper">
+                        <table class="data-table-two">
+                            <thead>
+                                <tr>
+                                    <th>コース</th>
+                                    <th>教科書</th>
+                                    <th>ユニット</th>
+                                    <th>コンテンツ</th>
+                                    <th class="empty-column"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Row Set 1 -->
+                                <tr>
+                                    <td rowspan="8">
+                                        <div class="item-cell">
+                                            <span></span>
+                                            <span class="text-dark">中学数学 教科書単元</span>
                                             <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <!-- Unit 1-1-1 -->
-                                <td rowspan="3">
-                                    <div class="item-cell">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td rowspan="8">
+                                        <div class="item-cell">
+                                            <span></span>
+                                            <span class="text-dark">東京書籍 新しい数学1</span>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <div class="text-start">
-                                            <div>1-1-1</div>
-                                            <div>正負の数：符号のついた数</div>
+                                    </td>
+                                    <!-- Unit 1-1-1 -->
+                                    <td rowspan="3">
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div>1-1-1</div>
+                                                    <div class="text-dark">正負の数：符号のついた数</div>
+                                                </div>
+                                            </div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <div class="d-flex gap-2">
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="empty-btn"></button>
+                                                </div>
+                                                <div class="">
+                                                    <span>レクチャー</span>
+                                                    <div class="text-dark">符号のついた数</div>
+                                                </div>
+                                            </div>
                                             <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                    <td class="empty-column" rowspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <span>ドリル1</span>
+                                                    <div class="text-dark">符号のついた数1</div>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <span>レクチャー</span>
-                                                <div>符号のついた数</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                                <td class="empty-column" rowspan="8"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <span>ドリル2</span>
+                                                    <div class="text-dark">符号のついた数2</div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <span>ドリル1</span>
-                                                <div>符号のついた数1</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
-                                            </div>
-                                            <div>
-                                                <span>ドリル2</span>
-                                                <div>符号のついた数2</div>
-                                            </div>
-                                        </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
 
-                            <!-- Unit 1-1-2 -->
-                            <tr>
-                                <td rowspan="3">
-                                    <div class="item-cell">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                <!-- Unit 1-1-2 -->
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div>1-1-2</div>
+                                                    <div class="text-dark">正負の数：数の大小</div>
+                                                </div>
+                                            </div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <div class="text-start">
-                                            <div>1-1-2</div>
-                                            <div>正負の数：数の大小</div>
-                                        </div>
-                                        <div class="d-flex gap-2">
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <span>レクチャー1</span>
+                                                    <div class="text-dark">数直線</div>
+                                                </div>
+                                            </div>
                                             <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div class="">
+                                                    <span>ドリル1</span>
+                                                    <div class="text-dark">数直線</div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <span>レクチャー1</span>
-                                                <div>数直線</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <div>レクチャー1</div>
+                                                    <div class="text-dark">正負の数の大小</div>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <span>ドリル1</span>
-                                                <div>数直線</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
-                                            </div>
-                                            <div>
-                                                <div>レクチャー1</div>
-                                                <div>正負の数の大小</div>
-                                            </div>
-                                        </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
 
-                            <!-- Unit 1-2-1 -->
-                            <tr>
-                                <td rowspan="2">
-                                    <div class="item-cell">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                <!-- Unit 1-2-1 -->
+                                <tr>
+                                    <td rowspan="2">
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div>1-2-1</div>
+                                                    <div class="text-dark">加法と減法：加法</div>
+                                                </div>
+                                            </div>
+                                            <div class="icon-group action-icon">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                        <div class="text-start">
-                                            <div>1-2-1</div>
-                                            <div>加法と減法：加法</div>
-                                        </div>
-                                        <div class="d-flex gap-2">
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <span>レクチャー1</span>
+                                                    <div class="text-dark">同符号同士の加法</div>
+                                                </div>
+                                            </div>
                                             <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <div>レクチャー1</div>
+                                                    <div class="text-dark">正負の数の大小</div>
+                                                </div>
                                             </div>
-                                            <div class="text-start">
-                                                <span>レクチャー1</span>
-                                                <div>同符号同士の加法</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
-                                            </div>
-                                            <div>
-                                                <div>レクチャー1</div>
-                                                <div>正負の数の大小</div>
-                                            </div>
-                                        </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
@@ -686,228 +715,223 @@
                     </div>
                 </div>
                 <div id="table-03" class="table d-none">
-                    <table class="data-table-three">
-                        <colgroup>
-                            <col class="course-column">
-                            <col class="unit-column">
-                            <col class="content-column">
-                            <col class="empty-column">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>コース</th>
-                                <th>ユニット</th>
-                                <th>コンテンツ</th>
-                                <th class="empty-column"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Row Set 1 -->
-                            <tr>
-                                <td rowspan="8">
-                                    <div class="item-cell">
-                                        <span></span>
-                                        <span>SPI対策コース</span>
-                                        <button class="icon-btn" title="Add">⊕</button>
-                                    </div>
-                                </td>
-                                <!-- Unit 1-1-1 -->
-                                <td rowspan="4">
-                                    <div class="item-cell">
-                                        <div class="d-flex gap-3 align-items-center">
-                                            <div class="item-controls">
-                                                <button class="control-btn">↑</button>
-                                                <button class="control-btn">↓</button>
-                                            </div>
-                                            <div class="text-start">
-                                                <!-- <div>1-1-1</div> -->
-                                                <div>正負の数：符号のついた数</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                    <div class="table-scroll-wrapper">
+                        <table class="data-table-three">
+                            <thead>
+                                <tr>
+                                    <th>コース</th>
+                                    <th>ユニット</th>
+                                    <th>コンテンツ</th>
+                                    <th class="empty-column"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Row Set 1 -->
+                                <tr>
+                                    <td rowspan="8">
+                                        <div class="item-cell">
+                                            <span></span>
+                                            <span class="text-dark">SPI対策コース</span>
                                             <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                    <!-- Unit 1-1-1 -->
+                                    <td rowspan="4">
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div class="text-dark">比の理解と計算</div>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <span>レクチャー</span>
-                                                <div>符号のついた数</div>
-                                            </div>
-                                        </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                                <td class="empty-column" rowspan="8"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
-                                            </div>
-                                            <div>
-                                                <span>ドリル1</span>
-                                                <div>符号のついた数1</div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="empty-btn"></button>
+                                                </div>
+                                                <div class="">
+                                                    <span>レクチャー</span>
+                                                    <div class="text-dark">符号のついた数</div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <span>ドリル2</span>
-                                                <div>符号のついた数2</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                    <td class="empty-column" rowspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <span>ドリル1</span>
+                                                    <div class="text-dark">符号のついた数1</div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <span>レクチャー1</span>
-                                                <div>数直線</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <span>ドリル2</span>
+                                                    <div class="text-dark">符号のついた数2</div>
+                                                </div>
+                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <span>レクチャー1</span>
+                                                    <div class="text-dark">数直線</div>
+                                                </div>
+                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                            <!-- Unit 1-1-2 -->
-                            <tr>
-                                <td rowspan="2">
-                                    <div class="item-cell">
-                                        <div class="d-flex gap-3 align-items-center">
-                                            <div class="item-controls">
-                                                <button class="control-btn">↑</button>
-                                                <button class="control-btn">↓</button>
+                                <!-- Unit 1-1-2 -->
+                                <tr>
+                                    <td rowspan="2">
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <span>速度の公式の</span>
+                                                    <div class="text-dark">理解と計算</div>
+                                                </div>
                                             </div>
-                                            <div class="text-start">
-                                                <!-- <div>1-1-2</div> -->
-                                                <div>正負の数：数の大小</div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div class="">
+                                                    <span>ドリル1</span>
+                                                    <div class="text-dark">数直線</div>
+                                                </div>
+                                            </div>
                                             <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <div>レクチャー1</div>
+                                                    <div class="text-dark">正負の数の大小</div>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <span>ドリル1</span>
-                                                <div>数直線</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
-                                            </div>
-                                            <div>
-                                                <div>レクチャー1</div>
-                                                <div>正負の数の大小</div>
-                                            </div>
-                                        </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
 
-                            <!-- Unit 1-2-1 -->
-                            <tr>
-                                <td rowspan="2">
-                                    <div class="item-cell">
-                                        <div class="d-flex gap-3 align-items-center">
-                                            <div class="item-controls">
-                                                <button class="control-btn">↑</button>
-                                                <button class="control-btn">↓</button>
+                                <!-- Unit 1-2-1 -->
+                                <tr>
+                                    <td rowspan="2">
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <span>公約数と</span>
+                                                    <div class="text-dark">最大公約数</div>
+                                                </div>
                                             </div>
-                                            <div class="text-start">
-                                                <!-- <div>1-2-1</div> -->
-                                                <div>加法と減法：加法</div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <span>レクチャー1</span>
+                                                    <div class="text-dark">同符号同士の加法</div>
+                                                </div>
+                                            </div>
                                             <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div>
+                                                    <div>レクチャー1</div>
+                                                    <div class="text-dark">正負の数の大小</div>
+                                                </div>
                                             </div>
-                                            <div class="text-start">
-                                                <span>レクチャー1</span>
-                                                <div>同符号同士の加法</div>
-                                            </div>
+                                            <button class="icon-btn" title="Delete">🗑</button>
                                         </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
-                                            </div>
-                                            <div>
-                                                <div>レクチャー1</div>
-                                                <div>正負の数の大小</div>
-                                            </div>
-                                        </div>
-                                        <button class="icon-btn" title="Delete">🗑</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
@@ -918,118 +942,115 @@
                     </div>
                 </div>
                 <div id="table-04" class="table d-none">
-                    <table class="data-table-four">
-                        <colgroup>
-                            <col class="course-column">
-                            <col class="content-column">
-                            <col class="empty-column">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>コース</th>
-                                <th>コンテンツ</th>
-                                <th class="empty-column"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Row Set 1 -->
-                            <tr>
-                                <td rowspan="8">
-                                    <div class="item-cell">
-                                        <div>
-                                            <span>学力診断テスト</span>
-                                            <div>_算数・数学_中1</div>
-                                        </div>
-                                        <button class="icon-btn" title="Add">⊕</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                    <div class="table-scroll-wrapper">
+                        <table class="data-table-four">
+                            <thead>
+                                <tr>
+                                    <th>コース</th>
+                                    <th>コンテンツ</th>
+                                    <th class="empty-column"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Row Set 1 -->
+                                <tr>
+                                    <td rowspan="8">
+                                        <div class="item-cell">
+                                            <div>
+                                                <span class="text-dark">学力診断テスト</span>
+                                                <div class="text-dark">_算数・数学_中1</div>
                                             </div>
-                                            <div class="">
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_1学期_</div>
-                                                <div>総復習_偏差値なし</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
                                             <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="empty-column" rowspan="8"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="empty-btn"></button>
+                                                </div>
+                                                <div class="">
+                                                    <span>学力診断テスト_</span>
+                                                    <div class="text-dark">中1数学_1学期_</div>
+                                                    <div class="text-dark">総復習_偏差値なし</div>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_1学期_</div>
-                                                <div>総復習_偏差値なし</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
-                                            </div>
-                                            <div class="">
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_1学期_</div>
-                                                <div>総復習_偏差値なし</div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
+                                    </td>
+                                    <td class="empty-column" rowspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div class="">
+                                                    <span>学力診断テスト_</span>
+                                                    <div class="text-dark">中1数学_1学期_</div>
+                                                    <div class="text-dark">総復習_偏差値なし</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div class="">
+                                                    <span>学力診断テスト_</span>
+                                                    <div class="text-dark">中1数学_1学期_</div>
+                                                    <div class="text-dark">総復習_偏差値なし</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="item-controls-sub">
-                                                <button class="control-btn">↓</button>
-                                                <button class="control-btn">↑</button>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↓</button>
+                                                    <button class="control-btn">↑</button>
+                                                </div>
+                                                <div class="">
+                                                    <span>学力診断テスト_</span>
+                                                    <div class="text-dark">中1数学_1学期_</div>
+                                                    <div class="text-dark">総復習_偏差値なし</div>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_1学期_</div>
-                                                <div>総復習_偏差値なし</div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
@@ -1040,115 +1061,125 @@
                     </div>
                 </div>
                 <div id="table-05" class="table d-none">
-                    <!-- <table class="data-table-five">
-                        <colgroup>
-                            <col class="course-column">
-                            <col class="textbook-column">
-                            <col class="content-column">
-                            <col class="empty-column">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>コース</th>
-                                <th>教科書</th>
-                                <th>コンテンツ</th>
-                                <th class="empty-column"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="4">
-                                    <div class="item-cell">
-                                        <div class="text-start">
-                                            <span>中学数学</span>
-                                            <div>教科書単元</div>
-                                        </div>
-                                        <button class="icon-btn" title="Add">⊕</button>
-                                    </div>
-                                </td>
-                                <td rowspan="4">
-                                    <div class="item-cell">
-                                        <div class="text-start">
-                                            <span>東京書籍</span>
-                                            <div>新しい数学1</div>
-                                        </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
+                    <div class="table-scroll-wrapper">
+                        <table class="data-table-five">
+                            <thead>
+                                <tr>
+                                    <th>コース</th>
+                                    <th>教科書</th>
+                                    <th>コンテンツ</th>
+                                    <th class="empty-column"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="4">
+                                        <div class="item-cell">
+                                            <div class="text-start">
+                                                <span class="text-dark">プレテスト_</span>
+                                                <div class="text-dark">算数・数学_小4</div>
+                                            </div>
                                             <button class="icon-btn" title="Add">⊕</button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div class="">
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_1学期_</div>
-                                                <div>総復習_偏差値なし</div>
+                                    </td>
+                                    <td rowspan="4">
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <span>東京書籍：</span>
+                                                    <div class="text-dark">新しい算数4年上</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="empty-column" rowspan="8"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div>
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_2学期_</div>
-                                                <div>総復習_偏差値なし</div>
+                                    </td>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div class="text-dark">1. 大きい数のしくみ</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div>
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_3学期_</div>
-                                                <div>総復習_偏差値なし</div>
+                                    </td>
+                                    <td class="empty-column" rowspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div class="text-dark">2. 折れ線グラフ</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div class="text-dark">3. わり算のひっ算</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td>
-                                    <div class="item-cell">
-                                        <div class="item-cell-text text-start">
-                                            <div>
-                                                <span>学力診断テスト_</span>
-                                                <div>中1数学_1学期_</div>
-                                                <div>総復習_偏差値あり</div>
+                                <tr>
+                                    <td>
+                                        <div class="item-cell">
+                                            <div class="item-cell-text text-start">
+                                                <div class="item-controls-sub">
+                                                    <button class="control-btn">↑</button>
+                                                    <button class="control-btn">↓</button>
+                                                </div>
+                                                <div class="text-start">
+                                                    <div class="text-dark">4. 角の大きさ</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <button class="icon-btn" title="Delete">🗑</button>
+                                                <button class="icon-btn" title="Add">⊕</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button class="icon-btn" title="Delete">🗑</button>
-                                            <button class="icon-btn" title="Add">⊕</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
@@ -1174,7 +1205,7 @@
                                     <div class="text-start mb-2">
                                         <!-- Title -->
                                         <h5 id="head-title" class="breadcrumb table-01 mt-2">
-                                            中学数学 ドリルコース
+                                            <span class="text-dark">中学数学 ドリルコース</span>
                                         </h5>
                                     </div>
                                     <div class="filter-row mt-4">
@@ -1301,7 +1332,7 @@
                                     <div class="add_unit_filter d-none">
                                         <div class="filter-row">
                                             <div class="form-group max-width">
-                                                <label for="courseType" class="form-label">ステージ</label>
+                                                <label for="courseType" class="form-label">ユニット</label>
                                                 <input type="text" class="form-control" id="courseName"
                                                     value="検索対象カラム：ステージID／ステージ名／ステージタイトル">
                                             </div>
@@ -1313,24 +1344,24 @@
                                             <div class="form-group col-sm-4">
                                                 <label>コースタイプ</label>
                                                 <select class="form-control">
-                                                    <option>レクチャー・ドリル</option>
+                                                    <option>あり</option>
                                                 </select>
                                             </div>
                                             <div class="form-group max-width">
                                                 <label for="courseType" class="form-label">ステージ</label>
                                                 <input type="text" class="form-control" id="courseName"
-                                                    value="検索対象カラム：ステージID／ステージ名／ステージタイトル">
+                                                    value="検索対象カラム：テストID/テスト名">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="filter-row d-flex">
-                                        <div class="form-group d-flex max-width gap-2">
-                                            <div class="checkbox-group form-check">
+                                        <div id="checkbox-sec" class="form-group d-flex max-width gap-2">
+                                            <div id="checkbox-sec-1" class="checkbox-group form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="checkDefault" checked>
                                                 <label class="form-check-label" for="checkDefault">非表示も含めて表示する</label>
                                             </div>
-                                            <div class="checkbox-group form-check">
+                                            <div id="checkbox-sec-2" class="checkbox-group form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="checkDefault2" checked>
                                                 <label class="form-check-label"
@@ -1349,8 +1380,9 @@
                                             <table class="modal-problem-table">
                                                 <thead>
                                                     <tr>
-                                                        <th>ステージ <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th class="text-center">表示設定 <span
+                                                        <th class="text-dark">ステージ <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-center text-dark">表示設定 <span
                                                                 class="modal-sort-icon">▲▼</span></th>
                                                     </tr>
                                                 </thead>
@@ -1358,79 +1390,90 @@
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">XXXXXX</span>
-                                                            <div class="modal-cell-text">Stage5 正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">Stage5 正負の数・文字式・方程式
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1439,8 +1482,9 @@
                                             <table class="modal-problem-table-two">
                                                 <thead>
                                                     <tr>
-                                                        <th>レッスン <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th class="text-center">表示設定 <span
+                                                        <th class="text-dark">レッスン <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-center text-dark">表示設定 <span
                                                                 class="modal-sort-icon">▲▼</span></th>
                                                     </tr>
                                                 </thead>
@@ -1448,72 +1492,82 @@
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Lesson1</span>
-                                                            <div class="modal-cell-text">正負の数 正の数・負の数の概念と計算</div>
+                                                            <div class="modal-cell-text text-dark">正負の数 正の数・負の数の概念と計算
+                                                            </div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1522,8 +1576,9 @@
                                             <table class="modal-problem-table-three">
                                                 <thead>
                                                     <tr>
-                                                        <th>ユニット <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th class="text-center">表示設定 <span
+                                                        <th class="text-dark">ユニット <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-center text-dark">表示設定 <span
                                                                 class="modal-sort-icon">▲▼</span></th>
                                                     </tr>
                                                 </thead>
@@ -1531,72 +1586,72 @@
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
+                                                            <div class="modal-cell-text text-dark">正負の数・文字式・方程式</div>
                                                         </td>
-                                                        <td>表示</td>
+                                                        <td class="text-dark">表示</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1605,12 +1660,18 @@
                                             <table class="modal-problem-table-four">
                                                 <thead>
                                                     <tr>
-                                                        <th>教科書 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>出版社 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>教科 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>科目 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>対象学年 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>表示設定 <span class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">教科書 <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">出版社 <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">教科 <span class="modal-sort-icon">▲▼</span>
+                                                        </th>
+                                                        <th class="text-dark">科目 <span class="modal-sort-icon">▲▼</span>
+                                                        </th>
+                                                        <th class="text-dark">対象学年 <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">表示設定 <span
+                                                                class="modal-sort-icon">▲▼</span></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1709,10 +1770,14 @@
                                             <table class="modal-problem-table-five">
                                                 <thead>
                                                     <tr>
-                                                        <th>テストID <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>テスト名 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>テストカテゴリ <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>表示設定 <span class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">テストID <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">テスト名 <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">テストカテゴリ <span
+                                                                class="modal-sort-icon">▲▼</span></th>
+                                                        <th class="text-dark">表示設定 <span
+                                                                class="modal-sort-icon">▲▼</span></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -1795,7 +1860,7 @@
                                     <!-- Buttons -->
                                     <div class="d-flex justify-content-end align-items-center mt-4">
                                         <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-dark">登録する</button>
+                                            <button type="submit" class="btn btn-dark">紐付を設定する</button>
                                         </div>
                                     </div>
                                 </form>
@@ -2224,284 +2289,12 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <!-- <div id="main-table-add_unit" class="d-none">
-                                            <table class="modal-problem-table-three">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ユニット <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th class="text-center">表示設定 <span
-                                                                class="modal-sort-icon">▲▼</span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="modal-problem-id">Unit1</span>
-                                                            <div class="modal-cell-text">正負の数・文字式・方程式</div>
-                                                        </td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div id="main-table-add_textbook" class="d-none">
-                                            <table class="modal-problem-table-four">
-                                                <thead>
-                                                    <tr>
-                                                        <th>教科書 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>出版社 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>教科 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>科目 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>対象学年 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>表示設定 <span class="modal-sort-icon">▲▼</span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>新しい数学</td>
-                                                        <td>東京書籍</td>
-                                                        <td>算数・数学</td>
-                                                        <td>数学 I</td>
-                                                        <td>高校</td>
-                                                        <td>表示</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div id="main-table-add_test" class="d-none">
-                                            <table class="modal-problem-table-five">
-                                                <thead>
-                                                    <tr>
-                                                        <th>テストID <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>テスト名 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>テストカテゴリ <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th>表示設定 <span class="modal-sort-icon">▲▼</span></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>XXXXXXX</td>
-                                                        <td>中1 学力診断テスト...</td>
-                                                        <td>学力診断テスト</td>
-                                                        <td>表示</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div> -->
                                     </div>
 
                                     <!-- Buttons -->
                                     <div class="d-flex justify-content-end align-items-center mt-4">
                                         <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-dark">登録する</button>
+                                            <button type="submit" class="btn btn-dark">紐付を設定する</button>
                                         </div>
                                     </div>
                                 </form>
@@ -2522,13 +2315,9 @@
         let previousModalRadioTable = "add_stage";
         let previousModalRadioTableTwo = "add_lecture";
         function modalRadioHandler(val) {
-            console.log(val);
-
             // Form Filter Management
             let currentEleSelectors = document.getElementsByClassName(previousModalRadioTable + '_filter');
             let nextEleSelectors = document.getElementsByClassName(val + '_filter');
-            console.log(currentEleSelectors);
-            console.log(nextEleSelectors);
             let modalTopicEle = document.getElementById('head-title');
             let headerTxt = '<span>中学数学 ドリルコース</span>';
             if (val == 'add_stage') {
@@ -2544,30 +2333,34 @@
             }
             modalTopicEle.innerHTML = headerTxt;
             let btnBlk01 = document.getElementById('btn-block-01');
+            let checkSectionTwo = document.getElementById('checkbox-sec-2');
             if (val == 'add_textbook') {
-                console.log("on 1 Clause");
-
                 if (btnBlk01.classList.contains('d-block')) {
                     btnBlk01.classList.remove('d-block');
                 }
                 btnBlk01.classList.add('d-none');
+                if (checkSectionTwo.classList.contains('d-block')) {
+                    checkSectionTwo.classList.remove('d-block');
+                }
+                checkSectionTwo.classList.add('d-none');
             } else {
-                console.log("on 2 Clause");
                 if (btnBlk01.classList.contains('d-none')) {
                     btnBlk01.classList.remove('d-none');
                 }
                 btnBlk01.classList.add('d-block');
+                if (checkSectionTwo.classList.contains('d-none')) {
+                    checkSectionTwo.classList.remove('d-none');
+                }
+                checkSectionTwo.classList.add('d-block');
             }
             if (currentEleSelectors.length > 0 && nextEleSelectors.length > 0) {
 
                 for (let currentEle of currentEleSelectors) {
-                    console.log(currentEle);
                     currentEle.classList.remove('d-block');
                     currentEle.classList.add('d-none');
                 }
 
                 for (let nextEle of nextEleSelectors) {
-                    console.log(nextEle);
                     nextEle.classList.add('d-block');
                     nextEle.classList.remove('d-none');
                 }
@@ -2584,8 +2377,6 @@
             previousModalRadioTable = val;
         }
         function modalRadioHandlerTwo(val) {
-            console.log(val);
-
             // Form Filter Management
             let currentEleSelectors = document.getElementsByClassName(previousModalRadioTableTwo + '_filter');
             let nextEleSelectors = document.getElementsByClassName(val + '_filter');
@@ -2595,13 +2386,11 @@
             if (currentEleSelectors.length > 0 && nextEleSelectors.length > 0) {
 
                 for (let currentEle of currentEleSelectors) {
-                    console.log(currentEle);
                     currentEle.classList.remove('d-block');
                     currentEle.classList.add('d-none');
                 }
 
                 for (let nextEle of nextEleSelectors) {
-                    console.log(nextEle);
                     nextEle.classList.add('d-block');
                     nextEle.classList.remove('d-none');
                 }
@@ -2628,6 +2417,13 @@
 
             if (!previousSectionEle || !selectedSectionEle || previousSectionEle === selectedSectionEle) {
                 return;
+            }
+
+            let secondLevelSelect = document.getElementById('second-sub-select');
+            if (tableId == "table-05") {
+                secondLevelSelect.value = "tokyo_shoseki";
+            } else {
+                secondLevelSelect.value = "none";
             }
 
             previousSectionEle.style.transition = "opacity 0.25s ease, transform 0.25s ease";
