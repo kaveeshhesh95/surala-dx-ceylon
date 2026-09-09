@@ -1,0 +1,181 @@
+/* =========================================================
+   Fixed-header + body-only scroll for ALL tables on
+   Admin-Unit_Course_linking.html (main tables + modal tables).
+
+   Pattern (per the project's table header/body split convention):
+   each <table> is split into a header table inside
+   .table-head-wrapper (does NOT scroll) and a body table inside
+   .table-body-wrapper (the only scroll region), so the vertical
+   scrollbar starts at the top of <tbody>. Both tables share the
+   same <colgroup> + table-layout:fixed, which keeps the columns
+   aligned. Column widths are proportional (%) => responsive.
+
+   External file on purpose (no inline CSS).
+   ========================================================= */
+
+/* ---- 1. Outer containers no longer scroll themselves ---- */
+#table-page .table-scroll-wrapper {
+    max-height: none;
+    overflow: visible;
+}
+
+#stageAddModal .modal-problem-table-wrap,
+#lectureAddModal .modal-problem-table-wrap {
+    max-height: none;
+    overflow: visible;
+}
+
+/* ---- 2. Head / body wrappers ---- */
+/* Header stays put; scrollbar-gutter reserves the same gutter as the
+   body so the two tables keep identical widths (columns stay aligned). */
+.table-head-wrapper {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+}
+
+/* The head wrapper reserves a scrollbar gutter (scrollbar-gutter: stable) so its
+   columns stay aligned with the scrolling body. In the modals that reserved gutter
+   would otherwise show the wrapper's white background, so paint it the same gray
+   as the modal table header (#e8ecef) to remove the white strip on the right. */
+.modal-problem-table-wrap .table-head-wrapper {
+    background-color: #e8ecef;
+}
+
+/* Body is the only scrolling region -> the scrollbar starts here. */
+.table-body-wrapper {
+    overflow: auto;
+    scrollbar-gutter: stable;
+}
+
+/* Height of the scroll area: main tables vs. modal tables. */
+#table-page .table-scroll-wrapper .table-body-wrapper {
+    max-height: min(52vh, 640px);
+}
+
+#table-page .table-scroll-wrapper .table-head-wrapper { background-color: #eceff2; }
+
+.modal-problem-table-wrap .table-body-wrapper {
+    max-height: 290px;
+}
+
+/* Both split tables use identical fixed layout so the shared
+   <colgroup> widths line the header cells up with the body cells. */
+.table-head-wrapper > table,
+.table-body-wrapper > table {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 0;
+}
+
+/* ---- 3. Custom thin scrollbar on BOTH wrappers (matches the app).
+   Styling the head wrapper too keeps its reserved gutter identical to
+   the body's, which is what keeps the columns pixel-aligned. ---- */
+/* WebKit (Chrome, Edge, Safari) */
+.table-head-wrapper::-webkit-scrollbar,
+.table-body-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-head-wrapper::-webkit-scrollbar-track,
+.table-body-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-head-wrapper::-webkit-scrollbar-thumb,
+.table-body-wrapper::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.table-body-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+/* Firefox */
+.table-head-wrapper,
+.table-body-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+/* =========================================================
+   4. Responsive column widths (one <colgroup> per table).
+   Percentages sum to 100% so the table always fits its
+   container and never overflows horizontally.
+   ========================================================= */
+
+/* ---- Main table 1: コース / ステージ / レッスン / ユニット / コンテンツ ---- */
+#table-page .data-table col:nth-child(1) { width: 16%; }
+#table-page .data-table col:nth-child(2) { width: 18%; }
+#table-page .data-table col:nth-child(3) { width: 20%; }
+#table-page .data-table col:nth-child(4) { width: 22%; }
+#table-page .data-table col:nth-child(5) { width: 24%; }
+
+/* ---- Main table 2: コース / 教科書 / ユニット / コンテンツ / (empty) ---- */
+#table-page .data-table-two col:nth-child(1) { width: 10%; }
+#table-page .data-table-two col:nth-child(2) { width: 18%; }
+#table-page .data-table-two col:nth-child(3) { width: calc((100% - 80px) / 4); }
+#table-page .data-table-two col:nth-child(4) { width: calc((100% - 80px) / 4); }
+#table-page .data-table-two col:nth-child(5) { width: 80px; }
+
+/* ---- Main table 3: コース / ユニット / コンテンツ / (empty) ---- */
+#table-page .data-table-three col:nth-child(1) { width: 30%; }
+#table-page .data-table-three col:nth-child(2) { width: 45%; }
+#table-page .data-table-three col:nth-child(3) { width: 65%; }
+#table-page .data-table-three col:nth-child(4) { width: 10%; }
+
+/* ---- Main table 4: コース / コンテンツ / (empty) ---- */
+#table-page .data-table-four col:nth-child(1) { width: 30%; }
+#table-page .data-table-four col:nth-child(2) { width: 50%; }
+#table-page .data-table-four col:nth-child(3) { width: 20%; }
+
+/* ---- Main table 5: コース / 教科書 / コンテンツ / (empty) ---- */
+#table-page .data-table-five col:nth-child(1) { width: 15%; }
+#table-page .data-table-five col:nth-child(2) { width: 23%; }
+#table-page .data-table-five col:nth-child(3) { width: 31%; }
+#table-page .data-table-five col:nth-child(4) { width: 31%; }
+
+/* ---- Modal 1 (#stageAddModal) ---- */
+/* ステージ / 表示設定 */
+#stageAddModal .modal-problem-table col:nth-child(1) { width: 78%; }
+#stageAddModal .modal-problem-table col:nth-child(2) { width: 22%; }
+
+/* レッスン / 表示設定 */
+#stageAddModal .modal-problem-table-two col:nth-child(1) { width: 78%; }
+#stageAddModal .modal-problem-table-two col:nth-child(2) { width: 22%; }
+
+/* ユニット / 表示設定 */
+#stageAddModal .modal-problem-table-three col:nth-child(1) { width: 78%; }
+#stageAddModal .modal-problem-table-three col:nth-child(2) { width: 22%; }
+
+/* 教科書 / 出版社 / 教科 / 科目 / 対象学年 / 表示設定 */
+#stageAddModal .modal-problem-table-four col:nth-child(1) { width: 18%; }
+#stageAddModal .modal-problem-table-four col:nth-child(2) { width: 18%; }
+#stageAddModal .modal-problem-table-four col:nth-child(3) { width: 14%; }
+#stageAddModal .modal-problem-table-four col:nth-child(4) { width: 14%; }
+#stageAddModal .modal-problem-table-four col:nth-child(5) { width: 18%; }
+#stageAddModal .modal-problem-table-four col:nth-child(6) { width: 18%; }
+
+/* テストID / テスト名 / テストカテゴリ / 表示設定 / (empty) */
+#stageAddModal .modal-problem-table-five col:nth-child(1) { width: 16%; }
+#stageAddModal .modal-problem-table-five col:nth-child(2) { width: 28%; }
+#stageAddModal .modal-problem-table-five col:nth-child(3) { width: 22%; }
+#stageAddModal .modal-problem-table-five col:nth-child(4) { width: 18%; }
+#stageAddModal .modal-problem-table-five col:nth-child(5) { width: 16%; }
+
+/* ---- Modal 2 (#lectureAddModal) ---- */
+/* ユニット / レクチャー / ドリルタイプ / ドリルクリアモード / 表示設定 */
+#lectureAddModal .modal-problem-table col:nth-child(1) { width: 18%; }
+#lectureAddModal .modal-problem-table col:nth-child(2) { width: 20%; }
+#lectureAddModal .modal-problem-table col:nth-child(3) { width: 20%; }
+#lectureAddModal .modal-problem-table col:nth-child(4) { width: 26%; }
+#lectureAddModal .modal-problem-table col:nth-child(5) { width: 14%; }
+
+/* ドリル / 教科 / ドリルタイプ / ドリルクリアモード / 表示設定 */
+#lectureAddModal .modal-problem-table-two col:nth-child(1) { width: 18%; }
+#lectureAddModal .modal-problem-table-two col:nth-child(2) { width: 10%; }
+#lectureAddModal .modal-problem-table-two col:nth-child(3) { width: 16%; }
+#lectureAddModal .modal-problem-table-two col:nth-child(4) { width: 22%; }
+#lectureAddModal .modal-problem-table-two col:nth-child(5) { width: 16%; }

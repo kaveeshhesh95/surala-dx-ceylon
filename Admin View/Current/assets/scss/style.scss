@@ -220,8 +220,6 @@ main {
 .form-check-input:checked {
   background-color: $green !important;
   border-color: $green !important;
-  top: 3px;
-  position: relative;
 }
 #table-page {
 	// margin: 5px 15px 25px 15px;
@@ -241,30 +239,14 @@ main {
 				display: flex;
 				gap: 15px;
 				margin-bottom: 15px;
-				&.col3 {
-					.form-group {
-						width: calc(100% / 3);
-					}
-				}
 				.form-group {
 					width: 25%;
 					.form-control {
 						width: 100%;
 					}
-					.checkbox-options {
-						.checkbox-group {
-							width: 200px;
-							label {
-								font-weight: 400;
-							}
-						}
-					}
 				}
 				.max-width {
 					width: 100%
-				}
-				.lbl-title {
-					width: 200px;
 				}
 			}
 			.filter-buttons {
@@ -427,9 +409,6 @@ main {
 		border-color: #dcdfe6;
 		color: #333;
 		min-width: 120px;
-		.btn-sm {
-			min-width: 0px;
-		}
 	}
 
 	.btn-action {
@@ -451,7 +430,6 @@ main {
 		border-radius: 4px;
 		cursor: pointer;
 		border: none;
-		width: 150px;
 	}
 
 	/* Action Bar and Pagination Alignment */
@@ -540,11 +518,10 @@ main {
 		thead {
 			tr {
 				th {
-					font-size: 13px;
 					text-align: center;
 					background-color: #eceff2;
 					color: #000;
-					font-weight: 700;
+					font-weight: bold;
 					padding: 14px 12px;
 					border-bottom: 1px solid #dce0e5;
 					&:nth-child(1) {
@@ -743,6 +720,11 @@ main {
 				.btn-outline-dark {
 					border: 1px solid rgba($black, 0.2);
 				}
+				.required {
+					font-size: 12px;
+					color: #f00;
+					margin: 0 0 0 5px;
+				}
 				.section-note {
 					font-size: 13px;
 					font-weight: 700;
@@ -754,11 +736,6 @@ main {
 			}
 		}
 	}
-}
-.required {
-	font-size: 12px;
-	color: #f00;
-	margin: 0 0 0 5px;
 }
 
 // Responsive

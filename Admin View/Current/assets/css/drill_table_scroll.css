@@ -1,0 +1,160 @@
+/* =========================================================
+   Drill table: fixed header + body-only vertical scroll
+   Goal: the scrollbar starts at the top of <tbody>
+         (the <thead> stays fixed above the scroll area).
+   Added for Admin-Drill.html. Kept separate on purpose so
+   nothing is written as inline CSS.
+   ========================================================= */
+
+/* The outer wrapper no longer scrolls itself; the two inner
+   wrappers below split the header and the body. */
+#table-page .table-scroll-wrapper {
+    max-height: none;
+    overflow: visible;
+}
+
+/* Header lives OUTSIDE the scroll area, so it stays put.
+   scrollbar-gutter reserves the same gutter as the body,
+   which keeps the header/body columns perfectly aligned. */
+#table-page .table-head-wrapper {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+}
+
+/* Body is the ONLY scrolling region -> the scrollbar starts here. */
+#table-page .table-body-wrapper {
+    max-height: min(52vh, 640px);
+    overflow: auto;
+    scrollbar-gutter: stable;
+}
+
+/* Both tables use identical fixed column widths (see <colgroup>)
+   so the header cells line up with the body cells. */
+#table-page .data-table-head,
+#table-page .data-table-body {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 0;
+}
+
+/* Column widths are proportional (%) so the table scales fluidly and the
+   header + body stay aligned at every screen size. The flexible .cg-problem
+   column soaks up whatever width is left over, so the table never overflows
+   horizontally. Content (fonts/padding/heights) already scales via the vw
+   rules in drill_styles.css because both tables carry the .data-table class. */
+#table-page .data-table col.cg-drill   { width: 30%; }
+#table-page .data-table col.cg-problem { width: auto; }
+#table-page .data-table col.cg-num     { width: 8%; }
+#table-page .data-table col.cg-sub     { width: 18%; }
+#table-page .data-table col.cg-action  { width: 8%; }
+
+/* Scrolling now lives on .table-body-wrapper, so the app's custom scrollbar
+   rules (which target .table-scroll-wrapper) no longer apply. Re-apply the
+   same thin scrollbar to BOTH wrappers: the head wrapper is overflow:hidden,
+   but styling it too keeps its reserved scrollbar-gutter identical to the
+   body's, which is what keeps the header/body columns pixel-aligned. */
+
+/* WebKit (Chrome, Edge, Safari) */
+#table-page .table-head-wrapper::-webkit-scrollbar,
+#table-page .table-body-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#table-page .table-head-wrapper::-webkit-scrollbar-track,
+#table-page .table-body-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#table-page .table-head-wrapper::-webkit-scrollbar-thumb,
+#table-page .table-body-wrapper::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+#table-page .table-body-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+/* Firefox */
+#table-page .table-head-wrapper,
+#table-page .table-body-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+#table-page .table-scroll-wrapper .table-head-wrapper { background-color: #eceff2; }
+
+/* =========================================================
+   Modal table (#drillMainModal .modal-problem-table): same
+   fixed-header + body-only scroll treatment as the main
+   table, so its scrollbar also starts at the top of <tbody>.
+   ========================================================= */
+
+/* The modal wrap no longer scrolls itself. */
+#drillMainModal .modal-problem-table-wrap {
+    max-height: none;
+    overflow: visible;
+}
+
+/* Header stays put; body is the only scroll region. Its reserved scrollbar gutter
+   is painted the same gray as the modal header (#e8ecef) so the gutter to the
+   right of the header is not left white. */
+#drillMainModal .modal-problem-table-wrap .table-head-wrapper {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+    background-color: #e8ecef;
+}
+
+#drillMainModal .modal-problem-table-wrap .table-body-wrapper {
+    max-height: 290px;
+    overflow: auto;
+    scrollbar-gutter: stable;
+}
+
+/* Both split tables share the same fixed layout + <colgroup>. */
+#drillMainModal .modal-problem-table-head,
+#drillMainModal .modal-problem-table-body {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 0;
+}
+
+/* Responsive widths (6 cols): 問題 / 教科 / 出題形式 / 表示設定 / 更新日時 / (action) */
+#drillMainModal .modal-problem-table col:nth-child(1) { width: 15%; }
+#drillMainModal .modal-problem-table col:nth-child(2) { width: 10%; }
+#drillMainModal .modal-problem-table col:nth-child(3) { width: 15%; }
+#drillMainModal .modal-problem-table col:nth-child(4) { width: 12%; }
+#drillMainModal .modal-problem-table col:nth-child(5) { width: 16%; }
+#drillMainModal .modal-problem-table col:nth-child(6) { width: 10%; }
+
+/* Thin scrollbar on BOTH modal wrappers so their reserved gutters
+   match and the header/body columns stay pixel-aligned. */
+#drillMainModal .modal-problem-table-wrap .table-head-wrapper::-webkit-scrollbar,
+#drillMainModal .modal-problem-table-wrap .table-body-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#drillMainModal .modal-problem-table-wrap .table-head-wrapper::-webkit-scrollbar-track,
+#drillMainModal .modal-problem-table-wrap .table-body-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#drillMainModal .modal-problem-table-wrap .table-head-wrapper::-webkit-scrollbar-thumb,
+#drillMainModal .modal-problem-table-wrap .table-body-wrapper::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+#drillMainModal .modal-problem-table-wrap .table-body-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+}
+
+#drillMainModal .modal-problem-table-wrap .table-head-wrapper,
+#drillMainModal .modal-problem-table-wrap .table-body-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
