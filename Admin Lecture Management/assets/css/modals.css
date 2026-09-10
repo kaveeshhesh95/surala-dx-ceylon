@@ -1,8 +1,7 @@
 #modalLectureRegForm .modal-dialog,
 #modalUploadForm .modal-dialog,
 #modalLecturePreviewForm .modal-dialog,
-#modalAnswerPreviewForm .modal-dialog,
-#modalFlashPreviewForm .modal-dialog {
+#modalAnswerPreviewForm .modal-dialog {
   max-width: 900px;
 }
 
