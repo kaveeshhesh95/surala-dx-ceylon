@@ -1378,6 +1378,6 @@ main .login-card .login-btn:hover {
 /* Firefox */
 .table-scroll-wrapper,
 .modal-problem-table-wrap {
-    scrollbar-width: auto;
+    scrollbar-width: thin;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }

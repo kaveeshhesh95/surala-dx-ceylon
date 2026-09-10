@@ -1,6 +1,5 @@
 #modalLectureRegForm .modal-dialog,
 #modalUploadForm .modal-dialog,
-#modalLecturePreviewForm .modal-dialog,
 #modalAnswerPreviewForm .modal-dialog {
   max-width: 900px;
 }
@@ -15,15 +14,15 @@
   object-fit: cover;
   background-size: cover;
   width: 100%;
-  height: 100%;
 }
 
 #modalLecturePreviewForm .lecture-preview-screen {
-  border-radius: 6px;
+  border: 1px solid #d9dfe5;
+  border-radius: 5px;
   box-shadow: inset 0 0 0 1px #555;
-  height: 58vh;
+  width: 717px;
+  height: 619px;
   overflow: hidden;
-  padding: 35px 28px 20px;
   position: relative;
 }
 
@@ -197,7 +196,8 @@
 #modalFlashPreviewForm .flash-preview-screen {
   border: 1px solid #d9dfe5;
   border-radius: 5px;
-  height: 60vh;
+  width: 717px;
+  height: 619px;
   overflow: hidden;
   position: relative;
 }
@@ -730,4 +730,53 @@
 #modalFlashPreviewForm .modal-body,
 #modalLecturePreviewForm .modal-body {
   padding: 0px;
+}
+
+#table-page .modal .table-head-wrapper {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+}
+
+#table-page .table-body-wrapper {
+    max-height: 290px;
+    overflow: auto;
+    scrollbar-gutter: stable;
+}
+
+#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-page   { width: 30%; }
+#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-problem-no { width: auto; }
+#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-times     { width: 8%; }
+#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-answer-repeat     { width: 18%; }
+#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-answer  { width: 8%; }
+#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-judgement  { width: 8%; }
+#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-action  { width: 8%; }
+
+/* WebKit (Chrome, Edge, Safari) */
+#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-thumb {
+    background: #a0a0a0;
+}
+
+/* Firefox */
+#modalAnswerPreviewForm .table-body-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+#table-page .table-head-wrapper { background-color: #e8ecef; }
+.table-head-wrapper.no-scroll {
+    background-color: transparent;
 }

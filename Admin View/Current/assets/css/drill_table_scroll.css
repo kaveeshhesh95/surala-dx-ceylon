@@ -80,7 +80,7 @@
 /* Firefox */
 #table-page .table-head-wrapper,
 #table-page .table-body-wrapper {
-    scrollbar-width: auto;
+    scrollbar-width: thin;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
@@ -155,6 +155,6 @@
 
 #drillMainModal .modal-problem-table-wrap .table-head-wrapper,
 #drillMainModal .modal-problem-table-wrap .table-body-wrapper {
-    scrollbar-width: auto;
+    scrollbar-width: thin;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }

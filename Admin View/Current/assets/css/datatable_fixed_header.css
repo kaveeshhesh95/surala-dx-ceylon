@@ -101,7 +101,7 @@
 /* Firefox */
 .table-head-wrapper,
 .table-body-wrapper {
-    scrollbar-width: auto;
+    scrollbar-width: thin;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
@@ -113,10 +113,10 @@
 
 /* ---- Main table 1: コース / ステージ / レッスン / ユニット / コンテンツ ---- */
 #table-page .data-table col:nth-child(1) { width: 16%; }
-#table-page .data-table col:nth-child(2) { width: 18%; }
+#table-page .data-table col:nth-child(2) { width: 20%; }
 #table-page .data-table col:nth-child(3) { width: 20%; }
 #table-page .data-table col:nth-child(4) { width: 22%; }
-#table-page .data-table col:nth-child(5) { width: 24%; }
+#table-page .data-table col:nth-child(5) { width: 22%; }
 
 /* ---- Main table 2: コース / 教科書 / ユニット / コンテンツ / (empty) ---- */
 #table-page .data-table-two col:nth-child(1) { width: 10%; }
