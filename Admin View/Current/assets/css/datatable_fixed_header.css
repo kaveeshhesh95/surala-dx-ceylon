@@ -41,6 +41,10 @@
     background-color: #e8ecef;
 }
 
+.modal-problem-table-wrap .table-head-wrapper.no-scroll {
+    background-color: transparent;
+}
+
 /* Body is the only scrolling region -> the scrollbar starts here. */
 .table-body-wrapper {
     overflow: auto;
@@ -49,10 +53,11 @@
 
 /* Height of the scroll area: main tables vs. modal tables. */
 #table-page .table-scroll-wrapper .table-body-wrapper {
-    max-height: min(52vh, 640px);
+    max-height: 500px;
 }
 
 #table-page .table-scroll-wrapper .table-head-wrapper { background-color: #eceff2; }
+#table-page .table-scroll-wrapper .table-head-wrapper.no-scroll { background-color: transparent; }
 
 .modal-problem-table-wrap .table-body-wrapper {
     max-height: 290px;
@@ -96,7 +101,7 @@
 /* Firefox */
 .table-head-wrapper,
 .table-body-wrapper {
-    scrollbar-width: thin;
+    scrollbar-width: auto;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
