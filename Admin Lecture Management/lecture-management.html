@@ -11,15 +11,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
-        #table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(1) {
+        #lecture-mgt-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(1) {
             width: 80px;
         }
 
-        #table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(2) {
+        #lecture-mgt-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(2) {
             width: 180px;
         }
 
-        #table-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(3) {
+        #lecture-mgt-page .admin-container.cnt-01 .data-table.tbl-02 thead tr th:nth-child(3) {
             width: 340px;
         }
     </style>
@@ -33,7 +33,6 @@
                 <img src="assets/images/logo.png" class="logo-img" alt="Logo" />Admin
             </div>
             <ul class="menu">
-                <li><a href="">アカウント管理</a></li>
                 <li><a href="" class="active">メイン機能</a></li>
                 <li><a href="">サブ機能</a></li>
                 <li><a href="">ユニット紐付機能</a></li>
@@ -54,7 +53,7 @@
     <div class="container">
 
         <!-- <h1 class="page-title">メイン機能</h1> -->
-        <main id="table-page">
+        <main id="lecture-mgt-page">
             <div class="admin-container cnt-01 mt-3">
 
                 <!-- Top Dropdown -->
@@ -139,11 +138,20 @@
 
                 <!-- Action Bar & Pagination -->
                 <div class="action-bar">
-                    <div class="pagination-container ms-auto">
+                    <div class="pagination-container justify-content-start">
                         <select class="form-control select-page-count">
+                            <option>10</option>
                             <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                            <option>60</option>
+                            <option>70</option>
+                            <option>80</option>
+                            <option>90</option>
+                            <option>100</option>
                         </select>
-                        <span class="pagination-text">件 / 表示 20 件 / 全 200 件</span>
+                        <span class="pagination-text">件 / 表示 10 件 / 全 100 件</span>
                         <div class="pagination-nav">
                             <span class="nav-arrow disabled reverse">❯❯</span>
                             <span class="nav-arrow disabled">❮</span>
@@ -151,6 +159,12 @@
                             <span class="nav-arrow active">❯</span>
                             <span class="nav-arrow">❯❯</span>
                         </div>
+                    </div>
+                    <div class="bottom-action text-end mt-4 d-flex justify-content-end">
+                        <button class="btn btn-dark-action">CSV出力</button>
+                        <button class="btn btn-dark-action">一括登録</button>
+                        <button class="btn btn-dark-action" data-bs-toggle="modal"
+                            data-bs-target="#modalLectureRegForm">新規登録</button>
                     </div>
                 </div>
 
@@ -337,12 +351,7 @@
 
                     </tbody>
                 </table>
-                <div class="bottom-action text-end mt-4 d-flex justify-content-end">
-                    <button class="btn btn-dark-action">CSV出力</button>
-                    <button class="btn btn-dark-action">一括登録</button>
-                    <button class="btn btn-dark-action" data-bs-toggle="modal"
-                        data-bs-target="#modalLectureRegForm">新規登録</button>
-                </div>
+
                 <!-- Modal -->
                 <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel"
                     aria-hidden="true">

@@ -14,14 +14,13 @@
   object-fit: cover;
   background-size: cover;
   width: 100%;
+  height: auto;
 }
 
 #modalLecturePreviewForm .lecture-preview-screen {
   border: 1px solid #d9dfe5;
   border-radius: 5px;
   box-shadow: inset 0 0 0 1px #555;
-  width: 717px;
-  height: 619px;
   overflow: hidden;
   position: relative;
 }
@@ -675,7 +674,7 @@
   background-color: #e8ecef;
   color: #495057;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
   border-bottom: 1px solid #dee2e6;
 }
@@ -732,24 +731,24 @@
   padding: 0px;
 }
 
-#table-page .modal .table-head-wrapper {
+#lecture-mgt-page .modal .table-head-wrapper {
     overflow: hidden;
     scrollbar-gutter: stable;
 }
 
-#table-page .table-body-wrapper {
+#lecture-mgt-page .table-body-wrapper {
     max-height: 290px;
     overflow: auto;
     scrollbar-gutter: stable;
 }
 
-#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-page   { width: 30%; }
-#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-problem-no { width: auto; }
-#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-times     { width: 8%; }
-#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-answer-repeat     { width: 18%; }
-#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-answer  { width: 8%; }
-#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-judgement  { width: 8%; }
-#table-page #modalAnswerPreviewForm .modal-problem-table col.cg-action  { width: 8%; }
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-page   { width: 20%; }
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-problem-no { width: auto; }
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-times     { width: 8%; }
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-answer-repeat     { width: 18%; }
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-answer  { width: 8%; }
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-judgement  { width: 8%; }
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-action  { width: 8%; }
 
 /* WebKit (Chrome, Edge, Safari) */
 #modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar {
@@ -776,7 +775,7 @@
     scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
-#table-page .table-head-wrapper { background-color: #e8ecef; }
+#lecture-mgt-page .table-head-wrapper { background-color: #e8ecef; }
 .table-head-wrapper.no-scroll {
     background-color: transparent;
 }

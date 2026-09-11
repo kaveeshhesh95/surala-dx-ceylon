@@ -14,7 +14,7 @@
    ========================================================= */
 
 /* ---- 1. Outer containers no longer scroll themselves ---- */
-#table-page .table-scroll-wrapper {
+#course-content-page .table-scroll-wrapper {
     max-height: none;
     overflow: visible;
 }
@@ -52,12 +52,12 @@
 }
 
 /* Height of the scroll area: main tables vs. modal tables. */
-#table-page .table-scroll-wrapper .table-body-wrapper {
+#course-content-page .table-scroll-wrapper .table-body-wrapper {
     max-height: 500px;
 }
 
-#table-page .table-scroll-wrapper .table-head-wrapper { background-color: #eceff2; }
-#table-page .table-scroll-wrapper .table-head-wrapper.no-scroll { background-color: transparent; }
+#course-content-page .table-scroll-wrapper .table-head-wrapper { background-color: #eceff2; }
+#course-content-page .table-scroll-wrapper .table-head-wrapper.no-scroll { background-color: transparent; }
 
 .modal-problem-table-wrap .table-body-wrapper {
     max-height: 290px;
@@ -112,35 +112,35 @@
    ========================================================= */
 
 /* ---- Main table 1: コース / ステージ / レッスン / ユニット / コンテンツ ---- */
-#table-page .data-table col:nth-child(1) { width: 16%; }
-#table-page .data-table col:nth-child(2) { width: 20%; }
-#table-page .data-table col:nth-child(3) { width: 20%; }
-#table-page .data-table col:nth-child(4) { width: 22%; }
-#table-page .data-table col:nth-child(5) { width: 22%; }
+#course-content-page .data-table col:nth-child(1) { width: 16%; }
+#course-content-page .data-table col:nth-child(2) { width: 20%; }
+#course-content-page .data-table col:nth-child(3) { width: 20%; }
+#course-content-page .data-table col:nth-child(4) { width: 22%; }
+#course-content-page .data-table col:nth-child(5) { width: 22%; }
 
 /* ---- Main table 2: コース / 教科書 / ユニット / コンテンツ / (empty) ---- */
-#table-page .data-table-two col:nth-child(1) { width: 10%; }
-#table-page .data-table-two col:nth-child(2) { width: 18%; }
-#table-page .data-table-two col:nth-child(3) { width: calc((100% - 80px) / 4); }
-#table-page .data-table-two col:nth-child(4) { width: calc((100% - 80px) / 4); }
-#table-page .data-table-two col:nth-child(5) { width: 80px; }
+#course-content-page .data-table-two col:nth-child(1) { width: 10%; }
+#course-content-page .data-table-two col:nth-child(2) { width: 18%; }
+#course-content-page .data-table-two col:nth-child(3) { width: calc((100% - 80px) / 4); }
+#course-content-page .data-table-two col:nth-child(4) { width: calc((100% - 80px) / 4); }
+#course-content-page .data-table-two col:nth-child(5) { width: 80px; }
 
 /* ---- Main table 3: コース / ユニット / コンテンツ / (empty) ---- */
-#table-page .data-table-three col:nth-child(1) { width: 30%; }
-#table-page .data-table-three col:nth-child(2) { width: 45%; }
-#table-page .data-table-three col:nth-child(3) { width: 65%; }
-#table-page .data-table-three col:nth-child(4) { width: 10%; }
+#course-content-page .data-table-three col:nth-child(1) { width: 30%; }
+#course-content-page .data-table-three col:nth-child(2) { width: 45%; }
+#course-content-page .data-table-three col:nth-child(3) { width: 65%; }
+#course-content-page .data-table-three col:nth-child(4) { width: 10%; }
 
 /* ---- Main table 4: コース / コンテンツ / (empty) ---- */
-#table-page .data-table-four col:nth-child(1) { width: 30%; }
-#table-page .data-table-four col:nth-child(2) { width: 50%; }
-#table-page .data-table-four col:nth-child(3) { width: 20%; }
+#course-content-page .data-table-four col:nth-child(1) { width: 30%; }
+#course-content-page .data-table-four col:nth-child(2) { width: 50%; }
+#course-content-page .data-table-four col:nth-child(3) { width: 20%; }
 
 /* ---- Main table 5: コース / 教科書 / コンテンツ / (empty) ---- */
-#table-page .data-table-five col:nth-child(1) { width: 15%; }
-#table-page .data-table-five col:nth-child(2) { width: 23%; }
-#table-page .data-table-five col:nth-child(3) { width: 31%; }
-#table-page .data-table-five col:nth-child(4) { width: 31%; }
+#course-content-page .data-table-five col:nth-child(1) { width: 15%; }
+#course-content-page .data-table-five col:nth-child(2) { width: 23%; }
+#course-content-page .data-table-five col:nth-child(3) { width: 31%; }
+#course-content-page .data-table-five col:nth-child(4) { width: 31%; }
 
 /* ---- Modal 1 (#stageAddModal) ---- */
 /* ステージ / 表示設定 */

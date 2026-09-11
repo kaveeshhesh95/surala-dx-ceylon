@@ -8,7 +8,7 @@
 
 /* The outer wrapper no longer scrolls itself; the two inner
    wrappers below split the header and the body. */
-#table-page .table-scroll-wrapper {
+#drill-mgt-page .table-scroll-wrapper {
     max-height: none;
     overflow: visible;
 }
@@ -16,13 +16,13 @@
 /* Header lives OUTSIDE the scroll area, so it stays put.
    scrollbar-gutter reserves the same gutter as the body,
    which keeps the header/body columns perfectly aligned. */
-#table-page .table-head-wrapper {
+#drill-mgt-page .table-head-wrapper {
     overflow: hidden;
     scrollbar-gutter: stable;
 }
 
 /* Body is the ONLY scrolling region -> the scrollbar starts here. */
-#table-page .table-body-wrapper {
+#drill-mgt-page .table-body-wrapper {
     max-height: 500px;
     overflow: auto;
     scrollbar-gutter: stable;
@@ -30,8 +30,8 @@
 
 /* Both tables use identical fixed column widths (see <colgroup>)
    so the header cells line up with the body cells. */
-#table-page .data-table-head,
-#table-page .data-table-body {
+#drill-mgt-page .data-table-head,
+#drill-mgt-page .data-table-body {
     table-layout: fixed;
     width: 100%;
     margin-top: 0;
@@ -42,11 +42,11 @@
    column soaks up whatever width is left over, so the table never overflows
    horizontally. Content (fonts/padding/heights) already scales via the vw
    rules in drill_styles.css because both tables carry the .data-table class. */
-#table-page .data-table col.cg-drill   { width: 30%; }
-#table-page .data-table col.cg-problem { width: auto; }
-#table-page .data-table col.cg-num     { width: 8%; }
-#table-page .data-table col.cg-sub     { width: 18%; }
-#table-page .data-table col.cg-action  { width: 8%; }
+#drill-mgt-page .data-table col.cg-drill   { width: 30%; }
+#drill-mgt-page .data-table col.cg-problem { width: auto; }
+#drill-mgt-page .data-table col.cg-num     { width: 8%; }
+#drill-mgt-page .data-table col.cg-sub     { width: 18%; }
+#drill-mgt-page .data-table col.cg-action  { width: 8%; }
 
 /* Scrolling now lives on .table-body-wrapper, so the app's custom scrollbar
    rules (which target .table-scroll-wrapper) no longer apply. Re-apply the
@@ -55,36 +55,36 @@
    body's, which is what keeps the header/body columns pixel-aligned. */
 
 /* WebKit (Chrome, Edge, Safari) */
-#table-page .table-head-wrapper::-webkit-scrollbar,
-#table-page .table-body-wrapper::-webkit-scrollbar {
+#drill-mgt-page .table-head-wrapper::-webkit-scrollbar,
+#drill-mgt-page .table-body-wrapper::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
-#table-page .table-head-wrapper::-webkit-scrollbar-track,
-#table-page .table-body-wrapper::-webkit-scrollbar-track {
+#drill-mgt-page .table-head-wrapper::-webkit-scrollbar-track,
+#drill-mgt-page .table-body-wrapper::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
 }
 
-#table-page .table-head-wrapper::-webkit-scrollbar-thumb,
-#table-page .table-body-wrapper::-webkit-scrollbar-thumb {
+#drill-mgt-page .table-head-wrapper::-webkit-scrollbar-thumb,
+#drill-mgt-page .table-body-wrapper::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 4px;
 }
 
-#table-page .table-body-wrapper::-webkit-scrollbar-thumb:hover {
+#drill-mgt-page .table-body-wrapper::-webkit-scrollbar-thumb:hover {
     background: #a0a0a0;
 }
 
 /* Firefox */
-#table-page .table-head-wrapper,
-#table-page .table-body-wrapper {
+#drill-mgt-page .table-head-wrapper,
+#drill-mgt-page .table-body-wrapper {
     scrollbar-width: thin;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
-#table-page .table-scroll-wrapper .table-head-wrapper { background-color: #eceff2; }
+#drill-mgt-page .table-scroll-wrapper .table-head-wrapper { background-color: #eceff2; }
 
 /* =========================================================
    Modal table (#drillMainModal .modal-problem-table): same

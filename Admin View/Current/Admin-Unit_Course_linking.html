@@ -19,7 +19,6 @@
                 <img src="assets/images/logo.png" class="logo-img" alt="Logo" />Admin
             </div>
             <ul class="menu">
-                <li><a href="">アカウント管理</a></li>
                 <li><a href="">メイン機能</a></li>
                 <li><a href="">サブ機能</a></li>
                 <li><a href="" class="active">ユニット紐付機能</a></li>
@@ -40,7 +39,7 @@
     <div class="container">
 
         <!-- <h1 class="page-title">メイン機能</h1> -->
-        <main id="table-page">
+        <main id="course-content-page">
             <div class="admin-container cnt-01 mt-3">
 
                 <!-- Top Dropdown -->
@@ -87,27 +86,34 @@
 
                 <!-- Action Bar & Pagination -->
                 <div class="action-bar">
-                    <!-- <div class="left-actions">
-                        <button class="btn btn-action">表示</button>
-                        <button class="btn btn-action">非表示</button>
-                        <button class="btn btn-action">削除</button>
-                        <span class="divider"></span>
-                        <button class="btn btn-action">新規登録</button>
-                        <button class="btn btn-action">一括登録・更新</button>
-                        <button class="btn btn-dark-action">ダウンロード</button>
-                    </div>
-                     -->
-                    <div class="pagination-container ms-auto">
+                    <div class="pagination-container">
                         <select class="form-control select-page-count">
+                            <option>10</option>
                             <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                            <option>60</option>
+                            <option>70</option>
+                            <option>80</option>
+                            <option>90</option>
+                            <option>100</option>
                         </select>
-                        <span class="pagination-text">件 / 表示 20 件 / 全 200 件</span>
+                        <span class="pagination-text">件 / 表示 10 件 / 全 100 件</span>
                         <div class="pagination-nav">
                             <span class="nav-arrow disabled reverse">❯❯</span>
                             <span class="nav-arrow disabled">❮</span>
                             <input type="text" class="page-input" value="1/3">
                             <span class="nav-arrow active">❯</span>
                             <span class="nav-arrow">❯❯</span>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end align-items-center mt-4">
+                        <label>&nbsp;</label>
+                        <div class="filter-buttons">
+                            <button class="btn btn-outline">並び順を保存</button>
+                            <button class="btn btn-outline">CSV出力</button>
+                            <button class="btn btn-dark">一括登録</button>
                         </div>
                     </div>
                 </div>
@@ -149,7 +155,8 @@
                                     <!-- Row 1 -->
                                     <tr>
                                         <td rowspan="8" class="course-cell">
-                                            <div class="cell-inner-main">
+                                            <div class="cell-inner">
+                                                <span></span>
                                                 <div class="cell-text-main">
                                                     <div class="text-dark">中学数学</div>
                                                     <div class="text-dark">ドリルコース</div>
@@ -164,7 +171,7 @@
                                                     <button class="control-btn">↓</button>
                                                     <button class="empty-btn"></button>
                                                 </div>
-                                                <div class="cell-text main-sub-1">
+                                                <div class="cell-text main-sub-1 mx-3">
                                                     <div class="text-dark">Stage5</div>
                                                     <div class="text-dark">正負の数・文字...</div>
                                                 </div>
@@ -370,7 +377,7 @@
                                                     <button class="control-btn">↑</button>
                                                     <button class="control-btn">↓</button>
                                                 </div>
-                                                <div class="cell-text main-sub-1">
+                                                <div class="cell-text main-sub-1 mx-3">
                                                     <span class="text-dark">Stage6</span>
                                                     <div class="text-dark">正負の数・文字...</div>
                                                 </div>
@@ -533,10 +540,10 @@
                                         <td rowspan="5">
                                             <div class="cell-inner">
                                                 <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
                                                     <button class="control-btn">↓</button>
-                                                    <button class="empty-btn"></button>
                                                 </div>
-                                                <div class="cell-text main-sub-1">
+                                                <div class="cell-text main-sub-1 mx-3">
                                                     <div class="text-dark">Stage5</div>
                                                     <div class="text-dark">正負の数・文字...</div>
                                                 </div>
@@ -549,8 +556,8 @@
                                         <td rowspan="3">
                                             <div class="cell-inner">
                                                 <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
                                                     <button class="control-btn">↓</button>
-                                                    <button class="empty-btn"></button>
                                                 </div>
                                                 <div class="cell-text">
                                                     <span class="text-dark">Lesson1</span>
@@ -565,8 +572,8 @@
                                         <td rowspan="2">
                                             <div class="cell-inner">
                                                 <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
                                                     <button class="control-btn">↓</button>
-                                                    <button class="empty-btn"></button>
                                                 </div>
                                                 <div class="cell-text">
                                                     <span class="text-dark">Unit1</span>
@@ -582,8 +589,8 @@
                                         <td>
                                             <div class="cell-inner">
                                                 <div class="item-controls">
+                                                    <button class="control-btn">↑</button>
                                                     <button class="control-btn">↓</button>
-                                                    <button class="empty-btn"></button>
                                                 </div>
                                                 <div class="cell-text">
                                                     <span class="sub-id">レクチャー1</span>
@@ -742,7 +749,7 @@
                                                     <button class="control-btn">↑</button>
                                                     <button class="control-btn">↓</button>
                                                 </div>
-                                                <div class="cell-text main-sub-1">
+                                                <div class="cell-text main-sub-1 mx-3">
                                                     <span class="text-dark">Stage6</span>
                                                     <div class="text-dark">正負の数・文字...</div>
                                                 </div>
@@ -890,15 +897,6 @@
                                     <!-- 2 Main Row Ends Here -->
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-
-                    <div class="form-group d-flex justify-content-end align-items-center mt-4">
-                        <label>&nbsp;</label>
-                        <div class="filter-buttons">
-                            <button class="btn btn-outline">並び順を保存</button>
-                            <button class="btn btn-outline">CSV出力</button>
-                            <button class="btn btn-dark">一括登録</button>
                         </div>
                     </div>
                 </div>
@@ -1367,14 +1365,14 @@
                             </table>
                         </div>
                     </div>
-                    <div class="form-group d-flex justify-content-end align-items-center mt-4">
+                    <!-- <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
                             <button class="btn btn-outline">並び順を保存</button>
                             <button class="btn btn-outline">CSV出力</button>
                             <button class="btn btn-dark">一括登録</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div id="table-03" class="table d-none">
                     <div class="table-scroll-wrapper">
@@ -1816,14 +1814,14 @@
                             </table>
                         </div>
                     </div>
-                    <div class="form-group d-flex justify-content-end align-items-center mt-4">
+                    <!-- <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
                             <button class="btn btn-outline">並び順を保存</button>
                             <button class="btn btn-outline">CSV出力</button>
                             <button class="btn btn-dark">一括登録</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div id="table-04" class="table d-none">
                     <div class="table-scroll-wrapper">
@@ -2238,14 +2236,14 @@
                             </table>
                         </div>
                     </div>
-                    <div class="form-group d-flex justify-content-end align-items-center mt-4">
+                    <!-- <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
                             <button class="btn btn-outline">並び順を保存</button>
                             <button class="btn btn-outline">CSV出力</button>
                             <button class="btn btn-dark">一括登録</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div id="table-05" class="table d-none">
                     <div class="table-scroll-wrapper">
@@ -2594,14 +2592,14 @@
                             </table>
                         </div>
                     </div>
-                    <div class="form-group d-flex justify-content-end align-items-center mt-4">
+                    <!-- <div class="form-group d-flex justify-content-end align-items-center mt-4">
                         <label>&nbsp;</label>
                         <div class="filter-buttons">
                             <button class="btn btn-outline">並び順を保存</button>
                             <button class="btn btn-outline">CSV出力</button>
                             <button class="btn btn-dark">一括登録</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Modal 01 -->

@@ -9,12 +9,12 @@
     <link rel="stylesheet" type="text/css" href="assets/css/drill_styles.css">
     <link rel="stylesheet" type="text/css" href="assets/css/drill_table_scroll.css">
     <style>
-        /* #table-page .data-table tbody tr td:nth-child(1) {
+        /* #drill-mgt-page .data-table tbody tr td:nth-child(1) {
             width: auto !important;
             padding: 0px 0px !important;
         } */
 
-        /* #table-page .btn {
+        /* #drill-mgt-page .btn {
             padding: 0px !important;
         } */
 
@@ -36,7 +36,6 @@
                 <img src="assets/images/logo.png" class="logo-img" alt="Logo" />Admin
             </div>
             <ul class="menu">
-                <li><a href="">アカウント管理</a></li>
                 <li><a href="">メイン機能</a></li>
                 <li><a href="">サブ機能</a></li>
                 <li><a href="" class="active">ユニット紐付機能</a></li>
@@ -56,7 +55,7 @@
     </header>
     <div class="container">
         <!-- <h1 class="page-title">メイン機能</h1> -->
-        <main id="table-page">
+        <main id="drill-mgt-page">
             <div class="admin-container cnt-01 mt-3">
 
                 <!-- Top Dropdown -->
@@ -141,21 +140,20 @@
 
                 <!-- Action Bar & Pagination -->
                 <div class="action-bar">
-                    <!-- <div class="left-actions">
-                        <button class="btn btn-action">表示</button>
-                        <button class="btn btn-action">非表示</button>
-                        <button class="btn btn-action">削除</button>
-                        <span class="divider"></span>
-                        <button class="btn btn-action">新規登録</button>
-                        <button class="btn btn-action">一括登録・更新</button>
-                        <button class="btn btn-dark-action">ダウンロード</button>
-                    </div>
-                     -->
-                    <div class="pagination-container ms-auto">
+                    <div class="pagination-container">
                         <select class="form-control select-page-count">
+                            <option>10</option>
                             <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                            <option>60</option>
+                            <option>70</option>
+                            <option>80</option>
+                            <option>90</option>
+                            <option>100</option>
                         </select>
-                        <span class="pagination-text">件 / 表示 20 件 / 全 200 件</span>
+                        <span class="pagination-text">件 / 表示 10 件 / 全 100 件</span>
                         <div class="pagination-nav">
                             <span class="nav-arrow disabled reverse">❯❯</span>
                             <span class="nav-arrow disabled">❮</span>
@@ -163,6 +161,11 @@
                             <span class="nav-arrow active">❯</span>
                             <span class="nav-arrow">❯❯</span>
                         </div>
+                    </div>
+                    <div class="bottom-action text-end mt-4 d-flex justify-content-end">
+                        <button class="btn btn-outline">並び順を保存</button>
+                        <button class="btn btn-outline">CSV出力</button>
+                        <button class="btn btn-dark">一括登録</button>
                     </div>
                 </div>
 
@@ -197,364 +200,359 @@
                                 <col class="cg-sub">
                                 <col class="cg-action">
                             </colgroup>
-                        <tbody>
-                            <!-- Row 1 -->
-                            <tr>
-                                <!-- Unified Sidebar Cell using rowspan -->
-                                <td rowspan="6" class="drill-sidebar-cell">
-                                    <div class="d-flex justify-content-center align-items-center gap-3">
-                                        <div class="text-start">
-                                            <span class="text-muted">ドリル1</span>
-                                            <div class="my-1 text-dark">正負の数の加法</div>
+                            <tbody>
+                                <!-- Row 1 -->
+                                <tr>
+                                    <!-- Unified Sidebar Cell using rowspan -->
+                                    <td rowspan="6" class="drill-sidebar-cell">
+                                        <div class="d-flex justify-content-center align-items-center gap-3">
+                                            <div class="text-start">
+                                                <span class="text-muted">ドリル1</span>
+                                                <div class="my-1 text-dark">正負の数の加法</div>
+                                            </div>
+                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                data-bs-target="#drillMainModal">+</button>
                                         </div>
-                                        <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                            data-bs-target="#drillMainModal">+</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↓</button>
+                                                <button class="empty-btn"></button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">1</td>
+                                    <td>
+                                        <input type="text" class="my-1 text-dark form-control w-100" value="問題ID" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">1</td>
-                                <td>
-                                    <input type="text" class="my-1 text-dark form-control w-100" value="問題ID" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 2 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">2</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100"
+                                            value="問題ID, 問題ID, 問題ID" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">2</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100"
-                                        value="問題ID, 問題ID, 問題ID" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 3 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">3</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">3</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 4 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 4 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">4</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">4</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 5 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 5 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">5</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">5</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 6 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 6 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">6</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">6</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 1 -->
-                            <tr>
-                                <!-- Unified Sidebar Cell using rowspan -->
-                                <td rowspan="6" class="drill-sidebar-cell">
-                                    <div class="d-flex justify-content-center align-items-center gap-3">
-                                        <div class="text-start">
-                                            <span class="text-muted">ドリル1</span>
-                                            <div class="my-1 text-dark">正負の数の加法</div>
+                                    </td>
+                                </tr>
+                                <!-- Row 1 -->
+                                <tr>
+                                    <!-- Unified Sidebar Cell using rowspan -->
+                                    <td rowspan="6" class="drill-sidebar-cell">
+                                        <div class="d-flex justify-content-center align-items-center gap-3">
+                                            <div class="text-start">
+                                                <span class="text-muted">ドリル1</span>
+                                                <div class="my-1 text-dark">正負の数の加法</div>
+                                            </div>
+                                            <button class="icon-btn" title="Add" data-bs-toggle="modal"
+                                                data-bs-target="#drillMainModal">+</button>
                                         </div>
-                                        <button class="icon-btn" title="Add" data-bs-toggle="modal"
-                                            data-bs-target="#drillMainModal">+</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">1</td>
+                                    <td>
+                                        <input type="text" class="my-1 text-dark form-control w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">1</td>
-                                <td>
-                                    <input type="text" class="my-1 text-dark form-control w-100" value="問題ID" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 2 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">2</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">2</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100"
-                                        value="問題ID, 問題ID, 問題ID" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 3 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">3</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">3</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 4 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 4 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">4</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">4</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 5 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 5 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">5</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">5</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 6 -->
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center ps-3">
-                                        <div class="item-controls">
-                                            <button class="control-btn">↑</button>
-                                            <button class="control-btn">↓</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 6 -->
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center ps-3">
+                                            <div class="item-controls">
+                                                <button class="control-btn">↑</button>
+                                                <button class="control-btn">↓</button>
+                                            </div>
+                                            <div class="ms-3 sub-tag">
+                                                <div class="text-muted">XXXXXX</div>
+                                                <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                            </div>
                                         </div>
-                                        <div class="ms-3 sub-tag">
-                                            <div class="text-muted">XXXXXX</div>
-                                            <div class="my-1 text-dark">質問文あああ…… 問題文あああ……</div>
+                                    </td>
+                                    <td class="text-center my-1 text-dark">6</td>
+                                    <td>
+                                        <input type="text" class="form-control my-1 text-dark w-100" value="" />
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-3 icon-group actions">
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-bin.png" alt="Delete"></a>
+                                            <a href="#" class="icons btn btn-link text-secondary p-0"><img
+                                                    src="assets/images/icon-user-card.png" alt="Edit"></a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-center my-1 text-dark">6</td>
-                                <td>
-                                    <input type="text" class="form-control my-1 text-dark w-100" value="" />
-                                </td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-3 icon-group actions">
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-bin.png" alt="Delete"></a>
-                                        <a href="#" class="icons btn btn-link text-secondary p-0"><img
-                                                src="assets/images/icon-user-card.png" alt="Edit"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="bottom-action text-end mt-4">
-                    <button class="btn btn-outline">並び順を保存</button>
-                    <button class="btn btn-outline">CSV出力</button>
-                    <button class="btn btn-dark">一括登録</button>
-                </div>
+
                 <!-- Modal -->
                 <div class="modal fade" id="drillMainModal" tabindex="-1" aria-labelledby="drillMainModalLabel"
                     aria-hidden="true">
@@ -663,206 +661,206 @@
                                                     <col>
                                                     <col>
                                                 </colgroup>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="modal-problem-id">XXXXXX</span>
-                                                        <div class="my-1 text-dark">問題文あああ……</div>
-                                                        <div class="my-1 text-dark">質問文あああ……</div>
-                                                    </td>
-                                                    <td class="my-1 text-dark">算数・数学</td>
-                                                    <td class="my-1 text-dark">多肢選択（単一）</td>
-                                                    <td class="my-1 text-dark">表示</td>
-                                                    <td>2026/01/01</td>
-                                                    <td>
-                                                        <div class="icon-group actions">
-                                                            <button type="button" class="modal-detail-btn"><img
-                                                                    src="assets/images/icon-user-card.png"
-                                                                    alt="詳細"></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="modal-problem-id">XXXXXX</span>
+                                                            <div class="my-1 text-dark">問題文あああ……</div>
+                                                            <div class="my-1 text-dark">質問文あああ……</div>
+                                                        </td>
+                                                        <td class="my-1 text-dark">算数・数学</td>
+                                                        <td class="my-1 text-dark">多肢選択（単一）</td>
+                                                        <td class="my-1 text-dark">表示</td>
+                                                        <td>2026/01/01</td>
+                                                        <td>
+                                                            <div class="icon-group actions">
+                                                                <button type="button" class="modal-detail-btn"><img
+                                                                        src="assets/images/icon-user-card.png"
+                                                                        alt="詳細"></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
