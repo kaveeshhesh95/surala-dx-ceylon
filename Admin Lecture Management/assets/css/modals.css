@@ -1,23 +1,26 @@
-#modalLectureRegForm .modal-dialog,
-#modalUploadForm .modal-dialog,
-#modalAnswerPreviewForm .modal-dialog {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog,
+#lecture-mgt-page #modalAnswerPreviewForm .modal-dialog {
   max-width: 900px;
 }
 
-#modalLecturePreviewForm .lecture-preview-title {
+#lecture-mgt-page #modalUploadForm .modal-dialog {
+  max-width: 600px;
+}
+
+#lecture-mgt-page #modalLecturePreviewForm .lecture-preview-title {
   font-size: 16px;
   font-weight: 700;
   text-align: left;
 }
 
-#modalLecturePreviewForm .lecture-preview-screen .lecture-preview-img {
+#lecture-mgt-page #modalLecturePreviewForm .lecture-preview-screen .lecture-preview-img {
   object-fit: cover;
   background-size: cover;
   width: 100%;
   height: auto;
 }
 
-#modalLecturePreviewForm .lecture-preview-screen {
+#lecture-mgt-page #modalLecturePreviewForm .lecture-preview-screen {
   border: 1px solid #d9dfe5;
   border-radius: 5px;
   box-shadow: inset 0 0 0 1px #555;
@@ -25,31 +28,31 @@
   position: relative;
 }
 
-#modalLecturePreviewForm .preview-lesson-copy {
+#lecture-mgt-page #modalLecturePreviewForm .preview-lesson-copy {
   max-width: 315px;
   position: relative;
   z-index: 1;
 }
 
-#modalLecturePreviewForm .preview-badge {
+#lecture-mgt-page #modalLecturePreviewForm .preview-badge {
   font-size: 12px;
   font-weight: 700;
 }
 
-#modalLecturePreviewForm .preview-lesson-card {
+#lecture-mgt-page #modalLecturePreviewForm .preview-lesson-card {
   border: 2px dashed #cce9b4;
   margin: 10px 0 30px 45px;
   padding: 10px;
 }
 
-#modalLecturePreviewForm .preview-lesson-card strong,
-#modalLecturePreviewForm .preview-lesson-card p {
+#lecture-mgt-page #modalLecturePreviewForm .preview-lesson-card strong,
+#lecture-mgt-page #modalLecturePreviewForm .preview-lesson-card p {
   font-size: 12px;
   line-height: 1.7;
   margin: 0;
 }
 
-#modalLecturePreviewForm .preview-callout {
+#lecture-mgt-page #modalLecturePreviewForm .preview-callout {
   background: #fff3a8;
   border: 1px solid #f4d34a;
   border-radius: 12px;
@@ -60,7 +63,7 @@
   text-align: center;
 }
 
-#modalLecturePreviewForm .preview-character {
+#lecture-mgt-page #modalLecturePreviewForm .preview-character {
   background: #f58eaa;
   border-radius: 50%;
   bottom: 48px;
@@ -75,12 +78,12 @@
   width: 115px;
 }
 
-#modalLecturePreviewForm .preview-character span {
+#lecture-mgt-page #modalLecturePreviewForm .preview-character span {
   color: #463b8e;
   font-size: 46px;
 }
 
-#modalLecturePreviewForm .preview-progress {
+#lecture-mgt-page #modalLecturePreviewForm .preview-progress {
   background: #91d47a;
   bottom: 0;
   color: #fff;
@@ -92,7 +95,7 @@
   right: 0;
 }
 
-#modalLecturePreviewForm .preview-refresh-button {
+#lecture-mgt-page #modalLecturePreviewForm .preview-refresh-button {
   background: #fff;
   border: 1px solid #d5d5d5;
   border-radius: 3px;
@@ -101,14 +104,14 @@
   padding: 6px 14px;
 }
 
-#modalLecturePreviewForm .preview-history {
+#lecture-mgt-page #modalLecturePreviewForm .preview-history {
   border: 1px solid #d8d8d8;
   border-radius: 4px;
   height: 20vh;
   overflow-y: auto;
 }
 
-#modalLecturePreviewForm .preview-history-row {
+#lecture-mgt-page #modalLecturePreviewForm .preview-history-row {
   align-items: center;
   border-bottom: 1px solid #e7e7e7;
   display: grid;
@@ -119,46 +122,46 @@
   padding: 7px 20px;
 }
 
-#modalLecturePreviewForm .preview-history-row:last-child {
+#lecture-mgt-page #modalLecturePreviewForm .preview-history-row:last-child {
   border-bottom: 0;
 }
 
-#modalLecturePreviewForm .preview-history-row time {
+#lecture-mgt-page #modalLecturePreviewForm .preview-history-row time {
   text-align: center;
 }
 
-#modalLecturePreviewForm .preview-history-row a {
+#lecture-mgt-page #modalLecturePreviewForm .preview-history-row a {
   color: #8055aa;
 }
 
-#modalAnswerPreviewForm .modal-dialog.lecture-preview-dialog {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-dialog.lecture-preview-dialog {
   max-width: 780px;
 }
 
-#modalAnswerPreviewForm .lecture-preview-title {
+#lecture-mgt-page #modalAnswerPreviewForm .lecture-preview-title {
   font-size: 16px;
   font-weight: 700;
   margin: 0;
 }
 
-#modalAnswerPreviewForm .answer-preview-notes {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-preview-notes {
   margin: 8px 0 14px;
 }
 
-#modalAnswerPreviewForm .answer-preview-notes p {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-preview-notes p {
   font-size: 14px;
   margin: 4px 0;
 }
 
-#modalAnswerPreviewForm .answer-preview-table-wrap {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-preview-table-wrap {
   overflow-x: auto;
 }
 
-#modalAnswerPreviewForm .answer-preview-table-wrap .modal-problem-table tbody tr td:last-child .btn-sm {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-preview-table-wrap .modal-problem-table tbody tr td:last-child .btn-sm {
   font-size: 13px;
 }
 
-#modalAnswerPreviewForm .answer-view-button {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-view-button {
   background: #999;
   border: 0;
   border-radius: 4px;
@@ -168,11 +171,11 @@
   white-space: nowrap;
 }
 
-#modalAnswerPreviewForm .answer-view-button:hover {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-view-button:hover {
   background: #777;
 }
 
-#modalAnswerPreviewForm .answer-close-button {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-close-button {
   background: #999;
   border: 0;
   border-radius: 4px;
@@ -182,26 +185,24 @@
   padding: 8px 24px;
 }
 
-#modalAnswerPreviewForm .answer-close-button:hover {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-close-button:hover {
   background: #777;
 }
 
-#modalFlashPreviewForm .lecture-preview-title {
+#lecture-mgt-page #modalFlashPreviewForm .lecture-preview-title {
   font-size: 16px;
   font-weight: 700;
   margin: 0;
 }
 
-#modalFlashPreviewForm .flash-preview-screen {
+#lecture-mgt-page #modalFlashPreviewForm .flash-preview-screen {
   border: 1px solid #d9dfe5;
   border-radius: 5px;
-  width: 717px;
-  height: 619px;
   overflow: hidden;
   position: relative;
 }
 
-#modalFlashPreviewForm .flash-question-panel {
+#lecture-mgt-page #modalFlashPreviewForm .flash-question-panel {
   background: #fff;
   box-sizing: border-box;
   height: 345px;
@@ -211,36 +212,36 @@
   z-index: 1;
 }
 
-#modalFlashPreviewForm .flash-question-panel strong {
+#lecture-mgt-page #modalFlashPreviewForm .flash-question-panel strong {
   font-size: 13px;
 }
 
-#modalFlashPreviewForm .flash-question-panel p {
+#lecture-mgt-page #modalFlashPreviewForm .flash-question-panel p {
   font-size: 12px;
   font-weight: 700;
   line-height: 1.7;
   margin: 10px 0 4px;
 }
 
-#modalFlashPreviewForm .flash-stage-labels,
-#modalFlashPreviewForm .flash-stage-images {
+#lecture-mgt-page #modalFlashPreviewForm .flash-stage-labels,
+#lecture-mgt-page #modalFlashPreviewForm .flash-stage-images {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   text-align: center;
 }
 
-#modalFlashPreviewForm .flash-stage-labels {
+#lecture-mgt-page #modalFlashPreviewForm .flash-stage-labels {
   font-size: 11px;
   font-weight: 700;
   margin-top: 9px;
 }
 
-#modalFlashPreviewForm .flash-stage-images {
+#lecture-mgt-page #modalFlashPreviewForm .flash-stage-images {
   align-items: center;
   height: 105px;
 }
 
-#modalFlashPreviewForm .flash-stage-images i {
+#lecture-mgt-page #modalFlashPreviewForm .flash-stage-images i {
   align-items: center;
   background: #eff7dd;
   border-radius: 50%;
@@ -254,25 +255,26 @@
   width: 56px;
 }
 
-#modalFlashPreviewForm .flash-stage-images .stage-pupa {
+#lecture-mgt-page #modalFlashPreviewForm .flash-stage-images .stage-pupa {
   background: #edf5d9;
   color: #dbad68;
   font-size: 42px;
 }
 
-#modalFlashPreviewForm .flash-preview-img {
+#lecture-mgt-page #modalFlashPreviewForm .flash-preview-img {
   object-fit: cover;
   background-size: cover;
   width: 100%;
+  height: auto;
 }
 
-#modalFlashPreviewForm .flash-stage-images .stage-butterfly {
+#lecture-mgt-page #modalFlashPreviewForm .flash-stage-images .stage-butterfly {
   background: #eef7dc;
   color: #8bbf72;
   font-size: 48px;
 }
 
-#modalFlashPreviewForm .flash-answer-sequence {
+#lecture-mgt-page #modalFlashPreviewForm .flash-answer-sequence {
   align-items: center;
   display: flex;
   gap: 6px;
@@ -280,8 +282,8 @@
   margin: 8px auto;
 }
 
-#modalFlashPreviewForm .flash-answer-sequence span,
-#modalFlashPreviewForm .flash-answer-sequence em {
+#lecture-mgt-page #modalFlashPreviewForm .flash-answer-sequence span,
+#lecture-mgt-page #modalFlashPreviewForm .flash-answer-sequence em {
   border: 2px solid #777;
   box-shadow: 2px 2px 0 #c9d4ff;
   font-size: 17px;
@@ -291,16 +293,16 @@
   width: 29px;
 }
 
-#modalFlashPreviewForm .flash-answer-sequence em {
+#lecture-mgt-page #modalFlashPreviewForm .flash-answer-sequence em {
   border-color: #f44;
 }
 
-#modalFlashPreviewForm .flash-answer-sequence b {
+#lecture-mgt-page #modalFlashPreviewForm .flash-answer-sequence b {
   color: #195add;
   font-size: 16px;
 }
 
-#modalFlashPreviewForm .flash-choice-row {
+#lecture-mgt-page #modalFlashPreviewForm .flash-choice-row {
   background: #eae8e6;
   border-radius: 5px;
   display: flex;
@@ -311,11 +313,11 @@
   width: 180px;
 }
 
-#modalFlashPreviewForm .flash-choice-row span {
+#lecture-mgt-page #modalFlashPreviewForm .flash-choice-row span {
   font-size: 12px;
 }
 
-#modalFlashPreviewForm .flash-answer-button {
+#lecture-mgt-page #modalFlashPreviewForm .flash-answer-button {
   background: #b8eb72;
   border: 1px solid #7fb83e;
   border-radius: 5px;
@@ -324,7 +326,7 @@
   padding: 6px 9px;
 }
 
-#modalFlashPreviewForm .flash-garden {
+#lecture-mgt-page #modalFlashPreviewForm .flash-garden {
   background: #a5db6e;
   bottom: 0;
   height: 78px;
@@ -333,7 +335,7 @@
   right: 0;
 }
 
-#modalFlashPreviewForm .flash-garden:before {
+#lecture-mgt-page #modalFlashPreviewForm .flash-garden:before {
   background: #fff;
   border-radius: 50%;
   box-shadow: 25px 24px 0 #fff, 70px 13px 0 #f9b7cc, 155px 30px 0 #fff, 250px 18px 0 #f7a9c0;
@@ -345,7 +347,7 @@
   width: 9px;
 }
 
-#modalFlashPreviewForm .flash-flower {
+#lecture-mgt-page #modalFlashPreviewForm .flash-flower {
   background: #f58a9f;
   border-radius: 50%;
   bottom: 15px;
@@ -354,7 +356,7 @@
   width: 27px;
 }
 
-#modalFlashPreviewForm .flash-flower:after {
+#lecture-mgt-page #modalFlashPreviewForm .flash-flower:after {
   background: #f6c94c;
   border-radius: 50%;
   content: "";
@@ -365,22 +367,22 @@
   width: 11px;
 }
 
-#modalFlashPreviewForm .flower-one {
+#lecture-mgt-page #modalFlashPreviewForm .flower-one {
   left: 25px;
   transform: scale(1.4);
 }
 
-#modalFlashPreviewForm .flower-two {
+#lecture-mgt-page #modalFlashPreviewForm .flower-two {
   left: 48%;
   transform: scale(.8);
 }
 
-#modalFlashPreviewForm .flower-three {
+#lecture-mgt-page #modalFlashPreviewForm .flower-three {
   right: 14px;
   transform: scale(1.6);
 }
 
-#modalFlashPreviewForm .flash-back-button {
+#lecture-mgt-page #modalFlashPreviewForm .flash-back-button {
   background: #fff;
   border: 1px solid #d6dce2;
   border-radius: 4px;
@@ -390,83 +392,79 @@
 }
 
 @media (max-width: 620px) {
-  #modalLecturePreviewForm .modal-dialog.lecture-preview-dialog {
+  #lecture-mgt-page #modalLecturePreviewForm .modal-dialog.lecture-preview-dialog {
     margin: 10px;
   }
 
-  #modalLecturePreviewForm .modal-dialog .modal-content {
+  #lecture-mgt-page #modalLecturePreviewForm .modal-dialog .modal-content {
     padding: 20px;
   }
 
-  #modalLecturePreviewForm .lecture-preview-screen {
+  #lecture-mgt-page #modalLecturePreviewForm .lecture-preview-screen {
     padding: 24px 14px 20px;
   }
 
-  #modalLecturePreviewForm .preview-lesson-card {
+  #lecture-mgt-page #modalLecturePreviewForm .preview-lesson-card {
     margin-left: 15px;
   }
 
-  #modalLecturePreviewForm .preview-character {
+  #lecture-mgt-page #modalLecturePreviewForm .preview-character {
     right: 12px;
     transform: scale(.8);
     transform-origin: bottom right;
   }
 
-  #modalLecturePreviewForm .preview-history-row {
+  #lecture-mgt-page #modalLecturePreviewForm .preview-history-row {
     grid-template-columns: 1fr 30px;
   }
 
-  #modalLecturePreviewForm .preview-history-row time {
+  #lecture-mgt-page #modalLecturePreviewForm .preview-history-row time {
     display: none;
   }
 }
 
-#modalUploadForm .modal-dialog {
-  max-width: 600px;
-}
-
-#modalLectureRegForm .modal-dialog .modal-content,
-#modalUploadForm .modal-dialog .modal-content,
-#modalLecturePreviewForm .modal-dialog .modal-content,
-#modalAnswerPreviewForm .modal-dialog .modal-content,
-#modalFlashPreviewForm .modal-dialog .modal-content {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content,
+#lecture-mgt-page #modalLecturePreviewForm .modal-dialog .modal-content,
+#lecture-mgt-page #modalAnswerPreviewForm .modal-dialog .modal-content,
+#lecture-mgt-page #modalFlashPreviewForm .modal-dialog .modal-content {
   padding: 28px 40px;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-header,
-#modalUploadForm .modal-dialog .modal-content .modal-header,
-#modalLecturePreviewForm .modal-dialog .modal-content .modal-header,
-#modalAnswerPreviewForm .modal-dialog .modal-content .modal-header,
-#modalFlashPreviewForm .modal-dialog .modal-content .modal-header {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-header,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-header,
+#lecture-mgt-page #modalLecturePreviewForm .modal-dialog .modal-content .modal-header,
+#lecture-mgt-page #modalAnswerPreviewForm .modal-dialog .modal-content .modal-header,
+#lecture-mgt-page #modalFlashPreviewForm .modal-dialog .modal-content .modal-header {
   position: relative;
   padding: 14px 0;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-header .btn-close,
-#modalUploadForm .modal-dialog .modal-content .modal-header .btn-close,
-#modalLecturePreviewForm .modal-dialog .modal-content .modal-header .btn-close,
-#modalAnswerPreviewForm .modal-dialog .modal-content .modal-header .btn-close,
-#modalFlashPreviewForm .modal-dialog .modal-content .modal-header .btn-close {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-header .btn-close,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-header .btn-close,
+#lecture-mgt-page #modalLecturePreviewForm .modal-dialog .modal-content .modal-header .btn-close,
+#lecture-mgt-page #modalAnswerPreviewForm .modal-dialog .modal-content .modal-header .btn-close,
+#lecture-mgt-page #modalFlashPreviewForm .modal-dialog .modal-content .modal-header .btn-close {
   font-size: 14px;
   position: absolute;
   top: 0;
   right: 0;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body,
-#modalUploadForm .modal-dialog .modal-content .modal-body,
-#modalLecturePreviewForm .modal-dialog .modal-content .modal-body {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body,
+#lecture-mgt-page #modalLecturePreviewForm .modal-dialog .modal-content .modal-body {
   padding: 0;
   text-align: left;
 }
 
-#modalUploadForm .modal-dialog .modal-content .modal-body .upload-form,
-#modalLecturePreviewForm .modal-dialog .modal-content .modal-body .upload-form {
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .upload-form,
+#lecture-mgt-page #modalLecturePreviewForm .modal-dialog .modal-content .modal-body .upload-form {
   color: #333;
 }
 
-#modalUploadForm .upload-dropzone,
-#modalLecturePreviewForm .upload-dropzone {
+#lecture-mgt-page #modalUploadForm .upload-dropzone,
+#lecture-mgt-page #modalLecturePreviewForm .upload-dropzone {
   align-items: center;
   background: #fbfbfc;
   border: 2px dashed #dfe2e7;
@@ -480,27 +478,27 @@
   text-align: center;
 }
 
-#modalUploadForm .upload-dropzone:hover,
-#modalUploadForm .upload-dropzone.is-dragging,
-#modalLecturePreviewForm .upload-dropzone:hover,
-#modalLecturePreviewForm .upload-dropzone.is-dragging {
+#lecture-mgt-page #modalUploadForm .upload-dropzone:hover,
+#lecture-mgt-page #modalUploadForm .upload-dropzone.is-dragging,
+#lecture-mgt-page #modalLecturePreviewForm .upload-dropzone:hover,
+#lecture-mgt-page #modalLecturePreviewForm .upload-dropzone.is-dragging {
   background: #f2f7ff;
   border-color: #2f73e6;
 }
 
-#modalUploadForm .upload-dropzone-title {
+#lecture-mgt-page #modalUploadForm .upload-dropzone-title {
   font-size: 17px;
   font-weight: 700;
 }
 
-#modalUploadForm .upload-dropzone-or {
+#lecture-mgt-page #modalUploadForm .upload-dropzone-or {
   color: #a3a5aa;
   font-size: 14px;
   margin: 12px 0 14px;
 }
 
-#modalUploadForm .upload-select-button,
-#modalUploadForm .upload-submit-button {
+#lecture-mgt-page #modalUploadForm .upload-select-button,
+#lecture-mgt-page #modalUploadForm .upload-submit-button {
   align-items: center;
   background: #2f73e6;
   border: 0;
@@ -514,22 +512,22 @@
   padding: 0 70px;
 }
 
-#modalUploadForm .upload-file-input {
+#lecture-mgt-page #modalUploadForm .upload-file-input {
   display: none;
 }
 
-#modalUploadForm .upload-list-title {
+#lecture-mgt-page #modalUploadForm .upload-list-title {
   font-size: 15px;
   font-weight: 700;
   margin: 28px 0 14px;
 }
 
-#modalUploadForm .upload-file-list {
+#lecture-mgt-page #modalUploadForm .upload-file-list {
   display: grid;
   gap: 14px;
 }
 
-#modalUploadForm .upload-file-row {
+#lecture-mgt-page #modalUploadForm .upload-file-row {
   align-items: center;
   border: 1px solid #dfe2e7;
   border-radius: 6px;
@@ -540,7 +538,7 @@
   padding: 10px 13px;
 }
 
-#modalUploadForm .upload-delete-button {
+#lecture-mgt-page #modalUploadForm .upload-delete-button {
   background: #b4b4b4;
   border: 0;
   border-radius: 4px;
@@ -550,11 +548,11 @@
   padding: 0 14px;
 }
 
-#modalUploadForm .upload-delete-button:hover {
+#lecture-mgt-page #modalUploadForm .upload-delete-button:hover {
   background: #999;
 }
 
-#modalUploadForm .upload-submit-button {
+#lecture-mgt-page #modalUploadForm .upload-submit-button {
   background: #b4b4b4;
   border-radius: 4px;
   display: flex;
@@ -563,83 +561,83 @@
   min-width: 174px;
 }
 
-#modalUploadForm .upload-submit-button:hover {
+#lecture-mgt-page #modalUploadForm .upload-submit-button:hover {
   background: #999;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body label,
-#modalUploadForm .modal-dialog .modal-content .modal-body label {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body label,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body label {
   font-size: 13px;
   font-weight: 700;
   text-align: left;
   margin: 0 0 5px 0;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .course-id-text,
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .note-text,
-#modalUploadForm .modal-dialog .modal-content .modal-body .course-id-text,
-#modalUploadForm .modal-dialog .modal-content .modal-body .note-text {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .course-id-text,
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .note-text,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .course-id-text,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .note-text {
   font-size: 13px;
   font-weight: 700;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .note-text,
-#modalUploadForm .modal-dialog .modal-content .modal-body .note-text {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .note-text,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .note-text {
   font-size: 12px;
   font-weight: 400;
   color: #555;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .mb--2,
-#modalUploadForm .modal-dialog .modal-content .modal-body .mb--2 {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .mb--2,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .mb--2 {
   margin-bottom: -6px;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .form-control,
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .form-select,
-#modalUploadForm .modal-dialog .modal-content .modal-body .form-control,
-#modalUploadForm .modal-dialog .modal-content .modal-body .form-select {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .form-control,
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .form-select,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .form-control,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .form-select {
   font-size: 14px;
   height: 37px;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .page-input,
-#modalUploadForm .modal-dialog .modal-content .modal-body .page-input {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .page-input,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .page-input {
   width: 80px;
   text-align: left;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .btn,
-#modalUploadForm .modal-dialog .modal-content .modal-body .btn {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .btn,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .btn {
   font-size: 14px;
   height: 37px;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .btn-outline-dark,
-#modalUploadForm .modal-dialog .modal-content .modal-body .btn-outline-dark {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .btn-outline-dark,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .btn-outline-dark {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .required,
-#modalUploadForm .modal-dialog .modal-content .modal-body .required {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .required,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .required {
   font-size: 12px;
   color: #f00;
   margin: 0 0 0 5px;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .section-note,
-#modalUploadForm .modal-dialog .modal-content .modal-body .section-note {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .section-note,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .section-note {
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-#modalLectureRegForm .modal-dialog .modal-content .modal-body .textbook-info,
-#modalUploadForm .modal-dialog .modal-content .modal-body .textbook-info {
+#lecture-mgt-page #modalLectureRegForm .modal-dialog .modal-content .modal-body .textbook-info,
+#lecture-mgt-page #modalUploadForm .modal-dialog .modal-content .modal-body .textbook-info {
   font-size: 13px;
 }
 
-.modal-problem-table {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table {
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -649,7 +647,7 @@
   font-size: 12px;
 }
 
-#modalAnswerPreviewForm .answer-preview-table-wrap {
+#lecture-mgt-page #modalAnswerPreviewForm .answer-preview-table-wrap {
     width: 100%;
     max-width: 100%;
     max-height: 430px;
@@ -659,14 +657,14 @@
     border-radius: 6px;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th,
-#modalAnswerPreviewForm .modal-problem-table td {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th,
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td {
   min-width: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th {
   position: sticky;
   top: 0;
   z-index: 1;
@@ -679,7 +677,7 @@
   border-bottom: 1px solid #dee2e6;
 }
 
-#modalAnswerPreviewForm .modal-problem-table td {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td {
   padding: 11px 8px;
   color: #333;
   text-align: center;
@@ -687,47 +685,47 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th:first-child,
-#modalAnswerPreviewForm .modal-problem-table td:first-child {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th:first-child,
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td:first-child {
   width: 8%;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th:nth-child(2),
-#modalAnswerPreviewForm .modal-problem-table td:nth-child(2) {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th:nth-child(2),
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td:nth-child(2) {
   width: 9%;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th:nth-child(3),
-#modalAnswerPreviewForm .modal-problem-table td:nth-child(3) {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th:nth-child(3),
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td:nth-child(3) {
   width: 6%;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th:nth-child(4),
-#modalAnswerPreviewForm .modal-problem-table td:nth-child(4) {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th:nth-child(4),
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td:nth-child(4) {
   width: 16%;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th:nth-child(5),
-#modalAnswerPreviewForm .modal-problem-table td:nth-child(5) {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th:nth-child(5),
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td:nth-child(5) {
   width: 30%;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th:nth-child(6),
-#modalAnswerPreviewForm .modal-problem-table td:nth-child(6) {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th:nth-child(6),
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td:nth-child(6) {
   width: 6%;
 }
 
-#modalAnswerPreviewForm .modal-problem-table th:last-child,
-#modalAnswerPreviewForm .modal-problem-table td:last-child {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table th:last-child,
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table td:last-child {
   width: 18%;
 }
 
-#modalAnswerPreviewForm .modal-problem-table tbody tr:last-child td {
+#lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-#modalFlashPreviewForm .modal-body,
-#modalLecturePreviewForm .modal-body {
+#lecture-mgt-page #modalFlashPreviewForm .modal-body,
+#lecture-mgt-page #modalLecturePreviewForm .modal-body {
   padding: 0px;
 }
 
@@ -751,31 +749,40 @@
 #lecture-mgt-page #modalAnswerPreviewForm .modal-problem-table col.cg-action  { width: 8%; }
 
 /* WebKit (Chrome, Edge, Safari) */
-#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar {
+#lecture-mgt-page #modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar {
     width: 8px;
 }
 
-#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-track {
+#lecture-mgt-page #modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
 }
 
-#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-thumb {
+#lecture-mgt-page #modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 4px;
 }
 
-#modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-thumb {
+#lecture-mgt-page #modalAnswerPreviewForm .table-body-wrapper::-webkit-scrollbar-thumb {
     background: #a0a0a0;
 }
 
 /* Firefox */
-#modalAnswerPreviewForm .table-body-wrapper {
+#lecture-mgt-page #modalAnswerPreviewForm .table-body-wrapper {
     scrollbar-width: thin;
     scrollbar-color: #c1c1c1 #f1f1f1;
 }
 
 #lecture-mgt-page .table-head-wrapper { background-color: #e8ecef; }
-.table-head-wrapper.no-scroll {
+#lecture-mgt-page .table-head-wrapper.no-scroll {
     background-color: transparent;
+}
+
+#lecture-mgt-page .btn-light {
+  background-color: #e9e9e9 !important;
+  /* e1 */
+}
+
+#lecture-mgt-page .btn-light:hover {
+  background-color: #e1e1e1 !important;
 }
